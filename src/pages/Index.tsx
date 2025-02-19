@@ -47,6 +47,7 @@ const colorMap = {
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO");
+  const [hoveredChip, setHoveredChip] = useState<string | null>(null);
   const totalRespondents = 1234;
 
   return (
@@ -358,12 +359,14 @@ const Index = () => {
                         <Tooltip key={point.subject}>
                           <TooltipTrigger asChild>
                             <span
-                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]}`}
+                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]} transition-transform duration-150 ${hoveredChip === point.subject ? 'scale-125' : ''}`}
                               style={{
                                 left: `50%`,
                                 top: `50%`,
                                 transform: `translate(${x}px, ${y}px)`,
                               }}
+                              onMouseEnter={() => setHoveredChip(point.subject)}
+                              onMouseLeave={() => setHoveredChip(null)}
                             >
                               {point.subject}
                             </span>
@@ -390,23 +393,41 @@ const Index = () => {
                       <div className="grid grid-cols-2 gap-4 text-[11px] pt-2">
                         <div className="space-y-1.5">
                           {psychographicData.slice(0, Math.ceil(psychographicData.length / 2)).map((point) => (
-                            <div key={point.subject} className="flex justify-between items-center">
+                            <div 
+                              key={point.subject} 
+                              className={`flex justify-between items-center transition-colors duration-150 ${
+                                hoveredChip === point.subject ? 'bg-gray-800 rounded px-2 py-1' : ''
+                              }`}
+                            >
                               <div className="flex items-center gap-1.5">
                                 <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
-                                <span className="text-gray-400">{point.fullName}</span>
+                                <span className={`text-gray-400 ${hoveredChip === point.subject ? 'text-white' : ''}`}>
+                                  {point.fullName}
+                                </span>
                               </div>
-                              <span className="text-gray-300 font-medium">{point.A}</span>
+                              <span className={`font-medium ${hoveredChip === point.subject ? 'text-white' : 'text-gray-300'}`}>
+                                {point.A}
+                              </span>
                             </div>
                           ))}
                         </div>
                         <div className="space-y-1.5">
                           {psychographicData.slice(Math.ceil(psychographicData.length / 2)).map((point) => (
-                            <div key={point.subject} className="flex justify-between items-center">
+                            <div 
+                              key={point.subject} 
+                              className={`flex justify-between items-center transition-colors duration-150 ${
+                                hoveredChip === point.subject ? 'bg-gray-800 rounded px-2 py-1' : ''
+                              }`}
+                            >
                               <div className="flex items-center gap-1.5">
                                 <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
-                                <span className="text-gray-400">{point.fullName}</span>
+                                <span className={`text-gray-400 ${hoveredChip === point.subject ? 'text-white' : ''}`}>
+                                  {point.fullName}
+                                </span>
                               </div>
-                              <span className="text-gray-300 font-medium">{point.A}</span>
+                              <span className={`font-medium ${hoveredChip === point.subject ? 'text-white' : 'text-gray-300'}`}>
+                                {point.A}
+                              </span>
                             </div>
                           ))}
                         </div>
@@ -455,12 +476,14 @@ const PsychographicRadar = ({ data }) => {
           <Tooltip key={point.subject}>
             <TooltipTrigger asChild>
               <span
-                className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]}`}
+                className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]} transition-transform duration-150 ${hoveredChip === point.subject ? 'scale-125' : ''}`}
                 style={{
                   left: `50%`,
                   top: `50%`,
                   transform: `translate(${x}px, ${y}px)`,
                 }}
+                onMouseEnter={() => setHoveredChip(point.subject)}
+                onMouseLeave={() => setHoveredChip(null)}
               >
                 {point.subject}
               </span>
