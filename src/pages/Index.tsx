@@ -154,7 +154,6 @@ const psychographicDescriptions: Record<string, string[]> = {
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
-  const [hoveredChip, setHoveredChip] = useState<string | null>(null);
   const totalRespondents = 1234;
 
   const renderContent = () => {
@@ -533,42 +532,6 @@ const Index = () => {
                       />
                     </RechartsRadarChart>
                   </ResponsiveContainer>
-
-                  {/* Radar vertex chips */}
-                  {psychographicData.map((point, index) => {
-                    const angle = (index * 360) / psychographicData.length;
-                    const radius = 180;
-                    const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
-                    const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
-
-                    const adjustX = angle > 90 && angle < 270 ? -20 : 20;
-                    const adjustY = angle > 0 && angle < 180 ? -10 : 10;
-
-                    return (
-                      <Tooltip key={point.subject}>
-                        <TooltipTrigger asChild>
-                          <span
-                            className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]} transition-transform duration-150 ${hoveredChip === point.subject ? 'scale-125' : ''}`}
-                            style={{
-                              left: `50%`,
-                              top: `50%`,
-                              transform: `translate(${x + adjustX}px, ${y + adjustY}px)`,
-                            }}
-                            onMouseEnter={() => setHoveredChip(point.subject)}
-                            onMouseLeave={() => setHoveredChip(null)}
-                          >
-                            {point.subject}
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                          <div className="flex items-center gap-2">
-                            <span>{point.fullName}</span>
-                            <span className="font-medium text-blue-400">{point.A}</span>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
-                    );
-                  })}
                 </div>
               </div>
             </div>
