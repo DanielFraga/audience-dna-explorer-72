@@ -513,13 +513,13 @@ const Index = () => {
                                 onMouseLeave={() => setHoveredPoint(null)}
                               >
                                 <circle
-                                  cx="-8"
+                                  cx="-12"
                                   cy="0"
                                   r="3"
                                   fill={colorMap[point.subject as keyof typeof colorMap].split(' ')[0].replace('bg-[', '').replace(']', '')}
                                 />
                                 <text
-                                  x="0"
+                                  x="4"
                                   y="0"
                                   dy="0.35em"
                                   textAnchor="middle"
