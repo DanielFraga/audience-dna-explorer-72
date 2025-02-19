@@ -20,19 +20,19 @@ const Index = () => {
             <input
               type="text"
               placeholder="Explore your audience..."
-              className="w-[calc(100%-280px)] px-4 py-2.5 pl-12 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
+              className="w-[calc(100%-260px)] px-4 py-2.5 pl-12 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Search className="absolute left-4 top-2.5 text-gray-500 w-4 h-4" />
             
-            <div className="flex items-center space-x-3 ml-4">
-              <button className="px-4 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
-                Save Audience DNA
+            <div className="flex items-center space-x-2 ml-3">
+              <button className="px-3 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                Save DNA
               </button>
-              <button className="px-4 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
-                <Download className="w-3 h-3 mr-2" />
-                Export Report
+              <button className="px-3 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
+                <Download className="w-3 h-3 mr-1" />
+                Export
               </button>
             </div>
           </div>
