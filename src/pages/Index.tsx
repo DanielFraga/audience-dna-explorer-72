@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
@@ -17,21 +16,21 @@ const Index = () => {
       <div className="ml-64 p-8 animate-fade-in">
         {/* Top Section */}
         <div className="mb-8">
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               type="text"
               placeholder="Explore your audience..."
-              className="w-[calc(100%-200px)] px-4 py-3 pl-12 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
+              className="w-[calc(100%-280px)] px-4 py-2.5 pl-12 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search className="absolute left-4 top-3.5 text-gray-500 w-4 h-4" />
+            <Search className="absolute left-4 top-2.5 text-gray-500 w-4 h-4" />
             
-            <div className="absolute right-0 top-0 space-x-4">
-              <button className="px-6 py-3 text-xs font-medium text-gray-300 bg-gray-900 border border-gray-800 rounded-lg hover:bg-gray-800 transition-colors">
+            <div className="flex items-center space-x-3 ml-4">
+              <button className="px-4 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
                 Save Audience DNA
               </button>
-              <button className="px-6 py-3 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+              <button className="px-4 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
                 <Download className="w-3 h-3 mr-2" />
                 Export Report
               </button>
