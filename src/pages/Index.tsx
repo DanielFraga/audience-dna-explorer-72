@@ -510,10 +510,12 @@ const Index = () => {
                   {/* Radar vertex chips */}
                   {psychographicData.map((point, index) => {
                     const angle = (index * 360) / psychographicData.length;
-                    const baseRadius = 140;
-                    const scaledRadius = (baseRadius * point.A) / 100;
-                    const x = scaledRadius * Math.cos((angle - 90) * (Math.PI / 180));
-                    const y = scaledRadius * Math.sin((angle - 90) * (Math.PI / 180));
+                    const radius = 180;
+                    const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
+                    const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
+
+                    const adjustX = angle > 90 && angle < 270 ? -20 : 20;
+                    const adjustY = angle > 0 && angle < 180 ? -10 : 10;
 
                     return (
                       <Tooltip key={point.subject}>
@@ -523,7 +525,7 @@ const Index = () => {
                             style={{
                               left: `50%`,
                               top: `50%`,
-                              transform: `translate(${x}px, ${y}px)`,
+                              transform: `translate(${x + adjustX}px, ${y + adjustY}px)`,
                             }}
                             onMouseEnter={() => setHoveredChip(point.subject)}
                             onMouseLeave={() => setHoveredChip(null)}
