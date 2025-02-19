@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar } from "lucide-react";
+import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
@@ -99,17 +99,18 @@ const Index = () => {
               {/* Left Half - List View */}
               <div className="space-y-3">
                 {/* Age Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px]">
+                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                      Detailed breakdown of age groups across all respondents
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="flex items-center gap-1.5 mb-2">
+                    <ChartBar className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <ChartBar className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                        Shows the distribution of ages
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                   <div className="grid grid-cols-4 gap-2">
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
@@ -132,17 +133,18 @@ const Index = () => {
                 </div>
 
                 {/* Gender Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px]">
+                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                      Distribution of gender identities in the respondent pool
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="flex items-center gap-1.5 mb-2">
+                    <Users className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Gender Distribution</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Users className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                        Shows the distribution of genders
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
@@ -161,17 +163,18 @@ const Index = () => {
                 </div>
 
                 {/* Location Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px]">
+                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                      Geographical distribution of respondents by area type
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="flex items-center gap-1.5 mb-2">
+                    <MapPin className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <MapPin className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                        Shows the distribution of locations
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                   <div className="grid grid-cols-4 gap-2">
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
@@ -194,17 +197,18 @@ const Index = () => {
                 </div>
 
                 {/* Income Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px]">
+                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                      Income range distribution across all respondents
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="flex items-center gap-1.5 mb-2">
+                    <DollarSign className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <DollarSign className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                        Shows the distribution of incomes
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                   <div className="grid grid-cols-4 gap-2">
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
@@ -227,17 +231,18 @@ const Index = () => {
                 </div>
 
                 {/* Ancestry Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px]">
+                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                      Distribution of ancestral backgrounds among respondents
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="flex items-center gap-1.5 mb-2">
+                    <User className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Ancestry Distribution</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <User className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                        Shows the distribution of ancestries
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                   <div className="grid grid-cols-4 gap-2">
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
@@ -263,21 +268,22 @@ const Index = () => {
               {/* Right Half */}
               <div>
                 {/* Cobweb Graph Card */}
-                <div className="p-4 bg-gray-900 rounded-lg border border-gray-800">
+                <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                      Visual representation of key psychographic traits and their intensities
+                    </TooltipContent>
+                  </Tooltip>
                   <div className="flex items-center gap-1.5 mb-2">
+                    <Radar className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Psychographic Overview</h3>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Radar className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                        Shows an overview of psychographic traits
-                      </TooltipContent>
-                    </Tooltip>
                   </div>
                   <div className="w-full h-[460px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={psychographicData}>
+                      <RadarChart cx="50%" cy="50%" data={psychographicData}>
                         <PolarGrid stroke="#374151" />
                         <PolarAngleAxis
                           dataKey="subject"
