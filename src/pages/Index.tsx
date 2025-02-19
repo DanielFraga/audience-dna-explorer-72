@@ -48,7 +48,7 @@ const Index = () => {
 
         {/* Tabs */}
         <div className="mb-8">
-          <div className="flex w-full bg-gray-900 rounded-lg">
+          <div className="flex w-full bg-gray-800 rounded-lg">
             {tabs.map((tab) => (
               <button
                 key={tab}
@@ -56,7 +56,7 @@ const Index = () => {
                 className={`flex-1 py-4 text-xs font-medium transition-colors relative rounded-lg ${
                   activeTab === tab
                     ? "text-white bg-gray-900"
-                    : "text-gray-500 hover:text-gray-300 hover:bg-gray-800"
+                    : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
                 }`}
               >
                 {tab}
