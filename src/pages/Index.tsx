@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
-import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
+import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const tabs = ["WHO", "WHAT", "WHY", "SO WHAT"];
@@ -283,21 +283,20 @@ const Index = () => {
                   </div>
                   <div className="w-full h-[460px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart>
+                      <RechartsRadarChart data={psychographicData}>
                         <PolarGrid stroke="#374151" />
                         <PolarAngleAxis
                           dataKey="subject"
-                          data={psychographicData}
                           tick={{ fill: '#9CA3AF', fontSize: 10 }}
                         />
-                        <Radar
+                        <RadarChart
+                          name="Psychographic Profile"
                           dataKey="A"
-                          data={psychographicData}
                           stroke="#3B82F6"
                           fill="#3B82F6"
                           fillOpacity={0.3}
                         />
-                      </RadarChart>
+                      </RechartsRadarChart>
                     </ResponsiveContainer>
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
