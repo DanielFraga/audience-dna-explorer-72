@@ -35,7 +35,7 @@ const MainSidebar = () => {
   ];
 
   return (
-    <div className={`fixed left-0 top-0 h-full bg-white shadow-lg transition-all duration-300 ${
+    <div className={`fixed left-0 top-0 h-full bg-gray-900 shadow-lg transition-all duration-300 ${
       isOpen ? "w-64" : "w-20"
     }`}>
       <div className="p-4">
@@ -47,7 +47,7 @@ const MainSidebar = () => {
           />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
           >
             <svg
               className="w-4 h-4"
@@ -79,7 +79,7 @@ const MainSidebar = () => {
             <Link
               key={item.title}
               to={item.path}
-              className="flex items-center px-4 py-2.5 text-gray-700 rounded-full hover:bg-gray-100 transition-colors text-sm bg-gray-50"
+              className="flex items-center px-4 py-2.5 text-gray-300 rounded-full hover:bg-gray-800 transition-colors text-sm bg-gray-800/50"
             >
               {item.icon}
               <span
