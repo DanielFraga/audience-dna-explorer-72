@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
@@ -135,6 +134,75 @@ const Index = () => {
                     </div>
                     <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
                       <span className="text-white text-sm font-bold">1%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">Other</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Location Distribution Card */}
+                <div className="p-4 bg-gray-900 rounded-xl border border-gray-800 h-[120px]">
+                  <h3 className="text-sm font-semibold mb-3 text-white">Location Distribution</h3>
+                  <div className="grid grid-cols-4 gap-3">
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">42%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">Urban</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">35%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">Suburban</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">15%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">Rural</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">8%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">Remote</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Income Distribution Card */}
+                <div className="p-4 bg-gray-900 rounded-xl border border-gray-800 h-[120px]">
+                  <h3 className="text-sm font-semibold mb-3 text-white">Income Distribution</h3>
+                  <div className="grid grid-cols-4 gap-3">
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">18%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">&lt;30k</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">45%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">30k-75k</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">25%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">75k-120k</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">12%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">&gt;120k</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Ancestry Distribution Card */}
+                <div className="p-4 bg-gray-900 rounded-xl border border-gray-800 h-[120px]">
+                  <h3 className="text-sm font-semibold mb-3 text-white">Ancestry Distribution</h3>
+                  <div className="grid grid-cols-4 gap-3">
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">32%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">European</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">28%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">Asian</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">22%</span>
+                      <span className="text-gray-400 text-[10px] mt-0.5">African</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-2 flex flex-col items-center justify-center">
+                      <span className="text-white text-sm font-bold">18%</span>
                       <span className="text-gray-400 text-[10px] mt-0.5">Other</span>
                     </div>
                   </div>
