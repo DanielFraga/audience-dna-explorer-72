@@ -17,7 +17,7 @@ const DemographicsMap = () => {
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/dark-v11',
       zoom: 1.5,
-      center: [30, 15],
+      center: [12.5683, 55.6761], // Copenhagen coordinates
       projection: 'globe',
       pitch: 45,
     });
@@ -35,6 +35,7 @@ const DemographicsMap = () => {
         data: {
           type: 'FeatureCollection',
           features: [
+            { type: 'Feature', geometry: { type: 'Point', coordinates: [12.5683, 55.6761] }, properties: { name: 'Copenhagen' } },
             { type: 'Feature', geometry: { type: 'Point', coordinates: [-74, 40.7] }, properties: { name: 'New York' } },
             { type: 'Feature', geometry: { type: 'Point', coordinates: [-0.1276, 51.5072] }, properties: { name: 'London' } },
             { type: 'Feature', geometry: { type: 'Point', coordinates: [139.6917, 35.6895] }, properties: { name: 'Tokyo' } },
@@ -85,3 +86,4 @@ const DemographicsMap = () => {
 };
 
 export default DemographicsMap;
+
