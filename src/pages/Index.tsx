@@ -355,6 +355,7 @@ const Index = () => {
       case "WHO_PSYCHO":
         return (
           <div className="grid grid-cols-2 gap-6 animate-slide-up">
+            {/* Left Stats Card */}
             <div>
               {/* Stats Card */}
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative h-full">
@@ -495,7 +496,33 @@ const Index = () => {
                       <PolarGrid stroke="#374151" />
                       <PolarAngleAxis
                         dataKey="subject"
-                        tick={{ fill: 'transparent', fontSize: 10 }}
+                        tick={({ x, y, payload }) => {
+                          const point = psychographicData.find(p => p.subject === payload.value);
+                          if (!point) return null;
+                          
+                          return (
+                            <g transform={`translate(${x},${y})`}>
+                              <g className="flex items-center gap-1">
+                                <circle
+                                  cx="-8"
+                                  cy="0"
+                                  r="3"
+                                  className={colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}
+                                />
+                                <text
+                                  x="0"
+                                  y="0"
+                                  dy="0.35em"
+                                  textAnchor="middle"
+                                  fill="#9CA3AF"
+                                  style={{ fontSize: '11px' }}
+                                >
+                                  {point.subject}
+                                </text>
+                              </g>
+                            </g>
+                          );
+                        }}
                       />
                       <RadarChart
                         name="Psychographic Profile"
