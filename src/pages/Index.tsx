@@ -708,34 +708,32 @@ const Index = () => {
         {/* Tabs and Content Container */}
         <div>
           {/* Tabs */}
-          <div>
-            <div className="flex w-full bg-gray-800 rounded-t-lg">
-              {tabs.map((tab, index) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
-                    activeTab === tab.id
-                      ? "text-white bg-gray-900"
-                      : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
-                  } ${index === 0 ? "rounded-tl-lg" : ""} ${
-                    index === tabs.length - 1 ? "rounded-tr-lg" : ""
-                  }`}
-                >
-                  <div className="flex flex-col items-center">
-                    <span>{tab.label}</span>
-                    {tab.subLabel && (
-                      <span className="text-[10px] text-gray-400 mt-0.5">
-                        {tab.subLabel}
-                      </span>
-                    )}
-                  </div>
-                  {activeTab === tab.id && (
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
+          <div className="flex w-full bg-gray-800 rounded-t-lg">
+            {tabs.map((tab, index) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
+                  activeTab === tab.id
+                    ? "text-white bg-gray-900"
+                    : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
+                } ${index === 0 ? "rounded-tl-lg" : ""} ${
+                  index === tabs.length - 1 ? "rounded-tr-lg" : ""
+                }`}
+              >
+                <div className="flex flex-col items-center">
+                  <span>{tab.label}</span>
+                  {tab.subLabel && (
+                    <span className="text-[10px] text-gray-400 mt-0.5">
+                      {tab.subLabel}
+                    </span>
                   )}
-                </button>
-              ))}
-            </div>
+                </div>
+                {activeTab === tab.id && (
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
+                )}
+              </button>
+            ))}
           </div>
 
           {/* Content Area */}
