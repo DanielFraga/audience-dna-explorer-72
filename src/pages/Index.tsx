@@ -300,12 +300,21 @@ const Index = () => {
                     </ResponsiveContainer>
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
-                    {["Adventurous", "Creative", "Tech-savvy"].map((trait) => (
+                    {[
+                      { text: "Adventurous", color: "bg-[#8B5CF6] text-white" },
+                      { text: "Creative", color: "bg-[#D946EF] text-white" },
+                      { text: "Tech-savvy", color: "bg-[#0EA5E9] text-white" },
+                      { text: "Eco-conscious", color: "bg-[#F97316] text-white" },
+                      { text: "Early Adopter", color: "bg-[#E5DEFF] text-gray-700" },
+                      { text: "Quality-focused", color: "bg-[#FDE1D3] text-gray-700" },
+                      { text: "Innovation-driven", color: "bg-[#D3E4FD] text-gray-700" },
+                      { text: "Brand Conscious", color: "bg-[#FFDEE2] text-gray-700" }
+                    ].map((chip) => (
                       <span
-                        key={trait}
-                        className="px-2 py-0.5 text-[10px] bg-gray-800 text-gray-300 rounded-full"
+                        key={chip.text}
+                        className={`px-2 py-0.5 text-[10px] rounded-full ${chip.color}`}
                       >
-                        {trait}
+                        {chip.text}
                       </span>
                     ))}
                   </div>
