@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info, ChevronDown, CircleIcon } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
@@ -222,6 +223,101 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const totalRespondents = 1234;
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "WHO_DEMO":
+        return (
+          <div>
+            {/* Demographics content */}
+            <DemographicsMap />
+          </div>
+        );
+      
+      case "WHO_PSYCHO":
+        return (
+          <div>
+            {/* Psychographics content */}
+            <div className="grid grid-cols-3 gap-4">
+              {/* Your psychographic content */}
+            </div>
+          </div>
+        );
+      
+      case "WHAT":
+        return (
+          <div className="grid grid-cols-3 gap-4 animate-slide-up">
+            {surveyData.map((item, index) => (
+              <div 
+                key={index}
+                className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
+              >
+                {/* Confidence Score Circle */}
+                <div className="absolute top-3 right-3">
+                  <div className="relative w-10 h-10">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div 
+                        className={`w-full h-full rounded-full border-2 ${
+                          Number(item.confidence) >= 0.9 ? 'border-green-500' :
+                          Number(item.confidence) >= 0.7 ? 'border-blue-500' :
+                          'border-yellow-500'
+                        }`}
+                      />
+                      <span className="absolute text-xs font-medium text-gray-300">
+                        {item.confidence}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Question */}
+                <h3 
+                  className="text-sm font-medium text-white mb-2 pr-12"
+                  dangerouslySetInnerHTML={{
+                    __html: item.question.replace(/holiday/gi, (match) => (
+                      `<span class="text-blue-400">${match}</span>`
+                    ))
+                  }}
+                />
+
+                {/* Response */}
+                <p 
+                  className="text-xs text-gray-400 line-clamp-3"
+                  dangerouslySetInnerHTML={{
+                    __html: item.response.replace(/holiday/gi, (match) => (
+                      `<span class="text-blue-400">${match}</span>`
+                    ))
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        );
+      
+      case "WHY":
+        return (
+          <div>
+            {/* Interpretation content */}
+            <div className="space-y-4">
+              {/* Your interpretation content */}
+            </div>
+          </div>
+        );
+      
+      case "SO_WHAT":
+        return (
+          <div>
+            {/* Advice content */}
+            <div className="space-y-4">
+              {/* Your advice content */}
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
