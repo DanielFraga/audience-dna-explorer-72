@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
@@ -80,7 +81,20 @@ const Index = () => {
                 {/* Age Group Card */}
                 <div className="p-6 bg-gray-900 rounded-xl border border-gray-800">
                   <h3 className="text-sm font-semibold mb-4 text-white">Age Distribution</h3>
-                  {/* Add age distribution chart here */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                      <span className="text-white font-bold">28%</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                      <span className="text-white font-bold">35%</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                      <span className="text-white font-bold">22%</span>
+                    </div>
+                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                      <span className="text-white font-bold">15%</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Gender Card */}
