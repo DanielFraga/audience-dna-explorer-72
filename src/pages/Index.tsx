@@ -676,7 +676,7 @@ const Index = () => {
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="ml-52 p-6 animate-fade-in">
+      <div className="transition-all duration-300 ml-52 sidebar-collapsed:ml-16 p-6 animate-fade-in">
         {/* Top Section */}
         <div className="mb-8">
           <div className="relative flex items-center">

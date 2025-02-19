@@ -36,18 +36,18 @@ const MainSidebar = () => {
   ];
 
   return (
-    <div className={`fixed left-0 top-0 h-full bg-gray-900 shadow-lg transition-all duration-300 ${
+    <div className={`fixed left-0 top-0 h-full bg-gray-900 shadow-lg transition-all duration-300 z-50 ${
       isOpen ? "w-52" : "w-16"
     }`}>
       <div className="p-4">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
             <Box className="w-4 h-4 text-blue-500" />
-            <span className={`text-gray-100 font-medium text-xs transition-all duration-300 ${
-              isOpen ? "opacity-100" : "opacity-0 w-0"
-            }`}>
-              CUBULAR
-            </span>
+            {isOpen && (
+              <span className="text-gray-100 font-medium text-xs">
+                CUBULAR
+              </span>
+            )}
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -84,15 +84,16 @@ const MainSidebar = () => {
               key={item.title}
               to={item.path}
               className="flex items-center px-3 py-2 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-[11px] bg-gray-800/50"
+              title={!isOpen ? item.title : undefined}
             >
-              {item.icon}
-              <span
-                className={`ml-2.5 transition-all duration-300 ${
-                  isOpen ? "opacity-100" : "opacity-0 w-0"
-                }`}
-              >
-                {item.title}
-              </span>
+              <div className="flex items-center">
+                {item.icon}
+                {isOpen && (
+                  <span className="ml-2.5">
+                    {item.title}
+                  </span>
+                )}
+              </div>
             </Link>
           ))}
         </nav>
