@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,6 +54,9 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        grotesk: ['Space Grotesk', 'sans-serif'],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -76,9 +80,6 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "slide-up": "slide-up 0.3s ease-out",
-      },
-      fontFamily: {
-        inter: ['Inter', 'sans-serif'],
       },
     },
   },

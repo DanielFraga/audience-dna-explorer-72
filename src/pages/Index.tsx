@@ -2,8 +2,28 @@
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
 const tabs = ["WHO", "WHAT", "WHY", "SO WHAT"];
+
+const psychographicData = [
+  { subject: 'Openness', A: 80 },
+  { subject: 'Conscientiousness', A: 65 },
+  { subject: 'Extraversion', A: 45 },
+  { subject: 'Agreeableness', A: 70 },
+  { subject: 'Neuroticism', A: 30 },
+  { subject: 'Risk Tolerance', A: 85 },
+  { subject: 'Innovation', A: 75 },
+  { subject: 'Price Sensitivity', A: 40 },
+  { subject: 'Brand Loyalty', A: 60 },
+  { subject: 'Social Impact', A: 72 },
+  { subject: 'Tech Adoption', A: 88 },
+  { subject: 'Quality Focus', A: 78 },
+  { subject: 'Sustainability', A: 65 },
+  { subject: 'Status Seeking', A: 45 },
+  { subject: 'Impulsiveness', A: 35 },
+  { subject: 'Traditionalism', A: 25 },
+];
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,7 +31,7 @@ const Index = () => {
   const totalRespondents = 1234;
 
   return (
-    <div className="min-h-screen bg-gray-950 font-inter text-[13px]">
+    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
       <div className="ml-52 p-6 animate-fade-in">
@@ -125,7 +145,24 @@ const Index = () => {
                 {/* Cobweb Graph Card */}
                 <div className="p-6 bg-gray-900 rounded-xl border border-gray-800">
                   <h3 className="text-sm font-semibold mb-4 text-white">Psychographic Overview</h3>
-                  {/* Add cobweb graph here */}
+                  <div className="w-full h-[400px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={psychographicData}>
+                        <PolarGrid stroke="#374151" />
+                        <PolarAngleAxis
+                          dataKey="subject"
+                          tick={{ fill: '#9CA3AF', fontSize: 10 }}
+                        />
+                        <Radar
+                          name="Psychographic Profile"
+                          dataKey="A"
+                          stroke="#3B82F6"
+                          fill="#3B82F6"
+                          fillOpacity={0.3}
+                        />
+                      </RadarChart>
+                    </ResponsiveContainer>
+                  </div>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {["Adventurous", "Creative", "Tech-savvy"].map((trait) => (
                       <span
