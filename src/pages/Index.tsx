@@ -153,63 +153,63 @@ const psychographicDescriptions: Record<string, string[]> = {
 
 const surveyData = [
   {
-    question: "What is your primary motivation for using our product?",
-    response: "To increase productivity and streamline daily tasks in a more efficient manner.",
+    question: "What factors influence your holiday purchase decisions?",
+    response: "I typically plan my holiday shopping months in advance to find the best deals and ensure availability.",
     confidence: 0.87
   },
   {
-    question: "How often do you encounter technical issues with our platform?",
-    response: "Mainly during peak hours, approximately twice per week, affecting core functionality.",
+    question: "How do you prefer to spend your holiday budget?",
+    response: "Most of my holiday spending goes towards gifts for family, with some reserved for holiday decorations.",
     confidence: 0.92
   },
   {
-    question: "What features would you like to see implemented?",
-    response: "Integration with third-party tools and improved data visualization capabilities.",
+    question: "What's your preferred holiday shopping channel?",
+    response: "I prefer online shopping during the holiday season to avoid crowded stores and save time.",
     confidence: 0.78
   },
   {
-    question: "How satisfied are you with the current user interface?",
-    response: "Generally satisfied, but navigation could be more intuitive in certain areas.",
+    question: "How important are holiday promotions to you?",
+    response: "I actively seek out holiday deals and special offers, especially during major shopping events.",
     confidence: 0.85
   },
   {
-    question: "What factors influence your purchasing decisions?",
-    response: "Price, product quality, and availability of customer support are key factors.",
+    question: "What challenges do you face during holiday shopping?",
+    response: "Finding unique holiday gifts within budget and managing delivery times are my main concerns.",
     confidence: 0.95
   },
   {
-    question: "How do you prefer to receive product updates?",
-    response: "Through email newsletters and in-app notifications for critical updates.",
+    question: "How far in advance do you plan holiday purchases?",
+    response: "I start my holiday planning at least 2-3 months before to avoid last-minute stress.",
     confidence: 0.83
   },
   {
-    question: "What challenges do you face in your daily workflow?",
-    response: "Time management and coordination across different time zones.",
+    question: "What influences your holiday gift choices?",
+    response: "Personal preferences and holiday wish lists from family members guide my gift selections.",
     confidence: 0.89
   },
   {
-    question: "How important is mobile accessibility to you?",
-    response: "Critical for checking status updates and receiving notifications on the go.",
+    question: "How do you manage holiday season stress?",
+    response: "I create detailed holiday shopping lists and stick to a predetermined budget.",
     confidence: 0.91
   },
   {
-    question: "What is your preferred method of customer support?",
-    response: "Live chat for immediate issues, email for detailed inquiries.",
+    question: "What's your holiday shopping strategy?",
+    response: "I combine online and in-store holiday shopping to get the best of both experiences.",
     confidence: 0.88
   },
   {
-    question: "How do you measure success with our product?",
-    response: "Through improved team efficiency and reduced time spent on manual tasks.",
+    question: "How has your holiday shopping changed recently?",
+    response: "I've shifted more towards online holiday shopping and started planning earlier than before.",
     confidence: 0.86
   },
   {
-    question: "What industry trends affect your product usage?",
-    response: "Remote work adoption and increasing focus on data security.",
+    question: "What matters most in holiday gift selection?",
+    response: "Finding meaningful holiday gifts that reflect personal connections is my priority.",
     confidence: 0.82
   },
   {
-    question: "How do you compare our product with competitors?",
-    response: "Superior in automation features but room for improvement in customization.",
+    question: "How do you track holiday expenses?",
+    response: "I use a dedicated app to monitor holiday spending and stay within my budget.",
     confidence: 0.84
   }
 ].map(item => ({
@@ -641,13 +641,20 @@ const Index = () => {
 
                 {/* Question */}
                 <h3 className="text-sm font-medium text-white mb-2 pr-12">
-                  {item.question}
+                  {item.question.replace(/holiday/gi, (match) => (
+                    `<span class="text-blue-400">${match}</span>`
+                  ))}
                 </h3>
 
                 {/* Response */}
-                <p className="text-xs text-gray-400 line-clamp-3">
-                  {item.response}
-                </p>
+                <p 
+                  className="text-xs text-gray-400 line-clamp-3"
+                  dangerouslySetInnerHTML={{
+                    __html: item.response.replace(/holiday/gi, (match) => (
+                      `<span class="text-blue-400">${match}</span>`
+                    ))
+                  }}
+                />
               </div>
             ))}
           </div>
