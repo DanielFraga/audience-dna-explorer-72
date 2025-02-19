@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info, ChevronDown } from "lucide-react";
+import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info, ChevronDown, CircleIcon } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
@@ -151,6 +150,72 @@ const psychographicDescriptions: Record<string, string[]> = {
     "Conservative approach"
   ],
 };
+
+const surveyData = [
+  {
+    question: "What is your primary motivation for using our product?",
+    response: "To increase productivity and streamline daily tasks in a more efficient manner.",
+    confidence: 0.87
+  },
+  {
+    question: "How often do you encounter technical issues with our platform?",
+    response: "Mainly during peak hours, approximately twice per week, affecting core functionality.",
+    confidence: 0.92
+  },
+  {
+    question: "What features would you like to see implemented?",
+    response: "Integration with third-party tools and improved data visualization capabilities.",
+    confidence: 0.78
+  },
+  {
+    question: "How satisfied are you with the current user interface?",
+    response: "Generally satisfied, but navigation could be more intuitive in certain areas.",
+    confidence: 0.85
+  },
+  {
+    question: "What factors influence your purchasing decisions?",
+    response: "Price, product quality, and availability of customer support are key factors.",
+    confidence: 0.95
+  },
+  {
+    question: "How do you prefer to receive product updates?",
+    response: "Through email newsletters and in-app notifications for critical updates.",
+    confidence: 0.83
+  },
+  {
+    question: "What challenges do you face in your daily workflow?",
+    response: "Time management and coordination across different time zones.",
+    confidence: 0.89
+  },
+  {
+    question: "How important is mobile accessibility to you?",
+    response: "Critical for checking status updates and receiving notifications on the go.",
+    confidence: 0.91
+  },
+  {
+    question: "What is your preferred method of customer support?",
+    response: "Live chat for immediate issues, email for detailed inquiries.",
+    confidence: 0.88
+  },
+  {
+    question: "How do you measure success with our product?",
+    response: "Through improved team efficiency and reduced time spent on manual tasks.",
+    confidence: 0.86
+  },
+  {
+    question: "What industry trends affect your product usage?",
+    response: "Remote work adoption and increasing focus on data security.",
+    confidence: 0.82
+  },
+  {
+    question: "How do you compare our product with competitors?",
+    response: "Superior in automation features but room for improvement in customization.",
+    confidence: 0.84
+  }
+].map(item => ({
+  ...item,
+  confidence: Math.random().toFixed(2)
+}));
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -545,6 +610,46 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+        );
+      
+      case "WHAT":
+        return (
+          <div className="grid grid-cols-3 gap-4 animate-slide-up">
+            {surveyData.map((item, index) => (
+              <div 
+                key={index}
+                className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
+              >
+                {/* Confidence Score Circle */}
+                <div className="absolute top-3 right-3">
+                  <div className="relative w-10 h-10">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div 
+                        className={`w-full h-full rounded-full border-2 ${
+                          Number(item.confidence) >= 0.9 ? 'border-green-500' :
+                          Number(item.confidence) >= 0.7 ? 'border-blue-500' :
+                          'border-yellow-500'
+                        }`}
+                      />
+                      <span className="absolute text-xs font-medium text-gray-300">
+                        {item.confidence}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Question */}
+                <h3 className="text-sm font-medium text-white mb-2 pr-12">
+                  {item.question}
+                </h3>
+
+                {/* Response */}
+                <p className="text-xs text-gray-400 line-clamp-3">
+                  {item.response}
+                </p>
+              </div>
+            ))}
           </div>
         );
       
