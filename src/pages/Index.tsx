@@ -34,21 +34,21 @@ const psychographicData = [
 ];
 
 const colorMap = {
-  'Op': 'bg-[#F2FCE2] text-gray-700',
-  'Co': 'bg-[#FEF7CD] text-gray-700',
-  'Ex': 'bg-[#D946EF] text-white',
-  'Ag': 'bg-[#F2FCE2] text-gray-700',
-  'Ne': 'bg-[#FEF7CD] text-gray-700',
-  'RT': 'bg-[#D946EF] text-white',
-  'In': 'bg-[#F2FCE2] text-gray-700',
-  'PS': 'bg-[#FEF7CD] text-gray-700',
-  'BL': 'bg-[#D946EF] text-white',
-  'SI': 'bg-[#F2FCE2] text-gray-700',
-  'TA': 'bg-[#FEF7CD] text-gray-700',
-  'QF': 'bg-[#D946EF] text-white',
-  'Su': 'bg-[#F2FCE2] text-gray-700',
-  'SS': 'bg-[#FEF7CD] text-gray-700',
-  'Im': 'bg-[#D946EF] text-white',
+  'Op': 'bg-[#0EA5E9] text-white',
+  'Co': 'bg-[#1EAEDB] text-white',
+  'Ex': 'bg-[#33C3F0] text-white',
+  'Ag': 'bg-[#0FA0CE] text-white',
+  'Ne': 'bg-[#ea384c] text-white',
+  'RT': 'bg-[#F2FCE2] text-gray-700',
+  'In': 'bg-[#0EA5E9] text-white',
+  'PS': 'bg-[#ea384c] text-white',
+  'BL': 'bg-[#F2FCE2] text-gray-700',
+  'SI': 'bg-[#0EA5E9] text-white',
+  'TA': 'bg-[#1EAEDB] text-white',
+  'QF': 'bg-[#F2FCE2] text-gray-700',
+  'Su': 'bg-[#33C3F0] text-white',
+  'SS': 'bg-[#ea384c] text-white',
+  'Im': 'bg-[#0FA0CE] text-white',
   'Tr': 'bg-[#F2FCE2] text-gray-700',
 };
 
@@ -535,12 +535,12 @@ const Index = () => {
 
                   <div className="flex flex-wrap gap-1.5">
                     {[
-                      { text: "Adventurous", color: "bg-[#F2FCE2] text-gray-700" },
-                      { text: "Creative", color: "bg-[#D946EF] text-white" },
-                      { text: "Tech-savvy", color: "bg-[#FEF7CD] text-gray-700" },
-                      { text: "Early Adopter", color: "bg-[#F2FCE2] text-gray-700" },
-                      { text: "Quality-focused", color: "bg-[#D946EF] text-white" },
-                      { text: "Innovation-driven", color: "bg-[#FEF7CD] text-gray-700" }
+                      { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
+                      { text: "Creative", color: "bg-[#ea384c] text-white" },
+                      { text: "Tech-savvy", color: "bg-[#F2FCE2] text-gray-700" },
+                      { text: "Early Adopter", color: "bg-[#1EAEDB] text-white" },
+                      { text: "Quality-focused", color: "bg-[#ea384c] text-white" },
+                      { text: "Innovation-driven", color: "bg-[#F2FCE2] text-gray-700" }
                     ].map((chip) => (
                       <span
                         key={chip.text}
@@ -615,7 +615,7 @@ const Index = () => {
       
       case "WHAT":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-slide-up">
+          <div className="grid grid-cols-3 gap-4 animate-slide-up">
             {surveyData.map((item, index) => (
               <div 
                 key={index}
@@ -676,4 +676,76 @@ const Index = () => {
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-
+      <div className="transition-all duration-300 ml-52 sidebar-collapsed:ml-16 p-6 animate-fade-in">
+        {/* Top Section */}
+        <div className="mb-8">
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              placeholder="Explore your audience..."
+              className="w-[calc(100%-260px)] px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search className="absolute left-3 top-2 text-gray-500 w-4 h-4" />
+            
+            <div className="flex items-center space-x-2 ml-3">
+              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                Save DNA
+              </button>
+              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
+                <Download className="w-3 h-3 mr-1" />
+                Export
+              </button>
+            </div>
+          </div>
+          
+          <p className="mt-2 text-[11px] text-gray-400">
+            438 out of 10000 survey respondents have responses relevant to the search term "Holiday". Here is their "DNA".
+          </p>
+        </div>
+
+        {/* Tabs and Content Container */}
+        <div>
+          {/* Tabs */}
+          <div>
+            <div className="flex w-full bg-gray-800 rounded-t-lg">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
+                    activeTab === tab.id
+                      ? "text-white bg-gray-900"
+                      : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
+                  } ${index === 0 ? "rounded-tl-lg" : ""} ${
+                    index === tabs.length - 1 ? "rounded-tr-lg" : ""
+                  }`}
+                >
+                  <div className="flex flex-col items-center">
+                    <span>{tab.label}</span>
+                    {tab.subLabel && (
+                      <span className="text-[10px] text-gray-400 mt-0.5">
+                        {tab.subLabel}
+                      </span>
+                    )}
+                  </div>
+                  {activeTab === tab.id && (
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Content Area */}
+          <div className="bg-gray-900 rounded-b-lg p-6">
+            {renderContent()}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Index;
