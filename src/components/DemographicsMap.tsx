@@ -3,6 +3,15 @@ import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+const CITY_DATA = [
+  { coordinates: [12.5683, 55.6761], name: 'Copenhagen', percentage: 42 },
+  { coordinates: [-0.1276, 51.5072], name: 'London', percentage: 35 },
+  { coordinates: [-74, 40.7], name: 'New York', percentage: 15 },
+  { coordinates: [139.6917, 35.6895], name: 'Tokyo', percentage: 2 },
+  { coordinates: [151.2093, -33.8688], name: 'Sydney', percentage: 3 },
+  { coordinates: [28.9784, 41.0082], name: 'Istanbul', percentage: 3 },
+];
+
 const DemographicsMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
@@ -34,39 +43,77 @@ const DemographicsMap = () => {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: [
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [12.5683, 55.6761] }, properties: { name: 'Copenhagen' } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [-74, 40.7] }, properties: { name: 'New York' } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [-0.1276, 51.5072] }, properties: { name: 'London' } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [139.6917, 35.6895] }, properties: { name: 'Tokyo' } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [151.2093, -33.8688] }, properties: { name: 'Sydney' } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [28.9784, 41.0082] }, properties: { name: 'Istanbul' } },
-          ]
+          features: CITY_DATA.map(city => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: city.coordinates
+            },
+            properties: {
+              name: city.name,
+              percentage: city.percentage
+            }
+          }))
         }
       });
 
-      // Add circles layer with gradient color matching cobweb
+      // Add circles layer with gradient color matching cobweb chart and size based on percentage
       map.current.addLayer({
         id: 'points-glow',
         type: 'circle',
         source: 'points',
         paint: {
-          'circle-radius': 20,
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['get', 'percentage'],
+            2, 10,   // Min percentage -> small radius
+            42, 40   // Max percentage -> large radius
+          ],
           'circle-color': '#33C3F0',
           'circle-opacity': 0.4,
           'circle-blur': 1
         }
       });
 
-      // Add smaller inner circles
+      // Add smaller inner circles with size also based on percentage
       map.current.addLayer({
         id: 'points',
         type: 'circle',
         source: 'points',
         paint: {
-          'circle-radius': 6,
+          'circle-radius': [
+            'interpolate',
+            ['linear'],
+            ['get', 'percentage'],
+            2, 4,    // Min percentage -> small radius
+            42, 12   // Max percentage -> large radius
+          ],
           'circle-color': '#1EAEDB',
           'circle-opacity': 0.8
+        }
+      });
+
+      // Add labels
+      map.current.addLayer({
+        id: 'point-labels',
+        type: 'symbol',
+        source: 'points',
+        layout: {
+          'text-field': ['format',
+            ['get', 'name'], {},
+            '\n',
+            ['get', 'percentage'], { 'font-scale': 0.8 },
+            '%'
+          ],
+          'text-anchor': 'top',
+          'text-offset': [0, 1],
+          'text-size': 12
+        },
+        paint: {
+          'text-color': '#ffffff',
+          'text-halo-color': '#000000',
+          'text-halo-width': 1
         }
       });
     });
