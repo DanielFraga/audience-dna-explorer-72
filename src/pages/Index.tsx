@@ -62,6 +62,7 @@ const Index = () => {
       case "WHO_DEMO":
         return (
           <div className="grid grid-cols-2 gap-6 animate-slide-up">
+            {/* Left Column - Demographics Cards */}
             <div className="space-y-3">
               {/* Age Distribution Card */}
               <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
@@ -228,7 +229,10 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-
+            </div>
+            
+            {/* Right Column - Map Card */}
+            <div>
               {/* Map Card */}
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
                 <Tooltip>
