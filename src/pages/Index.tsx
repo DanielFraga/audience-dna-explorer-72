@@ -62,7 +62,6 @@ const Index = () => {
       case "WHO_DEMO":
         return (
           <div className="grid grid-cols-2 gap-6 animate-slide-up">
-            {/* Left Column - Demographics Cards */}
             <div className="space-y-3">
               {/* Age Distribution Card */}
               <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
@@ -145,19 +144,19 @@ const Index = () => {
                   <div className="grid grid-cols-4 gap-2">
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
                       <span className="text-white text-xs font-bold">42%</span>
-                      <span className="text-gray-400 text-[9px] mt-0.5">Urban</span>
+                      <span className="text-gray-400 text-[9px] mt-0.5">Copenhagen, DK</span>
                     </div>
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
                       <span className="text-white text-xs font-bold">35%</span>
-                      <span className="text-gray-400 text-[9px] mt-0.5">Suburban</span>
+                      <span className="text-gray-400 text-[9px] mt-0.5">London, UK</span>
                     </div>
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
                       <span className="text-white text-xs font-bold">15%</span>
-                      <span className="text-gray-400 text-[9px] mt-0.5">Rural</span>
+                      <span className="text-gray-400 text-[9px] mt-0.5">New York, US</span>
                     </div>
                     <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
                       <span className="text-white text-xs font-bold">8%</span>
-                      <span className="text-gray-400 text-[9px] mt-0.5">Remote</span>
+                      <span className="text-gray-400 text-[9px] mt-0.5">Other</span>
                     </div>
                   </div>
                 </div>
