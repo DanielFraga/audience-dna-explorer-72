@@ -18,6 +18,12 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
     <div className="w-full h-[460px] relative">
       <ResponsiveContainer width="100%" height="100%">
         <RechartsRadarChart data={data}>
+          <defs>
+            <linearGradient id="psychographicGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.4} />
+              <stop offset="100%" stopColor="#60A5FA" stopOpacity={0.2} />
+            </linearGradient>
+          </defs>
           <PolarGrid stroke="#374151" />
           <PolarAngleAxis
             dataKey="subject"
@@ -27,8 +33,8 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
             name="Psychographic Profile"
             dataKey="A"
             stroke="#3B82F6"
-            fill="#3B82F6"
-            fillOpacity={0.3}
+            fill="url(#psychographicGradient)"
+            fillOpacity={1}
           />
         </RechartsRadarChart>
       </ResponsiveContainer>
@@ -36,7 +42,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
       {/* Positioned Radar vertex chips */}
       {data.map((point, index) => {
         const angle = (index * 360) / data.length;
-        const radius = 160; // Fixed radius for the outer circle
+        const radius = 160;
         const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
         const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
