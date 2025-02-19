@@ -34,22 +34,22 @@ const psychographicData = [
 ];
 
 const colorMap = {
-  'Op': 'bg-[#9b87f5] text-white',
-  'Co': 'bg-[#7E69AB] text-white',
-  'Ex': 'bg-[#6E59A5] text-white',
-  'Ag': 'bg-[#0EA5E9] text-white',
-  'Ne': 'bg-[#33C3F0] text-white',
-  'RT': 'bg-[#1EAEDB] text-white',
-  'In': 'bg-[#F97316] text-white',
-  'PS': 'bg-[#FEC6A1] text-gray-700',
-  'BL': 'bg-[#FEF7CD] text-gray-700',
-  'SI': 'bg-[#D6BCFA] text-gray-700',
-  'TA': 'bg-[#E5DEFF] text-gray-700',
-  'QF': 'bg-[#9b87f5] text-white',
-  'Su': 'bg-[#7E69AB] text-white',
-  'SS': 'bg-[#6E59A5] text-white',
-  'Im': 'bg-[#0EA5E9] text-white',
-  'Tr': 'bg-[#33C3F0] text-white',
+  'Op': 'bg-[#0EA5E9] text-white',
+  'Co': 'bg-[#1EAEDB] text-white',
+  'Ex': 'bg-[#33C3F0] text-white',
+  'Ag': 'bg-[#0FA0CE] text-white',
+  'Ne': 'bg-[#ea384c] text-white',
+  'RT': 'bg-[#F2FCE2] text-gray-700',
+  'In': 'bg-[#0EA5E9] text-white',
+  'PS': 'bg-[#ea384c] text-white',
+  'BL': 'bg-[#F2FCE2] text-gray-700',
+  'SI': 'bg-[#0EA5E9] text-white',
+  'TA': 'bg-[#1EAEDB] text-white',
+  'QF': 'bg-[#F2FCE2] text-gray-700',
+  'Su': 'bg-[#33C3F0] text-white',
+  'SS': 'bg-[#ea384c] text-white',
+  'Im': 'bg-[#0FA0CE] text-white',
+  'Tr': 'bg-[#F2FCE2] text-gray-700',
 };
 
 const psychographicDescriptions: Record<string, string[]> = {
@@ -535,12 +535,12 @@ const Index = () => {
 
                   <div className="flex flex-wrap gap-1.5">
                     {[
-                      { text: "Adventurous", color: "bg-[#9b87f5] text-white" },
-                      { text: "Creative", color: "bg-[#0EA5E9] text-white" },
-                      { text: "Tech-savvy", color: "bg-[#F97316] text-white" },
-                      { text: "Early Adopter", color: "bg-[#E5DEFF] text-gray-700" },
-                      { text: "Quality-focused", color: "bg-[#FEC6A1] text-gray-700" },
-                      { text: "Innovation-driven", color: "bg-[#D6BCFA] text-gray-700" }
+                      { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
+                      { text: "Creative", color: "bg-[#ea384c] text-white" },
+                      { text: "Tech-savvy", color: "bg-[#F2FCE2] text-gray-700" },
+                      { text: "Early Adopter", color: "bg-[#1EAEDB] text-white" },
+                      { text: "Quality-focused", color: "bg-[#ea384c] text-white" },
+                      { text: "Innovation-driven", color: "bg-[#F2FCE2] text-gray-700" }
                     ].map((chip) => (
                       <span
                         key={chip.text}
