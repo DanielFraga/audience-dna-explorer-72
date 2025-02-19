@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info, ChevronDown } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
@@ -154,6 +155,7 @@ const psychographicDescriptions: Record<string, string[]> = {
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
+  const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const totalRespondents = 1234;
 
   const renderContent = () => {
@@ -378,7 +380,9 @@ const Index = () => {
                       <Collapsible key={point.subject}>
                         <CollapsibleTrigger className="w-full">
                           <div 
-                            className="flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group"
+                            className={`flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group ${hoveredPoint === point.subject ? 'bg-gray-800' : ''}`}
+                            onMouseEnter={() => setHoveredPoint(point.subject)}
+                            onMouseLeave={() => setHoveredPoint(null)}
                           >
                             <div className="flex items-center gap-1.5">
                               <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
@@ -411,7 +415,9 @@ const Index = () => {
                       <Collapsible key={point.subject}>
                         <CollapsibleTrigger className="w-full">
                           <div 
-                            className="flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group"
+                            className={`flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group ${hoveredPoint === point.subject ? 'bg-gray-800' : ''}`}
+                            onMouseEnter={() => setHoveredPoint(point.subject)}
+                            onMouseLeave={() => setHoveredPoint(null)}
                           >
                             <div className="flex items-center gap-1.5">
                               <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
@@ -501,12 +507,16 @@ const Index = () => {
                           
                           return (
                             <g transform={`translate(${x},${y})`}>
-                              <g className="flex items-center gap-1">
+                              <g 
+                                className="flex items-center gap-1 cursor-pointer"
+                                onMouseEnter={() => setHoveredPoint(point.subject)}
+                                onMouseLeave={() => setHoveredPoint(null)}
+                              >
                                 <circle
                                   cx="-8"
                                   cy="0"
                                   r="3"
-                                  className={colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}
+                                  fill={colorMap[point.subject as keyof typeof colorMap].split(' ')[0].replace('bg-[', '').replace(']', '')}
                                 />
                                 <text
                                   x="0"
