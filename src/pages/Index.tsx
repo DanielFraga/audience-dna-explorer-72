@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info } from "lucide-react";
+import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info, ChevronDown } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
@@ -307,9 +307,9 @@ const Index = () => {
                       <RechartsRadarChart data={psychographicData}>
                         <defs>
                           <linearGradient id="psychographicGradient" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stopColor="#33C3F0" stopOpacity={0.9} />
-                            <stop offset="50%" stopColor="#1EAEDB" stopOpacity={0.7} />
-                            <stop offset="100%" stopColor="#0FA0CE" stopOpacity={0.5} />
+                            <stop offset="0%" stopColor="#33C3F0" stopOpacity={0.6} />
+                            <stop offset="50%" stopColor="#1EAEDB" stopOpacity={0.4} />
+                            <stop offset="100%" stopColor="#0FA0CE" stopOpacity={0.3} />
                           </linearGradient>
                         </defs>
                         <PolarGrid stroke="#374151" />
@@ -322,12 +322,12 @@ const Index = () => {
                           dataKey="A"
                           stroke="#3B82F6"
                           fill="url(#psychographicGradient)"
-                          fillOpacity={1}
+                          fillOpacity={0.6}
                         />
                       </RechartsRadarChart>
                     </ResponsiveContainer>
 
-                    {/* Positioned Radar vertex chips */}
+                    {/* Radar vertex chips */}
                     {psychographicData.map((point, index) => {
                       const angle = (index * 360) / psychographicData.length;
                       const baseRadius = 140;
@@ -358,7 +358,7 @@ const Index = () => {
                         <Tooltip key={point.subject}>
                           <TooltipTrigger asChild>
                             <span
-                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]}`}
+                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
                               style={{
                                 left: `50%`,
                                 top: `50%`,
@@ -376,23 +376,41 @@ const Index = () => {
                     })}
                   </div>
 
-                  {/* Two-column layout at bottom */}
-                  <div className="grid grid-cols-2 gap-4 text-[11px]">
-                    <div className="space-y-1">
-                      {psychographicData.slice(0, Math.ceil(psychographicData.length / 2)).map((point) => (
-                        <div key={point.subject} className="flex justify-between items-center">
-                          <span className="text-gray-400">{point.fullName}</span>
-                          <span className="text-gray-300 font-medium">{point.A}</span>
+                  {/* Accordion for two-column layout */}
+                  <div className="border-t border-gray-800 pt-2">
+                    <button
+                      onClick={() => document.getElementById('details-content')?.classList.toggle('hidden')}
+                      className="w-full flex items-center justify-between py-2 text-[11px] text-gray-400 hover:text-gray-300"
+                    >
+                      <span>View All Variables</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                    
+                    <div id="details-content" className="hidden">
+                      <div className="grid grid-cols-2 gap-4 text-[11px] pt-2">
+                        <div className="space-y-1.5">
+                          {psychographicData.slice(0, Math.ceil(psychographicData.length / 2)).map((point) => (
+                            <div key={point.subject} className="flex justify-between items-center">
+                              <div className="flex items-center gap-1.5">
+                                <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
+                                <span className="text-gray-400">{point.fullName}</span>
+                              </div>
+                              <span className="text-gray-300 font-medium">{point.A}</span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <div className="space-y-1">
-                      {psychographicData.slice(Math.ceil(psychographicData.length / 2)).map((point) => (
-                        <div key={point.subject} className="flex justify-between items-center">
-                          <span className="text-gray-400">{point.fullName}</span>
-                          <span className="text-gray-300 font-medium">{point.A}</span>
+                        <div className="space-y-1.5">
+                          {psychographicData.slice(Math.ceil(psychographicData.length / 2)).map((point) => (
+                            <div key={point.subject} className="flex justify-between items-center">
+                              <div className="flex items-center gap-1.5">
+                                <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
+                                <span className="text-gray-400">{point.fullName}</span>
+                              </div>
+                              <span className="text-gray-300 font-medium">{point.A}</span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 </div>
