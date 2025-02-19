@@ -281,13 +281,13 @@ const Index = () => {
                     <Radar className="w-3.5 h-3.5 text-gray-400" />
                     <h3 className="text-xs font-semibold text-white">Psychographic Overview</h3>
                   </div>
-                  <div className="w-full h-[460px]">
+                  <div className="w-full h-[460px] relative">
                     <ResponsiveContainer width="100%" height="100%">
                       <RechartsRadarChart data={psychographicData}>
                         <PolarGrid stroke="#374151" />
                         <PolarAngleAxis
                           dataKey="subject"
-                          tick={{ fill: '#9CA3AF', fontSize: 10 }}
+                          tick={{ fill: 'transparent', fontSize: 10 }}
                         />
                         <RadarChart
                           name="Psychographic Profile"
@@ -298,10 +298,14 @@ const Index = () => {
                         />
                       </RechartsRadarChart>
                     </ResponsiveContainer>
-                  </div>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {/* Radar vertex chips */}
+
+                    {/* Positioned Radar vertex chips */}
                     {psychographicData.map((point, index) => {
+                      const angle = (index * 360) / psychographicData.length;
+                      const radius = 200; // Adjust this value to position chips closer or further from center
+                      const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
+                      const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
+
                       // Colors are arranged so nearby points have similar colors
                       const colorMap = {
                         // Purple family
@@ -330,7 +334,12 @@ const Index = () => {
                         <Tooltip key={point.subject}>
                           <TooltipTrigger asChild>
                             <span
-                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help ${colorMap[point.subject as keyof typeof colorMap]}`}
+                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
+                              style={{
+                                left: `50%`,
+                                top: `50%`,
+                                transform: `translate(${x}px, ${y}px)`,
+                              }}
                             >
                               {point.subject}
                             </span>
@@ -341,8 +350,10 @@ const Index = () => {
                         </Tooltip>
                       );
                     })}
+                  </div>
 
-                    {/* Primary trait chips */}
+                  {/* Primary trait chips at bottom */}
+                  <div className="mt-2 flex flex-wrap gap-1.5">
                     {[
                       { text: "Adventurous", color: "bg-[#9b87f5] text-white" },
                       { text: "Creative", color: "bg-[#0EA5E9] text-white" },
