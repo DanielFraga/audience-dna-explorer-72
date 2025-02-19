@@ -6,22 +6,22 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } fro
 const tabs = ["WHO", "WHAT", "WHY", "SO WHAT"];
 
 const psychographicData = [
-  { subject: 'Openness', A: 80 },
-  { subject: 'Conscientiousness', A: 65 },
-  { subject: 'Extraversion', A: 45 },
-  { subject: 'Agreeableness', A: 70 },
-  { subject: 'Neuroticism', A: 30 },
-  { subject: 'Risk Tolerance', A: 85 },
-  { subject: 'Innovation', A: 75 },
-  { subject: 'Price Sensitivity', A: 40 },
-  { subject: 'Brand Loyalty', A: 60 },
-  { subject: 'Social Impact', A: 72 },
-  { subject: 'Tech Adoption', A: 88 },
-  { subject: 'Quality Focus', A: 78 },
-  { subject: 'Sustainability', A: 65 },
-  { subject: 'Status Seeking', A: 45 },
-  { subject: 'Impulsiveness', A: 35 },
-  { subject: 'Traditionalism', A: 25 },
+  { subject: 'Op', A: 80, fullName: 'Openness' },
+  { subject: 'Co', A: 65, fullName: 'Conscientiousness' },
+  { subject: 'Ex', A: 45, fullName: 'Extraversion' },
+  { subject: 'Ag', A: 70, fullName: 'Agreeableness' },
+  { subject: 'Ne', A: 30, fullName: 'Neuroticism' },
+  { subject: 'RT', A: 85, fullName: 'Risk Tolerance' },
+  { subject: 'In', A: 75, fullName: 'Innovation' },
+  { subject: 'PS', A: 40, fullName: 'Price Sensitivity' },
+  { subject: 'BL', A: 60, fullName: 'Brand Loyalty' },
+  { subject: 'SI', A: 72, fullName: 'Social Impact' },
+  { subject: 'TA', A: 88, fullName: 'Tech Adoption' },
+  { subject: 'QF', A: 78, fullName: 'Quality Focus' },
+  { subject: 'Su', A: 65, fullName: 'Sustainability' },
+  { subject: 'SS', A: 45, fullName: 'Status Seeking' },
+  { subject: 'Im', A: 35, fullName: 'Impulsiveness' },
+  { subject: 'Tr', A: 25, fullName: 'Traditionalism' },
 ];
 
 const Index = () => {
