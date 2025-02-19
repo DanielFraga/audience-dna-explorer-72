@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
@@ -46,16 +47,16 @@ const Index = () => {
         </div>
 
         {/* Tabs */}
-        <div className="mb-8 border-b border-gray-800">
-          <div className="flex space-x-8">
+        <div className="mb-8">
+          <div className="flex w-full bg-gray-900 rounded-lg">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-4 text-xs font-medium transition-colors relative ${
+                className={`flex-1 py-4 text-xs font-medium transition-colors relative rounded-lg ${
                   activeTab === tab
-                    ? "text-white"
-                    : "text-gray-500 hover:text-gray-300"
+                    ? "text-white bg-gray-900"
+                    : "text-gray-500 hover:text-gray-300 hover:bg-gray-800"
                 }`}
               >
                 {tab}
