@@ -5,6 +5,7 @@ import {
   Users,
   MessageSquare,
   Settings,
+  Box,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -40,11 +41,14 @@ const MainSidebar = () => {
     }`}>
       <div className="p-4">
         <div className="flex items-center justify-between mb-8">
-          <img
-            src="/placeholder.svg"
-            alt="Logo"
-            className={`transition-all duration-300 ${isOpen ? "w-32" : "w-12"}`}
-          />
+          <div className="flex items-center space-x-2">
+            <Box className="w-5 h-5 text-blue-500" />
+            <span className={`text-gray-100 font-medium text-sm transition-all duration-300 ${
+              isOpen ? "opacity-100" : "opacity-0 w-0"
+            }`}>
+              CUBULAR
+            </span>
+          </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
@@ -79,11 +83,11 @@ const MainSidebar = () => {
             <Link
               key={item.title}
               to={item.path}
-              className="flex items-center px-4 py-2.5 text-gray-300 rounded-full hover:bg-gray-800 transition-colors text-sm bg-gray-800/50"
+              className="flex items-center px-4 py-2.5 text-gray-300 rounded-full hover:bg-gray-800 transition-colors text-xs bg-gray-800/50"
             >
               {item.icon}
               <span
-                className={`ml-3 transition-all duration-300 text-sm ${
+                className={`ml-3 transition-all duration-300 text-xs ${
                   isOpen ? "opacity-100" : "opacity-0 w-0"
                 }`}
               >
