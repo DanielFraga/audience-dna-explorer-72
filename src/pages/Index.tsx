@@ -274,12 +274,35 @@ const Index = () => {
                       Visual representation of key psychographic traits and their intensities
                     </TooltipContent>
                   </Tooltip>
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <Radar className="w-3.5 h-3.5 text-gray-400" />
-                    <h3 className="text-xs font-semibold text-white">Psychographic Overview</h3>
+                  
+                  {/* Title and chips moved to top */}
+                  <div className="space-y-3 mb-4">
+                    <div className="flex items-center gap-1.5">
+                      <Radar className="w-3.5 h-3.5 text-gray-400" />
+                      <h3 className="text-xs font-semibold text-white">Psychographics</h3>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      {[
+                        { text: "Adventurous", color: "bg-[#9b87f5] text-white" },
+                        { text: "Creative", color: "bg-[#0EA5E9] text-white" },
+                        { text: "Tech-savvy", color: "bg-[#F97316] text-white" },
+                        { text: "Early Adopter", color: "bg-[#E5DEFF] text-gray-700" },
+                        { text: "Quality-focused", color: "bg-[#FEC6A1] text-gray-700" },
+                        { text: "Innovation-driven", color: "bg-[#D6BCFA] text-gray-700" }
+                      ].map((chip) => (
+                        <span
+                          key={chip.text}
+                          className={`px-2 py-0.5 text-[10px] rounded-full ${chip.color}`}
+                        >
+                          {chip.text}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   
-                  <div className="relative">
+                  {/* Radar Chart */}
+                  <div className="relative mb-4">
                     <ResponsiveContainer width="100%" height={460}>
                       <RechartsRadarChart data={psychographicData}>
                         <defs>
@@ -304,7 +327,7 @@ const Index = () => {
                       </RechartsRadarChart>
                     </ResponsiveContainer>
 
-                    {/* Positioned Radar vertex chips with increased z-index */}
+                    {/* Positioned Radar vertex chips */}
                     {psychographicData.map((point, index) => {
                       const angle = (index * 360) / psychographicData.length;
                       const baseRadius = 140;
@@ -353,23 +376,24 @@ const Index = () => {
                     })}
                   </div>
 
-                  {/* Primary trait chips at bottom */}
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {[
-                      { text: "Adventurous", color: "bg-[#9b87f5] text-white" },
-                      { text: "Creative", color: "bg-[#0EA5E9] text-white" },
-                      { text: "Tech-savvy", color: "bg-[#F97316] text-white" },
-                      { text: "Early Adopter", color: "bg-[#E5DEFF] text-gray-700" },
-                      { text: "Quality-focused", color: "bg-[#FEC6A1] text-gray-700" },
-                      { text: "Innovation-driven", color: "bg-[#D6BCFA] text-gray-700" }
-                    ].map((chip) => (
-                      <span
-                        key={chip.text}
-                        className={`px-2 py-0.5 text-[10px] rounded-full ${chip.color}`}
-                      >
-                        {chip.text}
-                      </span>
-                    ))}
+                  {/* Two-column layout at bottom */}
+                  <div className="grid grid-cols-2 gap-4 text-[11px]">
+                    <div className="space-y-1">
+                      {psychographicData.slice(0, Math.ceil(psychographicData.length / 2)).map((point) => (
+                        <div key={point.subject} className="flex justify-between items-center">
+                          <span className="text-gray-400">{point.fullName}</span>
+                          <span className="text-gray-300 font-medium">{point.A}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="space-y-1">
+                      {psychographicData.slice(Math.ceil(psychographicData.length / 2)).map((point) => (
+                        <div key={point.subject} className="flex justify-between items-center">
+                          <span className="text-gray-400">{point.fullName}</span>
+                          <span className="text-gray-300 font-medium">{point.A}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -404,26 +428,21 @@ const PsychographicRadar = ({ data }) => {
       {/* Positioned Radar vertex chips */}
       {data.map((point, index) => {
         const angle = (index * 360) / data.length;
-        const baseRadius = 140; // Base radius for scaling
-        const scaledRadius = (baseRadius * point.A) / 100; // Scale based on the data point's value
+        const baseRadius = 140;
+        const scaledRadius = (baseRadius * point.A) / 100;
         const x = scaledRadius * Math.cos((angle - 90) * (Math.PI / 180));
         const y = scaledRadius * Math.sin((angle - 90) * (Math.PI / 180));
 
-        // Colors are arranged so nearby points have similar colors
         const colorMap = {
-          // Purple family
           'Op': 'bg-[#9b87f5] text-white',
           'Co': 'bg-[#7E69AB] text-white',
           'Ex': 'bg-[#6E59A5] text-white',
-          // Blue family
           'Ag': 'bg-[#0EA5E9] text-white',
           'Ne': 'bg-[#33C3F0] text-white',
           'RT': 'bg-[#1EAEDB] text-white',
-          // Orange/Yellow family
           'In': 'bg-[#F97316] text-white',
           'PS': 'bg-[#FEC6A1] text-gray-700',
           'BL': 'bg-[#FEF7CD] text-gray-700',
-          // Back to Purple (completing the circle)
           'SI': 'bg-[#D6BCFA] text-gray-700',
           'TA': 'bg-[#E5DEFF] text-gray-700',
           'QF': 'bg-[#9b87f5] text-white',
