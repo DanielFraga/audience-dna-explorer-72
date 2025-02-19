@@ -4,7 +4,13 @@ import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
-const tabs = ["WHO", "WHAT", "WHY", "SO WHAT"];
+const tabs = [
+  { id: "WHO_DEMO", label: "WHO", subLabel: "demographics" },
+  { id: "WHO_PSYCHO", label: "WHO", subLabel: "psychographics" },
+  { id: "WHAT", label: "WHAT" },
+  { id: "WHY", label: "WHY" },
+  { id: "SO_WHAT", label: "SO WHAT" }
+];
 
 const psychographicData = [
   { subject: 'Op', A: 80, fullName: 'Openness' },
@@ -46,77 +52,18 @@ const colorMap = {
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("WHO");
+  const [activeTab, setActiveTab] = useState("WHO_DEMO");
   const [hoveredChip, setHoveredChip] = useState<string | null>(null);
   const totalRespondents = 1234;
 
-  return (
-    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
-      <MainSidebar />
-      
-      <div className="ml-52 p-6 animate-fade-in">
-        {/* Top Section */}
-        <div className="mb-8">
-          <div className="relative flex items-center">
-            <input
-              type="text"
-              placeholder="Explore your audience..."
-              className="w-[calc(100%-260px)] px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search className="absolute left-3 top-2 text-gray-500 w-4 h-4" />
-            
-            <div className="flex items-center space-x-2 ml-3">
-              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
-                Save DNA
-              </button>
-              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
-                <Download className="w-3 h-3 mr-1" />
-                Export
-              </button>
-            </div>
-          </div>
-          
-          <p className="mt-2 text-[11px] text-gray-400">
-            438 out of 10000 survey respondents have responses relevant to the search term "Holiday". Here is their "DNA".
-          </p>
-        </div>
-
-        {/* Tabs and Content Container */}
-        <div>
-          {/* Tabs */}
-          <div>
-            <div className="flex w-full bg-gray-800 rounded-t-lg">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
-                    activeTab === tab
-                      ? "text-white bg-gray-900"
-                      : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
-                  } ${tab === tabs[0] ? "rounded-tl-lg" : ""} ${
-                    tab === tabs[tabs.length - 1] ? "rounded-tr-lg" : ""
-                  }`}
-                >
-                  {tab}
-                  {activeTab === tab && (
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Content Area */}
-          <div className="bg-gray-900 rounded-b-lg p-6">
-            {/* Content Grid */}
-            <div className="grid grid-cols-2 gap-6 animate-slide-up">
-              {/* Left Half - List View */}
-              <div className="space-y-3">
-                {/* Age Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+  const renderContent = () => {
+    switch(activeTab) {
+      case "WHO_DEMO":
+        return (
+          <div className="grid grid-cols-2 gap-6 animate-slide-up">
+            <div className="space-y-3">
+              {/* Age Distribution Card */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -149,8 +96,8 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Gender Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+              {/* Gender Distribution Card */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -179,8 +126,8 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Location Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+              {/* Location Distribution Card */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -213,8 +160,8 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Income Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+              {/* Income Distribution Card */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -247,8 +194,8 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Ancestry Distribution Card */}
-                <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+              {/* Ancestry Distribution Card */}
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -280,12 +227,17 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Right Half */}
-              <div>
-                {/* Cobweb Graph Card */}
-                <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+            </div>
+          </div>
+        );
+      
+      case "WHO_PSYCHO":
+        return (
+          <div className="grid grid-cols-2 gap-6 animate-slide-up">
+            <div></div>
+            <div>
+              {/* Cobweb Graph Card */}
+              <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -439,8 +391,88 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
+          </div>
+        );
+      
+      default:
+        return (
+          <div className="p-4 text-center text-gray-500">
+            Content for {activeTab} tab coming soon...
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+      <MainSidebar />
+      
+      <div className="ml-52 p-6 animate-fade-in">
+        {/* Top Section */}
+        <div className="mb-8">
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              placeholder="Explore your audience..."
+              className="w-[calc(100%-260px)] px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search className="absolute left-3 top-2 text-gray-500 w-4 h-4" />
+            
+            <div className="flex items-center space-x-2 ml-3">
+              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                Save DNA
+              </button>
+              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
+                <Download className="w-3 h-3 mr-1" />
+                Export
+              </button>
+            </div>
+          </div>
+          
+          <p className="mt-2 text-[11px] text-gray-400">
+            438 out of 10000 survey respondents have responses relevant to the search term "Holiday". Here is their "DNA".
+          </p>
+        </div>
+
+        {/* Tabs and Content Container */}
+        <div>
+          {/* Tabs */}
+          <div>
+            <div className="flex w-full bg-gray-800 rounded-t-lg">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
+                    activeTab === tab.id
+                      ? "text-white bg-gray-900"
+                      : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
+                  } ${index === 0 ? "rounded-tl-lg" : ""} ${
+                    index === tabs.length - 1 ? "rounded-tr-lg" : ""
+                  }`}
+                >
+                  <div className="flex flex-col items-center">
+                    <span>{tab.label}</span>
+                    {tab.subLabel && (
+                      <span className="text-[10px] text-gray-400 mt-0.5">
+                        {tab.subLabel}
+                      </span>
+                    )}
+                  </div>
+                  {activeTab === tab.id && (
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Content Area */}
+          <div className="bg-gray-900 rounded-b-lg p-6">
+            {renderContent()}
           </div>
         </div>
       </div>
