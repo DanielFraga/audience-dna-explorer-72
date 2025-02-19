@@ -47,12 +47,6 @@
   }
 }
 
-@layer utilities {
-  .sidebar-collapsed .w-52 {
-    width: 4rem;
-  }
-}
-
 /* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

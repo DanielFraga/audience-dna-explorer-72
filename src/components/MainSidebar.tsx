@@ -43,11 +43,11 @@ const MainSidebar = () => {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
             <Box className="w-4 h-4 text-blue-500" />
-            {isOpen && (
-              <span className="text-gray-100 font-medium text-xs">
-                CUBULAR
-              </span>
-            )}
+            <span className={`text-gray-100 font-medium text-xs transition-all duration-300 ${
+              isOpen ? "opacity-100" : "opacity-0 w-0"
+            }`}>
+              CUBULAR
+            </span>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -84,14 +84,15 @@ const MainSidebar = () => {
               key={item.title}
               to={item.path}
               className="flex items-center px-3 py-2 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-[11px] bg-gray-800/50"
-              title={!isOpen ? item.title : undefined}
             >
               {item.icon}
-              {isOpen && (
-                <span className="ml-2.5">
-                  {item.title}
-                </span>
-              )}
+              <span
+                className={`ml-2.5 transition-all duration-300 ${
+                  isOpen ? "opacity-100" : "opacity-0 w-0"
+                }`}
+              >
+                {item.title}
+              </span>
             </Link>
           ))}
         </nav>
