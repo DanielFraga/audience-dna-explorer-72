@@ -1,4 +1,3 @@
-
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Radar } from 'lucide-react';
@@ -19,9 +18,10 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
       <ResponsiveContainer width="100%" height="100%">
         <RechartsRadarChart data={data}>
           <defs>
-            <linearGradient id="psychographicGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.4} />
-              <stop offset="100%" stopColor="#60A5FA" stopOpacity={0.2} />
+            <linearGradient id="psychographicGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.5} />
+              <stop offset="50%" stopColor="#60A5FA" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#93C5FD" stopOpacity={0.2} />
             </linearGradient>
           </defs>
           <PolarGrid stroke="#374151" />
