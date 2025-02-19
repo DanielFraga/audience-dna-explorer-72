@@ -283,15 +283,16 @@ const Index = () => {
                   </div>
                   <div className="w-full h-[460px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart cx="50%" cy="50%" data={psychographicData}>
+                      <RadarChart>
                         <PolarGrid stroke="#374151" />
                         <PolarAngleAxis
                           dataKey="subject"
+                          data={psychographicData}
                           tick={{ fill: '#9CA3AF', fontSize: 10 }}
                         />
                         <Radar
-                          name="Psychographic Profile"
                           dataKey="A"
+                          data={psychographicData}
                           stroke="#3B82F6"
                           fill="#3B82F6"
                           fillOpacity={0.3}
