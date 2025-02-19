@@ -372,11 +372,15 @@ const Index = () => {
                             </span>
                           </TooltipTrigger>
                           <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                            {point.fullName}
+                            <div className="flex items-center gap-2">
+                              <span>{point.fullName}</span>
+                              <span className="font-medium text-blue-400">{point.A}</span>
+                            </div>
                           </TooltipContent>
                         </Tooltip>
                       );
                     })}
+
                   </div>
 
                   {/* Accordion for two-column layout */}
