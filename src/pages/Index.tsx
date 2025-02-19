@@ -302,9 +302,10 @@ const Index = () => {
                     {/* Positioned Radar vertex chips */}
                     {psychographicData.map((point, index) => {
                       const angle = (index * 360) / psychographicData.length;
-                      const radius = 160; // Reduced from 200 to 160 to keep chips within boundaries
-                      const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
-                      const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
+                      const baseRadius = 140; // Base radius for scaling
+                      const scaledRadius = (baseRadius * point.A) / 100; // Scale based on the data point's value
+                      const x = scaledRadius * Math.cos((angle - 90) * (Math.PI / 180));
+                      const y = scaledRadius * Math.sin((angle - 90) * (Math.PI / 180));
 
                       // Colors are arranged so nearby points have similar colors
                       const colorMap = {
