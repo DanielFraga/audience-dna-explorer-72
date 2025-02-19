@@ -14,22 +14,22 @@ const MainSidebar = () => {
   const menuItems = [
     {
       title: "Search by Audience DNA",
-      icon: <Search className="w-5 h-5" />,
+      icon: <Search className="w-4 h-4" />,
       path: "/"
     },
     {
       title: "My Saved Audiences",
-      icon: <Users className="w-5 h-5" />,
+      icon: <Users className="w-4 h-4" />,
       path: "/saved-audiences"
     },
     {
       title: "Chat with Audience",
-      icon: <MessageSquare className="w-5 h-5" />,
+      icon: <MessageSquare className="w-4 h-4" />,
       path: "/chat"
     },
     {
       title: "Survey & Audience Settings",
-      icon: <Settings className="w-5 h-5" />,
+      icon: <Settings className="w-4 h-4" />,
       path: "/settings"
     }
   ];
@@ -79,11 +79,11 @@ const MainSidebar = () => {
             <Link
               key={item.title}
               to={item.path}
-              className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center px-4 py-2.5 text-gray-700 rounded-full hover:bg-gray-100 transition-colors text-sm bg-gray-50"
             >
               {item.icon}
               <span
-                className={`ml-3 transition-all duration-300 ${
+                className={`ml-3 transition-all duration-300 text-sm ${
                   isOpen ? "opacity-100" : "opacity-0 w-0"
                 }`}
               >
