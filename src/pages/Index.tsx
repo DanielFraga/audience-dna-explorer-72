@@ -302,7 +302,7 @@ const Index = () => {
                     {/* Positioned Radar vertex chips */}
                     {psychographicData.map((point, index) => {
                       const angle = (index * 360) / psychographicData.length;
-                      const radius = 200; // Adjust this value to position chips closer or further from center
+                      const radius = 160; // Reduced from 200 to 160 to keep chips within boundaries
                       const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
                       const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
