@@ -82,17 +82,21 @@ const Index = () => {
                 <div className="p-6 bg-gray-900 rounded-xl border border-gray-800">
                   <h3 className="text-sm font-semibold mb-4 text-white">Age Distribution</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                    <div className="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
                       <span className="text-white font-bold">28%</span>
+                      <span className="text-gray-400 text-xs mt-1">16-29</span>
                     </div>
-                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                    <div className="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
                       <span className="text-white font-bold">35%</span>
+                      <span className="text-gray-400 text-xs mt-1">30-45</span>
                     </div>
-                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                    <div className="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
                       <span className="text-white font-bold">22%</span>
+                      <span className="text-gray-400 text-xs mt-1">45-60</span>
                     </div>
-                    <div className="bg-gray-800 rounded-lg p-4 flex items-center justify-center">
+                    <div className="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center">
                       <span className="text-white font-bold">15%</span>
+                      <span className="text-gray-400 text-xs mt-1">60+</span>
                     </div>
                   </div>
                 </div>
