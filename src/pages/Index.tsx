@@ -7,22 +7,22 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } fro
 const tabs = ["WHO", "WHAT", "WHY", "SO WHAT"];
 
 const psychographicData = [
-  { subject: 'OP', fullName: 'Openness', A: 80 },
-  { subject: 'CO', fullName: 'Conscientiousness', A: 65 },
-  { subject: 'EX', fullName: 'Extraversion', A: 45 },
-  { subject: 'AG', fullName: 'Agreeableness', A: 70 },
-  { subject: 'NE', fullName: 'Neuroticism', A: 30 },
-  { subject: 'RT', fullName: 'Risk Tolerance', A: 85 },
-  { subject: 'IN', fullName: 'Innovation', A: 75 },
-  { subject: 'PS', fullName: 'Price Sensitivity', A: 40 },
-  { subject: 'BL', fullName: 'Brand Loyalty', A: 60 },
-  { subject: 'SI', fullName: 'Social Impact', A: 72 },
-  { subject: 'TA', fullName: 'Tech Adoption', A: 88 },
-  { subject: 'QF', fullName: 'Quality Focus', A: 78 },
-  { subject: 'SU', fullName: 'Sustainability', A: 65 },
-  { subject: 'SS', fullName: 'Status Seeking', A: 45 },
-  { subject: 'IM', fullName: 'Impulsiveness', A: 35 },
-  { subject: 'TR', fullName: 'Traditionalism', A: 25 },
+  { subject: 'Openness', A: 80 },
+  { subject: 'Conscientiousness', A: 65 },
+  { subject: 'Extraversion', A: 45 },
+  { subject: 'Agreeableness', A: 70 },
+  { subject: 'Neuroticism', A: 30 },
+  { subject: 'Risk Tolerance', A: 85 },
+  { subject: 'Innovation', A: 75 },
+  { subject: 'Price Sensitivity', A: 40 },
+  { subject: 'Brand Loyalty', A: 60 },
+  { subject: 'Social Impact', A: 72 },
+  { subject: 'Tech Adoption', A: 88 },
+  { subject: 'Quality Focus', A: 78 },
+  { subject: 'Sustainability', A: 65 },
+  { subject: 'Status Seeking', A: 45 },
+  { subject: 'Impulsiveness', A: 35 },
+  { subject: 'Traditionalism', A: 25 },
 ];
 
 const Index = () => {
@@ -164,13 +164,12 @@ const Index = () => {
                     </ResponsiveContainer>
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {psychographicData.map((trait) => (
+                    {["Adventurous", "Creative", "Tech-savvy"].map((trait) => (
                       <span
-                        key={trait.subject}
-                        className="px-3 py-1 text-xs bg-gray-800 text-gray-300 rounded-full cursor-help"
-                        title={trait.fullName}
+                        key={trait}
+                        className="px-3 py-1 text-xs bg-gray-800 text-gray-300 rounded-full"
                       >
-                        {trait.subject}
+                        {trait}
                       </span>
                     ))}
                   </div>
