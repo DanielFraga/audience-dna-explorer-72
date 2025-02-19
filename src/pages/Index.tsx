@@ -3,6 +3,7 @@ import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Inf
 import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import DemographicsMap from "@/components/DemographicsMap";
 
 const tabs = [
   { id: "WHO_DEMO", label: "WHO", subLabel: "demographics" },
@@ -227,6 +228,23 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
+
+              {/* Map Card */}
+              <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2 z-10" />
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                    Geographic distribution of respondents across major cities
+                  </TooltipContent>
+                </Tooltip>
+                <div className="flex items-center gap-1.5 mb-4">
+                  <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                  <h3 className="text-xs font-semibold text-white">Geographic Distribution</h3>
+                </div>
+                <DemographicsMap />
+              </div>
             </div>
           </div>
         );
