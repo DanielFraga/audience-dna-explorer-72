@@ -59,10 +59,7 @@ const Index = () => {
           </div>
           
           <p className="mt-2 text-[11px] text-gray-400">
-            Showing results from{" "}
-            <button className="font-medium text-gray-300 hover:underline">
-              {totalRespondents.toLocaleString()} respondents
-            </button>
+            438 out of 10000 survey respondents have responses relevant to the search term "Holiday". Here is their "DNA".
           </p>
         </div>
 
