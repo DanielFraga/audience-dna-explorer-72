@@ -8,37 +8,37 @@ const tabs = ["WHO", "WHAT", "WHY", "SO WHAT"];
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO");
-  const totalRespondents = 1234; // This would come from your backend
+  const totalRespondents = 1234;
 
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen bg-gray-950 font-inter text-[13px]">
       <MainSidebar />
       
-      <div className="ml-64 p-8 animate-fade-in">
+      <div className="ml-52 p-6 animate-fade-in">
         {/* Top Section */}
         <div className="mb-8">
           <div className="relative flex items-center">
             <input
               type="text"
               placeholder="Explore your audience..."
-              className="w-[calc(100%-260px)] px-4 py-2.5 pl-12 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
+              className="w-[calc(100%-260px)] px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search className="absolute left-4 top-2.5 text-gray-500 w-4 h-4" />
+            <Search className="absolute left-3 top-2 text-gray-500 w-4 h-4" />
             
             <div className="flex items-center space-x-2 ml-3">
-              <button className="px-3 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
                 Save DNA
               </button>
-              <button className="px-3 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
+              <button className="px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center whitespace-nowrap">
                 <Download className="w-3 h-3 mr-1" />
                 Export
               </button>
             </div>
           </div>
           
-          <p className="mt-3 text-xs text-gray-400">
+          <p className="mt-2 text-[11px] text-gray-400">
             Showing results from{" "}
             <button className="font-medium text-gray-300 hover:underline">
               {totalRespondents.toLocaleString()} respondents

@@ -37,13 +37,13 @@ const MainSidebar = () => {
 
   return (
     <div className={`fixed left-0 top-0 h-full bg-gray-900 shadow-lg transition-all duration-300 ${
-      isOpen ? "w-64" : "w-20"
+      isOpen ? "w-52" : "w-16"
     }`}>
       <div className="p-4">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
-            <Box className="w-5 h-5 text-blue-500" />
-            <span className={`text-gray-100 font-medium text-sm transition-all duration-300 ${
+            <Box className="w-4 h-4 text-blue-500" />
+            <span className={`text-gray-100 font-medium text-xs transition-all duration-300 ${
               isOpen ? "opacity-100" : "opacity-0 w-0"
             }`}>
               CUBULAR
@@ -51,10 +51,10 @@ const MainSidebar = () => {
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
+            className="p-1.5 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
           >
             <svg
-              className="w-4 h-4"
+              className="w-3 h-3"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -78,16 +78,16 @@ const MainSidebar = () => {
           </button>
         </div>
 
-        <nav className="space-y-2">
+        <nav className="space-y-1.5">
           {menuItems.map((item) => (
             <Link
               key={item.title}
               to={item.path}
-              className="flex items-center px-4 py-2.5 text-gray-300 rounded-full hover:bg-gray-800 transition-colors text-xs bg-gray-800/50"
+              className="flex items-center px-3 py-2 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-[11px] bg-gray-800/50"
             >
               {item.icon}
               <span
-                className={`ml-3 transition-all duration-300 text-xs ${
+                className={`ml-2.5 transition-all duration-300 ${
                   isOpen ? "opacity-100" : "opacity-0 w-0"
                 }`}
               >
