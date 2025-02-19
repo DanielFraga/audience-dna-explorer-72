@@ -3,6 +3,7 @@ import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Inf
 import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import DemographicsMap from "@/components/DemographicsMap";
 
 const tabs = [
@@ -49,6 +50,105 @@ const colorMap = {
   'SS': 'bg-[#6E59A5] text-white',
   'Im': 'bg-[#0EA5E9] text-white',
   'Tr': 'bg-[#33C3F0] text-white',
+};
+
+const psychographicDescriptions: Record<string, string[]> = {
+  Op: [
+    "Willingness to embrace new experiences and ideas",
+    "Intellectual curiosity and creativity",
+    "Appreciation for art, emotion, and unusual ideas",
+    "Adventure seeking and variety preference"
+  ],
+  Co: [
+    "Tendency to be organized and dependable",
+    "Self-discipline and aim for achievement",
+    "Planned rather than spontaneous behavior",
+    "Detail-oriented approach to tasks"
+  ],
+  Ex: [
+    "Energy derived from social interactions",
+    "Tendency to seek stimulation in others' company",
+    "Assertiveness and talkativeness",
+    "Enthusiasm in social situations"
+  ],
+  Ag: [
+    "Tendency to be compassionate and cooperative",
+    "Concern with others' well-being",
+    "Helpful and trusting nature",
+    "Preference for social harmony"
+  ],
+  Ne: [
+    "Tendency to experience negative emotions",
+    "Sensitivity to stress and emotional triggers",
+    "Susceptibility to mood swings",
+    "Emotional response intensity"
+  ],
+  RT: [
+    "Comfort level with uncertainty",
+    "Willingness to take calculated risks",
+    "Decision-making in ambiguous situations",
+    "Investment and opportunity approach"
+  ],
+  In: [
+    "Early adoption of new technologies",
+    "Creative problem-solving abilities",
+    "Drive to improve existing solutions",
+    "Forward-thinking mindset"
+  ],
+  PS: [
+    "Importance of price in decision making",
+    "Value consciousness in purchases",
+    "Deal-seeking behavior",
+    "Budget consciousness"
+  ],
+  BL: [
+    "Commitment to preferred brands",
+    "Resistance to brand switching",
+    "Trust in established relationships",
+    "Value of brand reputation"
+  ],
+  SI: [
+    "Concern for environmental impact",
+    "Interest in social responsibility",
+    "Support for ethical business practices",
+    "Community involvement focus"
+  ],
+  TA: [
+    "Speed of technology adoption",
+    "Digital tool proficiency",
+    "Interest in tech innovations",
+    "Smart device integration"
+  ],
+  QF: [
+    "Preference for premium products",
+    "Attention to product durability",
+    "Value of craftsmanship",
+    "Long-term investment mindset"
+  ],
+  Su: [
+    "Environmental consciousness",
+    "Eco-friendly product preference",
+    "Support for sustainable practices",
+    "Interest in renewable resources"
+  ],
+  SS: [
+    "Importance of social recognition",
+    "Brand prestige sensitivity",
+    "Luxury orientation",
+    "Image consciousness"
+  ],
+  Im: [
+    "Spontaneous decision making",
+    "Quick purchasing behavior",
+    "Emotional buying triggers",
+    "Resistance to planning"
+  ],
+  Tr: [
+    "Preference for established methods",
+    "Resistance to change",
+    "Value of cultural norms",
+    "Conservative approach"
+  ],
 };
 
 const Index = () => {
@@ -275,42 +375,68 @@ const Index = () => {
                 <div className="grid grid-cols-2 gap-4 text-[11px]">
                   <div className="space-y-1.5">
                     {psychographicData.slice(0, Math.ceil(psychographicData.length / 2)).map((point) => (
-                      <div 
-                        key={point.subject}
-                        className={`flex justify-between items-center transition-colors duration-150 ${
-                          hoveredChip === point.subject ? 'bg-gray-800 rounded px-2 py-1' : ''
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5">
-                          <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
-                          <span className="text-gray-400">
-                            {point.fullName}
-                          </span>
-                        </div>
-                        <span className="font-medium text-gray-300">
-                          {point.A}
-                        </span>
-                      </div>
+                      <Collapsible key={point.subject}>
+                        <CollapsibleTrigger className="w-full">
+                          <div 
+                            className="flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group"
+                          >
+                            <div className="flex items-center gap-1.5">
+                              <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
+                              <span className="text-gray-400">
+                                {point.fullName}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium text-gray-300">
+                                {point.A}
+                              </span>
+                              <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                            </div>
+                          </div>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <div className="px-2 py-2 space-y-1">
+                            {psychographicDescriptions[point.subject].map((desc, i) => (
+                              <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
+                                {desc}
+                              </p>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
                     ))}
                   </div>
                   <div className="space-y-1.5">
                     {psychographicData.slice(Math.ceil(psychographicData.length / 2)).map((point) => (
-                      <div 
-                        key={point.subject}
-                        className={`flex justify-between items-center transition-colors duration-150 ${
-                          hoveredChip === point.subject ? 'bg-gray-800 rounded px-2 py-1' : ''
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5">
-                          <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
-                          <span className="text-gray-400">
-                            {point.fullName}
-                          </span>
-                        </div>
-                        <span className="font-medium text-gray-300">
-                          {point.A}
-                        </span>
-                      </div>
+                      <Collapsible key={point.subject}>
+                        <CollapsibleTrigger className="w-full">
+                          <div 
+                            className="flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group"
+                          >
+                            <div className="flex items-center gap-1.5">
+                              <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap].split(' ')[0]}`} />
+                              <span className="text-gray-400">
+                                {point.fullName}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium text-gray-300">
+                                {point.A}
+                              </span>
+                              <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                            </div>
+                          </div>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <div className="px-2 py-2 space-y-1">
+                            {psychographicDescriptions[point.subject].map((desc, i) => (
+                              <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
+                                {desc}
+                              </p>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
                     ))}
                   </div>
                 </div>
