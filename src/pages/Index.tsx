@@ -640,11 +640,14 @@ const Index = () => {
                 </div>
 
                 {/* Question */}
-                <h3 className="text-sm font-medium text-white mb-2 pr-12">
-                  {item.question.replace(/holiday/gi, (match) => (
-                    `<span class="text-blue-400">${match}</span>`
-                  ))}
-                </h3>
+                <h3 
+                  className="text-sm font-medium text-white mb-2 pr-12"
+                  dangerouslySetInnerHTML={{
+                    __html: item.question.replace(/holiday/gi, (match) => (
+                      `<span class="text-blue-400">${match}</span>`
+                    ))
+                  }}
+                />
 
                 {/* Response */}
                 <p 
