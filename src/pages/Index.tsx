@@ -111,7 +111,7 @@ const Index = () => {
 
           {/* Content Area */}
           <div className="bg-gray-900 rounded-b-lg p-6">
-            {/* Content Grid - Now split into two halves */}
+            {/* Content Grid */}
             <div className="grid grid-cols-2 gap-6 animate-slide-up">
               {/* Left Half - List View */}
               <div className="space-y-3">
@@ -295,7 +295,7 @@ const Index = () => {
                     </TooltipContent>
                   </Tooltip>
                   
-                  {/* Title and chips moved to top */}
+                  {/* Title and chips */}
                   <div className="space-y-3 mb-4">
                     <div className="flex items-center gap-1.5">
                       <Radar className="w-3.5 h-3.5 text-gray-400" />
@@ -440,60 +440,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const PsychographicRadar = ({ data }) => {
-  return (
-    <div className="w-full h-[460px] relative">
-      <ResponsiveContainer width="100%" height="100%">
-        <RechartsRadarChart data={data}>
-          <PolarGrid stroke="#374151" />
-          <PolarAngleAxis
-            dataKey="subject"
-            tick={{ fill: 'transparent', fontSize: 10 }}
-          />
-          <RadarChart
-            name="Psychographic Profile"
-            dataKey="A"
-            stroke="#3B82F6"
-            fill="#3B82F6"
-            fillOpacity={0.3}
-          />
-        </RechartsRadarChart>
-      </ResponsiveContainer>
-
-      {/* Positioned Radar vertex chips */}
-      {data.map((point, index) => {
-        const angle = (index * 360) / data.length;
-        const baseRadius = 140;
-        const scaledRadius = (baseRadius * point.A) / 100;
-        const x = scaledRadius * Math.cos((angle - 90) * (Math.PI / 180));
-        const y = scaledRadius * Math.sin((angle - 90) * (Math.PI / 180));
-
-        return (
-          <Tooltip key={point.subject}>
-            <TooltipTrigger asChild>
-              <span
-                className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-10 ${colorMap[point.subject as keyof typeof colorMap]} transition-transform duration-150 ${hoveredChip === point.subject ? 'scale-125' : ''}`}
-                style={{
-                  left: `50%`,
-                  top: `50%`,
-                  transform: `translate(${x}px, ${y}px)`,
-                }}
-                onMouseEnter={() => setHoveredChip(point.subject)}
-                onMouseLeave={() => setHoveredChip(null)}
-              >
-                {point.subject}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-              {point.fullName}
-            </TooltipContent>
-          </Tooltip>
-        );
-      })}
     </div>
   );
 };
