@@ -300,15 +300,56 @@ const Index = () => {
                     </ResponsiveContainer>
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
+                    {/* Radar vertex chips */}
+                    {psychographicData.map((point, index) => {
+                      // Colors are arranged so nearby points have similar colors
+                      const colorMap = {
+                        // Purple family
+                        'Op': 'bg-[#9b87f5] text-white',
+                        'Co': 'bg-[#7E69AB] text-white',
+                        'Ex': 'bg-[#6E59A5] text-white',
+                        // Blue family
+                        'Ag': 'bg-[#0EA5E9] text-white',
+                        'Ne': 'bg-[#33C3F0] text-white',
+                        'RT': 'bg-[#1EAEDB] text-white',
+                        // Orange/Yellow family
+                        'In': 'bg-[#F97316] text-white',
+                        'PS': 'bg-[#FEC6A1] text-gray-700',
+                        'BL': 'bg-[#FEF7CD] text-gray-700',
+                        // Back to Purple (completing the circle)
+                        'SI': 'bg-[#D6BCFA] text-gray-700',
+                        'TA': 'bg-[#E5DEFF] text-gray-700',
+                        'QF': 'bg-[#9b87f5] text-white',
+                        'Su': 'bg-[#7E69AB] text-white',
+                        'SS': 'bg-[#6E59A5] text-white',
+                        'Im': 'bg-[#0EA5E9] text-white',
+                        'Tr': 'bg-[#33C3F0] text-white',
+                      };
+
+                      return (
+                        <Tooltip key={point.subject}>
+                          <TooltipTrigger asChild>
+                            <span
+                              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help ${colorMap[point.subject as keyof typeof colorMap]}`}
+                            >
+                              {point.subject}
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                            {point.fullName}
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    })}
+
+                    {/* Primary trait chips */}
                     {[
-                      { text: "Adventurous", color: "bg-[#8B5CF6] text-white" },
-                      { text: "Creative", color: "bg-[#D946EF] text-white" },
-                      { text: "Tech-savvy", color: "bg-[#0EA5E9] text-white" },
-                      { text: "Eco-conscious", color: "bg-[#F97316] text-white" },
+                      { text: "Adventurous", color: "bg-[#9b87f5] text-white" },
+                      { text: "Creative", color: "bg-[#0EA5E9] text-white" },
+                      { text: "Tech-savvy", color: "bg-[#F97316] text-white" },
                       { text: "Early Adopter", color: "bg-[#E5DEFF] text-gray-700" },
-                      { text: "Quality-focused", color: "bg-[#FDE1D3] text-gray-700" },
-                      { text: "Innovation-driven", color: "bg-[#D3E4FD] text-gray-700" },
-                      { text: "Brand Conscious", color: "bg-[#FFDEE2] text-gray-700" }
+                      { text: "Quality-focused", color: "bg-[#FEC6A1] text-gray-700" },
+                      { text: "Innovation-driven", color: "bg-[#D6BCFA] text-gray-700" }
                     ].map((chip) => (
                       <span
                         key={chip.text}
