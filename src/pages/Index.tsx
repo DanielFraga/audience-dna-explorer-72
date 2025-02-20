@@ -1,12 +1,12 @@
 
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
-import MainSidebar from "@/components/MainSidebar";
-import { tabs } from "@/constants/tabs";
-import { DemographicsTab } from "@/components/demographics/DemographicsTab";
-import { PsychographicsTab } from "@/components/psychographics/PsychographicsTab";
-import { SurveyTab } from "@/components/survey/SurveyTab";
-import { InsightsTab } from "@/components/insights/InsightsTab";
+import MainSidebar from "../components/MainSidebar";
+import { tabs } from "../constants/tabs";
+import { DemographicsTab } from "../components/demographics/DemographicsTab";
+import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
+import { SurveyTab } from "../components/survey/SurveyTab";
+import { InsightsTab } from "../components/insights/InsightsTab";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
