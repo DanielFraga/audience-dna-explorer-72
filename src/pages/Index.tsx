@@ -64,9 +64,12 @@ const Index = () => {
             </div>
           </div>
           
-          <p className="mt-2 text-[11px] text-gray-400">
-            438 out of 10000 survey respondents have responses relevant to the search term "Holiday". Here is their "DNA".
-          </p>
+          <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
+            <span>Showing results for <span className="text-blue-400">"holiday"</span></span>
+            <span>Applicable to</span>
+            <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 out of 10000</span>
+            <span>respondents</span>
+          </div>
         </div>
 
         {/* Tabs and Content Container */}
