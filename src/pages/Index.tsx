@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Search, Download, ChartBar, Users, MapPin, DollarSign, User, Radar, Info, ChevronDown, CircleIcon } from "lucide-react";
 import MainSidebar from "@/components/MainSidebar";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import DemographicsMap from "@/components/DemographicsMap";
 
@@ -150,6 +150,74 @@ const psychographicDescriptions: Record<string, string[]> = {
     "Conservative approach"
   ],
 };
+
+type InsightReference = {
+  id: number;
+  text: string;
+};
+
+type Insight = {
+  headline: string;
+  explanation: string;
+  references: InsightReference[];
+};
+
+const insights: Insight[] = [
+  {
+    headline: "Brand Trust Dominates Decisions",
+    explanation: "Clear indication that brand reputation¹ significantly influences purchase behavior. Trust metrics² show strong correlation with conversion rates³.",
+    references: [
+      { id: 1, text: "87% cite brand reputation as 'very important' in decision making" },
+      { id: 2, text: "Trust scores directly correlate with purchase likelihood (r=0.82)" },
+      { id: 3, text: "Trusted brands see 2.4x higher conversion rates" }
+    ]
+  },
+  {
+    headline: "Digital-First Preference",
+    explanation: "Strong bias towards digital channels¹ with high mobile engagement². Tech adoption rates³ suggest advanced digital literacy.",
+    references: [
+      { id: 1, text: "92% prefer digital touchpoints over traditional channels" },
+      { id: 2, text: "Mobile interaction rate 3.1x higher than desktop" },
+      { id: 3, text: "Tech adoption score 65% above market average" }
+    ]
+  },
+  {
+    headline: "Value-Quality Balance",
+    explanation: "Notable price sensitivity¹ balanced against strong quality focus². Premium segment³ shows distinct behavioral patterns.",
+    references: [
+      { id: 1, text: "75% actively compare prices before purchase" },
+      { id: 2, text: "82% willing to pay more for guaranteed quality" },
+      { id: 3, text: "Premium segment represents 28% of total audience" }
+    ]
+  },
+  {
+    headline: "Community-Driven Choices",
+    explanation: "Heavy reliance on peer recommendations¹ and social validation². Community engagement³ strongly influences decisions.",
+    references: [
+      { id: 1, text: "91% check reviews before significant purchases" },
+      { id: 2, text: "Social proof elements increase conversion by 2.8x" },
+      { id: 3, text: "Active community members show 3.2x higher loyalty" }
+    ]
+  },
+  {
+    headline: "Sustainability Focus",
+    explanation: "Environmental impact¹ is a key decision factor. Strong preference for eco-friendly options² with willingness to pay premiums³.",
+    references: [
+      { id: 1, text: "84% consider environmental impact in purchases" },
+      { id: 2, text: "Eco-friendly alternatives preferred 2.5x more" },
+      { id: 3, text: "Average 18% premium accepted for sustainable options" }
+    ]
+  },
+  {
+    headline: "Innovation Receptivity",
+    explanation: "High openness to new features¹ and experimental products². Early adopter characteristics³ prominent in key segments.",
+    references: [
+      { id: 1, text: "73% express interest in trying new features" },
+      { id: 2, text: "Beta feature adoption rate 2.1x above average" },
+      { id: 3, text: "Early adopter segment comprises 42% of audience" }
+    ]
+  }
+];
 
 const surveyData = [
   {
@@ -587,167 +655,3 @@ const Index = () => {
                                   x="4"
                                   y="0"
                                   dy="0.35em"
-                                  textAnchor="middle"
-                                  fill="#9CA3AF"
-                                  style={{ fontSize: '11px' }}
-                                >
-                                  {point.subject}
-                                </text>
-                              </g>
-                            </g>
-                          );
-                        }}
-                      />
-                      <RadarChart
-                        name="Psychographic Profile"
-                        dataKey="A"
-                        stroke="#3B82F6"
-                        fill="url(#psychographicGradient)"
-                        fillOpacity={0.6}
-                      />
-                    </RechartsRadarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      
-      case "WHAT":
-        return (
-          <div className="grid grid-cols-3 gap-4 animate-slide-up">
-            {surveyData.map((item, index) => (
-              <div 
-                key={index}
-                className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
-              >
-                {/* Confidence Score Circle */}
-                <div className="absolute top-3 right-3">
-                  <div className="relative w-10 h-10">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div 
-                        className={`w-full h-full rounded-full border-2 ${
-                          Number(item.confidence) >= 0.9 ? 'border-green-500' :
-                          Number(item.confidence) >= 0.7 ? 'border-blue-500' :
-                          'border-yellow-500'
-                        }`}
-                      />
-                      <span className="absolute text-xs font-medium text-gray-300">
-                        {item.confidence}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Question */}
-                <h3 
-                  className="text-sm font-medium text-white mb-2 pr-12"
-                  dangerouslySetInnerHTML={{
-                    __html: item.question.replace(/holiday/gi, (match) => (
-                      `<span class="text-blue-400">${match}</span>`
-                    ))
-                  }}
-                />
-
-                {/* Response */}
-                <p 
-                  className="text-xs text-gray-400 line-clamp-3"
-                  dangerouslySetInnerHTML={{
-                    __html: item.response.replace(/holiday/gi, (match) => (
-                      `<span class="text-blue-400">${match}</span>`
-                    ))
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        );
-      
-      default:
-        return (
-          <div className="p-4 text-center text-gray-500">
-            Content for {activeTab} tab coming soon...
-          </div>
-        );
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
-      <MainSidebar />
-      
-      <div className="transition-all duration-300 md:ml-52 p-4 md:p-6 animate-fade-in">
-        {/* Top Section */}
-        <div className="mb-8 mt-14 md:mt-0">
-          <div className="relative flex flex-col md:flex-row gap-3 md:gap-0 items-start md:items-center">
-            <input
-              type="text"
-              placeholder="Explore your audience..."
-              className="w-full md:w-[calc(100%-260px)] px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search className="absolute left-3 top-2.5 text-gray-500 w-4 h-4" />
-            
-            <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
-              <button className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
-                Save DNA
-              </button>
-              <button className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap">
-                <Download className="w-3 h-3 mr-1" />
-                Export
-              </button>
-            </div>
-          </div>
-          
-          <p className="mt-2 text-[11px] text-gray-400">
-            438 out of 10000 survey respondents have responses relevant to the search term "Holiday". Here is their "DNA".
-          </p>
-        </div>
-
-        {/* Tabs and Content Container */}
-        <div>
-          {/* Tabs */}
-          <div className="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0">
-            <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
-              {tabs.map((tab, index) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
-                    activeTab === tab.id
-                      ? "text-white bg-gray-900"
-                      : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
-                  } ${index === 0 ? "rounded-tl-lg" : ""} ${
-                    index === tabs.length - 1 ? "rounded-tr-lg" : ""
-                  }`}
-                >
-                  <div className="flex flex-col items-center">
-                    <span>{tab.label}</span>
-                    {tab.subLabel && (
-                      <span className="text-[10px] text-gray-400 mt-0.5">
-                        {tab.subLabel}
-                      </span>
-                    )}
-                  </div>
-                  {activeTab === tab.id && (
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Content Area */}
-          <div className="bg-gray-900 rounded-b-lg p-4 md:p-6 overflow-x-auto">
-            <div className="min-w-[600px]">
-              {renderContent()}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Index;
