@@ -94,7 +94,7 @@ const Chat = () => {
                     <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                   <div
-                    className={`rounded-lg p-3 text-sm ${
+                    className={`rounded-lg p-3 text-sm text-left ${
                       message.sender === "user"
                         ? "bg-blue-600 text-white"
                         : "bg-gray-800 text-gray-100"
