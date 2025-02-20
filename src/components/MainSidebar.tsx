@@ -7,13 +7,16 @@ import {
   Settings,
   Box,
   Menu,
-  X
+  X,
+  ChevronDown,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const MainSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [showAudienceDetails, setShowAudienceDetails] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -139,6 +142,71 @@ const MainSidebar = () => {
               </Link>
             ))}
           </nav>
+
+          {/* Audience Overview Section */}
+          {(isOpen || isMobile) && (
+            <div className="mt-6 pt-6 border-t border-gray-800">
+              <Collapsible
+                open={showAudienceDetails}
+                onOpenChange={setShowAudienceDetails}
+                className="space-y-2"
+              >
+                <CollapsibleTrigger className="flex items-center justify-between w-full text-[11px] font-medium text-gray-400 hover:text-gray-300">
+                  Audience Overview
+                  <ChevronDown
+                    className={`w-3 h-3 transition-transform ${
+                      showAudienceDetails ? "transform rotate-180" : ""
+                    }`}
+                  />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="space-y-4">
+                  {/* Mini Psychographic Profile */}
+                  <div className="space-y-2">
+                    <div className="text-[10px] text-gray-500">Key Traits</div>
+                    <div className="flex flex-wrap gap-1">
+                      <span className="px-1.5 py-0.5 bg-[#0EA5E9] text-white rounded text-[9px]">Tech-savvy</span>
+                      <span className="px-1.5 py-0.5 bg-[#ea384c] text-white rounded text-[9px]">Quality-focused</span>
+                      <span className="px-1.5 py-0.5 bg-[#F2FCE2] text-gray-700 rounded text-[9px]">Early Adopter</span>
+                    </div>
+                  </div>
+
+                  {/* Interests */}
+                  <div className="space-y-2">
+                    <div className="text-[10px] text-gray-500">Interests</div>
+                    <div className="flex flex-wrap gap-1">
+                      <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Technology</span>
+                      <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Innovation</span>
+                      <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Digital</span>
+                    </div>
+                  </div>
+
+                  {/* Do's and Don'ts */}
+                  <div className="space-y-2">
+                    <div className="text-[10px] text-gray-500">Communication</div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <div className="text-[9px] text-green-400">Do</div>
+                        <div className="text-[9px] text-gray-400">Emphasize digital solutions</div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="text-[9px] text-red-400">Don't</div>
+                        <div className="text-[9px] text-gray-400">Focus on traditional only</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Key Word Sets */}
+                  <div className="space-y-2">
+                    <div className="text-[10px] text-gray-500">Key Terms</div>
+                    <div className="flex flex-wrap gap-1">
+                      <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Digital-first</span>
+                      <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Innovation</span>
+                    </div>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </div>
+          )}
         </div>
       </div>
     </>
