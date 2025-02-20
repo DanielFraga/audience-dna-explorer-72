@@ -17,7 +17,7 @@ export const AudienceSection = ({ selectedAudience, onAudienceChange }: Audience
     <div className="mt-4 pt-4 border-t border-gray-800">
       {/* Audience Selection Dropdown */}
       <div className="mb-3">
-        <div className="text-[10px] font-medium text-gray-400 mb-1.5">Audience</div>
+        <div className="text-[10px] font-medium text-gray-400 mb-1.5 text-left">Audience</div>
         <Select value={selectedAudience} onValueChange={onAudienceChange}>
           <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-[10px] text-gray-300 h-7">
             <SelectValue placeholder="Select audience" />
