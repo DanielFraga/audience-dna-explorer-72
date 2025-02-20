@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Info, CheckCircle, XCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -70,13 +69,49 @@ export const SoWhatTab: FC = () => {
             </TooltipContent>
           </Tooltip>
           <h3 className="text-sm font-medium text-white mb-4">Key Opportunities</h3>
-          <div className="text-gray-400 text-xs">
-            Content for right card coming soon...
+          
+          <div className="grid grid-cols-3 gap-3">
+            {/* Lookalike Audiences Card */}
+            <div className="bg-blue-950/30 rounded-md p-3 border border-blue-900/30">
+              <h4 className="text-xs font-medium text-blue-400 mb-2">Lookalike Audiences</h4>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  "Tech Enthusiasts",
+                  "Digital Natives",
+                  "Value Seekers",
+                  "Early Adopters",
+                  "Quality Conscious"
+                ].map((audience) => (
+                  <span
+                    key={audience}
+                    className="px-2 py-0.5 bg-blue-900/30 text-blue-300 text-[10px] rounded-full"
+                  >
+                    {audience}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Second Card (Empty for now) */}
+            <div className="bg-purple-950/30 rounded-md p-3 border border-purple-900/30">
+              <h4 className="text-xs font-medium text-purple-400 mb-2">Card 2</h4>
+              <div className="text-gray-400 text-xs">
+                Content coming soon...
+              </div>
+            </div>
+
+            {/* Third Card (Empty for now) */}
+            <div className="bg-emerald-950/30 rounded-md p-3 border border-emerald-900/30">
+              <h4 className="text-xs font-medium text-emerald-400 mb-2">Card 3</h4>
+              <div className="text-gray-400 text-xs">
+                Content coming soon...
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom card spanning full width */}
+      {/* Bottom card */}
       <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative min-h-[200px]">
         <Tooltip>
           <TooltipTrigger asChild>
