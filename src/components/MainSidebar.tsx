@@ -1,22 +1,11 @@
 
 import { useState, useEffect } from 'react';
-import {
-  Search,
-  Users,
-  MessageSquare,
-  Settings,
-  Box,
-  Menu,
-  X,
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Search, Users, MessageSquare, Settings } from 'lucide-react';
+import { MenuItem } from '@/types/sidebar';
+import { MobileMenuButton } from './sidebar/MobileMenuButton';
+import { SidebarHeader } from './sidebar/SidebarHeader';
+import { NavigationMenu } from './sidebar/NavigationMenu';
+import { AudienceSection } from './sidebar/AudienceSection';
 
 const MainSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -36,7 +25,7 @@ const MainSidebar = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
       title: "Search by Audience DNA",
       icon: <Search className="w-4 h-4" />,
@@ -61,17 +50,7 @@ const MainSidebar = () => {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-gray-900 rounded-lg text-gray-400 hover:text-white"
-      >
-        {isOpen ? (
-          <X className="w-5 h-5" />
-        ) : (
-          <Menu className="w-5 h-5" />
-        )}
-      </button>
+      <MobileMenuButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
       {/* Mobile Backdrop */}
       {isMobile && isOpen && (
@@ -89,126 +68,24 @@ const MainSidebar = () => {
         `}
       >
         <div className="p-4 mt-14 md:mt-0">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-2">
-              <Box className="w-4 h-4 text-blue-500" />
-              {(isOpen || isMobile) && (
-                <span className="text-gray-100 font-medium text-xs">
-                  CUBULAR
-                </span>
-              )}
-            </div>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="hidden md:block p-1.5 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
-            >
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
+          <SidebarHeader 
+            isOpen={isOpen}
+            isMobile={isMobile}
+            onToggle={() => setIsOpen(!isOpen)}
+          />
 
-          <nav className="space-y-1.5">
-            {menuItems.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                className="flex items-center px-3 py-2 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-[11px] bg-gray-800/50"
-                title={!isOpen && !isMobile ? item.title : undefined}
-                onClick={() => isMobile && setIsOpen(false)}
-              >
-                <div className="flex items-center">
-                  {item.icon}
-                  {(isOpen || isMobile) && (
-                    <span className="ml-2.5">
-                      {item.title}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </nav>
+          <NavigationMenu 
+            items={menuItems}
+            isOpen={isOpen}
+            isMobile={isMobile}
+            onMobileItemClick={() => isMobile && setIsOpen(false)}
+          />
 
-          {/* Audience Section */}
           {(isOpen || isMobile) && (
-            <div className="mt-6 pt-6 border-t border-gray-800 space-y-6">
-              {/* Audience Selection Dropdown */}
-              <div>
-                <div className="text-[11px] font-medium text-gray-400 mb-2">Audience Selection</div>
-                <Select value={selectedAudience} onValueChange={setSelectedAudience}>
-                  <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-[11px] text-gray-300">
-                    <SelectValue placeholder="Select audience" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-700">
-                    <SelectItem value="holiday" className="text-[11px] text-gray-300">holiday</SelectItem>
-                    <SelectItem value="all" className="text-[11px] text-gray-300">all</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Key Traits */}
-              <div className="space-y-2">
-                <div className="text-[10px] text-gray-500">Key Traits</div>
-                <div className="flex flex-wrap gap-1">
-                  <span className="px-1.5 py-0.5 bg-[#0EA5E9] text-white rounded text-[9px]">Tech-savvy</span>
-                  <span className="px-1.5 py-0.5 bg-[#ea384c] text-white rounded text-[9px]">Quality-focused</span>
-                  <span className="px-1.5 py-0.5 bg-[#F2FCE2] text-gray-700 rounded text-[9px]">Early Adopter</span>
-                </div>
-              </div>
-
-              {/* Interests */}
-              <div className="space-y-2">
-                <div className="text-[10px] text-gray-500">Interests</div>
-                <div className="flex flex-wrap gap-1">
-                  <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Technology</span>
-                  <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Innovation</span>
-                  <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Digital</span>
-                </div>
-              </div>
-
-              {/* Communication */}
-              <div className="space-y-2">
-                <div className="text-[10px] text-gray-500">Communication</div>
-                <div className="space-y-2">
-                  <div className="space-y-1">
-                    <div className="text-[9px] text-green-400">Do</div>
-                    <div className="text-[9px] text-gray-400">Emphasize digital solutions</div>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="text-[9px] text-red-400">Don't</div>
-                    <div className="text-[9px] text-gray-400">Focus on traditional only</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Terms */}
-              <div className="space-y-2">
-                <div className="text-[10px] text-gray-500">Key Terms</div>
-                <div className="flex flex-wrap gap-1">
-                  <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Digital-first</span>
-                  <span className="px-1.5 py-0.5 bg-gray-800 text-gray-300 rounded text-[9px]">Innovation</span>
-                </div>
-              </div>
-            </div>
+            <AudienceSection
+              selectedAudience={selectedAudience}
+              onAudienceChange={setSelectedAudience}
+            />
           )}
         </div>
       </div>
