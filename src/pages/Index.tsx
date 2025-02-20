@@ -217,6 +217,74 @@ const surveyData = [
   confidence: Math.random().toFixed(2)
 }));
 
+type InsightReference = {
+  id: number;
+  text: string;
+};
+
+type Insight = {
+  headline: string;
+  explanation: string;
+  references: InsightReference[];
+};
+
+const insights: Insight[] = [
+  {
+    headline: "Strong Digital Engagement Pattern",
+    explanation: "Analysis shows high digital platform usage¹ with strong preference for mobile interactions². Tech adoption rates exceed market average³, suggesting digital-first approach.",
+    references: [
+      { id: 1, text: "85% of respondents report daily use of digital platforms" },
+      { id: 2, text: "Mobile engagement rates 2.3x higher than desktop" },
+      { id: 3, text: "Tech adoption score 72% above market baseline" }
+    ]
+  },
+  {
+    headline: "Quality-Conscious Decision Making",
+    explanation: "Demonstrated preference for premium offerings¹ despite price sensitivity². Brand reputation³ plays crucial role in purchase decisions.",
+    references: [
+      { id: 1, text: "78% prioritize quality over price in survey responses" },
+      { id: 2, text: "Willing to pay 20-30% premium for guaranteed quality" },
+      { id: 3, text: "Brand trust scores 45% higher than industry average" }
+    ]
+  },
+  {
+    headline: "Sustainability-Driven Choices",
+    explanation: "Strong environmental consciousness¹ influences purchasing behavior. High preference for eco-friendly options² and sustainable practices³.",
+    references: [
+      { id: 1, text: "92% express concern about environmental impact" },
+      { id: 2, text: "3.2x more likely to choose eco-friendly alternatives" },
+      { id: 3, text: "Sustainability factor ranks top 3 in decision criteria" }
+    ]
+  },
+  {
+    headline: "Community-Influenced Decisions",
+    explanation: "Heavy reliance on peer recommendations¹ and social proof². Community engagement³ significantly impacts brand perception.",
+    references: [
+      { id: 1, text: "83% check reviews before purchasing" },
+      { id: 2, text: "Word-of-mouth drives 45% of initial engagements" },
+      { id: 3, text: "Community participation correlates with 2.8x higher loyalty" }
+    ]
+  },
+  {
+    headline: "Innovation Receptiveness",
+    explanation: "High openness to new products¹ and experimental features². Early adopter characteristics³ prominent across segments.",
+    references: [
+      { id: 1, text: "Innovation receptivity score 68% above average" },
+      { id: 2, text: "Beta feature adoption rate 2.1x higher than norm" },
+      { id: 3, text: "75% self-identify as early adopters" }
+    ]
+  },
+  {
+    headline: "Value-Based Engagement",
+    explanation: "Strong alignment with purpose-driven messaging¹. Brand values² and social impact³ significantly influence decisions.",
+    references: [
+      { id: 1, text: "Value-aligned messaging shows 2.4x higher engagement" },
+      { id: 2, text: "88% prioritize brands with strong ethical positions" },
+      { id: 3, text: "Social impact initiatives drive 35% higher loyalty" }
+    ]
+  }
+];
+
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
@@ -615,49 +683,38 @@ const Index = () => {
       
       case "WHAT":
         return (
-          <div className="grid grid-cols-3 gap-4 animate-slide-up">
-            {surveyData.map((item, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-slide-up">
+            {insights.map((insight, index) => (
               <div 
                 key={index}
-                className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
+                className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors"
               >
-                {/* Confidence Score Circle */}
-                <div className="absolute top-3 right-3">
-                  <div className="relative w-10 h-10">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div 
-                        className={`w-full h-full rounded-full border-2 ${
-                          Number(item.confidence) >= 0.9 ? 'border-green-500' :
-                          Number(item.confidence) >= 0.7 ? 'border-blue-500' :
-                          'border-yellow-500'
-                        }`}
-                      />
-                      <span className="absolute text-xs font-medium text-gray-300">
-                        {item.confidence}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Question */}
-                <h3 
-                  className="text-sm font-medium text-white mb-2 pr-12"
-                  dangerouslySetInnerHTML={{
-                    __html: item.question.replace(/holiday/gi, (match) => (
-                      `<span class="text-blue-400">${match}</span>`
-                    ))
-                  }}
-                />
-
-                {/* Response */}
-                <p 
-                  className="text-xs text-gray-400 line-clamp-3"
-                  dangerouslySetInnerHTML={{
-                    __html: item.response.replace(/holiday/gi, (match) => (
-                      `<span class="text-blue-400">${match}</span>`
-                    ))
-                  }}
-                />
+                <h3 className="text-sm font-medium text-white mb-2">
+                  {insight.headline}
+                </h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  {insight.explanation.split(/(\d+)/).map((part, i) => {
+                    if (/^\d+$/.test(part)) {
+                      const reference = insight.references.find(ref => ref.id === parseInt(part));
+                      return (
+                        <Tooltip key={i}>
+                          <TooltipTrigger asChild>
+                            <sup className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-medium bg-blue-500/20 text-blue-400 rounded-full cursor-help ml-0.5">
+                              {part}
+                            </sup>
+                          </TooltipTrigger>
+                          <TooltipContent 
+                            className="max-w-[250px] bg-gray-800 border-gray-700 text-[11px] p-2"
+                            side="top"
+                          >
+                            {reference?.text}
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+                    return part;
+                  })}
+                </p>
               </div>
             ))}
           </div>
