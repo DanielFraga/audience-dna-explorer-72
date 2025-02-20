@@ -57,9 +57,6 @@ const Chat = () => {
         {/* Header */}
         <div className="border-b border-gray-800 p-4">
           <h1 className="text-white text-lg font-medium">Chat with Audience</h1>
-          <p className="text-gray-400 text-xs mt-1">
-            Ask questions about your audience data and get AI-powered insights
-          </p>
           
           {/* Search Results Info - similar to Index page */}
           <div className="mt-3 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
@@ -68,6 +65,10 @@ const Chat = () => {
             <span>respondents relevant to the term</span>
             <span className="text-blue-400">"holiday"</span>
           </div>
+
+          <p className="text-gray-400 text-xs mt-3">
+            I am your audience analyst. I can answer questions about the people who have responded to your survey. What do you want to know?
+          </p>
         </div>
 
         {/* Chat Messages */}
@@ -97,7 +98,7 @@ const Chat = () => {
                     className={`rounded-lg p-3 text-sm ${
                       message.sender === "user"
                         ? "bg-blue-600 text-white"
-                        : "bg-gray-800 text-gray-100"
+                        : "bg-gray-800 text-gray-100 text-left"
                     }`}
                   >
                     {message.content}
