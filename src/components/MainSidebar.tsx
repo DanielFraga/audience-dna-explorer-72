@@ -12,11 +12,19 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const MainSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [showAudienceDetails, setShowAudienceDetails] = useState(true);
+  const [selectedAudience, setSelectedAudience] = useState("holiday");
 
   useEffect(() => {
     const checkMobile = () => {
@@ -146,6 +154,20 @@ const MainSidebar = () => {
           {/* Audience Overview Section */}
           {(isOpen || isMobile) && (
             <div className="mt-6 pt-6 border-t border-gray-800">
+              {/* Audience Selection Dropdown */}
+              <div className="mb-4">
+                <div className="text-[11px] font-medium text-gray-400 mb-2">Audience Selection</div>
+                <Select value={selectedAudience} onValueChange={setSelectedAudience}>
+                  <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-[11px] text-gray-300">
+                    <SelectValue placeholder="Select audience" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-800 border-gray-700">
+                    <SelectItem value="holiday" className="text-[11px] text-gray-300">holiday</SelectItem>
+                    <SelectItem value="all" className="text-[11px] text-gray-300">all</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <Collapsible
                 open={showAudienceDetails}
                 onOpenChange={setShowAudienceDetails}
