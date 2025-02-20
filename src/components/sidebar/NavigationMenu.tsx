@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation } from 'react-router-dom';
@@ -16,15 +15,15 @@ export const NavigationMenu = ({ items, isOpen, isMobile, onMobileItemClick }: N
   return (
     <nav className="space-y-1.5">
       {items.map((item) => {
-        const isActive = location.pathname === item.path;
+        const isActive = location.pathname.startsWith(item.path);
         return (
           <Link
             key={item.title}
             to={item.path}
-            className={`flex items-center px-3 py-2 text-gray-300 rounded-lg transition-colors text-[11px]
+            className={`flex items-center px-3 py-2 rounded-lg transition-colors text-[11px]
               ${isActive 
-                ? 'bg-gray-800 text-white' 
-                : 'hover:bg-gray-800/50 bg-gray-800/50'
+                ? 'bg-blue-600/20 text-blue-400' 
+                : 'hover:bg-gray-800/50 bg-gray-800/50 text-gray-300'
               }`}
             title={!isOpen && !isMobile ? item.title : undefined}
             onClick={() => isMobile && onMobileItemClick()}
