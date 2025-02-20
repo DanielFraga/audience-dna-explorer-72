@@ -6,74 +6,6 @@ import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import DemographicsMap from "@/components/DemographicsMap";
 
-type InsightReference = {
-  id: number;
-  text: string;
-};
-
-type Insight = {
-  headline: string;
-  explanation: string;
-  references: InsightReference[];
-};
-
-const insights: Insight[] = [
-  {
-    headline: "Negative Reaction to Wordset A1.1",
-    explanation: "Strong aversion to traditional marketing language¹ combined with preference for straightforward communication². This suggests a more authentic, direct approach would be more effective³.",
-    references: [
-      { id: 1, text: "73% of respondents showed negative sentiment towards traditional marketing phrases in survey question 4" },
-      { id: 2, text: "89% preferred clear, direct language when asked about communication preferences" },
-      { id: 3, text: "Cross-referencing with psychographic data shows high authenticity values" }
-    ]
-  },
-  {
-    headline: "Mostly Female and English Speaking",
-    explanation: "Demographic skews heavily female¹ with strong English language preference². Marketing materials should be tailored accordingly³, while maintaining inclusive messaging.",
-    references: [
-      { id: 1, text: "Female respondents make up 68% of the total sample" },
-      { id: 2, text: "92% indicated English as their primary language" },
-      { id: 3, text: "Previous campaigns targeting this demographic showed 2.4x higher engagement" }
-    ]
-  },
-  {
-    headline: "High Digital Literacy",
-    explanation: "Audience shows sophisticated understanding of digital platforms¹ and strong preference for mobile interactions². Tech adoption rates are significantly above average³.",
-    references: [
-      { id: 1, text: "Average digital literacy score of 8.2/10 across all respondents" },
-      { id: 2, text: "76% primarily access services through mobile devices" },
-      { id: 3, text: "Early adoption rate is 2.3x higher than general population" }
-    ]
-  },
-  {
-    headline: "Price Sensitivity Variance",
-    explanation: "Notable split between price-sensitive¹ and premium-focused² segments, with clear correlation to income levels³. Suggests need for tiered offering strategy.",
-    references: [
-      { id: 1, text: "42% regularly cite price as primary decision factor" },
-      { id: 2, text: "35% consistently choose premium options when available" },
-      { id: 3, text: "Strong correlation (0.85) between income level and price sensitivity" }
-    ]
-  },
-  {
-    headline: "Environmental Consciousness",
-    explanation: "Strong preference for sustainable products¹ and eco-friendly practices². Willingness to pay premium for green alternatives³ indicates potential for sustainable positioning.",
-    references: [
-      { id: 1, text: "82% express concern about environmental impact" },
-      { id: 2, text: "77% actively seek eco-friendly alternatives" },
-      { id: 3, text: "Average 15% price premium acceptance for sustainable options" }
-    ]
-  },
-  {
-    headline: "Community-Driven Decision Making",
-    explanation: "Heavy reliance on peer recommendations¹ and community feedback². Social proof is a key driver³ in decision-making process.",
-    references: [
-      { id: 1, text: "88% check reviews before making purchases" },
-      { id: 2, text: "65% cite word-of-mouth as primary influence" },
-      { id: 3, text: "Social proof elements increase conversion by 2.8x" }
-    ]
-  }
-];
-
 const tabs = [
   { id: "WHO_DEMO", label: "WHO", subLabel: "demographics" },
   { id: "WHO_PSYCHO", label: "WHO", subLabel: "psychographics" },
@@ -683,38 +615,49 @@ const Index = () => {
       
       case "WHAT":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-slide-up">
-            {insights.map((insight, index) => (
+          <div className="grid grid-cols-3 gap-4 animate-slide-up">
+            {surveyData.map((item, index) => (
               <div 
                 key={index}
-                className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors"
+                className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
               >
-                <h3 className="text-sm font-medium text-white mb-2">
-                  {insight.headline}
-                </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  {insight.explanation.split(/(\d+)/).map((part, i) => {
-                    if (/^\d+$/.test(part)) {
-                      const reference = insight.references.find(ref => ref.id === parseInt(part));
-                      return (
-                        <Tooltip key={i}>
-                          <TooltipTrigger asChild>
-                            <sup className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-medium bg-blue-500/20 text-blue-400 rounded-full cursor-help">
-                              {part}
-                            </sup>
-                          </TooltipTrigger>
-                          <TooltipContent 
-                            className="max-w-[250px] bg-gray-800 border-gray-700 text-[11px] p-2"
-                            side="top"
-                          >
-                            {reference?.text}
-                          </TooltipContent>
-                        </Tooltip>
-                      );
-                    }
-                    return part;
-                  })}
-                </p>
+                {/* Confidence Score Circle */}
+                <div className="absolute top-3 right-3">
+                  <div className="relative w-10 h-10">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div 
+                        className={`w-full h-full rounded-full border-2 ${
+                          Number(item.confidence) >= 0.9 ? 'border-green-500' :
+                          Number(item.confidence) >= 0.7 ? 'border-blue-500' :
+                          'border-yellow-500'
+                        }`}
+                      />
+                      <span className="absolute text-xs font-medium text-gray-300">
+                        {item.confidence}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Question */}
+                <h3 
+                  className="text-sm font-medium text-white mb-2 pr-12"
+                  dangerouslySetInnerHTML={{
+                    __html: item.question.replace(/holiday/gi, (match) => (
+                      `<span class="text-blue-400">${match}</span>`
+                    ))
+                  }}
+                />
+
+                {/* Response */}
+                <p 
+                  className="text-xs text-gray-400 line-clamp-3"
+                  dangerouslySetInnerHTML={{
+                    __html: item.response.replace(/holiday/gi, (match) => (
+                      `<span class="text-blue-400">${match}</span>`
+                    ))
+                  }}
+                />
               </div>
             ))}
           </div>
