@@ -21,7 +21,17 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        grotesk: ['Space Grotesk', 'sans-serif'],
+        display: ['Poppins', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        // UI text sizes
+        'ui-xs': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.01em' }],
+        'ui-sm': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.01em' }],
+        'ui-base': ['1rem', { lineHeight: '1.5rem', letterSpacing: '0.01em' }],
+        // Display text sizes
+        'display-sm': ['1.25rem', { lineHeight: '1.75rem', letterSpacing: '-0.01em' }],
+        'display-base': ['1.5rem', { lineHeight: '2rem', letterSpacing: '-0.015em' }],
+        'display-lg': ['2rem', { lineHeight: '2.5rem', letterSpacing: '-0.02em' }],
       },
       colors: {
         border: "hsl(var(--border))",
