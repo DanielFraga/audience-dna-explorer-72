@@ -64,7 +64,7 @@ const Chat = () => {
           {/* Search Results Info - similar to Index page */}
           <div className="mt-3 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
             <span>Chatting with</span>
-            <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450</span>
+            <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 of 10000</span>
             <span>respondents relevant to the term</span>
             <span className="text-blue-400">"holiday"</span>
           </div>
