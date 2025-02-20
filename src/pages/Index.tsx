@@ -7,6 +7,7 @@ import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
 import { SurveyTab } from "../components/survey/SurveyTab";
 import { InsightsTab } from "../components/insights/InsightsTab";
+import { SoWhatTab } from "../components/sowhat/SoWhatTab";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +25,8 @@ const Index = () => {
         return <SurveyTab />;
       case "WHY":
         return <InsightsTab />;
+      case "SO_WHAT":
+        return <SoWhatTab />;
       default:
         return (
           <div className="p-4 text-center text-gray-500">
