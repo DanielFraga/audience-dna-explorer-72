@@ -71,7 +71,7 @@ const insights: Insight[] = [
 
 export function InsightsTab() {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={0}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-slide-up">
         {insights.map((insight, index) => (
           <div 
@@ -87,15 +87,15 @@ export function InsightsTab() {
                   const reference = insight.references.find(ref => ref.id === parseInt(part));
                   return (
                     <Tooltip key={i}>
-                      <TooltipTrigger asChild>
-                        <sup className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-medium bg-blue-500/20 text-blue-400 rounded-full cursor-help ml-0.5">
+                      <TooltipTrigger className="cursor-help">
+                        <sup className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-medium bg-blue-500/20 text-blue-400 rounded-full ml-0.5">
                           {part}
                         </sup>
                       </TooltipTrigger>
                       <TooltipContent 
-                        className="max-w-[250px] bg-gray-800 border-gray-700 text-[11px] p-2"
                         side="top"
-                        sideOffset={5}
+                        align="center"
+                        className="z-50 max-w-[250px] bg-gray-800 border border-gray-700 text-[11px] p-2 text-white"
                       >
                         {reference?.text}
                       </TooltipContent>
