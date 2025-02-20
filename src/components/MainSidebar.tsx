@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Search, Users, MessageSquare, Settings } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
+import { useLocation } from 'react-router-dom';
 import { MobileMenuButton } from './sidebar/MobileMenuButton';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
@@ -11,6 +12,7 @@ const MainSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedAudience, setSelectedAudience] = useState("holiday");
+  const location = useLocation();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -81,7 +83,7 @@ const MainSidebar = () => {
             onMobileItemClick={() => isMobile && setIsOpen(false)}
           />
 
-          {(isOpen || isMobile) && (
+          {(isOpen || isMobile) && location.pathname === '/chat' && (
             <AudienceSection
               selectedAudience={selectedAudience}
               onAudienceChange={setSelectedAudience}
