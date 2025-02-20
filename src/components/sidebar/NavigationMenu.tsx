@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation } from 'react-router-dom';
@@ -15,7 +16,8 @@ export const NavigationMenu = ({ items, isOpen, isMobile, onMobileItemClick }: N
   return (
     <nav className="space-y-1.5">
       {items.map((item) => {
-        const isActive = location.pathname.startsWith(item.path);
+        // Use exact path matching to ensure only one item is active at a time
+        const isActive = location.pathname === item.path;
         return (
           <Link
             key={item.title}
