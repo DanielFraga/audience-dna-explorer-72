@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, CheckCircle, XCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -122,8 +123,31 @@ export const SoWhatTab: FC = () => {
           </TooltipContent>
         </Tooltip>
         <h3 className="text-sm font-medium text-white mb-4">Action Items</h3>
-        <div className="text-gray-400 text-xs">
-          Content for bottom card coming soon...
+        
+        <div className="space-y-4">
+          {/* Action Item 1 */}
+          <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
+            <h4 className="text-xs font-medium text-blue-400 mb-1">Develop Targeted Email Campaigns</h4>
+            <p className="text-gray-400 text-xs">
+              Create segmented email campaigns for each identified audience group, focusing on their specific interests and behaviors.
+            </p>
+          </div>
+
+          {/* Action Item 2 */}
+          <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
+            <h4 className="text-xs font-medium text-purple-400 mb-1">Optimize Digital Touchpoints</h4>
+            <p className="text-gray-400 text-xs">
+              Enhance website and mobile app experiences to better serve the digital-first preferences of the target audience.
+            </p>
+          </div>
+
+          {/* Action Item 3 */}
+          <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
+            <h4 className="text-xs font-medium text-emerald-400 mb-1">Launch Value-Based Content Strategy</h4>
+            <p className="text-gray-400 text-xs">
+              Develop content that emphasizes the intersection of quality and smart spending across all marketing channels.
+            </p>
+          </div>
         </div>
       </div>
     </div>
