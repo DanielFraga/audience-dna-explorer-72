@@ -17,7 +17,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      content: "Hello! I'm your audience analysis assistant. Ask me anything about your audience data and insights.",
+      content: "I am your audience analyst. I can answer questions about the people who have responded to your survey. What do you want to know?",
       sender: "assistant",
       timestamp: new Date(),
     },
