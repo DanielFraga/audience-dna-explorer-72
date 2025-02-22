@@ -1,5 +1,5 @@
 
-import { Plus, Users, Target, Info } from 'lucide-react';
+import { Plus, Users, Target, Info, ShieldCheck } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
@@ -29,90 +29,102 @@ const SurveyAudience = () => {
         <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Survey Audience</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Left Card: Current Focus Areas */}
-          <Card className="bg-gray-800/50 border-gray-700 h-fit">
-            <CardHeader className="p-3">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
-                  <Target className="w-5 h-5 text-blue-400" />
-                  Current Focus Areas
-                </CardTitle>
-                <Button 
-                  variant="outline" 
-                  size="icon"
-                  className="w-8 h-8 rounded-full bg-gray-700/50 border-gray-600 hover:bg-gray-600/50"
-                >
-                  <Plus className="h-4 w-4 text-gray-200" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-3">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
-                    10000 respondents
-                  </div>
-                  <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
-                    72 questions each
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  <TooltipProvider>
-                    {currentFocusAreas.map((area) => (
-                      <div
-                        key={area.id}
-                        className="bg-gray-700/50 p-2 rounded-lg border border-gray-600"
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-200">{area.name}</h4>
-                            <p className="text-xs text-gray-400 mt-0.5">{area.description}</p>
-                          </div>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button className="p-1 hover:bg-gray-600/50 rounded-full transition-colors">
-                                <Info className="w-3.5 h-3.5 text-gray-400" />
-                              </button>
-                            </TooltipTrigger>
-                            <TooltipContent className="bg-gray-800 border-gray-700">
-                              <p className="text-xs text-gray-200">{area.tooltip}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </div>
-                      </div>
-                    ))}
-                  </TooltipProvider>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Right Card: Available Modules */}
-          <Card className="bg-gray-800/50 border-gray-700 h-fit">
-            <CardHeader className="p-3">
-              <CardTitle className="text-lg font-display text-gray-100">
-                Add New Modules
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-3">
-              <div className="grid grid-cols-1 gap-2">
-                {availableModules.map((module) => (
-                  <button
-                    key={module.id}
-                    className="bg-gray-700/50 p-2 rounded-lg border border-gray-600 text-left hover:bg-gray-600/50 transition-colors group"
+          <div className="space-y-4">
+            {/* Left Card: Current Focus Areas */}
+            <Card className="bg-gray-800/50 border-gray-700">
+              <CardHeader className="p-3">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
+                    <Target className="w-5 h-5 text-blue-400" />
+                    Current Focus Areas
+                  </CardTitle>
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    className="w-8 h-8 rounded-full bg-gray-700/50 border-gray-600 hover:bg-gray-600/50"
                   >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-200">{module.name}</h4>
-                        <p className="text-xs text-gray-400 mt-0.5">{module.description}</p>
-                      </div>
-                      <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" />
+                    <Plus className="h-4 w-4 text-gray-200" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
+                      10000 respondents
                     </div>
-                  </button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                    <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
+                      72 questions each
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <TooltipProvider>
+                      {currentFocusAreas.map((area) => (
+                        <div
+                          key={area.id}
+                          className="bg-gray-700/50 p-2 rounded-lg border border-gray-600"
+                        >
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="text-sm font-medium text-gray-200">{area.name}</h4>
+                              <p className="text-xs text-gray-400 mt-0.5">{area.description}</p>
+                            </div>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button className="p-1 hover:bg-gray-600/50 rounded-full transition-colors">
+                                  <Info className="w-3.5 h-3.5 text-gray-400" />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-gray-800 border-gray-700">
+                                <p className="text-xs text-gray-200">{area.tooltip}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      ))}
+                    </TooltipProvider>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="space-y-4">
+            {/* Right Card: Available Modules */}
+            <Card className="bg-gray-800/50 border-gray-700">
+              <CardHeader className="p-3">
+                <CardTitle className="text-lg font-display text-gray-100">
+                  Add New Modules
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="grid grid-cols-1 gap-2">
+                  {availableModules.map((module) => (
+                    <button
+                      key={module.id}
+                      className="bg-gray-700/50 p-2 rounded-lg border border-gray-600 text-left hover:bg-gray-600/50 transition-colors group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-200">{module.name}</h4>
+                          <p className="text-xs text-gray-400 mt-0.5">{module.description}</p>
+                        </div>
+                        <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Certification Section */}
+        <div className="mt-8 flex items-center justify-center">
+          <div className="flex items-center gap-2 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700">
+            <ShieldCheck className="w-5 h-5 text-green-400" />
+            <span className="text-gray-200">How we ensure Surveys generate truthful data</span>
+          </div>
         </div>
       </div>
     </div>
