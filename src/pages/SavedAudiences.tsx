@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 interface AudienceEntry {
   id: number;
+  name: string;
   size: string;
   location: string;
   ageRange: string;
@@ -18,18 +19,21 @@ const SavedAudiences = () => {
   const audiences: AudienceEntry[] = [
     {
       id: 1,
+      name: "Audience A1.1: California; Holiday; 25-24",
       size: "1,500 respondents",
       location: "California, USA",
       ageRange: "25-34",
     },
     {
       id: 2,
+      name: "Audience A1.2: New York; 18-24",
       size: "2,000 respondents",
       location: "New York, USA",
       ageRange: "18-24",
     },
     {
       id: 3,
+      name: "Audience A1.3: Texas; 35-44",
       size: "1,000 respondents",
       location: "Texas, USA",
       ageRange: "35-44",
@@ -42,22 +46,26 @@ const SavedAudiences = () => {
       
       <div className="main-container transition-all duration-300 md:ml-[208px] md:collapsed:ml-16">
         <div className="flex flex-col h-full">
-          <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Saved Audiences</h1>
-          
           <Card className="bg-gray-800/50 border-gray-700 flex-1">
-            <CardHeader className="p-3">
-              <CardTitle className="text-lg font-display text-gray-100">
-                Saved Audiences
-              </CardTitle>
-            </CardHeader>
             <CardContent className="p-3">
               <div className="divide-y divide-gray-700">
+                <div className="grid grid-cols-6 gap-3 pb-3 text-sm font-medium text-gray-400">
+                  <div>Name</div>
+                  <div>Size</div>
+                  <div>Location</div>
+                  <div>Age Range</div>
+                  <div>Actions</div>
+                  <div></div>
+                </div>
                 {audiences.map((audience) => (
                   <div 
                     key={audience.id}
-                    className="py-3 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
+                    className="py-3 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
                   >
-                    <div className="grid grid-cols-5 gap-3">
+                    <div className="grid grid-cols-6 gap-3">
+                      <div className="text-gray-300">
+                        {audience.name}
+                      </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Users className="w-4 h-4 text-blue-400" />
                         {audience.size}
@@ -105,4 +113,3 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
-
