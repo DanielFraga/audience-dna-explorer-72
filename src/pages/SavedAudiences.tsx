@@ -14,7 +14,6 @@ interface AudienceEntry {
 const SavedAudiences = () => {
   const navigate = useNavigate();
   
-  // Sample data - in a real app, this would come from an API or database
   const audiences: AudienceEntry[] = [
     {
       id: 1,
@@ -37,26 +36,26 @@ const SavedAudiences = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+    <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6 animate-fade-in">
-        <h1 className="text-2xl font-display font-semibold text-gray-100 mb-6">Saved Audiences</h1>
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-4 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
+        <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Saved Audiences</h1>
         
         <Card className="bg-gray-800/50 border-gray-700">
-          <CardHeader>
+          <CardHeader className="p-3">
             <CardTitle className="text-lg font-display text-gray-100">
               Saved Audiences
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3">
             <div className="divide-y divide-gray-700">
               {audiences.map((audience) => (
                 <div 
                   key={audience.id}
-                  className="py-4 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-3"
+                  className="py-3 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
                 >
-                  <div className="grid grid-cols-5 gap-4">
+                  <div className="grid grid-cols-5 gap-3">
                     <div className="flex items-center gap-2 text-gray-300">
                       <Users className="w-4 h-4 text-blue-400" />
                       {audience.size}

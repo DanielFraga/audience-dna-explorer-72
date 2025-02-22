@@ -21,52 +21,52 @@ const SurveyAudience = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+    <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6 animate-fade-in">
-        <h1 className="text-2xl font-display font-semibold text-gray-100 mb-6">Survey Audience</h1>
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-4 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
+        <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Survey Audience</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Target Demographics Card */}
           <Card className="col-span-1 md:col-span-2 bg-gray-800/50 border-gray-700">
-            <CardHeader>
+            <CardHeader className="p-3">
               <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
                 <Target className="w-5 h-5 text-blue-400" />
                 Target Demographics
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="p-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Current Focus Areas */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-medium text-gray-300 mb-3">Current Focus Areas</h3>
-                  <div className="grid grid-cols-1 gap-3">
+                <div className="space-y-3">
+                  <h3 className="text-sm font-medium text-gray-300 mb-2">Current Focus Areas</h3>
+                  <div className="grid grid-cols-1 gap-2">
                     {currentFocusAreas.map((area) => (
                       <div
                         key={area.id}
-                        className="bg-gray-700/50 p-3 rounded-lg border border-gray-600"
+                        className="bg-gray-700/50 p-2 rounded-lg border border-gray-600"
                       >
                         <h4 className="text-sm font-medium text-gray-200">{area.name}</h4>
-                        <p className="text-xs text-gray-400 mt-1">{area.description}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">{area.description}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Available Modules */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-medium text-gray-300 mb-3">Add New Modules</h3>
-                  <div className="grid grid-cols-1 gap-3">
+                <div className="space-y-3">
+                  <h3 className="text-sm font-medium text-gray-300 mb-2">Add New Modules</h3>
+                  <div className="grid grid-cols-1 gap-2">
                     {availableModules.map((module) => (
                       <button
                         key={module.id}
-                        className="bg-gray-700/50 p-3 rounded-lg border border-gray-600 text-left hover:bg-gray-600/50 transition-colors group"
+                        className="bg-gray-700/50 p-2 rounded-lg border border-gray-600 text-left hover:bg-gray-600/50 transition-colors group"
                       >
                         <div className="flex items-center justify-between">
                           <div>
                             <h4 className="text-sm font-medium text-gray-200">{module.name}</h4>
-                            <p className="text-xs text-gray-400 mt-1">{module.description}</p>
+                            <p className="text-xs text-gray-400 mt-0.5">{module.description}</p>
                           </div>
                           <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" />
                         </div>
@@ -80,14 +80,14 @@ const SurveyAudience = () => {
 
           {/* Survey Range Card */}
           <Card className="bg-gray-800/50 border-gray-700">
-            <CardHeader>
+            <CardHeader className="p-3">
               <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
                 <Users className="w-5 h-5 text-blue-400" />
                 Survey Range
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
+            <CardContent className="p-3">
+              <div className="space-y-3">
                 <p className="text-sm text-gray-300">Current respondent range: 1000-2000</p>
                 <Button 
                   variant="outline" 

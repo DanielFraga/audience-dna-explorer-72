@@ -49,19 +49,18 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+    <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-screen flex flex-col">
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-[100vh] flex flex-col">
         {/* Header */}
-        <div className="border-b border-gray-800 p-4">
+        <div className="border-b border-gray-800 p-3">
           <h1 className="text-white text-lg font-medium">Chat with Audience</h1>
-          <p className="text-gray-400 text-xs mt-1">
+          <p className="text-gray-400 text-xs mt-0.5">
             Ask questions about your audience data and get AI-powered insights
           </p>
           
-          {/* Search Results Info - similar to Index page */}
-          <div className="mt-3 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
+          <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
             <span>Chatting with</span>
             <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 of 10000</span>
             <span>respondents relevant to the term</span>
@@ -70,8 +69,8 @@ const Chat = () => {
         </div>
 
         {/* Chat Messages */}
-        <ScrollArea className="flex-1 p-4">
-          <div className="space-y-4">
+        <ScrollArea className="flex-1 p-3 md:max-h-[calc(100vh-160px)]">
+          <div className="space-y-3">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -80,20 +79,20 @@ const Chat = () => {
                 }`}
               >
                 <div
-                  className={`flex items-start gap-3 max-w-[80%] ${
+                  className={`flex items-start gap-2 max-w-[80%] ${
                     message.sender === "user" ? "flex-row-reverse" : ""
                   }`}
                 >
-                  <Avatar className="h-8 w-8">
+                  <Avatar className="h-7 w-7">
                     {message.sender === "user" ? (
-                      <User2 className="h-5 w-5 text-gray-400" />
+                      <User2 className="h-4 w-4 text-gray-400" />
                     ) : (
                       <AvatarImage src="/placeholder.svg" />
                     )}
                     <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                   <div
-                    className={`rounded-lg p-3 text-sm text-left ${
+                    className={`rounded-lg p-2 text-sm text-left ${
                       message.sender === "user"
                         ? "bg-blue-600 text-white"
                         : "bg-gray-800 text-gray-100"
@@ -108,7 +107,7 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input Area */}
-        <div className="border-t border-gray-800 p-4">
+        <div className="border-t border-gray-800 p-3">
           <div className="flex gap-2">
             <input
               type="text"
@@ -116,7 +115,7 @@ const Chat = () => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Ask about your audience..."
-              className="flex-1 bg-gray-900 text-white rounded-lg px-4 py-2 text-sm border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="flex-1 bg-gray-900 text-white rounded-lg px-3 py-2 text-sm border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
             <Button
               onClick={handleSendMessage}
