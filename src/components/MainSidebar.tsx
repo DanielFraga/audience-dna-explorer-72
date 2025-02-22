@@ -115,12 +115,15 @@ const MainSidebar = () => {
             onToggle={() => setIsOpen(!isOpen)}
           />
 
-          <NavigationMenu 
-            items={menuItems}
-            isOpen={isOpen}
-            isMobile={isMobile}
-            onMobileItemClick={() => isMobile && setIsOpen(false)}
-          />
+          {/* Added margin-top to create space between logo and navigation */}
+          <div className="mt-8">
+            <NavigationMenu 
+              items={menuItems}
+              isOpen={isOpen}
+              isMobile={isMobile}
+              onMobileItemClick={() => isMobile && setIsOpen(false)}
+            />
+          </div>
 
           {(isOpen || isMobile) && location.pathname === '/chat' && (
             <AudienceSection
@@ -155,4 +158,3 @@ const MainSidebar = () => {
 };
 
 export default MainSidebar;
-
