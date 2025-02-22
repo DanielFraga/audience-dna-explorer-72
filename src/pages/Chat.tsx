@@ -15,24 +15,23 @@ interface Message {
   timestamp: Date;
 }
 
+const PRESET_QUESTIONS = [
+  "Top three insights on this audience",
+  "Quick overview",
+  "Explain their psychography"
+];
+
 const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      content: "I am your audience analyst. I can answer questions about the people who have responded to your survey. What do you want to know?",
-      sender: "assistant",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
+  const handleSendMessage = (content: string = inputValue) => {
+    if (!content.trim()) return;
 
     const newMessage: Message = {
       id: Date.now().toString(),
-      content: inputValue,
+      content: content,
       sender: "user",
       timestamp: new Date(),
     };
@@ -164,28 +163,43 @@ const Chat = () => {
           </div>
         </ScrollArea>
 
-        {/* Input Area - Centered when no messages */}
-        <div className={`border-t border-gray-800 p-4 ${messages.length === 1 ? 'flex-1 flex items-center justify-center' : ''}`}>
-          <div className={`${messages.length === 1 ? 'max-w-2xl w-full mx-auto' : ''}`}>
-            <Textarea
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
-                }
-              }}
-              placeholder="Ask about your audience..."
-              className="bg-gray-900 text-white rounded-lg border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 min-h-[120px] resize-none"
-            />
-            <div className="mt-2 flex justify-end">
+        {/* Input Area with Preset Questions */}
+        <div className="border-t border-gray-800 p-4 flex-1 flex items-center justify-center">
+          <div className="max-w-2xl w-full mx-auto space-y-4">
+            {/* Preset Questions */}
+            <div className="flex flex-wrap gap-2 justify-center">
+              {PRESET_QUESTIONS.map((question, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  onClick={() => handleSendMessage(question)}
+                >
+                  {question}
+                </Button>
+              ))}
+            </div>
+
+            {/* Text Input */}
+            <div className="relative">
+              <Textarea
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
+                placeholder="Ask about your audience..."
+                className="bg-gray-900 text-white rounded-lg border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 min-h-[120px] resize-none pr-24"
+              />
               <Button
-                onClick={handleSendMessage}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => handleSendMessage()}
+                className="absolute bottom-3 right-3 bg-blue-600 hover:bg-blue-700 text-white"
               >
-                <SendHorizontal className="h-4 w-4" />
-                <span>Send message</span>
+                <SendHorizontal className="h-4 w-4 mr-2" />
+                <span>Send</span>
               </Button>
             </div>
           </div>
@@ -196,3 +210,4 @@ const Chat = () => {
 };
 
 export default Chat;
+
