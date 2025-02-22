@@ -3,15 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const CITY_DATA = [
-  { coordinates: [12.5683, 55.6761], name: 'Copenhagen', percentage: 42 },
-  { coordinates: [-0.1276, 51.5072], name: 'London', percentage: 35 },
-  { coordinates: [-74, 40.7], name: 'New York', percentage: 15 },
-  { coordinates: [139.6917, 35.6895], name: 'Tokyo', percentage: 2 },
-  { coordinates: [151.2093, -33.8688], name: 'Sydney', percentage: 3 },
-  { coordinates: [28.9784, 41.0082], name: 'Istanbul', percentage: 3 },
-];
-
 const DemographicsMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
@@ -34,89 +25,44 @@ const DemographicsMap = () => {
     // Add navigation controls
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-    // Add points with gradients matching the cobweb chart
-    map.current.on('load', () => {
-      if (!map.current) return;
+    // Disable scroll zoom for smoother experience
+    map.current.scrollZoom.disable();
 
-      // Add a data source for points
-      map.current.addSource('points', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: CITY_DATA.map(city => ({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: city.coordinates
-            },
-            properties: {
-              name: city.name,
-              percentage: city.percentage
-            }
-          }))
-        }
-      });
-
-      // Add circles layer with gradient color matching cobweb chart and size based on percentage
-      map.current.addLayer({
-        id: 'points-glow',
-        type: 'circle',
-        source: 'points',
-        paint: {
-          'circle-radius': [
-            'interpolate',
-            ['linear'],
-            ['get', 'percentage'],
-            2, 10,   // Min percentage -> small radius
-            42, 40   // Max percentage -> large radius
-          ],
-          'circle-color': '#33C3F0',
-          'circle-opacity': 0.4,
-          'circle-blur': 1
-        }
-      });
-
-      // Add smaller inner circles with size also based on percentage
-      map.current.addLayer({
-        id: 'points',
-        type: 'circle',
-        source: 'points',
-        paint: {
-          'circle-radius': [
-            'interpolate',
-            ['linear'],
-            ['get', 'percentage'],
-            2, 4,    // Min percentage -> small radius
-            42, 12   // Max percentage -> large radius
-          ],
-          'circle-color': '#1EAEDB',
-          'circle-opacity': 0.8
-        }
-      });
-
-      // Add labels
-      map.current.addLayer({
-        id: 'point-labels',
-        type: 'symbol',
-        source: 'points',
-        layout: {
-          'text-field': ['format',
-            ['get', 'name'], {},
-            '\n',
-            ['get', 'percentage'], { 'font-scale': 0.8 },
-            '%'
-          ],
-          'text-anchor': 'top',
-          'text-offset': [0, 1],
-          'text-size': 12
-        },
-        paint: {
-          'text-color': '#ffffff',
-          'text-halo-color': '#000000',
-          'text-halo-width': 1
-        }
+    // Add atmosphere and fog effects
+    map.current.on('style.load', () => {
+      map.current?.setFog({
+        color: 'rgb(186, 210, 235)',
+        'high-color': 'rgb(36, 92, 223)',
+        'horizon-blend': 0.02
       });
     });
+
+    // Rotation animation
+    const secondsPerRevolution = 240;
+    let userInteracting = false;
+
+    function spinGlobe() {
+      if (!map.current || userInteracting) return;
+      
+      const center = map.current.getCenter();
+      center.lng -= 360 / secondsPerRevolution;
+      map.current.easeTo({ center, duration: 1000, easing: (n) => n });
+    }
+
+    // Handle user interaction
+    map.current.on('mousedown', () => {
+      userInteracting = true;
+    });
+    
+    map.current.on('mouseup', () => {
+      userInteracting = false;
+      spinGlobe();
+    });
+
+    map.current.on('moveend', spinGlobe);
+
+    // Start spinning
+    spinGlobe();
 
     // Cleanup
     return () => {
@@ -133,4 +79,3 @@ const DemographicsMap = () => {
 };
 
 export default DemographicsMap;
-
