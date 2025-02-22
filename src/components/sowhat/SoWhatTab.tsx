@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Info, CheckCircle, XCircle } from 'lucide-react';
 import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -73,37 +72,28 @@ export const SoWhatTab: FC = () => {
           <div className="space-y-4">
             <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
               <h4 className="text-xs font-medium text-blue-400 mb-1">
-                Personalize Digital Communications
+                Drive Personalization for Tech-Savvy Users
               </h4>
-              <p className="text-gray-400 text-xs mb-2">
-                Given high tech adoption (88%) and openness to innovation (75%), you should leverage advanced digital platforms for personalized communication streams.
-              </p>
               <p className="text-gray-400 text-xs">
-                Implement AI-driven content personalization across email campaigns and digital touchpoints to create highly relevant, individualized user experiences.
+                Hey, your audience loves technology and new features, so let's make each digital touchpoint uniquely tailored to their preferences and behaviors!
               </p>
             </div>
 
             <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
               <h4 className="text-xs font-medium text-purple-400 mb-1">
-                Highlight Premium Value
+                Showcase Quality and Value for Premium Buyers
               </h4>
-              <p className="text-gray-400 text-xs mb-2">
-                Given quality focus (78%) and moderate price sensitivity (40%), you should emphasize value-driven messaging that highlights premium features.
-              </p>
               <p className="text-gray-400 text-xs">
-                Create content that demonstrates long-term value and quality benefits, balancing premium positioning with smart investment messaging.
+                Your customers care about quality but still want smart deals, so we should focus on showing them how premium features translate to long-term value!
               </p>
             </div>
 
             <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
               <h4 className="text-xs font-medium text-emerald-400 mb-1">
-                Promote Sustainability Impact
+                Highlight Eco-Impact for Conscious Consumers
               </h4>
-              <p className="text-gray-400 text-xs mb-2">
-                Given high social impact concern (72%) and sustainability focus (65%), you should integrate eco-conscious messaging across marketing channels.
-              </p>
               <p className="text-gray-400 text-xs">
-                Develop content that emphasizes environmental responsibility and social impact, highlighting sustainable practices and community benefits.
+                With your audience being super passionate about sustainability, let's make sure they know about all the amazing eco-friendly initiatives we're working on!
               </p>
             </div>
           </div>
