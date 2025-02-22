@@ -95,7 +95,10 @@ const MainSidebar = () => {
             <Link
               to="/settings"
               className={`flex items-center px-3 py-2 rounded-lg transition-colors text-[11px]
-                hover:bg-gray-800/50 bg-gray-800/50 text-gray-300`}
+                hover:bg-gray-800/50 ${location.pathname === '/settings' 
+                  ? 'bg-blue-600/20 text-blue-400' 
+                  : 'bg-gray-800/50 text-gray-300'}`}
+              onClick={() => isMobile && setIsOpen(false)}
               title={!isOpen && !isMobile ? "Settings" : undefined}
             >
               <div className="flex items-center">
