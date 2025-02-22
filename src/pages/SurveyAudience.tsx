@@ -1,16 +1,17 @@
 
-import { Plus, Users, Target } from 'lucide-react';
+import { Plus, Users, Target, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import MainSidebar from "@/components/MainSidebar";
 
 const SurveyAudience = () => {
   // Current focus areas
   const currentFocusAreas = [
-    { id: 1, name: "Demographic", description: "Basic population characteristics" },
-    { id: 2, name: "Digital", description: "Online behavior and preferences" },
-    { id: 3, name: "Psychographic", description: "Attitudes and interests" },
-    { id: 4, name: "Anthropological", description: "Cultural patterns and values" },
+    { id: 1, name: "Demographic", description: "Basic population characteristics", tooltip: "Basic demographic information including age, gender, location, and income" },
+    { id: 2, name: "Digital", description: "Online behavior and preferences", tooltip: "Digital footprint analysis including device usage, social media presence, and online shopping habits" },
+    { id: 3, name: "Psychographic", description: "Attitudes and interests", tooltip: "Psychological attributes including values, interests, lifestyle choices, and personality traits" },
+    { id: 4, name: "Anthropological", description: "Cultural patterns and values", tooltip: "Cultural background analysis including traditions, beliefs, and social norms" },
   ];
 
   // Available new modules
@@ -50,15 +51,31 @@ const SurveyAudience = () => {
                     </div>
                   </div>
                   <div className="grid grid-cols-1 gap-2">
-                    {currentFocusAreas.map((area) => (
-                      <div
-                        key={area.id}
-                        className="bg-gray-700/50 p-2 rounded-lg border border-gray-600"
-                      >
-                        <h4 className="text-sm font-medium text-gray-200">{area.name}</h4>
-                        <p className="text-xs text-gray-400 mt-0.5">{area.description}</p>
-                      </div>
-                    ))}
+                    <TooltipProvider>
+                      {currentFocusAreas.map((area) => (
+                        <div
+                          key={area.id}
+                          className="bg-gray-700/50 p-2 rounded-lg border border-gray-600"
+                        >
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="text-sm font-medium text-gray-200">{area.name}</h4>
+                              <p className="text-xs text-gray-400 mt-0.5">{area.description}</p>
+                            </div>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button className="p-1 hover:bg-gray-600/50 rounded-full transition-colors">
+                                  <Info className="w-3.5 h-3.5 text-gray-400" />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-gray-800 border-gray-700">
+                                <p className="text-xs text-gray-200">{area.tooltip}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      ))}
+                    </TooltipProvider>
                   </div>
                 </div>
 
@@ -102,3 +119,4 @@ const SurveyAudience = () => {
 };
 
 export default SurveyAudience;
+
