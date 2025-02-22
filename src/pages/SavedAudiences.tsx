@@ -1,7 +1,9 @@
 
 import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, MapPin, Calendar } from "lucide-react";
+import { Users, MapPin, Calendar, Search, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface AudienceEntry {
   id: number;
@@ -11,6 +13,8 @@ interface AudienceEntry {
 }
 
 const SavedAudiences = () => {
+  const navigate = useNavigate();
+  
   // Sample data - in a real app, this would come from an API or database
   const audiences: AudienceEntry[] = [
     {
@@ -53,7 +57,7 @@ const SavedAudiences = () => {
                   key={audience.id}
                   className="py-4 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-3"
                 >
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-5 gap-4">
                     <div className="flex items-center gap-2 text-gray-300">
                       <Users className="w-4 h-4 text-blue-400" />
                       {audience.size}
@@ -65,6 +69,28 @@ const SavedAudiences = () => {
                     <div className="flex items-center gap-2 text-gray-300">
                       <Calendar className="w-4 h-4 text-blue-400" />
                       Ages {audience.ageRange}
+                    </div>
+                    <div className="flex items-center">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-gray-300 hover:text-blue-400"
+                        onClick={() => navigate(`/survey-audience?id=${audience.id}`)}
+                      >
+                        <Search className="w-4 h-4 mr-1" />
+                        Explore
+                      </Button>
+                    </div>
+                    <div className="flex items-center">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-gray-300 hover:text-blue-400"
+                        onClick={() => navigate(`/chat?id=${audience.id}`)}
+                      >
+                        <MessageSquare className="w-4 h-4 mr-1" />
+                        Chat
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -78,3 +104,4 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
+
