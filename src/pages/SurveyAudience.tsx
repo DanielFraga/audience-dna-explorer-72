@@ -1,3 +1,4 @@
+
 import { Plus, Users, Target, Info, ShieldCheck, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,12 +6,16 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/comp
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import MainSidebar from "@/components/MainSidebar";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import MainSidebar from "@/components/MainSidebar";
 
 const SurveyAudience = () => {
   const [showCertDialog, setShowCertDialog] = useState(false);
   const [showSampleSizeDialog, setShowSampleSizeDialog] = useState(false);
+  const [additionalRespondents, setAdditionalRespondents] = useState('');
+  const currentRespondents = 10000;
+  const pricePerThousand = 2000;
 
   // Current focus areas
   const currentFocusAreas = [
@@ -27,8 +32,23 @@ const SurveyAudience = () => {
     { id: 3, name: "Sexual", description: "Relationship and intimacy factors" },
   ];
 
-  const handleEmailClick = () => {
-    window.location.href = "mailto:support@example.com";
+  const calculateTotalPrice = () => {
+    if (!additionalRespondents) return 0;
+    const additional = parseInt(additionalRespondents);
+    return Math.ceil(additional / 1000) * pricePerThousand;
+  };
+
+  const handleRespondentsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    setAdditionalRespondents(value);
+  };
+
+  const handleCheckout = () => {
+    // This will be implemented when the checkout system is set up
+    console.log('Proceeding to checkout with:', {
+      additionalRespondents,
+      totalPrice: calculateTotalPrice()
+    });
   };
 
   return (
@@ -173,7 +193,7 @@ const SurveyAudience = () => {
 
         {/* Sample Size Dialog */}
         <Dialog open={showSampleSizeDialog} onOpenChange={setShowSampleSizeDialog}>
-          <DialogContent className="sm:max-w-[400px] bg-gray-800 border-gray-700">
+          <DialogContent className="sm:max-w-[500px] bg-gray-800 border-gray-700">
             <DialogHeader>
               <div className="flex items-center justify-between">
                 <DialogTitle className="text-gray-100">Increase Current Sample Size</DialogTitle>
@@ -187,14 +207,45 @@ const SurveyAudience = () => {
                 </Button>
               </div>
             </DialogHeader>
-            <div className="space-y-4 text-gray-200">
-              <p className="text-sm">Currently, you have a pool of 10,000 respondents. To increase the sample size, simply get in touch with us using the email below.</p>
-              <div className="flex justify-center">
+            <div className="space-y-6 text-gray-200">
+              <p className="text-sm">Increasing the pool of respondents within the current focus areas takes up to 48 hours.</p>
+              
+              <div className="space-y-4 bg-gray-700/30 p-4 rounded-lg">
+                <div className="space-y-2">
+                  <h3 className="font-medium">Pricing</h3>
+                  <p className="text-sm text-gray-400">€2,000 per 1,000 respondents</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Additional Respondents</label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="text"
+                      value={additionalRespondents}
+                      onChange={handleRespondentsChange}
+                      placeholder="Enter number of respondents"
+                      className="bg-gray-700/50 border-gray-600 text-gray-100"
+                    />
+                  </div>
+                </div>
+
+                {additionalRespondents && (
+                  <div className="space-y-2 pt-2 border-t border-gray-600">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Total Price:</span>
+                      <span className="text-lg font-semibold text-blue-400">€{calculateTotalPrice().toLocaleString()}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-end">
                 <Button 
                   className="bg-blue-500 hover:bg-blue-600"
-                  onClick={handleEmailClick}
+                  onClick={handleCheckout}
+                  disabled={!additionalRespondents || parseInt(additionalRespondents) <= 0}
                 >
-                  Get in touch
+                  Proceed to Checkout
                 </Button>
               </div>
             </div>
