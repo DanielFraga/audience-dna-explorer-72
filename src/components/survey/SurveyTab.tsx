@@ -1,5 +1,26 @@
-
 import { FC } from 'react';
+import { Badge } from "../ui/badge";
+
+const wordsetData = [
+  {
+    title: "Wordset A",
+    subheader: "Interest",
+    words: ["Excited", "Curious", "Engaged", "Intrigued", "Fascinated", "Eager"],
+    chipColor: "text-blue-400 border-blue-400 bg-blue-400/10"
+  },
+  {
+    title: "Wordset B",
+    subheader: "FOMO + Anxiety",
+    words: ["Missing out", "Worried", "Stressed", "Uncertain", "Rushed", "Overwhelmed"],
+    chipColor: "text-purple-400 border-purple-400 bg-purple-400/10"
+  },
+  {
+    title: "Wordset C",
+    subheader: "Anger + Pessimism",
+    words: ["Frustrated", "Disappointed", "Skeptical", "Annoyed", "Doubtful", "Negative"],
+    chipColor: "text-red-400 border-red-400 bg-red-400/10"
+  }
+];
 
 const surveyData = [
   {
@@ -66,51 +87,82 @@ const surveyData = [
 
 export const SurveyTab: FC = () => {
   return (
-    <div className="grid grid-cols-3 gap-4 animate-slide-up">
-      {surveyData.map((item, index) => (
-        <div 
-          key={index}
-          className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
-        >
-          {/* Confidence Score Circle */}
-          <div className="absolute top-3 right-3">
-            <div className="relative w-10 h-10">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div 
-                  className={`w-full h-full rounded-full border-2 ${
-                    Number(item.confidence) >= 0.9 ? 'border-green-500' :
-                    Number(item.confidence) >= 0.7 ? 'border-blue-500' :
-                    'border-yellow-500'
-                  }`}
-                />
-                <span className="absolute text-xs font-medium text-gray-300">
-                  {item.confidence}
-                </span>
-              </div>
+    <div className="space-y-8 animate-slide-up">
+      {/* Wordset Cards */}
+      <div className="grid grid-cols-3 gap-4">
+        {wordsetData.map((wordset, index) => (
+          <div 
+            key={index}
+            className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors"
+          >
+            <h3 className="text-lg font-semibold text-white mb-1">
+              {wordset.title}
+            </h3>
+            <p className="text-sm text-gray-400 mb-4">
+              {wordset.subheader}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {wordset.words.map((word, wordIndex) => (
+                <Badge
+                  key={wordIndex}
+                  variant="outline"
+                  className={`${wordset.chipColor}`}
+                >
+                  {word}
+                </Badge>
+              ))}
             </div>
           </div>
+        ))}
+      </div>
 
-          {/* Question */}
-          <h3 
-            className="text-sm font-medium text-white mb-2 pr-12"
-            dangerouslySetInnerHTML={{
-              __html: item.question.replace(/holiday/gi, (match) => (
-                `<span class="text-blue-400">${match}</span>`
-              ))
-            }}
-          />
+      {/* Existing Survey Cards */}
+      <div className="grid grid-cols-3 gap-4">
+        {surveyData.map((item, index) => (
+          <div 
+            key={index}
+            className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
+          >
+            {/* Confidence Score Circle */}
+            <div className="absolute top-3 right-3">
+              <div className="relative w-10 h-10">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div 
+                    className={`w-full h-full rounded-full border-2 ${
+                      Number(item.confidence) >= 0.9 ? 'border-green-500' :
+                      Number(item.confidence) >= 0.7 ? 'border-blue-500' :
+                      'border-yellow-500'
+                    }`}
+                  />
+                  <span className="absolute text-xs font-medium text-gray-300">
+                    {item.confidence}
+                  </span>
+                </div>
+              </div>
+            </div>
 
-          {/* Response */}
-          <p 
-            className="text-xs text-gray-400 line-clamp-3"
-            dangerouslySetInnerHTML={{
-              __html: item.response.replace(/holiday/gi, (match) => (
-                `<span class="text-blue-400">${match}</span>`
-              ))
-            }}
-          />
-        </div>
-      ))}
+            {/* Question */}
+            <h3 
+              className="text-sm font-medium text-white mb-2 pr-12"
+              dangerouslySetInnerHTML={{
+                __html: item.question.replace(/holiday/gi, (match) => (
+                  `<span class="text-blue-400">${match}</span>`
+                ))
+              }}
+            />
+
+            {/* Response */}
+            <p 
+              className="text-xs text-gray-400 line-clamp-3"
+              dangerouslySetInnerHTML={{
+                __html: item.response.replace(/holiday/gi, (match) => (
+                  `<span class="text-blue-400">${match}</span>`
+                ))
+              }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
