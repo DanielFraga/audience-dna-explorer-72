@@ -24,6 +24,7 @@ const Chat = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [questionCount, setQuestionCount] = useState(0);
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
@@ -38,11 +39,17 @@ const Chat = () => {
     setMessages((prev) => [...prev, newMessage]);
     setInputValue("");
 
-    // Simulate assistant response with fixed message
+    // Increment question count
+    const newQuestionCount = questionCount + 1;
+    setQuestionCount(newQuestionCount);
+
+    // Simulate assistant response based on question number
     setTimeout(() => {
       const assistantResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'Respondents who mentioned terms related to "holiday" tend to have a high score in Openness (80 out of 100) . People with high trait Openness tend to be more willing to engage in new experiences and new perspectives',
+        content: newQuestionCount === 1 
+          ? 'Respondents who mentioned terms related to "holiday" tend to have a high score in Openness (80 out of 100) . People with high trait Openness tend to be more willing to engage in new experiences and new perspectives'
+          : 'Communicating with words on wordset A may target the high-openness trait of these folk, possibly exciting them with the potential of new experiences',
         sender: "assistant",
         timestamp: new Date(),
       };
@@ -160,4 +167,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
