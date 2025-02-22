@@ -49,7 +49,7 @@ const Chat = () => {
         id: (Date.now() + 1).toString(),
         content: newQuestionCount === 1 
           ? 'Respondents who mentioned terms related to "holiday" tend to have a high score in Openness (80 out of 100) . People with high trait Openness tend to be more willing to engage in new experiences and new perspectives'
-          : 'Communicating with words on wordset A may target the high-openness trait of these folk, possibly exciting them with the potential of new experiences',
+          : 'Communicating with words on wordset A¹ may target the high-openness trait of these folk, possibly exciting them with the potential of new experiences',
         sender: "assistant",
         timestamp: new Date(),
       };
@@ -58,28 +58,49 @@ const Chat = () => {
   };
 
   const renderMessage = (message: Message) => {
-    if (message.sender === "assistant" && message.content.includes("(80 out of 100)")) {
-      const parts = message.content.split("(80 out of 100)");
-      return (
-        <>
-          {parts[0]}
-          <span>(80 out of 100</span>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <sup className="text-blue-400 cursor-help">
-                  <Info className="w-3 h-3 inline" />
-                </sup>
-              </TooltipTrigger>
-              <TooltipContent className="bg-gray-800 border-gray-700 text-white p-3 max-w-xs">
-                <p>Openness reflects a person's willingness to try new experiences, engage with abstract concepts, and explore novel ideas. High scorers tend to be creative, curious, and appreciative of art and nature.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <span>)</span>
-          {parts[1]}
-        </>
-      );
+    if (message.sender === "assistant") {
+      if (message.content.includes("(80 out of 100)")) {
+        const parts = message.content.split("(80 out of 100)");
+        return (
+          <>
+            {parts[0]}
+            <span>(80 out of 100</span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <sup className="text-blue-400 cursor-help">
+                    <Info className="w-3 h-3 inline" />
+                  </sup>
+                </TooltipTrigger>
+                <TooltipContent className="bg-gray-800 border-gray-700 text-white p-3 max-w-xs">
+                  <p>Openness reflects a person's willingness to try new experiences, engage with abstract concepts, and explore novel ideas. High scorers tend to be creative, curious, and appreciative of art and nature.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <span>)</span>
+            {parts[1]}
+          </>
+        );
+      } else if (message.content.includes("wordset A¹")) {
+        const parts = message.content.split("wordset A¹");
+        return (
+          <>
+            {parts[0]}
+            wordset A
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <sup className="text-blue-400 cursor-help">1</sup>
+                </TooltipTrigger>
+                <TooltipContent className="bg-gray-800 border-gray-700 text-white p-3 max-w-xs">
+                  <p>Words in this set include: adventure, discover, explore, journey, wanderlust, excitement, novel, unique, exotic, experience</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            {parts[1]}
+          </>
+        );
+      }
     }
     return message.content;
   };
