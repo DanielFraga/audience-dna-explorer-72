@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 
 interface Message {
   id: string;
@@ -110,6 +111,13 @@ const Chat = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
+        {/* Respondent Count Badge */}
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
+          <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700">
+            450 out of 10000 respondents
+          </Badge>
+        </div>
+
         {/* Chat Messages */}
         <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''}`}>
           <div className="space-y-3 p-4">
@@ -195,3 +203,4 @@ const Chat = () => {
 };
 
 export default Chat;
+
