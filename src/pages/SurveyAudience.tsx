@@ -30,7 +30,7 @@ const SurveyAudience = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left Card: Current Focus Areas */}
-          <Card className="bg-gray-800/50 border-gray-700">
+          <Card className="bg-gray-800/50 border-gray-700 h-fit">
             <CardHeader className="p-3">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
@@ -88,7 +88,7 @@ const SurveyAudience = () => {
           </Card>
 
           {/* Right Card: Available Modules */}
-          <Card className="bg-gray-800/50 border-gray-700">
+          <Card className="bg-gray-800/50 border-gray-700 h-fit">
             <CardHeader className="p-3">
               <CardTitle className="text-lg font-display text-gray-100">
                 Add New Modules
