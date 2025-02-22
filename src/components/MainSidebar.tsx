@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Search, Users, MessageSquare, Settings } from 'lucide-react';
+import { Search, Users, MessageSquare, Settings, Target } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation } from 'react-router-dom';
 import { MobileMenuButton } from './sidebar/MobileMenuButton';
@@ -32,6 +32,11 @@ const MainSidebar = () => {
       title: "Search by Audience DNA",
       icon: <Search className="w-4 h-4" />,
       path: "/"
+    },
+    {
+      title: "Survey Audience",
+      icon: <Target className="w-4 h-4" />,
+      path: "/survey-audience"
     },
     {
       title: "My Saved Audiences",
