@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 
 interface AudienceSectionProps {
   selectedAudience: string;
@@ -19,21 +18,6 @@ export const AudienceSection = ({ selectedAudience, onAudienceChange }: Audience
       {/* Audience Selection Dropdown */}
       <div className="mb-3">
         <div className="text-[10px] font-medium text-gray-400 mb-1.5 text-left">Audience</div>
-        
-        {/* Analysis text */}
-        <div className="mb-3">
-          <p className="text-[11px] text-gray-400 mb-1.5">
-            Analysing data relevant to the term "holiday"
-          </p>
-          <div className="flex items-center gap-1 text-[11px] text-gray-400">
-            <span>Applicable to</span>
-            <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 text-[10px] h-[18px]">
-              450 out of 10000
-            </Badge>
-            <span>respondents</span>
-          </div>
-        </div>
-
         <Select value={selectedAudience} onValueChange={onAudienceChange}>
           <SelectTrigger className="w-full bg-gray-800 border-gray-700 text-[10px] text-gray-300 h-7">
             <SelectValue placeholder="Select audience" />
