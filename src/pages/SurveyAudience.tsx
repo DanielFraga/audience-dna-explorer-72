@@ -11,6 +11,7 @@ import { useState } from "react";
 
 const SurveyAudience = () => {
   const [showCertDialog, setShowCertDialog] = useState(false);
+  const [showSampleSizeDialog, setShowSampleSizeDialog] = useState(false);
 
   // Current focus areas
   const currentFocusAreas = [
@@ -26,6 +27,10 @@ const SurveyAudience = () => {
     { id: 2, name: "Cultural", description: "Cultural influences and traditions" },
     { id: 3, name: "Sexual", description: "Relationship and intimacy factors" },
   ];
+
+  const handleEmailClick = () => {
+    window.location.href = "mailto:support@example.com";
+  };
 
   return (
     <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
@@ -58,6 +63,7 @@ const SurveyAudience = () => {
                   variant="ghost"
                   size="icon"
                   className="w-8 h-8 rounded-full border-2 border-blue-500/50 hover:border-blue-500 hover:bg-blue-500/10 transition-colors"
+                  onClick={() => setShowSampleSizeDialog(true)}
                 >
                   <Plus className="h-4 w-4 text-blue-400" />
                 </Button>
@@ -165,10 +171,39 @@ const SurveyAudience = () => {
             </ScrollArea>
           </DialogContent>
         </Dialog>
+
+        {/* Sample Size Dialog */}
+        <Dialog open={showSampleSizeDialog} onOpenChange={setShowSampleSizeDialog}>
+          <DialogContent className="sm:max-w-[400px] bg-gray-800 border-gray-700">
+            <DialogHeader>
+              <div className="flex items-center justify-between">
+                <DialogTitle className="text-gray-100">Increase Current Sample Size</DialogTitle>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 p-0 hover:bg-gray-700/50"
+                  onClick={() => setShowSampleSizeDialog(false)}
+                >
+                  <X className="h-4 w-4 text-gray-400" />
+                </Button>
+              </div>
+            </DialogHeader>
+            <div className="space-y-4 text-gray-200">
+              <p className="text-sm">Currently, you have a pool of 10,000 respondents. To increase the sample size, simply get in touch with us using the email below.</p>
+              <div className="flex justify-center">
+                <Button 
+                  className="bg-blue-500 hover:bg-blue-600"
+                  onClick={handleEmailClick}
+                >
+                  Get in touch
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
 };
 
 export default SurveyAudience;
-
