@@ -1,5 +1,5 @@
 
-import { Plus, Users, Target, TrendingUp } from 'lucide-react';
+import { Plus, Users, Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MainSidebar from "@/components/MainSidebar";
@@ -40,7 +40,12 @@ const SurveyAudience = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Current Focus Areas */}
                 <div className="space-y-3">
-                  <h3 className="text-sm font-medium text-gray-300 mb-2">Current Focus Areas</h3>
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-sm font-medium text-gray-300">Current Focus Areas</h3>
+                    <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
+                      10000 respondents
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 gap-2">
                     {currentFocusAreas.map((area) => (
                       <div
@@ -78,27 +83,15 @@ const SurveyAudience = () => {
             </CardContent>
           </Card>
 
-          {/* Survey Range Card */}
-          <Card className="bg-gray-800/50 border-gray-700">
-            <CardHeader className="p-3">
-              <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
-                <Users className="w-5 h-5 text-blue-400" />
-                Survey Range
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-3">
-              <div className="space-y-3">
-                <p className="text-sm text-gray-300">Current respondent range: 1000-2000</p>
-                <Button 
-                  variant="outline" 
-                  className="w-full bg-gray-700/50 border-gray-600 hover:bg-gray-600/50 text-gray-200"
-                >
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Increase Range
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Increase Survey Range Button */}
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="bg-gray-700/50 border-gray-600 hover:bg-gray-600/50 text-gray-200"
+          >
+            <Plus className="w-5 h-5" />
+            Increase Survey Range
+          </Button>
         </div>
       </div>
     </div>
