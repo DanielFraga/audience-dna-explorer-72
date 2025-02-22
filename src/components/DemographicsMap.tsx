@@ -1,17 +1,18 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const DemographicsMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const [token, setToken] = useState('');
+  const [isMapInitialized, setIsMapInitialized] = useState(false);
 
-  useEffect(() => {
-    if (!mapContainer.current) return;
+  const initializeMap = () => {
+    if (!mapContainer.current || !token) return;
 
-    // Initialize map with temporary token - in production, this should be stored in env variables
-    mapboxgl.accessToken = 'pk.eyJ1IjoibG92YWJsZWFpIiwiYSI6ImNscng4OHBveTB6N2Qya3A3Y3N5ZGNlNm4ifQ.JgLwiFcBvE8U0r48SHp0nQ';
+    mapboxgl.accessToken = token;
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -64,14 +65,40 @@ const DemographicsMap = () => {
     // Start spinning
     spinGlobe();
 
-    // Cleanup
+    setIsMapInitialized(true);
+  };
+
+  useEffect(() => {
     return () => {
-      map.current?.remove();
+      if (map.current) {
+        map.current.remove();
+        setIsMapInitialized(false);
+      }
     };
   }, []);
 
   return (
     <div className="h-[460px] relative rounded-lg overflow-hidden">
+      {!isMapInitialized && (
+        <div className="absolute inset-0 bg-gray-900 flex flex-col items-center justify-center p-4">
+          <p className="text-gray-400 mb-4 text-center text-sm">
+            Please enter your Mapbox public token to view the map. You can find it in your Mapbox account dashboard.
+          </p>
+          <input
+            type="text"
+            placeholder="Enter your Mapbox token"
+            className="w-full max-w-md px-4 py-2 rounded-lg border border-gray-800 bg-gray-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs mb-2"
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+          />
+          <button
+            onClick={initializeMap}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 transition-colors"
+          >
+            Initialize Map
+          </button>
+        </div>
+      )}
       <div ref={mapContainer} className="absolute inset-0" />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent to-gray-900/10" />
     </div>
