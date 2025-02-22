@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Search, Users, MessageSquare, Settings, Target } from 'lucide-react';
+import { Search, Users, MessageSquare, Settings, FileText } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation } from 'react-router-dom';
 import { MobileMenuButton } from './sidebar/MobileMenuButton';
@@ -45,7 +45,7 @@ const MainSidebar = () => {
     },
     {
       title: "Survey Settings",
-      icon: <Settings className="w-4 h-4" />,
+      icon: <FileText className="w-4 h-4" />,
       path: "/survey-audience"
     }
   ];
@@ -69,7 +69,7 @@ const MainSidebar = () => {
           ${isOpen ? "w-64 md:w-52" : "md:w-16"}
         `}
       >
-        <div className="p-4 mt-14 md:mt-0">
+        <div className="p-4 mt-14 md:mt-0 flex flex-col h-full">
           <SidebarHeader 
             isOpen={isOpen}
             isMobile={isMobile}
@@ -89,6 +89,23 @@ const MainSidebar = () => {
               onAudienceChange={setSelectedAudience}
             />
           )}
+
+          {/* Settings Button */}
+          <div className="mt-auto pt-4">
+            <Link
+              to="/settings"
+              className={`flex items-center px-3 py-2 rounded-lg transition-colors text-[11px]
+                hover:bg-gray-800/50 bg-gray-800/50 text-gray-300`}
+              title={!isOpen && !isMobile ? "Settings" : undefined}
+            >
+              <div className="flex items-center">
+                <Settings className="w-4 h-4" />
+                {(isOpen || isMobile) && (
+                  <span className="ml-2.5">Settings</span>
+                )}
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </>
@@ -96,4 +113,3 @@ const MainSidebar = () => {
 };
 
 export default MainSidebar;
-
