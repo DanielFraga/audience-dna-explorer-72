@@ -1,4 +1,3 @@
-
 import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, MapPin, Calendar, Search, MessageSquare } from "lucide-react";
@@ -25,7 +24,7 @@ const SavedAudiences = () => {
       id: 1,
       name: "A1",
       type: "All",
-      size: "2,500 respondents",
+      size: "450 respondents",
       location: "California, USA",
       ageRange: "25-34",
     },
@@ -34,7 +33,7 @@ const SavedAudiences = () => {
       name: "A1.1",
       type: "Keyword",
       keyword: "holiday",
-      size: "1,500 respondents",
+      size: "450 respondents",
       location: "California, USA",
       ageRange: "25-34",
       parentId: 1,
@@ -43,7 +42,7 @@ const SavedAudiences = () => {
       id: 2,
       name: "A2",
       type: "All",
-      size: "2,000 respondents",
+      size: "450 respondents",
       location: "New York, USA",
       ageRange: "18-24",
     },
@@ -51,7 +50,7 @@ const SavedAudiences = () => {
       id: 3,
       name: "A3",
       type: "All",
-      size: "1,000 respondents",
+      size: "450 respondents",
       location: "Texas, USA",
       ageRange: "35-44",
     },
@@ -146,4 +145,3 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
-
