@@ -45,6 +45,9 @@ const SurveyAudience = () => {
                     <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
                       10000 respondents
                     </div>
+                    <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
+                      72 questions each
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 gap-2">
                     {currentFocusAreas.map((area) => (
