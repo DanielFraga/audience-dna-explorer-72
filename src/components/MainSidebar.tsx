@@ -27,6 +27,16 @@ const MainSidebar = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Add effect to toggle sidebar-collapsed class on body
+  useEffect(() => {
+    if (!isMobile) {
+      document.body.classList.toggle('sidebar-collapsed', !isOpen);
+    }
+    return () => {
+      document.body.classList.remove('sidebar-collapsed');
+    };
+  }, [isOpen, isMobile]);
+
   const menuItems: MenuItem[] = [
     {
       title: "Explore Audience",
@@ -145,3 +155,4 @@ const MainSidebar = () => {
 };
 
 export default MainSidebar;
+

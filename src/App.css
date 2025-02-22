@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 @layer utilities {
-  .md\:collapsed\:ml-16 {
-    @media (min-width: 768px) {
-      margin-left: 4rem;
-    }
+  body.sidebar-collapsed .md\:ml-\[208px\] {
+    margin-left: 4rem;
   }
 }
 
