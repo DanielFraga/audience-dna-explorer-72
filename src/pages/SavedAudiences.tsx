@@ -1,0 +1,80 @@
+
+import MainSidebar from "@/components/MainSidebar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Users, MapPin, Calendar } from "lucide-react";
+
+interface AudienceEntry {
+  id: number;
+  size: string;
+  location: string;
+  ageRange: string;
+}
+
+const SavedAudiences = () => {
+  // Sample data - in a real app, this would come from an API or database
+  const audiences: AudienceEntry[] = [
+    {
+      id: 1,
+      size: "1,500 respondents",
+      location: "California, USA",
+      ageRange: "25-34",
+    },
+    {
+      id: 2,
+      size: "2,000 respondents",
+      location: "New York, USA",
+      ageRange: "18-24",
+    },
+    {
+      id: 3,
+      size: "1,000 respondents",
+      location: "Texas, USA",
+      ageRange: "35-44",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+      <MainSidebar />
+      
+      <div className="transition-all duration-300 md:ml-52 p-4 md:p-6 animate-fade-in">
+        <h1 className="text-2xl font-display font-semibold text-gray-100 mb-6">Saved Audiences</h1>
+        
+        <Card className="bg-gray-800/50 border-gray-700">
+          <CardHeader>
+            <CardTitle className="text-lg font-display text-gray-100">
+              Saved Audiences
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="divide-y divide-gray-700">
+              {audiences.map((audience) => (
+                <div 
+                  key={audience.id}
+                  className="py-4 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-3"
+                >
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <Users className="w-4 h-4 text-blue-400" />
+                      {audience.size}
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <MapPin className="w-4 h-4 text-blue-400" />
+                      {audience.location}
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <Calendar className="w-4 h-4 text-blue-400" />
+                      Ages {audience.ageRange}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default SavedAudiences;
