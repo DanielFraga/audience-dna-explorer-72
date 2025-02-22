@@ -108,7 +108,7 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input Area */}
-        <div className="border-t border-gray-800 p-4">
+        <div className="border-t border-gray-800 py-3 px-4">
           <div className="flex gap-2">
             <input
               type="text"
