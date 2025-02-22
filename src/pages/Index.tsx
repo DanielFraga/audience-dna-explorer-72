@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Search, Download } from "lucide-react";
+
+import { useState, useEffect } from "react";
+import { Search, Download, Users, Globe } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import MainSidebar from "../components/MainSidebar";
 import { tabs } from "../constants/tabs";
@@ -13,9 +14,43 @@ const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
+  const [showResults, setShowResults] = useState(false);
   const totalRespondents = 1234;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowResults(searchTerm.toLowerCase() === "holiday");
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
   const renderContent = () => {
+    if (!showResults) {
+      return (
+        <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in">
+          <div className="mb-6">
+            <Globe className="w-16 h-16 text-gray-500 mb-4" />
+            <Users className="w-20 h-20 text-gray-500" />
+          </div>
+          <h2 className="text-2xl font-medium text-gray-300 mb-3">
+            Explore Your Global Audience
+          </h2>
+          <p className="text-gray-400 max-w-md mb-8">
+            Start by typing in the search bar above to discover insights about your audience's demographics, psychographics, and behaviors.
+          </p>
+          <div className="space-y-4 text-gray-500 text-sm">
+            <p>Try searching for:</p>
+            <div className="flex gap-2 justify-center flex-wrap">
+              <span className="px-3 py-1 bg-gray-800 rounded-full">holiday</span>
+              <span className="px-3 py-1 bg-gray-800 rounded-full">gaming</span>
+              <span className="px-3 py-1 bg-gray-800 rounded-full">fashion</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     switch(activeTab) {
       case "WHO_DEMO":
         return <DemographicsTab />;
@@ -55,26 +90,34 @@ const Index = () => {
               <Search className="absolute left-3 top-2.5 text-gray-500 w-4 h-4" />
               
               <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
-                <button className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                <button 
+                  className={`flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap ${!showResults ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={!showResults}
+                >
                   Save DNA
                 </button>
-                <button className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap">
+                <button 
+                  className={`flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap ${!showResults ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={!showResults}
+                >
                   <Download className="w-3 h-3 mr-1" />
                   Export
                 </button>
               </div>
             </div>
             
-            <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
-              <span>Showing results for <span className="text-blue-400">"holiday"</span></span>
-              <span>Applicable to</span>
-              <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 out of 10000</span>
-              <span>respondents</span>
-            </div>
+            {showResults && (
+              <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5 animate-fade-in">
+                <span>Showing results for <span className="text-blue-400">"holiday"</span></span>
+                <span>Applicable to</span>
+                <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 out of 10000</span>
+                <span>respondents</span>
+              </div>
+            )}
           </div>
 
           {/* Tabs and Content Container */}
-          <div>
+          <div className={`transition-all duration-300 ${showResults ? 'opacity-100' : 'opacity-50 pointer-events-none'}`}>
             {/* Tabs */}
             <div className="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0">
               <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
