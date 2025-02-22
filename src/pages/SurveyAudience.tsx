@@ -29,10 +29,14 @@ const SurveyAudience = () => {
         <div className="space-y-3">
           <h1 className="text-2xl font-display font-semibold text-gray-100">Survey Settings</h1>
           
-          <div className="flex items-center gap-2">
+          <Button 
+            variant="link" 
+            className="p-0 h-auto flex items-center gap-2 text-gray-200 hover:text-gray-100"
+            onClick={() => console.log("Button clicked")}
+          >
             <ShieldCheck className="w-5 h-5 text-green-400" />
-            <span className="text-gray-200">How we ensure Surveys generate truthful data</span>
-          </div>
+            <span>How we ensure Surveys generate truthful data</span>
+          </Button>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -96,7 +100,7 @@ const SurveyAudience = () => {
 
           {/* Right Card: Available Modules */}
           <Card className="bg-gray-800/50 border-gray-700 h-full">
-            <CardHeader className="p-3">
+            <CardHeader className="p-3 pb-8">
               <CardTitle className="text-lg font-display text-gray-100">
                 Add New Modules
               </CardTitle>
@@ -127,3 +131,4 @@ const SurveyAudience = () => {
 };
 
 export default SurveyAudience;
+
