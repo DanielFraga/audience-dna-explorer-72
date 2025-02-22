@@ -72,23 +72,29 @@ export const SoWhatTab: FC = () => {
           
           <div className="space-y-4">
             <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
-              <h4 className="text-xs font-medium text-blue-400 mb-1">Develop Targeted Email Campaigns</h4>
+              <h4 className="text-xs font-medium text-blue-400 mb-1">
+                Given high tech adoption (88%) and openness to innovation (75%), you should leverage advanced digital platforms for personalized communication streams.
+              </h4>
               <p className="text-gray-400 text-xs">
-                Create segmented email campaigns for each identified audience group, focusing on their specific interests and behaviors.
+                Implement AI-driven content personalization across email campaigns and digital touchpoints to create highly relevant, individualized user experiences.
               </p>
             </div>
 
             <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
-              <h4 className="text-xs font-medium text-purple-400 mb-1">Optimize Digital Touchpoints</h4>
+              <h4 className="text-xs font-medium text-purple-400 mb-1">
+                Given quality focus (78%) and moderate price sensitivity (40%), you should emphasize value-driven messaging that highlights premium features.
+              </h4>
               <p className="text-gray-400 text-xs">
-                Enhance website and mobile app experiences to better serve the digital-first preferences of the target audience.
+                Create content that demonstrates long-term value and quality benefits, balancing premium positioning with smart investment messaging.
               </p>
             </div>
 
             <div className="bg-gray-800/50 rounded-md p-3 border border-gray-700/50">
-              <h4 className="text-xs font-medium text-emerald-400 mb-1">Launch Value-Based Content Strategy</h4>
+              <h4 className="text-xs font-medium text-emerald-400 mb-1">
+                Given high social impact concern (72%) and sustainability focus (65%), you should integrate eco-conscious messaging across marketing channels.
+              </h4>
               <p className="text-gray-400 text-xs">
-                Develop content that emphasizes the intersection of quality and smart spending across all marketing channels.
+                Develop content that emphasizes environmental responsibility and social impact, highlighting sustainable practices and community benefits.
               </p>
             </div>
           </div>
