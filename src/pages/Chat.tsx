@@ -110,24 +110,9 @@ const Chat = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
-        {/* Header */}
-        <div className="border-b border-gray-800 p-4">
-          <h1 className="text-white text-lg font-medium">Chat with Audience</h1>
-          <p className="text-gray-400 text-xs mt-0.5">
-            Ask questions about your audience data and get AI-powered insights
-          </p>
-          
-          <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5">
-            <span>Chatting with</span>
-            <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 of 10000</span>
-            <span>respondents relevant to the term</span>
-            <span className="text-blue-400">"holiday"</span>
-          </div>
-        </div>
-
         {/* Chat Messages */}
-        <ScrollArea className="flex-1 p-4">
-          <div className="space-y-3">
+        <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''}`}>
+          <div className="space-y-3 p-4">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -164,22 +149,8 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input Area with Preset Questions */}
-        <div className="border-t border-gray-800 p-4 flex-1 flex items-center justify-center">
+        <div className={`border-t border-gray-800 p-4 ${messages.length === 0 ? 'flex-1' : ''} flex items-center justify-center`}>
           <div className="max-w-2xl w-full mx-auto space-y-4">
-            {/* Preset Questions */}
-            <div className="flex flex-wrap gap-2 justify-center">
-              {PRESET_QUESTIONS.map((question, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
-                  onClick={() => handleSendMessage(question)}
-                >
-                  {question}
-                </Button>
-              ))}
-            </div>
-
             {/* Text Input */}
             <div className="relative">
               <Textarea
@@ -202,6 +173,20 @@ const Chat = () => {
                 <span>Send</span>
               </Button>
             </div>
+
+            {/* Preset Questions */}
+            <div className="flex flex-wrap gap-2 justify-center">
+              {PRESET_QUESTIONS.map((question, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  onClick={() => handleSendMessage(question)}
+                >
+                  {question}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -210,4 +195,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
