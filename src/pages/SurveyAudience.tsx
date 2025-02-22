@@ -3,6 +3,7 @@ import { Plus, Users, Target, Info, ShieldCheck } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 import MainSidebar from "@/components/MainSidebar";
 
 const SurveyAudience = () => {
@@ -29,14 +30,14 @@ const SurveyAudience = () => {
         <div className="space-y-3">
           <h1 className="text-2xl font-display font-semibold text-gray-100">Survey Settings</h1>
           
-          <Button 
-            variant="link" 
-            className="p-0 h-auto flex items-center gap-2 text-gray-200 hover:text-gray-100"
-            onClick={() => console.log("Button clicked")}
+          <Badge 
+            variant="outline"
+            className="hover:bg-green-950/50 cursor-pointer inline-flex items-center gap-2 border-green-400/20 hover:border-green-400/40 transition-colors"
+            onClick={() => console.log("Badge clicked")}
           >
-            <ShieldCheck className="w-5 h-5 text-green-400" />
+            <ShieldCheck className="w-4 h-4 text-green-400" />
             <span>How we ensure Surveys generate truthful data</span>
-          </Button>
+          </Badge>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
