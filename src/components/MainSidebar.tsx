@@ -34,11 +34,6 @@ const MainSidebar = () => {
       path: "/"
     },
     {
-      title: "Survey Audience",
-      icon: <Target className="w-4 h-4" />,
-      path: "/survey-audience"
-    },
-    {
       title: "My Saved Audiences",
       icon: <Users className="w-4 h-4" />,
       path: "/saved-audiences"
@@ -51,7 +46,7 @@ const MainSidebar = () => {
     {
       title: "Survey & Audience Settings",
       icon: <Settings className="w-4 h-4" />,
-      path: "/settings"
+      path: "/survey-audience"
     }
   ];
 
