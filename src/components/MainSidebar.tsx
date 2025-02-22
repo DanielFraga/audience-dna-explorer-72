@@ -29,22 +29,22 @@ const MainSidebar = () => {
 
   const menuItems: MenuItem[] = [
     {
-      title: "Search by Audience DNA",
+      title: "Explore Audience",
       icon: <Search className="w-4 h-4" />,
       path: "/"
     },
     {
-      title: "My Saved Audiences",
+      title: "Saved Audiences",
       icon: <Users className="w-4 h-4" />,
       path: "/saved-audiences"
     },
     {
-      title: "Chat with Audience",
+      title: "Chat",
       icon: <MessageSquare className="w-4 h-4" />,
       path: "/chat"
     },
     {
-      title: "Survey & Audience Settings",
+      title: "Survey Settings",
       icon: <Settings className="w-4 h-4" />,
       path: "/survey-audience"
     }
@@ -96,3 +96,4 @@ const MainSidebar = () => {
 };
 
 export default MainSidebar;
+
