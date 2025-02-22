@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Search, Users, MessageSquare, Settings, FileText } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { MobileMenuButton } from './sidebar/MobileMenuButton';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
