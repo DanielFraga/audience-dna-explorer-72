@@ -1,4 +1,3 @@
-
 import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, MapPin, Calendar, Search, MessageSquare } from "lucide-react";
@@ -41,7 +40,7 @@ const SavedAudiences = () => {
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-52 p-4 md:p-6 animate-fade-in">
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6 animate-fade-in">
         <h1 className="text-2xl font-display font-semibold text-gray-100 mb-6">Saved Audiences</h1>
         
         <Card className="bg-gray-800/50 border-gray-700">
@@ -104,4 +103,3 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
-

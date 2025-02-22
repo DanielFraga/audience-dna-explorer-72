@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Download } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,7 +41,7 @@ const Index = () => {
       <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
         <MainSidebar />
         
-        <div className="transition-all duration-300 md:ml-52 p-4 md:p-6 animate-fade-in">
+        <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6 animate-fade-in">
           {/* Top Section */}
           <div className="mb-8 mt-14 md:mt-0">
             <div className="relative flex flex-col md:flex-row gap-3 md:gap-0 items-start md:items-center">

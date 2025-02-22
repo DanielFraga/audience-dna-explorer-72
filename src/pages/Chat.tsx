@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { SendHorizontal, User2 } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
@@ -53,7 +52,7 @@ const Chat = () => {
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-52 h-screen flex flex-col">
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-screen flex flex-col">
         {/* Header */}
         <div className="border-b border-gray-800 p-4">
           <h1 className="text-white text-lg font-medium">Chat with Audience</h1>

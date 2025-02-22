@@ -24,7 +24,7 @@ const SurveyAudience = () => {
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-52 p-4 md:p-6 animate-fade-in">
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6 animate-fade-in">
         <h1 className="text-2xl font-display font-semibold text-gray-100 mb-6">Survey Audience</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
