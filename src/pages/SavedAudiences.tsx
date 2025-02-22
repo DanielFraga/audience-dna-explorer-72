@@ -37,20 +37,20 @@ const SavedAudiences = () => {
   ];
 
   return (
-    <div className="h-screen bg-gray-950 font-grotesk text-[13px]">
+    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 h-full">
-        <div className="h-full flex flex-col max-h-[calc(100vh-32px)]">
+      <div className="main-container transition-all duration-300 md:ml-[208px] md:collapsed:ml-16">
+        <div className="flex flex-col h-full">
           <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Saved Audiences</h1>
           
-          <Card className="bg-gray-800/50 border-gray-700 flex-1 overflow-hidden">
+          <Card className="bg-gray-800/50 border-gray-700 flex-1">
             <CardHeader className="p-3">
               <CardTitle className="text-lg font-display text-gray-100">
                 Saved Audiences
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-3 overflow-auto">
+            <CardContent className="p-3">
               <div className="divide-y divide-gray-700">
                 {audiences.map((audience) => (
                   <div 
@@ -105,3 +105,4 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
+
