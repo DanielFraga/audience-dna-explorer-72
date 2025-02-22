@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { SendHorizontal, User2 } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
@@ -49,12 +50,12 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
+    <div className="h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-[100vh] flex flex-col">
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col max-h-[calc(100vh-32px)]">
         {/* Header */}
-        <div className="border-b border-gray-800 p-3">
+        <div className="border-b border-gray-800 p-4">
           <h1 className="text-white text-lg font-medium">Chat with Audience</h1>
           <p className="text-gray-400 text-xs mt-0.5">
             Ask questions about your audience data and get AI-powered insights
@@ -69,7 +70,7 @@ const Chat = () => {
         </div>
 
         {/* Chat Messages */}
-        <ScrollArea className="flex-1 p-3 md:max-h-[calc(100vh-160px)]">
+        <ScrollArea className="flex-1 p-4">
           <div className="space-y-3">
             {messages.map((message) => (
               <div
@@ -107,7 +108,7 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input Area */}
-        <div className="border-t border-gray-800 p-3">
+        <div className="border-t border-gray-800 p-4">
           <div className="flex gap-2">
             <input
               type="text"

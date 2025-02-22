@@ -1,3 +1,4 @@
+
 import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, MapPin, Calendar, Search, MessageSquare } from "lucide-react";
@@ -36,66 +37,68 @@ const SavedAudiences = () => {
   ];
 
   return (
-    <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
+    <div className="h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-4 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
-        <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Saved Audiences</h1>
-        
-        <Card className="bg-gray-800/50 border-gray-700">
-          <CardHeader className="p-3">
-            <CardTitle className="text-lg font-display text-gray-100">
-              Saved Audiences
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-3">
-            <div className="divide-y divide-gray-700">
-              {audiences.map((audience) => (
-                <div 
-                  key={audience.id}
-                  className="py-3 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
-                >
-                  <div className="grid grid-cols-5 gap-3">
-                    <div className="flex items-center gap-2 text-gray-300">
-                      <Users className="w-4 h-4 text-blue-400" />
-                      {audience.size}
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-300">
-                      <MapPin className="w-4 h-4 text-blue-400" />
-                      {audience.location}
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-300">
-                      <Calendar className="w-4 h-4 text-blue-400" />
-                      Ages {audience.ageRange}
-                    </div>
-                    <div className="flex items-center">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-gray-300 hover:text-blue-400"
-                        onClick={() => navigate(`/survey-audience?id=${audience.id}`)}
-                      >
-                        <Search className="w-4 h-4 mr-1" />
-                        Explore
-                      </Button>
-                    </div>
-                    <div className="flex items-center">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-gray-300 hover:text-blue-400"
-                        onClick={() => navigate(`/chat?id=${audience.id}`)}
-                      >
-                        <MessageSquare className="w-4 h-4 mr-1" />
-                        Chat
-                      </Button>
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 h-full">
+        <div className="h-full flex flex-col max-h-[calc(100vh-32px)]">
+          <h1 className="text-2xl font-display font-semibold text-gray-100 mb-4">Saved Audiences</h1>
+          
+          <Card className="bg-gray-800/50 border-gray-700 flex-1 overflow-hidden">
+            <CardHeader className="p-3">
+              <CardTitle className="text-lg font-display text-gray-100">
+                Saved Audiences
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-3 overflow-auto">
+              <div className="divide-y divide-gray-700">
+                {audiences.map((audience) => (
+                  <div 
+                    key={audience.id}
+                    className="py-3 first:pt-0 last:pb-0 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
+                  >
+                    <div className="grid grid-cols-5 gap-3">
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <Users className="w-4 h-4 text-blue-400" />
+                        {audience.size}
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <MapPin className="w-4 h-4 text-blue-400" />
+                        {audience.location}
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <Calendar className="w-4 h-4 text-blue-400" />
+                        Ages {audience.ageRange}
+                      </div>
+                      <div className="flex items-center">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-300 hover:text-blue-400"
+                          onClick={() => navigate(`/survey-audience?id=${audience.id}`)}
+                        >
+                          <Search className="w-4 h-4 mr-1" />
+                          Explore
+                        </Button>
+                      </div>
+                      <div className="flex items-center">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-300 hover:text-blue-400"
+                          onClick={() => navigate(`/chat?id=${audience.id}`)}
+                        >
+                          <MessageSquare className="w-4 h-4 mr-1" />
+                          Chat
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
