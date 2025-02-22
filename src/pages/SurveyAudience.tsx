@@ -50,11 +50,11 @@ const SurveyAudience = () => {
                   Current Focus Areas
                 </CardTitle>
                 <Button 
-                  variant="outline" 
+                  variant="ghost"
                   size="icon"
-                  className="w-8 h-8 rounded-full bg-gray-700/50 border-gray-600 hover:bg-gray-600/50"
+                  className="w-8 h-8 rounded-full border-2 border-purple-500/50 hover:border-purple-500 hover:bg-purple-500/10 transition-colors"
                 >
-                  <Plus className="h-4 w-4 text-gray-200" />
+                  <Plus className="h-4 w-4 text-purple-400" />
                 </Button>
               </div>
             </CardHeader>
@@ -118,7 +118,9 @@ const SurveyAudience = () => {
                         <h4 className="text-sm font-medium text-gray-200">{module.name}</h4>
                         <p className="text-xs text-gray-400 mt-0.5">{module.description}</p>
                       </div>
-                      <Plus className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" />
+                      <div className="w-8 h-8 rounded-full border-2 border-blue-500/50 group-hover:border-blue-500 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors">
+                        <Plus className="w-4 h-4 text-blue-400" />
+                      </div>
                     </div>
                   </button>
                 ))}
@@ -132,3 +134,4 @@ const SurveyAudience = () => {
 };
 
 export default SurveyAudience;
+
