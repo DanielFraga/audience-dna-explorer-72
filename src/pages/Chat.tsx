@@ -53,7 +53,7 @@ const Chat = () => {
     <div className="h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col max-h-[calc(100vh-32px)]">
+      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
         {/* Header */}
         <div className="border-b border-gray-800 p-4">
           <h1 className="text-white text-lg font-medium">Chat with Audience</h1>
@@ -108,7 +108,7 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input Area */}
-        <div className="border-t border-gray-800 py-3 px-4">
+        <div className="border-t border-gray-800 py-4 px-4">
           <div className="flex gap-2">
             <input
               type="text"
