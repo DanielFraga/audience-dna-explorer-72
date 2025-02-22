@@ -1,10 +1,11 @@
 
 import { useState } from "react";
-import { SendHorizontal, User2 } from "lucide-react";
+import { SendHorizontal, User2, Info } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 
 interface Message {
   id: string;
@@ -37,16 +38,43 @@ const Chat = () => {
     setMessages((prev) => [...prev, newMessage]);
     setInputValue("");
 
-    // Simulate assistant response
+    // Simulate assistant response with fixed message
     setTimeout(() => {
       const assistantResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I'm analyzing your question about the audience data. Here's what I found...",
+        content: 'Respondents who mentioned terms related to "holiday" tend to have a high score in Openness (80 out of 100) . People with high trait Openness tend to be more willing to engage in new experiences and new perspectives',
         sender: "assistant",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, assistantResponse]);
     }, 1000);
+  };
+
+  const renderMessage = (message: Message) => {
+    if (message.sender === "assistant" && message.content.includes("(80 out of 100)")) {
+      const parts = message.content.split("(80 out of 100)");
+      return (
+        <>
+          {parts[0]}
+          <span>(80 out of 100</span>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <sup className="text-blue-400 cursor-help">
+                  <Info className="w-3 h-3 inline" />
+                </sup>
+              </TooltipTrigger>
+              <TooltipContent className="bg-gray-800 border-gray-700 text-white p-3 max-w-xs">
+                <p>Openness reflects a person's willingness to try new experiences, engage with abstract concepts, and explore novel ideas. High scorers tend to be creative, curious, and appreciative of art and nature.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <span>)</span>
+          {parts[1]}
+        </>
+      );
+    }
+    return message.content;
   };
 
   return (
@@ -99,7 +127,7 @@ const Chat = () => {
                         : "bg-gray-800 text-gray-100"
                     }`}
                   >
-                    {message.content}
+                    {renderMessage(message)}
                   </div>
                 </div>
               </div>
@@ -132,3 +160,4 @@ const Chat = () => {
 };
 
 export default Chat;
+
