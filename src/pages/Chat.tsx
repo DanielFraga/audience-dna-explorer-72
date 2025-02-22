@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Message {
   id: string;
@@ -163,23 +164,30 @@ const Chat = () => {
           </div>
         </ScrollArea>
 
-        {/* Input Area */}
-        <div className="border-t border-gray-800 py-4 px-4">
-          <div className="flex gap-2">
-            <input
-              type="text"
+        {/* Input Area - Centered when no messages */}
+        <div className={`border-t border-gray-800 p-4 ${messages.length === 1 ? 'flex-1 flex items-center justify-center' : ''}`}>
+          <div className={`${messages.length === 1 ? 'max-w-2xl w-full mx-auto' : ''}`}>
+            <Textarea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
               placeholder="Ask about your audience..."
-              className="flex-1 bg-gray-900 text-white rounded-lg px-3 py-2 text-sm border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="bg-gray-900 text-white rounded-lg border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 min-h-[120px] resize-none"
             />
-            <Button
-              onClick={handleSendMessage}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              <SendHorizontal className="h-4 w-4" />
-            </Button>
+            <div className="mt-2 flex justify-end">
+              <Button
+                onClick={handleSendMessage}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                <SendHorizontal className="h-4 w-4" />
+                <span>Send message</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
