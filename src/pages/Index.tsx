@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { Search, Download, Users, Globe } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 import MainSidebar from "../components/MainSidebar";
 import { tabs } from "../constants/tabs";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
@@ -11,10 +13,12 @@ import { InsightsTab } from "../components/insights/InsightsTab";
 import { SoWhatTab } from "../components/sowhat/SoWhatTab";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
   const totalRespondents = 1234;
 
   useEffect(() => {
@@ -24,6 +28,10 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, [searchTerm]);
+
+  const handleSaveClick = () => {
+    setShowSaveDialog(true);
+  };
 
   const renderContent = () => {
     if (!showResults) {
@@ -93,6 +101,7 @@ const Index = () => {
                 <button 
                   className={`flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap ${!showResults ? 'opacity-50 cursor-not-allowed' : ''}`}
                   disabled={!showResults}
+                  onClick={handleSaveClick}
                 >
                   Save DNA
                 </button>
@@ -157,6 +166,33 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
+          <DialogContent className="bg-gray-900 border border-gray-800 text-gray-100">
+            <DialogHeader>
+              <DialogTitle className="text-lg font-medium text-gray-100">Audience Saved Successfully</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <p className="text-gray-300">
+                Your audience has been saved. You can now:
+              </p>
+              <div className="space-y-2">
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="w-full px-4 py-2 text-sm bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-left"
+                >
+                  Chat with this audience →
+                </button>
+                <button
+                  onClick={() => navigate("/saved-audiences")}
+                  className="w-full px-4 py-2 text-sm bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-left"
+                >
+                  View in Saved Audiences →
+                </button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </TooltipProvider>
   );
