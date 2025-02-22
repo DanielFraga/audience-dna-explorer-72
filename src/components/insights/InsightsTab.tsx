@@ -1,113 +1,62 @@
 
-import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { FC } from 'react';
 
-type InsightReference = {
-  id: number;
-  text: string;
-};
-
-type Insight = {
-  headline: string;
-  explanation: string;
-  references: InsightReference[];
-};
-
-const insights: Insight[] = [
+const insightsData = [
   {
-    headline: "Brand Trust Dominates Decisions",
-    explanation: "Clear indication that brand reputation¹ significantly influences purchase behavior. Trust metrics² show strong correlation with conversion rates³.",
-    references: [
-      { id: 1, text: "87% cite brand reputation as 'very important' in decision making" },
-      { id: 2, text: "Trust scores directly correlate with purchase likelihood (r=0.82)" },
-      { id: 3, text: "Trusted brands see 2.4x higher conversion rates" }
-    ]
+    title: "Unseen Longing for Prestige Brands",
+    text: "Audience segments show an intense, almost subconscious pull toward premium brands, even when budget-friendly options exist. Purchase data reveals they're driven by a need for social acceptance, with trust in brand reputation spiking conversion rates by 35% among aspirational users.",
+    color: "blue"
   },
   {
-    headline: "Digital-First Preference",
-    explanation: "Strong bias towards digital channels¹ with high mobile engagement². Tech adoption rates³ suggest advanced digital literacy.",
-    references: [
-      { id: 1, text: "92% prefer digital touchpoints over traditional channels" },
-      { id: 2, text: "Mobile interaction rate 3.1x higher than desktop" },
-      { id: 3, text: "Tech adoption score 65% above market average" }
-    ]
+    title: "Fluid Digital Engagement Patterns",
+    text: "Users navigate digital channels like nomads, seamlessly shifting between platforms with high mobile engagement (85% of interactions). Their behavior suggests a preference for dynamic, ever-changing content, with tech-savvy segments showing 40% higher interaction rates on innovative features.",
+    color: "purple"
   },
   {
-    headline: "Value-Quality Balance",
-    explanation: "Notable price sensitivity¹ balanced against strong quality focus². Premium segment³ shows distinct behavioral patterns.",
-    references: [
-      { id: 1, text: "75% actively compare prices before purchase" },
-      { id: 2, text: "82% willing to pay more for guaranteed quality" },
-      { id: 3, text: "Premium segment represents 28% of total audience" }
-    ]
+    title: "Torn Between Indulgence and Ethics",
+    text: "Some users wrestle with conflicting desires: a rush to buy trendy, indulgent products versus a strong pull toward eco-friendly options. Willingness to pay a premium for sustainability hits 60% in eco-conscious segments, but impulse purchases spike during emotional triggers.",
+    color: "green"
   },
   {
-    headline: "Community-Driven Choices",
-    explanation: "Heavy reliance on peer recommendations¹ and social validation². Community engagement³ strongly influences decisions.",
-    references: [
-      { id: 1, text: "91% check reviews before significant purchases" },
-      { id: 2, text: "Social proof elements increase conversion by 2.8x" },
-      { id: 3, text: "Active community members show 3.2x higher loyalty" }
-    ]
+    title: "Collective Trust in Peer Voices",
+    text: "Younger demographics heavily rely on peer recommendations and online communities, with 70% of purchase decisions influenced by social validation. Their behavior hints at a deep, almost instinctive trust in group wisdom, especially in experimental or niche markets.",
+    color: "orange"
   },
   {
-    headline: "Sustainability Focus",
-    explanation: "Environmental impact¹ is a key decision factor. Strong preference for eco-friendly options² with willingness to pay premiums³.",
-    references: [
-      { id: 1, text: "84% consider environmental impact in purchases" },
-      { id: 2, text: "Eco-friendly alternatives preferred 2.5x more" },
-      { id: 3, text: "Average 18% premium accepted for sustainable options" }
-    ]
+    title: "Curious Minds Embracing the New",
+    text: "Segments with high curiosity and adaptability—often creative professionals or tech enthusiasts—jump at new features and products, driving 50% of early adoption rates. Their openness to disruption suggests targeting them with bold, cutting-edge campaigns could boost engagement by 30%.",
+    color: "pink"
   },
   {
-    headline: "Innovation Receptivity",
-    explanation: "High openness to new features¹ and experimental products². Early adopter characteristics³ prominent in key segments.",
-    references: [
-      { id: 1, text: "73% express interest in trying new features" },
-      { id: 2, text: "Beta feature adoption rate 2.1x above average" },
-      { id: 3, text: "Early adopter segment comprises 42% of audience" }
-    ]
+    title: "Mesmerized by Quality Promises",
+    text: "Premium audiences are captivated by brands promising both luxury and durability, showing a 65% increase in loyalty when messaging feels rhythmic and reassuring. Their behavior indicates a near-hypnotic trust in quality narratives, balancing price sensitivity with a desire for status.",
+    color: "teal"
   }
 ];
 
-export function InsightsTab() {
+export const InsightsTab: FC = () => {
   return (
-    <TooltipProvider>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-slide-up">
-        {insights.map((insight, index) => (
-          <div 
-            key={index}
-            className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors"
-          >
-            <h3 className="text-sm font-medium text-white mb-2">
-              {insight.headline}
-            </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              {insight.explanation.split(/(\d+)/).map((part, i) => {
-                if (/^\d+$/.test(part)) {
-                  const reference = insight.references.find(ref => ref.id === parseInt(part));
-                  return (
-                    <Tooltip key={i}>
-                      <TooltipTrigger asChild>
-                        <sup className="inline-block cursor-help px-1.5 py-0.5 text-[10px] font-medium bg-blue-500/20 text-blue-400 rounded-full hover:bg-blue-500/30 transition-colors">
-                          {part}
-                        </sup>
-                      </TooltipTrigger>
-                      <TooltipContent 
-                        side="top"
-                        align="center"
-                        className="bg-gray-800 border border-gray-700 text-[11px] p-2 text-white rounded"
-                      >
-                        {reference?.text}
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                }
-                return part;
-              })}
-            </p>
-          </div>
-        ))}
-      </div>
-    </TooltipProvider>
+    <div className="grid grid-cols-2 gap-4 animate-slide-up">
+      {insightsData.map((insight, index) => (
+        <div
+          key={index}
+          className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors"
+        >
+          <h3 className={`text-lg font-semibold mb-2 ${
+            insight.color === "blue" ? "text-blue-400" :
+            insight.color === "purple" ? "text-purple-400" :
+            insight.color === "green" ? "text-green-400" :
+            insight.color === "orange" ? "text-orange-400" :
+            insight.color === "pink" ? "text-pink-400" :
+            "text-teal-400"
+          }`}>
+            {insight.title}
+          </h3>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            {insight.text}
+          </p>
+        </div>
+      ))}
+    </div>
   );
-}
+};
