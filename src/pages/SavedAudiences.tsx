@@ -19,21 +19,21 @@ const SavedAudiences = () => {
   const audiences: AudienceEntry[] = [
     {
       id: 1,
-      name: "Audience A1.1: California; Holiday; 25-24",
+      name: "A1.1",
       size: "1,500 respondents",
       location: "California, USA",
       ageRange: "25-34",
     },
     {
       id: 2,
-      name: "Audience A1.2: New York; 18-24",
+      name: "A1.2",
       size: "2,000 respondents",
       location: "New York, USA",
       ageRange: "18-24",
     },
     {
       id: 3,
-      name: "Audience A1.3: Texas; 35-44",
+      name: "A1.3",
       size: "1,000 respondents",
       location: "Texas, USA",
       ageRange: "35-44",
