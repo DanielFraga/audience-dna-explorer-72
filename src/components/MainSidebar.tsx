@@ -69,7 +69,36 @@ const MainSidebar = () => {
           ${isOpen ? "w-64 md:w-52" : "md:w-16"}
         `}
       >
-        <div className="p-4 mt-14 md:mt-0 flex flex-col h-full">
+        {/* Toggle Tab */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="hidden md:flex absolute -right-3 top-3 bg-gray-900 rounded-r-lg p-1 cursor-pointer shadow-md"
+        >
+          <svg
+            className="w-3 h-3 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {isOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              />
+            )}
+          </svg>
+        </button>
+
+        <div className="p-4 flex flex-col h-full">
           <SidebarHeader 
             isOpen={isOpen}
             isMobile={isMobile}
@@ -101,7 +130,7 @@ const MainSidebar = () => {
               onClick={() => isMobile && setIsOpen(false)}
               title={!isOpen && !isMobile ? "Settings" : undefined}
             >
-              <div className="flex items-center">
+              <div className="flex items-center justify-center w-full">
                 <Settings className="w-4 h-4" />
                 {(isOpen || isMobile) && (
                   <span className="ml-2.5">Settings</span>
