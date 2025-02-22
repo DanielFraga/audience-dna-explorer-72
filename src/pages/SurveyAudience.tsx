@@ -1,12 +1,17 @@
 
-import { Plus, Users, Target, Info, ShieldCheck } from 'lucide-react';
+import { Plus, Users, Target, Info, ShieldCheck, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import MainSidebar from "@/components/MainSidebar";
+import { useState } from "react";
 
 const SurveyAudience = () => {
+  const [showCertDialog, setShowCertDialog] = useState(false);
+
   // Current focus areas
   const currentFocusAreas = [
     { id: 1, name: "Demographic", description: "Basic population characteristics", tooltip: "Basic demographic information including age, gender, location, and income" },
@@ -33,7 +38,7 @@ const SurveyAudience = () => {
           <Badge 
             variant="outline"
             className="hover:bg-green-950/50 cursor-pointer inline-flex items-center gap-2 border-green-400/20 hover:border-green-400/40 transition-colors"
-            onClick={() => console.log("Badge clicked")}
+            onClick={() => setShowCertDialog(true)}
           >
             <ShieldCheck className="w-4 h-4 text-green-400" />
             <span>How we ensure Surveys generate truthful data</span>
@@ -52,9 +57,9 @@ const SurveyAudience = () => {
                 <Button 
                   variant="ghost"
                   size="icon"
-                  className="w-8 h-8 rounded-full border-2 border-purple-500/50 hover:border-purple-500 hover:bg-purple-500/10 transition-colors"
+                  className="w-8 h-8 rounded-full border-2 border-blue-500/50 hover:border-blue-500 hover:bg-blue-500/10 transition-colors"
                 >
-                  <Plus className="h-4 w-4 text-purple-400" />
+                  <Plus className="h-4 w-4 text-blue-400" />
                 </Button>
               </div>
             </CardHeader>
@@ -83,7 +88,7 @@ const SurveyAudience = () => {
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <button className="p-1 hover:bg-gray-600/50 rounded-full transition-colors">
-                                <Info className="w-3.5 h-3.5 text-gray-400" />
+                                <Info className="w-3.5 h-3.5 text-blue-400" />
                               </button>
                             </TooltipTrigger>
                             <TooltipContent className="bg-gray-800 border-gray-700">
@@ -128,6 +133,38 @@ const SurveyAudience = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Certification Dialog */}
+        <Dialog open={showCertDialog} onOpenChange={setShowCertDialog}>
+          <DialogContent className="sm:max-w-[600px] bg-gray-800 border-gray-700">
+            <DialogHeader>
+              <div className="flex items-center justify-between">
+                <DialogTitle className="text-gray-100">Survey Data Protection</DialogTitle>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 p-0 hover:bg-gray-700/50"
+                  onClick={() => setShowCertDialog(false)}
+                >
+                  <X className="h-4 w-4 text-gray-400" />
+                </Button>
+              </div>
+            </DialogHeader>
+            <ScrollArea className="h-[400px] pr-4">
+              <div className="space-y-4 text-gray-200">
+                <h3 className="text-xl font-semibold text-blue-400">Let's Protect Your Survey Data from Noise (Bias)!</h3>
+                
+                <p>Collecting survey data seems simple. You ask a set of questions, get responses, and analyze the results. But anyone who has worked with survey data knows it is rarely that straightforward. Hidden within most datasets is noise-irrelevant or misleading information that distorts findings and makes it difficult to draw accurate conclusions. If left unchecked, noise leads to poor decisions, wasted resources, and unreliable insights. Many researchers do not realize how much noise creeps into their surveys until they are already acting on bad data. This is why understanding where noise comes from and how to reduce it is crucial before making conclusions based on survey responses.</p>
+                
+                <p>One of the biggest sources of noise is response bias, where people provide answers that make them look good rather than being truthful. This is especially common in topics like health, work productivity, or ethical behavior. Someone may report exercising five times a week when they actually work out once or claim they never waste time at work when in reality, they do. Another major issue is sampling bias, where survey participants do not represent the larger population. If a survey about workplace stress is sent only to senior employees, the results will overlook the struggles of lower-level workers. Survey fatigue is another hidden problem that can heavily distort results. When surveys are too long, respondents get bored and start clicking through without paying attention, leading to straight-lining, where they select the same response for every question just to finish quickly. Even the way questions are structured can introduce order effects, where responses are influenced by the order in which the questions appear.</p>
+                
+                <p>The good news is that these problems can be minimized with careful survey design and data cleaning. Diversifying your sample helps ensure the data reflects a broader audience rather than just an easily accessible subset. Using attention checks can filter out participants who are not paying attention. A simple question like "Select option three if you are reading this" can identify careless responses. Keeping surveys short and engaging reduces fatigue, increasing the chances of thoughtful answers. Randomizing the order of questions and answer choices minimizes bias caused by how information is presented. Pre-testing your survey on a small group can help catch unclear wording or patterns that might introduce bias. After data collection, filtering out unreliable responses, such as those completed in an unrealistically short time, ensures that only meaningful data is analyzed.</p>
+                
+                <p>At the end of the day, survey data is only as valuable as its accuracy. If noise goes unchecked, even the best statistical analysis will not fix misleading insights.</p>
+              </div>
+            </ScrollArea>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
