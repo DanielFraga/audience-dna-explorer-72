@@ -100,7 +100,7 @@ const SurveyAudience = () => {
 
           {/* Right Card: Available Modules */}
           <Card className="bg-gray-800/50 border-gray-700 h-full">
-            <CardHeader className="p-3 pb-8">
+            <CardHeader className="p-3 pb-12">
               <CardTitle className="text-lg font-display text-gray-100">
                 Add New Modules
               </CardTitle>
@@ -131,4 +131,3 @@ const SurveyAudience = () => {
 };
 
 export default SurveyAudience;
-
