@@ -1,5 +1,5 @@
 
-import { FC, useState } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -324,10 +324,24 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
   }
 };
 
+// Function to find which group a trait belongs to
+const findGroupForTrait = (trait: string): string | null => {
+  for (const group of psychographicGroups) {
+    if (group.items.includes(trait)) {
+      return group.id;
+    }
+  }
+  return null;
+};
+
 export const PsychographicsTab: FC = () => {
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
+  const [activePoint, setActivePoint] = useState<string | null>(null);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['big5']);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
+  // Function to toggle group expansion
   const toggleGroup = (groupId: string) => {
     setExpandedGroups(prev => 
       prev.includes(groupId) 
@@ -336,10 +350,35 @@ export const PsychographicsTab: FC = () => {
     );
   };
 
+  // Function to handle clicking on a radar point
+  const handleRadarPointClick = (subject: string) => {
+    setActivePoint(subject);
+    
+    // Find which group this trait belongs to
+    const groupId = findGroupForTrait(subject);
+    
+    if (groupId) {
+      // Expand the group if it's not already expanded
+      if (!expandedGroups.includes(groupId)) {
+        setExpandedGroups(prev => [...prev, groupId]);
+      }
+      
+      // Wait for the group to expand, then scroll to the item
+      setTimeout(() => {
+        if (itemRefs.current[subject]) {
+          itemRefs.current[subject]?.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <div className="grid grid-cols-2 gap-6 animate-slide-up">
       {/* Left Stats Card */}
-      <div>
+      <div ref={statsRef}>
         <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative h-full">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -355,7 +394,7 @@ export const PsychographicsTab: FC = () => {
             <h3 className="text-xs font-semibold text-white">Stats</h3>
           </div>
 
-          <div className="space-y-2 text-[11px]">
+          <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
             {psychographicGroups.map((group) => (
               <div key={group.id} className="border border-gray-800 rounded-md overflow-hidden">
                 <button 
@@ -376,22 +415,29 @@ export const PsychographicsTab: FC = () => {
                       const point = fullPsychographicData.find(p => p.subject === itemCode);
                       if (!point) return null;
                       
+                      const isActive = activePoint === point.subject;
+                      
                       return (
                         <Collapsible key={itemCode}>
                           <CollapsibleTrigger className="w-full">
                             <div 
-                              className={`flex justify-between items-center transition-colors duration-150 hover:bg-gray-800 rounded px-2 py-1 cursor-pointer group ${hoveredPoint === point.subject ? 'bg-gray-800' : ''}`}
+                              ref={el => itemRefs.current[point.subject] = el}
+                              className={`flex justify-between items-center transition-colors duration-150 rounded px-2 py-1 cursor-pointer group 
+                                ${isActive ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
+                                ${isActive ? 'border-l-2 border-blue-500' : ''}
+                              `}
                               onMouseEnter={() => setHoveredPoint(point.subject)}
                               onMouseLeave={() => setHoveredPoint(null)}
+                              onClick={() => setActivePoint(point.subject)}
                             >
                               <div className="flex items-center gap-1.5">
                                 <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0] || 'bg-gray-500'}`} />
-                                <span className="text-gray-400">
+                                <span className={`${isActive ? 'text-white' : 'text-gray-400'}`}>
                                   {point.fullName}
                                 </span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <span className="font-medium text-gray-300">
+                                <span className={`font-medium ${isActive ? 'text-white' : 'text-gray-300'}`}>
                                   {point.A}
                                 </span>
                                 <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
@@ -485,26 +531,32 @@ export const PsychographicsTab: FC = () => {
                     const point = fullPsychographicData.find(p => p.subject === payload.value);
                     if (!point) return null;
                     
+                    const isActive = activePoint === point.subject;
+                    
                     return (
                       <g transform={`translate(${x},${y})`}>
                         <g 
-                          className="flex items-center gap-1 cursor-pointer"
+                          className="cursor-pointer"
                           onMouseEnter={() => setHoveredPoint(point.subject)}
                           onMouseLeave={() => setHoveredPoint(null)}
+                          onClick={() => handleRadarPointClick(point.subject)}
                         >
                           <circle
-                            cx="-12"
+                            cx="0"
                             cy="0"
-                            r="3"
+                            r={isActive ? "5" : "3"}
                             fill={colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0]?.replace('bg-[', '').replace(']', '') || '#6B7280'}
+                            stroke={isActive ? "#FFFFFF" : "none"}
+                            strokeWidth={1}
                           />
                           <text
-                            x="4"
+                            x="10"
                             y="0"
                             dy="0.35em"
-                            textAnchor="middle"
-                            fill="#9CA3AF"
-                            style={{ fontSize: '11px' }}
+                            textAnchor="start"
+                            fill={isActive ? "#FFFFFF" : "#9CA3AF"}
+                            fontWeight={isActive ? "bold" : "normal"}
+                            style={{ fontSize: isActive ? '12px' : '11px' }}
                           >
                             {point.subject}
                           </text>
