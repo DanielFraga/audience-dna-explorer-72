@@ -293,9 +293,9 @@ export const SurveyTab: FC = () => {
             <h3 
               className="text-xs text-gray-400 opacity-75"
               dangerouslySetInnerHTML={{
-                __html: item.question.replace(/holiday/gi, (match) => (
+                __html: `Q${index + 1}: ${item.question.replace(/holiday/gi, (match) => (
                   `<span class="text-blue-400">${match}</span>`
-                ))
+                ))}`
               }}
             />
           </div>
@@ -304,4 +304,3 @@ export const SurveyTab: FC = () => {
     </div>
   );
 };
-
