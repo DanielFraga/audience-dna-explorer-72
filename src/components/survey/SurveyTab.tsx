@@ -8,21 +8,65 @@ import { X } from "lucide-react";
 
 const wordsetData = [
   {
-    title: "Positive/Negative Sentiment",
+    title: "Sentiment",
     subheader: "Emotional Responses",
-    positiveWords: ["Happy", "Excited", "Satisfied", "Impressed", "Delighted", "Confident"],
-    negativeWords: ["Frustrated", "Disappointed", "Concerned", "Confused", "Annoyed", "Anxious"],
+    positiveWords: [
+      { text: "Happy", score: 85 },
+      { text: "Excited", score: 92 },
+      { text: "Satisfied", score: 67 },
+      { text: "Impressed", score: 78 },
+      { text: "Delighted", score: 95 },
+      { text: "Confident", score: 73 }
+    ],
+    negativeWords: [
+      { text: "Frustrated", score: -65 },
+      { text: "Disappointed", score: -72 },
+      { text: "Concerned", score: -45 },
+      { text: "Confused", score: -58 },
+      { text: "Annoyed", score: -80 },
+      { text: "Anxious", score: -89 }
+    ],
     positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
     negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
     allPositiveWords: [
-      "Happy", "Excited", "Satisfied", "Impressed", "Delighted", "Confident",
-      "Pleased", "Enthusiastic", "Optimistic", "Proud", "Grateful", "Relaxed",
-      "Inspired", "Hopeful", "Joyful", "Thrilled", "Content", "Cheerful"
+      { text: "Happy", score: 85 },
+      { text: "Excited", score: 92 },
+      { text: "Satisfied", score: 67 },
+      { text: "Impressed", score: 78 },
+      { text: "Delighted", score: 95 },
+      { text: "Confident", score: 73 },
+      { text: "Pleased", score: 70 },
+      { text: "Enthusiastic", score: 88 },
+      { text: "Optimistic", score: 82 },
+      { text: "Proud", score: 75 },
+      { text: "Grateful", score: 87 },
+      { text: "Relaxed", score: 62 },
+      { text: "Inspired", score: 80 },
+      { text: "Hopeful", score: 72 },
+      { text: "Joyful", score: 90 },
+      { text: "Thrilled", score: 93 },
+      { text: "Content", score: 65 },
+      { text: "Cheerful", score: 83 }
     ],
     allNegativeWords: [
-      "Frustrated", "Disappointed", "Concerned", "Confused", "Annoyed", "Anxious",
-      "Angry", "Sad", "Stressed", "Worried", "Overwhelmed", "Unsatisfied",
-      "Discouraged", "Hesitant", "Doubtful", "Uncomfortable", "Unhappy", "Skeptical"
+      { text: "Frustrated", score: -65 },
+      { text: "Disappointed", score: -72 },
+      { text: "Concerned", score: -45 },
+      { text: "Confused", score: -58 },
+      { text: "Annoyed", score: -80 },
+      { text: "Anxious", score: -89 },
+      { text: "Angry", score: -85 },
+      { text: "Sad", score: -75 },
+      { text: "Stressed", score: -82 },
+      { text: "Worried", score: -68 },
+      { text: "Overwhelmed", score: -78 },
+      { text: "Unsatisfied", score: -71 },
+      { text: "Discouraged", score: -63 },
+      { text: "Hesitant", score: -50 },
+      { text: "Doubtful", score: -55 },
+      { text: "Uncomfortable", score: -60 },
+      { text: "Unhappy", score: -77 },
+      { text: "Skeptical", score: -42 }
     ]
   },
   {
@@ -148,9 +192,10 @@ export const SurveyTab: FC = () => {
                     <Badge
                       key={`positive-${wordIndex}`}
                       variant="outline"
-                      className={`text-xs ${wordset.positiveChipColor}`}
+                      className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
                     >
-                      {word}
+                      {word.text}
+                      <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
                     </Badge>
                   ))}
                   {/* Negative words */}
@@ -158,9 +203,10 @@ export const SurveyTab: FC = () => {
                     <Badge
                       key={`negative-${wordIndex}`}
                       variant="outline"
-                      className={`text-xs ${wordset.negativeChipColor}`}
+                      className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
                     >
-                      {word}
+                      {word.text}
+                      <span className="text-[10px] font-semibold">{word.score}%</span>
                     </Badge>
                   ))}
                 </>
@@ -214,9 +260,10 @@ export const SurveyTab: FC = () => {
                               <Badge
                                 key={`positive-all-${wordIndex}`}
                                 variant="outline"
-                                className={`text-xs ${wordset.positiveChipColor}`}
+                                className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
                               >
-                                {word}
+                                {word.text}
+                                <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
                               </Badge>
                             ))}
                           </div>
@@ -228,9 +275,10 @@ export const SurveyTab: FC = () => {
                               <Badge
                                 key={`negative-all-${wordIndex}`}
                                 variant="outline"
-                                className={`text-xs ${wordset.negativeChipColor}`}
+                                className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
                               >
-                                {word}
+                                {word.text}
+                                <span className="text-[10px] font-semibold">{word.score}%</span>
                               </Badge>
                             ))}
                           </div>
