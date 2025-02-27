@@ -281,19 +281,19 @@ export const SurveyTab: FC = () => {
               </div>
             </div>
 
-            <h3 
-              className="text-sm font-medium text-white mb-2 pr-12"
+            <p 
+              className="text-xs text-gray-400 mb-2 pr-12 line-clamp-3"
               dangerouslySetInnerHTML={{
-                __html: item.question.replace(/holiday/gi, (match) => (
+                __html: item.response.replace(/holiday/gi, (match) => (
                   `<span class="text-blue-400">${match}</span>`
                 ))
               }}
             />
 
-            <p 
-              className="text-xs text-gray-400 line-clamp-3"
+            <h3 
+              className="text-sm font-medium text-white"
               dangerouslySetInnerHTML={{
-                __html: item.response.replace(/holiday/gi, (match) => (
+                __html: item.question.replace(/holiday/gi, (match) => (
                   `<span class="text-blue-400">${match}</span>`
                 ))
               }}
