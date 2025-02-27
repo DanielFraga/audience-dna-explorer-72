@@ -54,7 +54,7 @@ const MainSidebar = () => {
       path: "/chat"
     },
     {
-      title: "Survey Settings",
+      title: "Audience Settings",
       icon: <FileText className="w-4 h-4" />,
       path: "/survey-audience"
     }
