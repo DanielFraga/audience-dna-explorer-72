@@ -1,6 +1,9 @@
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { ScrollArea } from "../ui/scroll-area";
 
 const wordsetData = [
   {
@@ -9,19 +12,44 @@ const wordsetData = [
     positiveWords: ["Happy", "Excited", "Satisfied", "Impressed", "Delighted", "Confident"],
     negativeWords: ["Frustrated", "Disappointed", "Concerned", "Confused", "Annoyed", "Anxious"],
     positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
-    negativeChipColor: "text-red-400 border-red-400 bg-red-400/10"
+    negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+    // Additional words for the popup
+    allPositiveWords: [
+      "Happy", "Excited", "Satisfied", "Impressed", "Delighted", "Confident",
+      "Pleased", "Enthusiastic", "Optimistic", "Proud", "Grateful", "Relaxed",
+      "Inspired", "Hopeful", "Joyful", "Thrilled", "Content", "Cheerful"
+    ],
+    allNegativeWords: [
+      "Frustrated", "Disappointed", "Concerned", "Confused", "Annoyed", "Anxious",
+      "Angry", "Sad", "Stressed", "Worried", "Overwhelmed", "Unsatisfied",
+      "Discouraged", "Hesitant", "Doubtful", "Uncomfortable", "Unhappy", "Skeptical"
+    ]
   },
   {
     title: "Cultural Milieu",
     subheader: "Holidays & Cultural References",
-    words: ["Christmas", "Halloween", "Thanksgiving", "Family gatherings", "Traditions", "Celebrations", "Seasonal", "Festivities", "Cultural events", "Community"],
-    chipColor: "text-purple-400 border-purple-400 bg-purple-400/10"
+    words: ["Christmas", "Halloween", "Super Bowl", "Black Friday"],
+    chipColor: "text-purple-400 border-purple-400 bg-purple-400/10",
+    // Additional words for the popup
+    allWords: [
+      "Christmas", "Halloween", "Super Bowl", "Black Friday", 
+      "Thanksgiving", "New Year's Eve", "Valentine's Day", "Pride Month",
+      "Fourth of July", "Cinco de Mayo", "Lunar New Year", "Mardi Gras",
+      "Mother's Day", "Father's Day", "Memorial Day", "Labor Day"
+    ]
   },
   {
     title: "Media Sources",
     subheader: "Content Consumption Channels",
-    words: ["Social media", "Streaming services", "News websites", "Podcasts", "Television", "Mobile apps", "Magazines", "Blogs", "YouTube", "Local news"],
-    chipColor: "text-blue-400 border-blue-400 bg-blue-400/10"
+    words: ["TikTok", "Netflix", "YouTube", "Instagram"],
+    chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+    // Additional words for the popup
+    allWords: [
+      "TikTok", "Netflix", "YouTube", "Instagram", "Facebook", 
+      "Twitter/X", "Spotify", "Disney+", "Twitch", "HBO Max",
+      "Apple TV+", "Reddit", "New York Times", "CNN", "Hulu",
+      "Amazon Prime Video", "Local TV News", "Podcasts", "LinkedIn"
+    ]
   }
 ];
 
@@ -89,6 +117,16 @@ const surveyData = [
 ];
 
 export const SurveyTab: FC = () => {
+  const [openDialog, setOpenDialog] = useState<number | null>(null);
+
+  const handleOpenDialog = (index: number) => {
+    setOpenDialog(index);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(null);
+  };
+
   return (
     <div className="space-y-8 animate-slide-up">
       {/* Wordset Cards */}
@@ -96,7 +134,7 @@ export const SurveyTab: FC = () => {
         {wordsetData.map((wordset, index) => (
           <div 
             key={index}
-            className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors"
+            className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors flex flex-col"
           >
             <h3 className="text-lg font-semibold text-white mb-1">
               {wordset.title}
@@ -104,7 +142,7 @@ export const SurveyTab: FC = () => {
             <p className="text-sm text-gray-400 mb-4">
               {wordset.subheader}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 flex-grow">
               {index === 0 ? (
                 <>
                   {/* Positive words */}
@@ -140,6 +178,75 @@ export const SurveyTab: FC = () => {
                 ))
               )}
             </div>
+            <div className="mt-4 text-center">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-xs text-gray-400 hover:text-white"
+                onClick={() => handleOpenDialog(index)}
+              >
+                See more
+              </Button>
+            </div>
+
+            {/* Dialog for "See more" */}
+            <Dialog open={openDialog === index} onOpenChange={handleCloseDialog}>
+              <DialogContent className="bg-gray-900 border border-gray-800 max-w-lg">
+                <DialogHeader>
+                  <DialogTitle className="text-lg font-semibold text-white">
+                    {wordset.title}
+                  </DialogTitle>
+                </DialogHeader>
+                <ScrollArea className="h-72 rounded-md">
+                  <div className="p-4">
+                    {index === 0 ? (
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {wordset.allPositiveWords?.map((word, wordIndex) => (
+                              <Badge
+                                key={`positive-all-${wordIndex}`}
+                                variant="outline"
+                                className={wordset.positiveChipColor}
+                              >
+                                {word}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {wordset.allNegativeWords?.map((word, wordIndex) => (
+                              <Badge
+                                key={`negative-all-${wordIndex}`}
+                                variant="outline"
+                                className={wordset.negativeChipColor}
+                              >
+                                {word}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {wordset.allWords?.map((word, wordIndex) => (
+                          <Badge
+                            key={`all-${wordIndex}`}
+                            variant="outline"
+                            className={wordset.chipColor}
+                          >
+                            {word}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </ScrollArea>
+              </DialogContent>
+            </Dialog>
           </div>
         ))}
       </div>
