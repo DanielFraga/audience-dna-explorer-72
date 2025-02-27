@@ -72,25 +72,79 @@ const wordsetData = [
   {
     title: "Cultural Milieu",
     subheader: "Holidays & Cultural References",
-    words: ["Christmas", "Halloween", "Super Bowl", "Black Friday"],
-    chipColor: "text-purple-400 border-purple-400 bg-purple-400/10",
-    allWords: [
-      "Christmas", "Halloween", "Super Bowl", "Black Friday", 
-      "Thanksgiving", "New Year's Eve", "Valentine's Day", "Pride Month",
-      "Fourth of July", "Cinco de Mayo", "Lunar New Year", "Mardi Gras",
-      "Mother's Day", "Father's Day", "Memorial Day", "Labor Day"
+    positiveWords: [
+      { text: "Christmas", score: 78 },
+      { text: "Halloween", score: 82 },
+      { text: "Super Bowl", score: 75 },
+      { text: "Black Friday", score: 65 }
+    ],
+    negativeWords: [
+      { text: "Black Friday Rush", score: -45 },
+      { text: "Holiday Stress", score: -62 },
+      { text: "Commercialization", score: -58 },
+      { text: "FOMO", score: -70 }
+    ],
+    positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+    negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+    allPositiveWords: [
+      { text: "Christmas", score: 78 },
+      { text: "Halloween", score: 82 },
+      { text: "Super Bowl", score: 75 },
+      { text: "Black Friday", score: 65 },
+      { text: "Thanksgiving", score: 88 },
+      { text: "New Year's Eve", score: 85 },
+      { text: "Valentine's Day", score: 72 },
+      { text: "Pride Month", score: 77 },
+      { text: "Fourth of July", score: 80 }
+    ],
+    allNegativeWords: [
+      { text: "Black Friday Rush", score: -45 },
+      { text: "Holiday Stress", score: -62 },
+      { text: "Commercialization", score: -58 },
+      { text: "FOMO", score: -70 },
+      { text: "Holiday Traffic", score: -65 },
+      { text: "Overcrowding", score: -55 },
+      { text: "Gift Pressure", score: -48 },
+      { text: "Season Depression", score: -75 }
     ]
   },
   {
     title: "Media Sources",
     subheader: "Content Consumption Channels",
-    words: ["TikTok", "Netflix", "YouTube", "Instagram"],
-    chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-    allWords: [
-      "TikTok", "Netflix", "YouTube", "Instagram", "Facebook", 
-      "Twitter/X", "Spotify", "Disney+", "Twitch", "HBO Max",
-      "Apple TV+", "Reddit", "New York Times", "CNN", "Hulu",
-      "Amazon Prime Video", "Local TV News", "Podcasts", "LinkedIn"
+    positiveWords: [
+      { text: "TikTok", score: 88 },
+      { text: "Netflix", score: 92 },
+      { text: "YouTube", score: 85 },
+      { text: "Instagram", score: 78 }
+    ],
+    negativeWords: [
+      { text: "Cable TV", score: -45 },
+      { text: "Pop-up Ads", score: -82 },
+      { text: "Spam Email", score: -75 },
+      { text: "Clickbait", score: -68 }
+    ],
+    positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+    negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+    allPositiveWords: [
+      { text: "TikTok", score: 88 },
+      { text: "Netflix", score: 92 },
+      { text: "YouTube", score: 85 },
+      { text: "Instagram", score: 78 },
+      { text: "Spotify", score: 90 },
+      { text: "Disney+", score: 82 },
+      { text: "Twitch", score: 76 },
+      { text: "HBO Max", score: 80 },
+      { text: "Podcasts", score: 87 }
+    ],
+    allNegativeWords: [
+      { text: "Cable TV", score: -45 },
+      { text: "Pop-up Ads", score: -82 },
+      { text: "Spam Email", score: -75 },
+      { text: "Clickbait", score: -68 },
+      { text: "Intrusive Ads", score: -72 },
+      { text: "Fake News", score: -88 },
+      { text: "Paywalls", score: -65 },
+      { text: "Buffering", score: -58 }
     ]
   }
 ];
@@ -185,42 +239,26 @@ export const SurveyTab: FC = () => {
               {wordset.subheader}
             </p>
             <div className="flex flex-wrap gap-2 flex-grow">
-              {index === 0 ? (
-                <>
-                  {/* Positive words */}
-                  {wordset.positiveWords?.map((word, wordIndex) => (
-                    <Badge
-                      key={`positive-${wordIndex}`}
-                      variant="outline"
-                      className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
-                    >
-                      {word.text}
-                      <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                    </Badge>
-                  ))}
-                  {/* Negative words */}
-                  {wordset.negativeWords?.map((word, wordIndex) => (
-                    <Badge
-                      key={`negative-${wordIndex}`}
-                      variant="outline"
-                      className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
-                    >
-                      {word.text}
-                      <span className="text-[10px] font-semibold">{word.score}%</span>
-                    </Badge>
-                  ))}
-                </>
-              ) : (
-                wordset.words?.map((word, wordIndex) => (
-                  <Badge
-                    key={wordIndex}
-                    variant="outline"
-                    className={`text-xs ${wordset.chipColor}`}
-                  >
-                    {word}
-                  </Badge>
-                ))
-              )}
+              {wordset.positiveWords?.map((word, wordIndex) => (
+                <Badge
+                  key={`positive-${wordIndex}`}
+                  variant="outline"
+                  className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
+                >
+                  {word.text}
+                  <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                </Badge>
+              ))}
+              {wordset.negativeWords?.map((word, wordIndex) => (
+                <Badge
+                  key={`negative-${wordIndex}`}
+                  variant="outline"
+                  className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
+                >
+                  {word.text}
+                  <span className="text-[10px] font-semibold">{word.score}%</span>
+                </Badge>
+              ))}
             </div>
             <div className="mt-4 text-center">
               <Button 
@@ -251,52 +289,38 @@ export const SurveyTab: FC = () => {
                 </DialogHeader>
                 <ScrollArea className="h-72 rounded-md">
                   <div className="p-4">
-                    {index === 0 ? (
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {wordset.allPositiveWords?.map((word, wordIndex) => (
-                              <Badge
-                                key={`positive-all-${wordIndex}`}
-                                variant="outline"
-                                className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
-                              >
-                                {word.text}
-                                <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {wordset.allNegativeWords?.map((word, wordIndex) => (
-                              <Badge
-                                key={`negative-all-${wordIndex}`}
-                                variant="outline"
-                                className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
-                              >
-                                {word.text}
-                                <span className="text-[10px] font-semibold">{word.score}%</span>
-                              </Badge>
-                            ))}
-                          </div>
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {wordset.allPositiveWords?.map((word, wordIndex) => (
+                            <Badge
+                              key={`positive-all-${wordIndex}`}
+                              variant="outline"
+                              className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
+                            >
+                              {word.text}
+                              <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                            </Badge>
+                          ))}
                         </div>
                       </div>
-                    ) : (
-                      <div className="flex flex-wrap gap-2">
-                        {wordset.allWords?.map((word, wordIndex) => (
-                          <Badge
-                            key={`all-${wordIndex}`}
-                            variant="outline"
-                            className={`text-xs ${wordset.chipColor}`}
-                          >
-                            {word}
-                          </Badge>
-                        ))}
+                      <div>
+                        <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {wordset.allNegativeWords?.map((word, wordIndex) => (
+                            <Badge
+                              key={`negative-all-${wordIndex}`}
+                              variant="outline"
+                              className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
+                            >
+                              {word.text}
+                              <span className="text-[10px] font-semibold">{word.score}%</span>
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </ScrollArea>
               </DialogContent>
