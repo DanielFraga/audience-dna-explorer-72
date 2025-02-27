@@ -1,3 +1,4 @@
+
 import { FC, useState } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -147,7 +148,7 @@ export const SurveyTab: FC = () => {
                     <Badge
                       key={`positive-${wordIndex}`}
                       variant="outline"
-                      className={wordset.positiveChipColor}
+                      className={`text-xs ${wordset.positiveChipColor}`}
                     >
                       {word}
                     </Badge>
@@ -157,7 +158,7 @@ export const SurveyTab: FC = () => {
                     <Badge
                       key={`negative-${wordIndex}`}
                       variant="outline"
-                      className={wordset.negativeChipColor}
+                      className={`text-xs ${wordset.negativeChipColor}`}
                     >
                       {word}
                     </Badge>
@@ -213,7 +214,7 @@ export const SurveyTab: FC = () => {
                               <Badge
                                 key={`positive-all-${wordIndex}`}
                                 variant="outline"
-                                className={wordset.positiveChipColor}
+                                className={`text-xs ${wordset.positiveChipColor}`}
                               >
                                 {word}
                               </Badge>
@@ -227,7 +228,7 @@ export const SurveyTab: FC = () => {
                               <Badge
                                 key={`negative-all-${wordIndex}`}
                                 variant="outline"
-                                className={wordset.negativeChipColor}
+                                className={`text-xs ${wordset.negativeChipColor}`}
                               >
                                 {word}
                               </Badge>
