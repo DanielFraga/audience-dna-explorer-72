@@ -1,24 +1,27 @@
+
 import { FC } from 'react';
 import { Badge } from "../ui/badge";
 
 const wordsetData = [
   {
-    title: "Wordset A",
-    subheader: "Interest",
-    words: ["Excited", "Curious", "Engaged", "Intrigued", "Fascinated", "Eager"],
-    chipColor: "text-blue-400 border-blue-400 bg-blue-400/10"
+    title: "Positive/Negative Sentiment",
+    subheader: "Emotional Responses",
+    positiveWords: ["Happy", "Excited", "Satisfied", "Impressed", "Delighted", "Confident"],
+    negativeWords: ["Frustrated", "Disappointed", "Concerned", "Confused", "Annoyed", "Anxious"],
+    positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+    negativeChipColor: "text-red-400 border-red-400 bg-red-400/10"
   },
   {
-    title: "Wordset B",
-    subheader: "FOMO + Anxiety",
-    words: ["Missing out", "Worried", "Stressed", "Uncertain", "Rushed", "Overwhelmed"],
+    title: "Cultural Milieu",
+    subheader: "Holidays & Cultural References",
+    words: ["Christmas", "Halloween", "Thanksgiving", "Family gatherings", "Traditions", "Celebrations", "Seasonal", "Festivities", "Cultural events", "Community"],
     chipColor: "text-purple-400 border-purple-400 bg-purple-400/10"
   },
   {
-    title: "Wordset C",
-    subheader: "Anger + Pessimism",
-    words: ["Frustrated", "Disappointed", "Skeptical", "Annoyed", "Doubtful", "Negative"],
-    chipColor: "text-red-400 border-red-400 bg-red-400/10"
+    title: "Media Sources",
+    subheader: "Content Consumption Channels",
+    words: ["Social media", "Streaming services", "News websites", "Podcasts", "Television", "Mobile apps", "Magazines", "Blogs", "YouTube", "Local news"],
+    chipColor: "text-blue-400 border-blue-400 bg-blue-400/10"
   }
 ];
 
@@ -102,15 +105,40 @@ export const SurveyTab: FC = () => {
               {wordset.subheader}
             </p>
             <div className="flex flex-wrap gap-2">
-              {wordset.words.map((word, wordIndex) => (
-                <Badge
-                  key={wordIndex}
-                  variant="outline"
-                  className={`${wordset.chipColor}`}
-                >
-                  {word}
-                </Badge>
-              ))}
+              {index === 0 ? (
+                <>
+                  {/* Positive words */}
+                  {wordset.positiveWords?.map((word, wordIndex) => (
+                    <Badge
+                      key={`positive-${wordIndex}`}
+                      variant="outline"
+                      className={wordset.positiveChipColor}
+                    >
+                      {word}
+                    </Badge>
+                  ))}
+                  {/* Negative words */}
+                  {wordset.negativeWords?.map((word, wordIndex) => (
+                    <Badge
+                      key={`negative-${wordIndex}`}
+                      variant="outline"
+                      className={wordset.negativeChipColor}
+                    >
+                      {word}
+                    </Badge>
+                  ))}
+                </>
+              ) : (
+                wordset.words?.map((word, wordIndex) => (
+                  <Badge
+                    key={wordIndex}
+                    variant="outline"
+                    className={wordset.chipColor}
+                  >
+                    {word}
+                  </Badge>
+                ))
+              )}
             </div>
           </div>
         ))}
