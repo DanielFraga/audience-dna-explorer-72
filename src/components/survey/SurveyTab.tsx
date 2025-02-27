@@ -1,9 +1,9 @@
-
 import { FC, useState } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
+import { X } from "lucide-react";
 
 const wordsetData = [
   {
@@ -13,7 +13,6 @@ const wordsetData = [
     negativeWords: ["Frustrated", "Disappointed", "Concerned", "Confused", "Annoyed", "Anxious"],
     positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
     negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
-    // Additional words for the popup
     allPositiveWords: [
       "Happy", "Excited", "Satisfied", "Impressed", "Delighted", "Confident",
       "Pleased", "Enthusiastic", "Optimistic", "Proud", "Grateful", "Relaxed",
@@ -30,7 +29,6 @@ const wordsetData = [
     subheader: "Holidays & Cultural References",
     words: ["Christmas", "Halloween", "Super Bowl", "Black Friday"],
     chipColor: "text-purple-400 border-purple-400 bg-purple-400/10",
-    // Additional words for the popup
     allWords: [
       "Christmas", "Halloween", "Super Bowl", "Black Friday", 
       "Thanksgiving", "New Year's Eve", "Valentine's Day", "Pride Month",
@@ -43,7 +41,6 @@ const wordsetData = [
     subheader: "Content Consumption Channels",
     words: ["TikTok", "Netflix", "YouTube", "Instagram"],
     chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-    // Additional words for the popup
     allWords: [
       "TikTok", "Netflix", "YouTube", "Instagram", "Facebook", 
       "Twitter/X", "Spotify", "Disney+", "Twitch", "HBO Max",
@@ -171,7 +168,7 @@ export const SurveyTab: FC = () => {
                   <Badge
                     key={wordIndex}
                     variant="outline"
-                    className={wordset.chipColor}
+                    className={`text-xs ${wordset.chipColor}`}
                   >
                     {word}
                   </Badge>
@@ -192,10 +189,18 @@ export const SurveyTab: FC = () => {
             {/* Dialog for "See more" */}
             <Dialog open={openDialog === index} onOpenChange={handleCloseDialog}>
               <DialogContent className="bg-gray-900 border border-gray-800 max-w-lg">
-                <DialogHeader>
+                <DialogHeader className="relative">
                   <DialogTitle className="text-lg font-semibold text-white">
                     {wordset.title}
                   </DialogTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-0 top-0 text-gray-400 hover:text-white"
+                    onClick={handleCloseDialog}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
                 </DialogHeader>
                 <ScrollArea className="h-72 rounded-md">
                   <div className="p-4">
@@ -236,7 +241,7 @@ export const SurveyTab: FC = () => {
                           <Badge
                             key={`all-${wordIndex}`}
                             variant="outline"
-                            className={wordset.chipColor}
+                            className={`text-xs ${wordset.chipColor}`}
                           >
                             {word}
                           </Badge>
@@ -251,14 +256,13 @@ export const SurveyTab: FC = () => {
         ))}
       </div>
 
-      {/* Existing Survey Cards */}
+      {/* Survey Cards */}
       <div className="grid grid-cols-3 gap-4">
         {surveyData.map((item, index) => (
           <div 
             key={index}
             className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
           >
-            {/* Confidence Score Circle */}
             <div className="absolute top-3 right-3">
               <div className="relative w-10 h-10">
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -276,7 +280,6 @@ export const SurveyTab: FC = () => {
               </div>
             </div>
 
-            {/* Question */}
             <h3 
               className="text-sm font-medium text-white mb-2 pr-12"
               dangerouslySetInnerHTML={{
@@ -286,7 +289,6 @@ export const SurveyTab: FC = () => {
               }}
             />
 
-            {/* Response */}
             <p 
               className="text-xs text-gray-400 line-clamp-3"
               dangerouslySetInnerHTML={{
