@@ -14,20 +14,12 @@ import { SoWhatTab } from "../components/sowhat/SoWhatTab";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("holiday");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
-  const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults] = useState(true);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const totalRespondents = 1234;
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowResults(searchTerm.toLowerCase() === "holiday");
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
 
   const handleSaveClick = () => {
     setShowSaveDialog(true);
@@ -99,15 +91,13 @@ const Index = () => {
               
               <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
                 <button 
-                  className={`flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap ${!showResults ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  disabled={!showResults}
+                  className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
                   onClick={handleSaveClick}
                 >
                   Save DNA
                 </button>
                 <button 
-                  className={`flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap ${!showResults ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  disabled={!showResults}
+                  className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap"
                 >
                   <Download className="w-3 h-3 mr-1" />
                   Export
@@ -115,18 +105,16 @@ const Index = () => {
               </div>
             </div>
             
-            {showResults && (
-              <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5 animate-fade-in">
-                <span>Showing results for <span className="text-blue-400">"holiday"</span></span>
-                <span>Applicable to</span>
-                <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 out of 10000</span>
-                <span>respondents</span>
-              </div>
-            )}
+            <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5 animate-fade-in">
+              <span>Showing results for <span className="text-blue-400">"holiday"</span></span>
+              <span>Applicable to</span>
+              <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 out of 10000</span>
+              <span>respondents</span>
+            </div>
           </div>
 
           {/* Tabs and Content Container */}
-          <div className={`transition-all duration-300 ${showResults ? 'opacity-100' : 'opacity-50 pointer-events-none'}`}>
+          <div className="transition-all duration-300 opacity-100">
             {/* Tabs */}
             <div className="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0">
               <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
