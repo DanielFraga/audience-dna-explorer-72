@@ -27,7 +27,7 @@ const SavedAudiences = () => {
       type: "All",
       size: "450 respondents",
       percentage: "10000/10000",
-      location: "California, USA",
+      location: "Los Angeles, San Francisco, San Diego, Sacramento",
       ageRange: "16-80",
     },
     {
@@ -37,7 +37,7 @@ const SavedAudiences = () => {
       keyword: "holiday",
       size: "450 respondents",
       percentage: "320/10000",
-      location: "California, USA",
+      location: "San Jose, Oakland, Fresno",
       ageRange: "25-34",
       parentId: 1,
     },
@@ -47,7 +47,7 @@ const SavedAudiences = () => {
       type: "All",
       size: "450 respondents",
       percentage: "10000/10000",
-      location: "New York, USA",
+      location: "New York, Buffalo, Albany, Rochester",
       ageRange: "16-80",
     },
     {
@@ -56,7 +56,7 @@ const SavedAudiences = () => {
       type: "All",
       size: "450 respondents",
       percentage: "10000/10000",
-      location: "Texas, USA",
+      location: "Houston, Dallas, Austin, San Antonio",
       ageRange: "16-80",
     },
   ];
