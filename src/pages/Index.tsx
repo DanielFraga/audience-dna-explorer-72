@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import MainSidebar from "../components/MainSidebar";
 import { tabs } from "../constants/tabs";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
+import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
 import { SurveyTab } from "../components/survey/SurveyTab";
 import { InsightsTab } from "../components/insights/InsightsTab";
 import { SoWhatTab } from "../components/sowhat/SoWhatTab";
@@ -66,6 +67,8 @@ const Index = () => {
     switch(activeTab) {
       case "WHO_DEMO":
         return <DemographicsTab />;
+      case "WHO_PSYCHO":
+        return <PsychographicsTab />;
       case "WHAT":
         return <SurveyTab />;
       case "WHY":
