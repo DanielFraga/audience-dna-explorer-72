@@ -2,6 +2,7 @@
 import { FC } from 'react';
 import { Info, CheckCircle, XCircle } from 'lucide-react';
 import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 export const SoWhatTab: FC = () => {
   return (
@@ -98,6 +99,17 @@ export const SoWhatTab: FC = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="bg-gray-900 rounded-lg border border-gray-800 p-6 text-center">
+          <p className="text-gray-300 text-sm mb-4">Want to know more about this audience?</p>
+          <Button 
+            variant="default" 
+            className="bg-indigo-600 hover:bg-indigo-700"
+          >
+            Chat to Audience
+          </Button>
         </div>
       </div>
     </TooltipProvider>
