@@ -11,6 +11,7 @@ import { PsychographicsTab } from "../components/psychographics/PsychographicsTa
 import { SurveyTab } from "../components/survey/SurveyTab";
 import { InsightsTab } from "../components/insights/InsightsTab";
 import { SoWhatTab } from "../components/sowhat/SoWhatTab";
+import { Button } from "../components/ui/button";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -105,12 +106,15 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="mt-2 text-[11px] text-gray-400 flex items-center flex-wrap gap-1.5 animate-fade-in">
-              <span>Showing results for <span className="text-blue-400">"holiday"</span></span>
+            <Button 
+              className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-medium p-2 px-3 rounded-lg flex items-center gap-1.5 shadow-md animate-fade-in"
+            >
+              <span>Showing results for <span className="font-semibold">"holiday"</span></span>
+              <span>•</span>
               <span>Applicable to</span>
-              <span className="px-2 py-0.5 bg-gray-800 rounded-full text-gray-300">450 out of 10000</span>
+              <span className="px-2 py-0.5 bg-blue-700 rounded-full text-blue-100">450 out of 10000</span>
               <span>respondents</span>
-            </div>
+            </Button>
           </div>
 
           {/* Tabs and Content Container */}
