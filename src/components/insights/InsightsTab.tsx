@@ -79,6 +79,7 @@ export const InsightsTab: FC = () => {
                   "bg-teal-950/50 text-teal-200"
                 }`}
                 variant="outline"
+                disableHoverEffect={true}
               >
                 {insight.summary}
               </Button>

@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -37,14 +38,29 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  disableHoverEffect?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, disableHoverEffect = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+    
+    let buttonClassName = cn(buttonVariants({ variant, size, className }))
+    
+    // Remove hover classes if disableHoverEffect is true
+    if (disableHoverEffect) {
+      buttonClassName = buttonClassName
+        .replace('hover:bg-primary/90', '')
+        .replace('hover:bg-destructive/90', '')
+        .replace('hover:bg-accent hover:text-accent-foreground', '')
+        .replace('hover:bg-secondary/80', '')
+        .replace('hover:bg-accent hover:text-accent-foreground', '')
+        .replace('hover:underline', '')
+    }
+    
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={buttonClassName}
         ref={ref}
         {...props}
       />
