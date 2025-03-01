@@ -12,6 +12,8 @@ import { SurveyTab } from "../components/survey/SurveyTab";
 import { InsightsTab } from "../components/insights/InsightsTab";
 import { SoWhatTab } from "../components/sowhat/SoWhatTab";
 import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -20,10 +22,20 @@ const Index = () => {
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(true);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
+  const [dnaDescription, setDnaDescription] = useState("");
   const totalRespondents = 1234;
 
   const handleSaveClick = () => {
+    setDnaName(`Audience: ${searchTerm}`);
     setShowSaveDialog(true);
+  };
+
+  const handleSaveDna = () => {
+    // Here you would actually save the DNA with the provided name
+    console.log("Saving DNA with name:", dnaName);
+    // Navigate to chat with this audience
+    navigate("/chat");
   };
 
   const renderContent = () => {
@@ -162,24 +174,47 @@ const Index = () => {
         <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
           <DialogContent className="bg-gray-900 border border-gray-800 text-gray-100">
             <DialogHeader>
-              <DialogTitle className="text-lg font-medium text-gray-100">Audience Saved Successfully</DialogTitle>
+              <DialogTitle className="text-lg font-medium text-gray-100">Save Audience DNA</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
-              <p className="text-gray-300">
-                Your audience has been saved. You can now:
-              </p>
               <div className="space-y-2">
+                <label htmlFor="dna-name" className="block text-sm font-medium text-gray-300">
+                  Name your audience DNA
+                </label>
+                <Input
+                  id="dna-name"
+                  value={dnaName}
+                  onChange={(e) => setDnaName(e.target.value)}
+                  className="bg-gray-800 border-gray-700 focus:ring-blue-600 text-gray-100"
+                  placeholder="Enter a name for this audience DNA"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="dna-description" className="block text-sm font-medium text-gray-300">
+                  Description (optional)
+                </label>
+                <Textarea
+                  id="dna-description"
+                  value={dnaDescription}
+                  onChange={(e) => setDnaDescription(e.target.value)}
+                  className="bg-gray-800 border-gray-700 focus:ring-blue-600 text-gray-100 min-h-[80px]"
+                  placeholder="Add a description for this audience DNA"
+                />
+              </div>
+              
+              <div className="pt-4 flex flex-col space-y-2">
                 <button
-                  onClick={() => navigate("/chat")}
-                  className="w-full px-4 py-2 text-sm bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-left"
+                  onClick={handleSaveDna}
+                  className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
                 >
-                  Chat with this audience →
+                  Save & Chat with this Audience
                 </button>
                 <button
-                  onClick={() => navigate("/saved-audiences")}
-                  className="w-full px-4 py-2 text-sm bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-left"
+                  onClick={() => setShowSaveDialog(false)}
+                  className="w-full px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors text-sm"
                 >
-                  View in Saved Audiences →
+                  Cancel
                 </button>
               </div>
             </div>
