@@ -1,3 +1,4 @@
+
 import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, MapPin, Calendar, Search, MessageSquare } from "lucide-react";
@@ -11,6 +12,7 @@ interface AudienceEntry {
   type: "All" | "Keyword";
   keyword?: string;
   size: string;
+  percentage: string;
   location: string;
   ageRange: string;
   parentId?: number;
@@ -25,6 +27,7 @@ const SavedAudiences = () => {
       name: "A1",
       type: "All",
       size: "450 respondents",
+      percentage: "450/10000",
       location: "California, USA",
       ageRange: "25-34",
     },
@@ -34,6 +37,7 @@ const SavedAudiences = () => {
       type: "Keyword",
       keyword: "holiday",
       size: "450 respondents",
+      percentage: "450/10000",
       location: "California, USA",
       ageRange: "25-34",
       parentId: 1,
@@ -43,6 +47,7 @@ const SavedAudiences = () => {
       name: "A2",
       type: "All",
       size: "450 respondents",
+      percentage: "450/10000",
       location: "New York, USA",
       ageRange: "18-24",
     },
@@ -51,6 +56,7 @@ const SavedAudiences = () => {
       name: "A3",
       type: "All",
       size: "450 respondents",
+      percentage: "450/10000",
       location: "Texas, USA",
       ageRange: "35-44",
     },
@@ -68,7 +74,7 @@ const SavedAudiences = () => {
                 <div className="grid grid-cols-7 gap-3 pb-3 text-sm font-medium text-gray-400">
                   <div>Name</div>
                   <div>Type</div>
-                  <div>Size</div>
+                  <div>Percentage</div>
                   <div>Location</div>
                   <div>Age Range</div>
                   <div>Actions</div>
@@ -100,7 +106,7 @@ const SavedAudiences = () => {
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Users className="w-4 h-4 text-blue-400" />
-                        {audience.size}
+                        {audience.percentage}
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <MapPin className="w-4 h-4 text-blue-400" />
@@ -145,3 +151,4 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
+
