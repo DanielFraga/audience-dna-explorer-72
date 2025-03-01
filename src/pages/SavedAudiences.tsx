@@ -76,19 +76,18 @@ const SavedAudiences = () => {
           <Card className="bg-gray-800/50 border-gray-700 flex-1">
             <CardContent className="p-3">
               <div className="divide-y divide-gray-700">
-                <div className="grid grid-cols-5 gap-3 pb-3 text-sm font-medium text-gray-400">
+                <div className="grid grid-cols-4 gap-3 pb-3 text-sm font-medium text-gray-400">
                   <div>Name</div>
                   <div>Percentage</div>
                   <div>Location</div>
-                  <div>Actions</div>
-                  <div></div>
+                  <div className="text-right">Actions</div>
                 </div>
                 {audiences.map((audience) => (
                   <div 
                     key={audience.id}
                     className="py-3 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
                   >
-                    <div className="grid grid-cols-5 gap-3">
+                    <div className="grid grid-cols-4 gap-3">
                       <div className="text-gray-300">
                         {audience.parentId && (
                           <span className="ml-4">↳ </span>
@@ -106,26 +105,24 @@ const SavedAudiences = () => {
                         <MapPin className="w-4 h-4 text-blue-400" />
                         {audience.location}
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-center justify-end gap-2">
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           className="text-gray-300 hover:text-blue-400"
-                          onClick={() => navigate(`/survey-audience?id=${audience.id}`)}
+                          onClick={() => navigate(`/explore-audience?id=${audience.id}`)}
+                          title="Explore"
                         >
-                          <Search className="w-4 h-4 mr-1" />
-                          Explore
+                          <Search className="w-4 h-4" />
                         </Button>
-                      </div>
-                      <div className="flex items-center">
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           className="text-gray-300 hover:text-blue-400"
                           onClick={() => navigate(`/chat?id=${audience.id}`)}
+                          title="Chat"
                         >
-                          <MessageSquare className="w-4 h-4 mr-1" />
-                          Chat
+                          <MessageSquare className="w-4 h-4" />
                         </Button>
                       </div>
                     </div>
