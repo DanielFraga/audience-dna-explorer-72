@@ -28,7 +28,7 @@ const SavedAudiences = () => {
       size: "450 respondents",
       percentage: "10000/10000",
       location: "California, USA",
-      ageRange: "25-34",
+      ageRange: "16-80",
     },
     {
       id: 4,
@@ -48,7 +48,7 @@ const SavedAudiences = () => {
       size: "450 respondents",
       percentage: "10000/10000",
       location: "New York, USA",
-      ageRange: "18-24",
+      ageRange: "16-80",
     },
     {
       id: 3,
@@ -57,7 +57,7 @@ const SavedAudiences = () => {
       size: "450 respondents",
       percentage: "10000/10000",
       location: "Texas, USA",
-      ageRange: "35-44",
+      ageRange: "16-80",
     },
   ];
 
