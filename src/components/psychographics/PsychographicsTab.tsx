@@ -611,22 +611,6 @@ export const PsychographicsTab: FC = () => {
           </div>
         </div>
         
-        {/* Group Selection Dropdown */}
-        <div className="mb-2">
-          <Select defaultValue={selectedGroup} onValueChange={setSelectedGroup}>
-            <SelectTrigger className="w-full text-xs h-9 bg-gray-800 border-gray-700 text-gray-300">
-              <SelectValue placeholder="Select group" />
-            </SelectTrigger>
-            <SelectContent className="bg-gray-800 border-gray-700 text-gray-300">
-              {psychographicGroups.map(group => (
-                <SelectItem key={group.id} value={group.id} className="text-xs">
-                  {group.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        
         {/* Quick Group Selection Cards */}
         <div className="grid grid-cols-5 gap-2">
           {psychographicGroups.map(group => (
