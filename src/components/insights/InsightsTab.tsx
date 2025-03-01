@@ -71,12 +71,12 @@ export const InsightsTab: FC = () => {
             <div className="space-y-3">
               <Button 
                 className={`w-full text-left justify-start font-normal ${
-                  insight.color === "blue" ? "bg-blue-950/50 hover:bg-blue-900/50 text-blue-200" :
-                  insight.color === "purple" ? "bg-purple-950/50 hover:bg-purple-900/50 text-purple-200" :
-                  insight.color === "green" ? "bg-green-950/50 hover:bg-green-900/50 text-green-200" :
-                  insight.color === "orange" ? "bg-orange-950/50 hover:bg-orange-900/50 text-orange-200" :
-                  insight.color === "pink" ? "bg-pink-950/50 hover:bg-pink-900/50 text-pink-200" :
-                  "bg-teal-950/50 hover:bg-teal-900/50 text-teal-200"
+                  insight.color === "blue" ? "bg-blue-950/50 text-blue-200" :
+                  insight.color === "purple" ? "bg-purple-950/50 text-purple-200" :
+                  insight.color === "green" ? "bg-green-950/50 text-green-200" :
+                  insight.color === "orange" ? "bg-orange-950/50 text-orange-200" :
+                  insight.color === "pink" ? "bg-pink-950/50 text-pink-200" :
+                  "bg-teal-950/50 text-teal-200"
                 }`}
                 variant="outline"
               >
