@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, CheckCircle, XCircle } from 'lucide-react';
 import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -24,15 +25,15 @@ export const SoWhatTab: FC = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">Emphasize early planning and organization for holiday shopping</span>
+                <span className="text-gray-300 text-xs">Because aspirational users have an unseen longing for prestige brands, then emphasize early planning that allows them to budget for premium products.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">Focus on digital-first solutions and online convenience</span>
+                <span className="text-gray-300 text-xs">Because tech-savvy segments demonstrate 40% higher interaction rates on innovative features, then focus on digital-first solutions that leverage cutting-edge functionality.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">Highlight value propositions that combine quality with smart spending</span>
+                <span className="text-gray-300 text-xs">Because premium audience segments show 65% increased brand loyalty with luxury and durability messaging, then highlight value propositions that emphasize both quality and longevity.</span>
               </li>
             </ul>
           </div>
@@ -42,15 +43,15 @@ export const SoWhatTab: FC = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">Push last-minute shopping or rushed decision making</span>
+                <span className="text-gray-300 text-xs">Because eco-conscious users experience cognitive dissonance between their values and impulse purchases, then avoid pushing last-minute shopping that may trigger non-sustainable buying decisions.</span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">Focus solely on in-store experiences</span>
+                <span className="text-gray-300 text-xs">Because 85% of users navigate seamlessly between mobile and desktop interfaces, then don't focus solely on in-store experiences that limit cross-platform engagement.</span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">Emphasize price as the only deciding factor</span>
+                <span className="text-gray-300 text-xs">Because younger demographics are influenced by peer recommendations for 70% of purchase decisions, then don't emphasize price as the only deciding factor instead of social validation.</span>
               </li>
             </ul>
           </div>
