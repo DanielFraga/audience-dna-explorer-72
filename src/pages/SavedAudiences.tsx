@@ -62,6 +62,12 @@ const SavedAudiences = () => {
     },
   ];
 
+  // Function to calculate percentage from fraction string
+  const calculatePercentage = (fractionStr: string) => {
+    const [numerator, denominator] = fractionStr.split('/').map(Number);
+    return `${((numerator / denominator) * 100).toFixed(1)}%`;
+  };
+
   return (
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
@@ -106,7 +112,7 @@ const SavedAudiences = () => {
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Users className="w-4 h-4 text-blue-400" />
-                        {audience.percentage}
+                        {calculatePercentage(audience.percentage)} ({audience.percentage})
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <MapPin className="w-4 h-4 text-blue-400" />
@@ -151,4 +157,3 @@ const SavedAudiences = () => {
 };
 
 export default SavedAudiences;
-
