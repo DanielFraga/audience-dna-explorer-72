@@ -37,7 +37,7 @@ const SavedAudiences = () => {
       type: "Keyword",
       keyword: "holiday",
       size: "450 respondents",
-      percentage: "450/10000",
+      percentage: "320/10000",
       location: "California, USA",
       ageRange: "25-34",
       parentId: 1,
@@ -47,7 +47,7 @@ const SavedAudiences = () => {
       name: "A2",
       type: "All",
       size: "450 respondents",
-      percentage: "450/10000",
+      percentage: "680/10000",
       location: "New York, USA",
       ageRange: "18-24",
     },
@@ -56,7 +56,7 @@ const SavedAudiences = () => {
       name: "A3",
       type: "All",
       size: "450 respondents",
-      percentage: "450/10000",
+      percentage: "520/10000",
       location: "Texas, USA",
       ageRange: "35-44",
     },
@@ -112,7 +112,7 @@ const SavedAudiences = () => {
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Users className="w-4 h-4 text-blue-400" />
-                        {calculatePercentage(audience.percentage)} ({audience.percentage})
+                        {calculatePercentage(audience.percentage)}
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <MapPin className="w-4 h-4 text-blue-400" />
