@@ -1,55 +1,16 @@
 
-import { Plus, Users, Target, Info, ShieldCheck, X } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { ShieldCheck, Info } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import MainSidebar from "@/components/MainSidebar";
+import { X } from 'lucide-react';
 
-const SurveyAudience = () => {
+const AboutUs = () => {
   const [showCertDialog, setShowCertDialog] = useState(false);
-  const [showSampleSizeDialog, setShowSampleSizeDialog] = useState(false);
-  const [additionalRespondents, setAdditionalRespondents] = useState('');
-  const currentRespondents = 10000;
-  const pricePerThousand = 2000;
-
-  // Current focus areas
-  const currentFocusAreas = [
-    { id: 1, name: "Demographic", description: "Basic population characteristics", tooltip: "Basic demographic information including age, gender, location, and income" },
-    { id: 2, name: "Digital", description: "Online behavior and preferences", tooltip: "Digital footprint analysis including device usage, social media presence, and online shopping habits" },
-    { id: 3, name: "Psychographic", description: "Attitudes and interests", tooltip: "Psychological attributes including values, interests, lifestyle choices, and personality traits" },
-    { id: 4, name: "Anthropological", description: "Cultural patterns and values", tooltip: "Cultural background analysis including traditions, beliefs, and social norms" },
-  ];
-
-  // Available new modules
-  const availableModules = [
-    { id: 1, name: "Aesthetic", description: "Visual and design preferences" },
-    { id: 2, name: "Cultural", description: "Cultural influences and traditions" },
-    { id: 3, name: "Sexual", description: "Relationship and intimacy factors" },
-  ];
-
-  const calculateTotalPrice = () => {
-    if (!additionalRespondents) return 0;
-    const additional = parseInt(additionalRespondents);
-    return Math.ceil(additional / 1000) * pricePerThousand;
-  };
-
-  const handleRespondentsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    setAdditionalRespondents(value);
-  };
-
-  const handleCheckout = () => {
-    // This will be implemented when the checkout system is set up
-    console.log('Proceeding to checkout with:', {
-      additionalRespondents,
-      totalPrice: calculateTotalPrice()
-    });
-  };
 
   return (
     <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
@@ -57,7 +18,7 @@ const SurveyAudience = () => {
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-4 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
         <div className="space-y-3">
-          <h1 className="text-2xl font-display font-semibold text-gray-100">Survey Settings</h1>
+          <h1 className="text-2xl font-display font-semibold text-gray-100">About Us</h1>
           
           <Badge 
             variant="outline"
@@ -69,91 +30,48 @@ const SurveyAudience = () => {
           </Badge>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          {/* Left Card: Current Focus Areas */}
-          <Card className="bg-gray-800/50 border-gray-700 h-full">
-            <CardHeader className="p-3">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-lg font-display text-gray-100 flex items-center gap-2">
-                  <Target className="w-5 h-5 text-blue-400" />
-                  Current Focus Areas
-                </CardTitle>
-                <Button 
-                  variant="ghost"
-                  size="icon"
-                  className="w-8 h-8 rounded-full border-2 border-blue-500/50 hover:border-blue-500 hover:bg-blue-500/10 transition-colors"
-                  onClick={() => setShowSampleSizeDialog(true)}
-                >
-                  <Plus className="h-4 w-4 text-blue-400" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-3">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
-                    10000 respondents
+        <div className="mt-6">
+          <Card className="bg-gray-800/50 border-gray-700">
+            <CardContent className="p-6">
+              <div className="space-y-6 text-gray-200">
+                <h2 className="text-xl font-semibold text-blue-400">Our Methodology</h2>
+                
+                <p className="leading-relaxed">
+                  Our platform combines advanced statistical analysis with behavioral science to deliver 
+                  unprecedented insights into audience demographics, psychographics, and digital behaviors. 
+                  We use a multi-dimensional approach to data collection, pulling from over 10,000 verified 
+                  respondents across diverse focus areas. By applying proprietary algorithms and AI-driven 
+                  pattern recognition, we transform raw survey data into actionable audience insights that 
+                  help businesses make better decisions. Our rigorous quality control measures and bias 
+                  mitigation techniques ensure that you receive the most accurate representation of your 
+                  target audience.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                  <div className="bg-gray-700/30 p-4 rounded-lg">
+                    <h3 className="text-lg font-medium text-blue-400 mb-2">Respondent Verification</h3>
+                    <p className="text-sm text-gray-300">
+                      Every survey participant undergoes a rigorous verification process to ensure authentic 
+                      responses and prevent fraudulent data collection.
+                    </p>
                   </div>
-                  <div className="px-2 py-1 bg-gray-700/50 rounded-full text-xs font-medium text-gray-200">
-                    72 questions each
+                  
+                  <div className="bg-gray-700/30 p-4 rounded-lg">
+                    <h3 className="text-lg font-medium text-blue-400 mb-2">Bias Elimination</h3>
+                    <p className="text-sm text-gray-300">
+                      Our proprietary algorithms identify and correct for sampling bias, response bias, 
+                      and other common issues that can distort survey results.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-gray-700/30 p-4 rounded-lg">
+                    <h3 className="text-lg font-medium text-blue-400 mb-2">Continuous Improvement</h3>
+                    <p className="text-sm text-gray-300">
+                      We constantly refine our methodologies based on the latest research in behavioral 
+                      science and data analysis to provide the most accurate insights possible.
+                    </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-2">
-                  <TooltipProvider>
-                    {currentFocusAreas.map((area) => (
-                      <div
-                        key={area.id}
-                        className="bg-gray-700/50 p-2 rounded-lg border border-gray-600"
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-200">{area.name}</h4>
-                            <p className="text-xs text-gray-400 mt-0.5">{area.description}</p>
-                          </div>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <button className="p-1 hover:bg-gray-600/50 rounded-full transition-colors">
-                                <Info className="w-3.5 h-3.5 text-blue-400" />
-                              </button>
-                            </TooltipTrigger>
-                            <TooltipContent className="bg-gray-800 border-gray-700">
-                              <p className="text-xs text-gray-200">{area.tooltip}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </div>
-                      </div>
-                    ))}
-                  </TooltipProvider>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Right Card: Available Modules */}
-          <Card className="bg-gray-800/50 border-gray-700 h-full">
-            <CardHeader className="p-3 pb-12">
-              <CardTitle className="text-lg font-display text-gray-100">
-                Add New Modules
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-3">
-              <div className="grid grid-cols-1 gap-2">
-                {availableModules.map((module) => (
-                  <button
-                    key={module.id}
-                    className="bg-gray-700/50 p-2 rounded-lg border border-gray-600 text-left hover:bg-gray-600/50 transition-colors group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-200">{module.name}</h4>
-                        <p className="text-xs text-gray-400 mt-0.5">{module.description}</p>
-                      </div>
-                      <div className="w-8 h-8 rounded-full border-2 border-blue-500/50 group-hover:border-blue-500 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors">
-                        <Plus className="w-4 h-4 text-blue-400" />
-                      </div>
-                    </div>
-                  </button>
-                ))}
               </div>
             </CardContent>
           </Card>
@@ -190,70 +108,9 @@ const SurveyAudience = () => {
             </ScrollArea>
           </DialogContent>
         </Dialog>
-
-        {/* Sample Size Dialog */}
-        <Dialog open={showSampleSizeDialog} onOpenChange={setShowSampleSizeDialog}>
-          <DialogContent className="sm:max-w-[500px] bg-gray-800 border-gray-700">
-            <DialogHeader>
-              <div className="flex items-center justify-between">
-                <DialogTitle className="text-gray-100">Increase Current Sample Size</DialogTitle>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 p-0 hover:bg-gray-700/50"
-                  onClick={() => setShowSampleSizeDialog(false)}
-                >
-                  <X className="h-4 w-4 text-gray-400" />
-                </Button>
-              </div>
-            </DialogHeader>
-            <div className="space-y-6 text-gray-200">
-              <p className="text-sm">Increasing the pool of respondents within the current focus areas takes up to 48 hours.</p>
-              
-              <div className="space-y-4 bg-gray-700/30 p-4 rounded-lg">
-                <div className="space-y-2">
-                  <h3 className="font-medium">Pricing</h3>
-                  <p className="text-sm text-gray-400">€2,000 per 1,000 respondents</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Additional Respondents</label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      type="text"
-                      value={additionalRespondents}
-                      onChange={handleRespondentsChange}
-                      placeholder="Enter number of respondents"
-                      className="bg-gray-700/50 border-gray-600 text-gray-100"
-                    />
-                  </div>
-                </div>
-
-                {additionalRespondents && (
-                  <div className="space-y-2 pt-2 border-t border-gray-600">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Total Price:</span>
-                      <span className="text-lg font-semibold text-blue-400">€{calculateTotalPrice().toLocaleString()}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex justify-end">
-                <Button 
-                  className="bg-blue-500 hover:bg-blue-600"
-                  onClick={handleCheckout}
-                  disabled={!additionalRespondents || parseInt(additionalRespondents) <= 0}
-                >
-                  Proceed to Checkout
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
     </div>
   );
 };
 
-export default SurveyAudience;
+export default AboutUs;
