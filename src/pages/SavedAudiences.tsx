@@ -3,7 +3,6 @@ import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, MapPin, Calendar, Search, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 
 interface AudienceEntry {
@@ -77,9 +76,8 @@ const SavedAudiences = () => {
           <Card className="bg-gray-800/50 border-gray-700 flex-1">
             <CardContent className="p-3">
               <div className="divide-y divide-gray-700">
-                <div className="grid grid-cols-7 gap-3 pb-3 text-sm font-medium text-gray-400">
+                <div className="grid grid-cols-6 gap-3 pb-3 text-sm font-medium text-gray-400">
                   <div>Name</div>
-                  <div>Type</div>
                   <div>Percentage</div>
                   <div>Location</div>
                   <div>Age Range</div>
@@ -91,23 +89,14 @@ const SavedAudiences = () => {
                     key={audience.id}
                     className="py-3 hover:bg-gray-700/20 transition-colors rounded-lg px-2"
                   >
-                    <div className="grid grid-cols-7 gap-3">
+                    <div className="grid grid-cols-6 gap-3">
                       <div className="text-gray-300">
                         {audience.parentId && (
                           <span className="ml-4">↳ </span>
                         )}
                         {audience.name}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {audience.type === "All" ? (
-                          <span className="text-gray-300">All</span>
-                        ) : (
-                          <div className="flex items-center gap-2">
-                            <Badge variant="secondary" className="bg-gray-700 text-gray-300">
-                              Keyword
-                            </Badge>
-                            <span className="text-gray-300">{audience.keyword}</span>
-                          </div>
+                        {audience.type === "Keyword" && audience.keyword && (
+                          <span className="ml-2 text-gray-400">({audience.keyword})</span>
                         )}
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
