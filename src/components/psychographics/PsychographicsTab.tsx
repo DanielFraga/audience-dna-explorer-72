@@ -1,10 +1,10 @@
-
-import { FC, useState, useRef, useEffect } from 'react';
+import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Original psychographic data
 const psychographicData = [
@@ -248,7 +248,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
       "From a cultural perspective, traditional consumers often serve as anchors against rapid market shifts, valuing continuity over disruption."
     ]
   },
-  // Add new descriptions for MBTI components
   IE: {
     empirical: "62% of respondents scoring high on extraversion spend 40% more time on social platforms than those scoring high on introversion.",
     interpretation: [
@@ -281,7 +280,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
       "From a conversion perspective, judging types respond better to limited-time offers while perceiving types prefer having multiple options."
     ]
   },
-  // Add cognitive style descriptions
   CL: {
     empirical: "54% of high cognitive load consumers abandon complex purchasing processes compared to 23% of low cognitive load consumers.",
     interpretation: [
@@ -298,7 +296,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
       "Marketing research shows these individuals respond more strongly to fear-of-missing-out appeals but also experience higher post-purchase dissonance."
     ]
   },
-  // Add identity descriptions
   Va: {
     empirical: "79% of values-driven consumers will pay a premium for products aligned with their personal values system.",
     interpretation: [
@@ -614,9 +611,25 @@ export const PsychographicsTab: FC = () => {
           </div>
         </div>
         
+        {/* Group Selection Dropdown */}
+        <div className="mb-2">
+          <Select defaultValue={selectedGroup} onValueChange={setSelectedGroup}>
+            <SelectTrigger className="w-full text-xs h-9 bg-gray-800 border-gray-700 text-gray-300">
+              <SelectValue placeholder="Select group" />
+            </SelectTrigger>
+            <SelectContent className="bg-gray-800 border-gray-700 text-gray-300">
+              {psychographicGroups.map(group => (
+                <SelectItem key={group.id} value={group.id} className="text-xs">
+                  {group.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        
         {/* Quick Group Selection Cards */}
-        <div className="grid grid-cols-3 gap-2">
-          {psychographicGroups.slice(0, 3).map(group => (
+        <div className="grid grid-cols-5 gap-2">
+          {psychographicGroups.map(group => (
             <Card 
               key={group.id}
               className={`border border-gray-800 bg-gray-900 cursor-pointer transition-all ${
