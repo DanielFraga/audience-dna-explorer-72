@@ -4,6 +4,7 @@ import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // Original psychographic data
 const psychographicData = [
@@ -334,10 +335,21 @@ const findGroupForTrait = (trait: string): string | null => {
   return null;
 };
 
+// Function to get data for a specific group
+const getGroupData = (groupId: string): any[] => {
+  const group = psychographicGroups.find(g => g.id === groupId);
+  if (!group) return [];
+  
+  return fullPsychographicData.filter(item => 
+    group.items.includes(item.subject)
+  );
+};
+
 export const PsychographicsTab: FC = () => {
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [activePoint, setActivePoint] = useState<string | null>(null);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['big5']);
+  const [selectedGroup, setSelectedGroup] = useState<string>('big5');
   const statsRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -348,6 +360,11 @@ export const PsychographicsTab: FC = () => {
         ? prev.filter(id => id !== groupId)
         : [...prev, groupId]
     );
+    
+    // When expanding a group, also set it as the selected group for the radar chart
+    if (!expandedGroups.includes(groupId)) {
+      setSelectedGroup(groupId);
+    }
   };
 
   // Function to handle clicking on a radar point
@@ -363,6 +380,9 @@ export const PsychographicsTab: FC = () => {
         setExpandedGroups(prev => [...prev, groupId]);
       }
       
+      // Set the selected group
+      setSelectedGroup(groupId);
+      
       // Wait for the group to expand, then scroll to the item
       setTimeout(() => {
         if (itemRefs.current[subject]) {
@@ -374,6 +394,10 @@ export const PsychographicsTab: FC = () => {
       }, 100);
     }
   };
+
+  // Filter data based on selected group
+  const selectedGroupData = getGroupData(selectedGroup);
+  const selectedGroupInfo = psychographicGroups.find(g => g.id === selectedGroup);
 
   return (
     <div className="grid grid-cols-2 gap-6 animate-slide-up">
@@ -398,10 +422,17 @@ export const PsychographicsTab: FC = () => {
             {psychographicGroups.map((group) => (
               <div key={group.id} className="border border-gray-800 rounded-md overflow-hidden">
                 <button 
-                  className="w-full flex items-center justify-between p-2 bg-gray-800 hover:bg-gray-700 transition-colors"
-                  onClick={() => toggleGroup(group.id)}
+                  className={`w-full flex items-center justify-between p-2 hover:bg-gray-700 transition-colors ${
+                    selectedGroup === group.id ? 'bg-gray-700 text-white' : 'bg-gray-800 text-gray-300'
+                  }`}
+                  onClick={() => {
+                    toggleGroup(group.id);
+                    setSelectedGroup(group.id);
+                  }}
                 >
-                  <span className="text-white font-medium">{group.name}</span>
+                  <span className={`font-medium ${selectedGroup === group.id ? 'text-white' : 'text-gray-300'}`}>
+                    {group.name}
+                  </span>
                   {expandedGroups.includes(group.id) ? (
                     <ChevronDown className="w-4 h-4 text-gray-400" />
                   ) : (
@@ -478,7 +509,7 @@ export const PsychographicsTab: FC = () => {
       </div>
 
       {/* Right Cobweb Graph Card */}
-      <div>
+      <div className="space-y-4">
         <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -490,9 +521,17 @@ export const PsychographicsTab: FC = () => {
           </Tooltip>
           
           <div className="space-y-3 mb-4">
-            <div className="flex items-center gap-1.5">
-              <Radar className="w-3.5 h-3.5 text-gray-400" />
-              <h3 className="text-xs font-semibold text-white">Psychographics</h3>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <Radar className="w-3.5 h-3.5 text-gray-400" />
+                <h3 className="text-xs font-semibold text-white">
+                  {selectedGroupInfo?.name || 'Psychographics'} Profile
+                </h3>
+              </div>
+              
+              <div className="text-xs text-gray-400">
+                {selectedGroupData.length} traits
+              </div>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -501,8 +540,6 @@ export const PsychographicsTab: FC = () => {
                 { text: "Creative", color: "bg-[#ea384c] text-white" },
                 { text: "Tech-savvy", color: "bg-[#F2FCE2] text-gray-700" },
                 { text: "Early Adopter", color: "bg-[#1EAEDB] text-white" },
-                { text: "Quality-focused", color: "bg-[#ea384c] text-white" },
-                { text: "Innovation-driven", color: "bg-[#F2FCE2] text-gray-700" }
               ].map((chip) => (
                 <span
                   key={chip.text}
@@ -515,8 +552,8 @@ export const PsychographicsTab: FC = () => {
           </div>
           
           <div className="relative mb-4">
-            <ResponsiveContainer width="100%" height={460}>
-              <RechartsRadarChart data={fullPsychographicData}>
+            <ResponsiveContainer width="100%" height={400}>
+              <RechartsRadarChart data={selectedGroupData}>
                 <defs>
                   <linearGradient id="psychographicGradient" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stopColor="#33C3F0" stopOpacity={0.6} />
@@ -575,6 +612,31 @@ export const PsychographicsTab: FC = () => {
               </RechartsRadarChart>
             </ResponsiveContainer>
           </div>
+        </div>
+        
+        {/* Quick Group Selection Cards */}
+        <div className="grid grid-cols-3 gap-2">
+          {psychographicGroups.slice(0, 3).map(group => (
+            <Card 
+              key={group.id}
+              className={`border border-gray-800 bg-gray-900 cursor-pointer transition-all ${
+                selectedGroup === group.id ? 'ring-2 ring-blue-500' : 'hover:bg-gray-800'
+              }`}
+              onClick={() => {
+                setSelectedGroup(group.id);
+                if (!expandedGroups.includes(group.id)) {
+                  setExpandedGroups(prev => [...prev, group.id]);
+                }
+              }}
+            >
+              <CardHeader className="p-3 pb-1.5">
+                <CardTitle className="text-xs font-medium text-gray-300">{group.name}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-3 pt-0">
+                <p className="text-[10px] text-gray-500">{group.items.length} traits</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </div>
