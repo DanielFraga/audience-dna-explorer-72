@@ -29,11 +29,6 @@ const Index = () => {
     console.log("Searching for:", searchTerm);
   };
 
-  const handleSaveClick = () => {
-    setDnaName(`Audience: ${searchTerm}`);
-    setShowSaveDialog(true);
-  };
-
   const handleSaveDna = () => {
     // Here you would actually save the DNA with the provided name
     console.log("Saving DNA with name:", dnaName);
@@ -106,9 +101,9 @@ const Index = () => {
               <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
                 <button 
                   className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
-                  onClick={handleSaveClick}
+                  onClick={handleSearch}
                 >
-                  Save DNA
+                  Search
                 </button>
                 <button 
                   className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap"
