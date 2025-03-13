@@ -23,9 +23,10 @@ const Index = () => {
   const [dnaDescription, setDnaDescription] = useState("");
   const totalRespondents = 1234;
 
-  const handleSaveClick = () => {
-    setDnaName(`Audience: ${searchTerm}`);
-    setShowSaveDialog(true);
+  const handleSearch = () => {
+    setShowResults(true);
+    // Here you would implement search functionality
+    console.log("Searching for:", searchTerm);
   };
 
   const handleSaveDna = () => {
@@ -95,10 +96,11 @@ const Index = () => {
               
               <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
                 <button 
-                  className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
-                  onClick={handleSaveClick}
+                  className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap flex items-center justify-center"
+                  onClick={handleSearch}
                 >
-                  Save DNA
+                  <Search className="w-3 h-3 mr-1" />
+                  Search
                 </button>
                 <button 
                   className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap"
