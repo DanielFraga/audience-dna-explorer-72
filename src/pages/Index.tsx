@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Download, Users, Globe } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -8,6 +8,9 @@ import MainSidebar from "../components/MainSidebar";
 import { tabs } from "../constants/tabs";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
+import { SurveyTab } from "../components/survey/SurveyTab";
+import { InsightsTab } from "../components/insights/InsightsTab";
+import { SoWhatTab } from "../components/sowhat/SoWhatTab";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -23,10 +26,9 @@ const Index = () => {
   const [dnaDescription, setDnaDescription] = useState("");
   const totalRespondents = 1234;
 
-  const handleSearch = () => {
-    setShowResults(true);
-    // Here you would implement search functionality
-    console.log("Searching for:", searchTerm);
+  const handleSaveClick = () => {
+    setDnaName(`Audience: ${searchTerm}`);
+    setShowSaveDialog(true);
   };
 
   const handleSaveDna = () => {
@@ -67,6 +69,12 @@ const Index = () => {
         return <DemographicsTab />;
       case "WHO_PSYCHO":
         return <PsychographicsTab />;
+      case "WHAT":
+        return <SurveyTab />;
+      case "WHY":
+        return <InsightsTab />;
+      case "SO_WHAT":
+        return <SoWhatTab />;
       default:
         return (
           <div className="p-4 text-center text-gray-500">
@@ -96,11 +104,10 @@ const Index = () => {
               
               <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
                 <button 
-                  className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap flex items-center justify-center"
-                  onClick={handleSearch}
+                  className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
+                  onClick={handleSaveClick}
                 >
-                  <Search className="w-3 h-3 mr-1" />
-                  Search
+                  Save DNA
                 </button>
                 <button 
                   className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap"
