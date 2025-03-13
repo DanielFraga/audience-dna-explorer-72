@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from 'react';
-import { Search, Users, MessageSquare, FileText, Settings, Info } from 'lucide-react';
+import { Search, MessageSquare, Settings, Info } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation, Link } from 'react-router-dom';
 import { MobileMenuButton } from './sidebar/MobileMenuButton';
@@ -41,11 +42,6 @@ const MainSidebar = () => {
       title: "Explore Audience",
       icon: <Search className="w-4 h-4" />,
       path: "/"
-    },
-    {
-      title: "Saved Audiences",
-      icon: <Users className="w-4 h-4" />,
-      path: "/saved-audiences"
     },
     {
       title: "Chat",

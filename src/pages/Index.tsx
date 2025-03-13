@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Search, Download, Users, Globe } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -8,9 +8,6 @@ import MainSidebar from "../components/MainSidebar";
 import { tabs } from "../constants/tabs";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
-import { SurveyTab } from "../components/survey/SurveyTab";
-import { InsightsTab } from "../components/insights/InsightsTab";
-import { SoWhatTab } from "../components/sowhat/SoWhatTab";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -69,12 +66,6 @@ const Index = () => {
         return <DemographicsTab />;
       case "WHO_PSYCHO":
         return <PsychographicsTab />;
-      case "WHAT":
-        return <SurveyTab />;
-      case "WHY":
-        return <InsightsTab />;
-      case "SO_WHAT":
-        return <SoWhatTab />;
       default:
         return (
           <div className="p-4 text-center text-gray-500">
