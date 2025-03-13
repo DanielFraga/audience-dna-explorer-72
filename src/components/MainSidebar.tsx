@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Users, MessageSquare, FileText, Settings, Info } from 'lucide-react';
+import { Search, MessageSquare, Info, Settings } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation, Link } from 'react-router-dom';
 import { MobileMenuButton } from './sidebar/MobileMenuButton';
@@ -26,7 +26,6 @@ const MainSidebar = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Add effect to toggle sidebar-collapsed class on body
   useEffect(() => {
     if (!isMobile) {
       document.body.classList.toggle('sidebar-collapsed', !isOpen);
@@ -41,11 +40,6 @@ const MainSidebar = () => {
       title: "Explore Audience",
       icon: <Search className="w-4 h-4" />,
       path: "/"
-    },
-    {
-      title: "Saved Audiences",
-      icon: <Users className="w-4 h-4" />,
-      path: "/saved-audiences"
     },
     {
       title: "Chat",
@@ -63,7 +57,6 @@ const MainSidebar = () => {
     <>
       <MobileMenuButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
-      {/* Mobile Backdrop */}
       {isMobile && isOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -71,14 +64,12 @@ const MainSidebar = () => {
         />
       )}
 
-      {/* Sidebar */}
       <div 
         className={`fixed left-0 top-0 h-full bg-gray-900 shadow-lg transition-all duration-300 z-50
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
           ${isOpen ? "w-64 md:w-52" : "md:w-16"}
         `}
       >
-        {/* Toggle Tab */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="hidden md:flex absolute -right-3 top-3 bg-gray-900 rounded-r-lg p-1 cursor-pointer shadow-md"
@@ -114,7 +105,6 @@ const MainSidebar = () => {
             onToggle={() => setIsOpen(!isOpen)}
           />
 
-          {/* Added margin-top to create space between logo and navigation */}
           <div className="mt-8">
             <NavigationMenu 
               items={menuItems}
@@ -131,7 +121,6 @@ const MainSidebar = () => {
             />
           )}
 
-          {/* Settings Button */}
           <div className="mt-auto pt-4">
             <Link
               to="/settings"
