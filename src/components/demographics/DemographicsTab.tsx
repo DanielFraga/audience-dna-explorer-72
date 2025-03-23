@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
@@ -11,8 +12,16 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 export const DemographicsTab: FC = () => {
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
-  const isMobile = useIsMobile();
-
+  const { isMobile, width } = useIsMobile();
+  
+  // Calculate responsive dimensions
+  const getFontSize = () => width < 375 ? 8 : width < 450 ? 9 : 11;
+  const getLabelFontSize = () => width < 375 ? 8 : width < 450 ? 10 : 12;
+  const getBarGap = () => isMobile ? 1 : 4;
+  const getAxisTitleSize = () => width < 375 ? 7 : 8;
+  const getChartHeight = () => width < 375 ? 180 : 220;
+  const getBarRadius = () => [4, 4, 0, 0];
+  
   // Age Distribution Data
   const ageData = [
     { name: '16-29', value: 28 },
@@ -74,7 +83,7 @@ export const DemographicsTab: FC = () => {
         fill="white" 
         textAnchor={textAnchor} 
         dominantBaseline="central"
-        fontSize={10}
+        fontSize={getAxisTitleSize()}
         fontWeight="500"
       >
         {`${name}: ${value}%`}
@@ -98,7 +107,7 @@ export const DemographicsTab: FC = () => {
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-bold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[220px] w-full">
+        <div className={`h-[${getChartHeight()}px] w-full`}>
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
@@ -106,23 +115,23 @@ export const DemographicsTab: FC = () => {
           >
             <BarChart 
               data={ageData}
-              margin={{ top: 15, right: 10, left: 5, bottom: 25 }}
-              barCategoryGap={1}
+              margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
+              barCategoryGap={0}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis 
                 dataKey="name"
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: isMobile ? 9 : 11, fill: '#D1D5DB' }}
+                tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
               />
               <YAxis 
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(value) => `${value}%`}
                 domain={[0, 40]}
-                tick={{ fontSize: isMobile ? 9 : 11, fill: '#9CA3AF' }}
-                width={30}
+                tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
+                width={isMobile ? 25 : 30}
               />
               <ChartTooltip
                 content={({ active, payload }) => {
@@ -136,7 +145,11 @@ export const DemographicsTab: FC = () => {
                   return null;
                 }}
               />
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+              <Bar 
+                dataKey="value" 
+                radius={getBarRadius()}
+                barSize={isMobile ? width / (ageData.length * 3) : 40}
+              >
                 {ageData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={ageColors[index]} />
                 ))}
@@ -144,7 +157,8 @@ export const DemographicsTab: FC = () => {
                   dataKey="value" 
                   position="top" 
                   formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: isMobile ? 9 : 12, fontWeight: 600 }}
+                  style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
+                  offset={2}
                 />
               </Bar>
             </BarChart>
@@ -233,7 +247,7 @@ export const DemographicsTab: FC = () => {
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-bold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[220px] w-full">
+        <div className={`h-[${getChartHeight()}px] w-full`}>
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
@@ -241,26 +255,27 @@ export const DemographicsTab: FC = () => {
           >
             <BarChart 
               data={locationData}
-              margin={{ top: 15, right: 10, left: 5, bottom: 25 }}
-              barGap={4}
+              margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
+              barGap={getBarGap()}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis 
                 dataKey="name"
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: isMobile ? 8 : 10, fill: '#D1D5DB' }}
-                angle={-25}
-                textAnchor="end"
-                height={60}
+                tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
+                angle={isMobile ? -25 : 0}
+                textAnchor={isMobile ? "end" : "middle"}
+                height={isMobile ? 50 : 30}
+                interval={0}
               />
               <YAxis 
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(value) => `${value}%`}
                 domain={[0, 50]}
-                tick={{ fontSize: isMobile ? 9 : 11, fill: '#9CA3AF' }}
-                width={30}
+                tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
+                width={isMobile ? 25 : 30}
               />
               <ChartTooltip
                 content={({ active, payload }) => {
@@ -274,7 +289,11 @@ export const DemographicsTab: FC = () => {
                   return null;
                 }}
               />
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+              <Bar 
+                dataKey="value" 
+                radius={getBarRadius()}
+                barSize={isMobile ? width / (locationData.length * 3) : 40}
+              >
                 {locationData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={locationColors[index]} />
                 ))}
@@ -282,7 +301,8 @@ export const DemographicsTab: FC = () => {
                   dataKey="value" 
                   position="top" 
                   formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: isMobile ? 9 : 12, fontWeight: 600 }}
+                  style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
+                  offset={2}
                 />
               </Bar>
             </BarChart>
@@ -304,7 +324,7 @@ export const DemographicsTab: FC = () => {
           <DollarSign className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-bold text-white">Income Distribution</h3>
         </div>
-        <div className="h-[220px] w-full">
+        <div className={`h-[${getChartHeight()}px] w-full`}>
           <ChartContainer 
             config={{
               incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
@@ -312,23 +332,23 @@ export const DemographicsTab: FC = () => {
           >
             <BarChart 
               data={incomeData}
-              margin={{ top: 15, right: 10, left: 5, bottom: 25 }}
-              barCategoryGap={1}
+              margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
+              barCategoryGap={0}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis 
                 dataKey="name"
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: isMobile ? 9 : 11, fill: '#D1D5DB' }}
+                tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
               />
               <YAxis 
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(value) => `${value}%`}
                 domain={[0, 50]}
-                tick={{ fontSize: isMobile ? 9 : 11, fill: '#9CA3AF' }}
-                width={30}
+                tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
+                width={isMobile ? 25 : 30}
               />
               <ChartTooltip
                 content={({ active, payload }) => {
@@ -342,7 +362,11 @@ export const DemographicsTab: FC = () => {
                   return null;
                 }}
               />
-              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+              <Bar 
+                dataKey="value" 
+                radius={getBarRadius()}
+                barSize={isMobile ? width / (incomeData.length * 3) : 40}
+              >
                 {incomeData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={incomeColors[index]} />
                 ))}
@@ -350,7 +374,8 @@ export const DemographicsTab: FC = () => {
                   dataKey="value" 
                   position="top" 
                   formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: isMobile ? 9 : 12, fontWeight: 600 }}
+                  style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
+                  offset={2}
                 />
               </Bar>
             </BarChart>
