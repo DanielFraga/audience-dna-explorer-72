@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from 'react';
-import { MessageSquare, Info, Settings, MessageCircle } from 'lucide-react';
+import { MessageSquare, Info, Settings, MessageCircle, X } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from './ui/button';
 
 const MainSidebar = ({ isOpen = false, onToggle }: { isOpen?: boolean, onToggle?: () => void }) => {
   const [sidebarOpen, setSidebarOpen] = useState(isOpen);
@@ -54,11 +55,22 @@ const MainSidebar = ({ isOpen = false, onToggle }: { isOpen?: boolean, onToggle?
 
       <div className="fixed left-0 top-0 h-full bg-gray-900 shadow-lg transition-all duration-300 z-50 w-64 md:w-52">
         <div className="p-4 flex flex-col h-full">
-          <SidebarHeader 
-            isOpen={true}
-            isMobile={isMobile}
-            onToggle={onToggle}
-          />
+          <div className="flex items-center justify-between">
+            <SidebarHeader 
+              isOpen={true}
+              isMobile={isMobile}
+              onToggle={onToggle}
+            />
+            
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={onToggle}
+              className="h-8 w-8 p-0 rounded-full text-gray-400 hover:text-white hover:bg-gray-800"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
 
           <div className="mt-8">
             <NavigationMenu 
