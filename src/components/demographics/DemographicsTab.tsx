@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -44,10 +45,43 @@ export const DemographicsTab: FC = () => {
     { name: '>120k', value: 12 },
   ];
 
+  // Ancestry Distribution Data - New data with warm colors
+  const ancestryData = [
+    { name: 'Western European', value: 30, fill: '#F97316' }, // Bright Orange
+    { name: 'East Asian', value: 25, fill: '#FEF7CD' }, // Soft Yellow
+    { name: 'Sub-Saharan African', value: 20, fill: '#FB923C' }, // Amber
+    { name: 'Indigenous & Diverse', value: 25, fill: '#FEC6A1' }, // Soft Orange
+  ];
+
   // Color ranges for charts
   const ageColors = ['#93C5FD', '#60A5FA', '#3B82F6', '#2563EB'];
   const locationColors = ['#34D399', '#10B981', '#059669', '#047857'];
   const incomeColors = ['#C4B5FD', '#A78BFA', '#8B5CF6', '#7C3AED'];
+
+  // RENDERLESS LABEL - for the ancestry chart
+  const renderCustomizedLabel = (props: any) => {
+    const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const textAnchor = x > cx ? 'start' : 'end';
+    
+    // Only render labels for segments with enough space
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor={textAnchor} 
+        dominantBaseline="central"
+        fontSize={10}
+        fontWeight="500"
+      >
+        {`${name}: ${value}%`}
+      </text>
+    );
+  };
 
   return (
     <div className="space-y-6 animate-slide-up pt-4">
@@ -65,7 +99,7 @@ export const DemographicsTab: FC = () => {
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[220px] w-full">
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
@@ -74,21 +108,25 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={ageData}
-                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
+                layout="vertical"
+                margin={{ top: 15, right: 30, left: 40, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
                 <XAxis 
-                  dataKey="name" 
+                  type="number"
                   axisLine={false} 
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                />
-                <YAxis 
-                  axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 40]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
+                />
+                <YAxis 
+                  dataKey="name"
+                  type="category"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  width={40}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -102,13 +140,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                   {ageData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={ageColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="top" 
+                    position="right" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
@@ -204,7 +242,7 @@ export const DemographicsTab: FC = () => {
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[220px] w-full">
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
@@ -213,24 +251,25 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={locationData}
-                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
+                layout="vertical"
+                margin={{ top: 15, right: 30, left: 80, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
                 <XAxis 
-                  dataKey="name" 
+                  type="number"
                   axisLine={false} 
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  angle={-35}
-                  textAnchor="end"
-                  height={50}
-                />
-                <YAxis 
-                  axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
+                />
+                <YAxis 
+                  dataKey="name"
+                  type="category"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  width={80}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -244,13 +283,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                   {locationData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={locationColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="top" 
+                    position="right" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
@@ -275,7 +314,7 @@ export const DemographicsTab: FC = () => {
           <DollarSign className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
         </div>
-        <div className="h-[130px] w-full">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
@@ -284,21 +323,25 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={incomeData}
-                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
+                layout="vertical"
+                margin={{ top: 15, right: 30, left: 50, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
                 <XAxis 
-                  dataKey="name" 
+                  type="number"
                   axisLine={false} 
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                />
-                <YAxis 
-                  axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
+                />
+                <YAxis 
+                  dataKey="name"
+                  type="category"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  width={50}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -312,13 +355,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                   {incomeData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={incomeColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="top" 
+                    position="right" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
@@ -329,10 +372,10 @@ export const DemographicsTab: FC = () => {
         </div>
       </div>
 
-      {/* Ancestry Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+      {/* Ancestry Distribution Card - New donut chart */}
+      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
-          content={`Ancestry data shows ${searchTerm} is most popular among Europeans (32%) and Asians (28%).`}
+          content={`Ancestry data shows ${searchTerm} has diverse appeal across different ethnic backgrounds, with Western European ancestry representing the largest group (30%).`}
           searchTerm={searchTerm}
         >
           <button className="absolute top-2 right-2">
@@ -341,25 +384,46 @@ export const DemographicsTab: FC = () => {
         </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-2">
           <User className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Ancestry Distribution</h3>
+          <h3 className="text-xs font-bold text-white">Ancestry Distribution</h3>
         </div>
-        <div className="grid grid-cols-4 gap-2">
-          <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
-            <span className="text-white text-xs font-bold">32%</span>
-            <span className="text-gray-400 text-[9px] mt-0.5">European</span>
-          </div>
-          <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
-            <span className="text-white text-xs font-bold">28%</span>
-            <span className="text-gray-400 text-[9px] mt-0.5">Asian</span>
-          </div>
-          <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
-            <span className="text-white text-xs font-bold">22%</span>
-            <span className="text-gray-400 text-[9px] mt-0.5">African</span>
-          </div>
-          <div className="bg-gray-800 rounded p-1.5 flex flex-col items-center justify-center">
-            <span className="text-white text-xs font-bold">18%</span>
-            <span className="text-gray-400 text-[9px] mt-0.5">Other</span>
-          </div>
+        <div className="h-[210px] w-full">
+          <ChartContainer 
+            config={{
+              ancestryPie: { theme: { light: '#F97316', dark: '#F97316' } },
+            }}
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={ancestryData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={40}
+                  outerRadius={70}
+                  paddingAngle={2}
+                  dataKey="value"
+                  labelLine={true}
+                  label={renderCustomizedLabel}
+                >
+                  {ancestryData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <ChartTooltip
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                          <p className="text-white font-medium">{`${payload[0].name} Ancestry: ${payload[0].value}%`}</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </ChartContainer>
         </div>
       </div>
       
