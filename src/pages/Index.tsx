@@ -3,7 +3,6 @@ import { Sparkles, Users, Globe, Search, Download } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
-import MainSidebar from "../components/MainSidebar";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
 import { SurveyTab } from "../components/survey/SurveyTab";
@@ -30,7 +29,6 @@ const Index = () => {
   const [activeView, setActiveView] = useState("stats");
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
   
   useEffect(() => {
     const storedTerm = sessionStorage.getItem('searchTerm');
@@ -78,10 +76,6 @@ const Index = () => {
   const handleSaveDna = () => {
     console.log("Saving DNA with name:", dnaName);
     navigate("/chat");
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const renderContent = () => {
@@ -173,15 +167,12 @@ const Index = () => {
   return (
     <TooltipProvider>
       <div className={`min-h-screen font-grotesk text-[13px] gradient-background`}>
-        <MainSidebar />
-        
-        <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in`}>
+        <div className={`animate-fade-in`}>
           {showResults && (
             <AppHeader 
               searchTerm={searchTerm} 
               currentTab="stats" 
               onResetSearch={handleResetSearch}
-              onToggleSidebar={toggleSidebar}
             />
           )}
 

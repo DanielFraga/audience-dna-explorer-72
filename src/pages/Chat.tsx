@@ -1,7 +1,5 @@
-
 import { useState } from "react";
 import { SendHorizontal, User2 } from "lucide-react";
-import MainSidebar from "../components/MainSidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -110,9 +108,7 @@ const Chat = () => {
 
   return (
     <div className="h-screen gradient-background font-grotesk text-[13px]">
-      <MainSidebar />
-      
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
+      <div className="h-full flex flex-col">
         <AppHeader 
           searchTerm="holiday"
           currentTab="chat"
@@ -166,7 +162,7 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input area */}
-        <div className="border-t border-gray-800 p-3 md:p-4 bg-gray-950/80 backdrop-blur-sm pb-[86px]">
+        <div className="border-t border-gray-800 p-3 md:p-4 bg-gray-950/80 backdrop-blur-sm pb-[76px]">
           <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
             {/* Suggested response buttons in a carousel */}
             <div className="w-full mb-2">

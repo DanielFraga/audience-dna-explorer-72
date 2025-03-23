@@ -1,7 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import MainSidebar from "@/components/MainSidebar";
 import { SurveyTab } from "@/components/survey/SurveyTab";
 import AppHeader from "@/components/AppHeader";
 import IconTabs from "@/components/IconTabs";
@@ -17,10 +16,8 @@ const SurveyAudience = () => {
   };
 
   return (
-    <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
-      <MainSidebar />
-      
-      <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
+    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+      <div className="h-[100vh] overflow-auto">
         <AppHeader 
           searchTerm="holiday" 
           currentTab="responses" 
