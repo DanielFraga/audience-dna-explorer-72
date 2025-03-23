@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+
+import { FC, useState, useEffect } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
@@ -220,6 +221,13 @@ const surveyData = [
 
 export const SurveyTab: FC = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
+  const [sortedSurveyData, setSortedSurveyData] = useState([...surveyData]);
+
+  // Sort the survey data by confidence score (high to low) on component mount
+  useEffect(() => {
+    const sorted = [...surveyData].sort((a, b) => b.confidence - a.confidence);
+    setSortedSurveyData(sorted);
+  }, []);
 
   const handleOpenDialog = (index: number) => {
     setOpenDialog(index);
@@ -231,9 +239,9 @@ export const SurveyTab: FC = () => {
 
   return (
     <div className="space-y-8 animate-slide-up">
-      {/* Survey Cards at the top */}
+      {/* Survey Cards at the top - now using sortedSurveyData */}
       <div className="flex flex-col space-y-3">
-        {surveyData.map((item, index) => (
+        {sortedSurveyData.map((item, index) => (
           <div 
             key={index}
             className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors"
