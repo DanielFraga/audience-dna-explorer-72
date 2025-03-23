@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Search, Download, Users, Globe, Sparkles } from "lucide-react";
+import { Search, Download, Users, Globe, Sparkles, BarChart3, MessageSquare, ClipboardList } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -16,6 +16,7 @@ import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Badge } from "../components/ui/badge";
 import { X } from "lucide-react";
+import { Tabs, TabsList, TabsContent, IconTabsTrigger } from "../components/ui/tabs";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Index = () => {
   const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
   const [dnaDescription, setDnaDescription] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [activeView, setActiveView] = useState("stats");
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
   
@@ -51,6 +53,14 @@ const Index = () => {
   const handleSaveDna = () => {
     console.log("Saving DNA with name:", dnaName);
     navigate("/chat");
+  };
+
+  const handleTabChange = (value: string) => {
+    if (value === "chat") {
+      navigate("/chat");
+    } else {
+      setActiveView(value);
+    }
   };
 
   const renderContent = () => {
@@ -125,39 +135,47 @@ const Index = () => {
   };
 
   const renderVerticalFeed = () => {
-    return (
-      <div className="space-y-8 pb-10">
-        <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
-          <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
-            <h2 className="text-sm md:text-base font-semibold text-white">{tabs[0].sectionTitle}</h2>
-            <p className="text-gray-400 text-[10px] md:text-xs">Detailed breakdown of audience demographics</p>
+    if (activeView === "stats") {
+      return (
+        <div className="space-y-8 pb-10">
+          <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
+            <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
+              <h2 className="text-sm md:text-base font-semibold text-white">{tabs[0].sectionTitle}</h2>
+              <p className="text-gray-400 text-[10px] md:text-xs">Detailed breakdown of audience demographics</p>
+            </div>
+            <div className="p-3 md:p-6">
+              <DemographicsTab />
+            </div>
           </div>
-          <div className="p-3 md:p-6">
-            <DemographicsTab />
-          </div>
-        </div>
-        
-        <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
-          <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
-            <h2 className="text-sm md:text-base font-semibold text-white">{tabs[1].sectionTitle}</h2>
-            <p className="text-gray-400 text-[10px] md:text-xs">Detailed psychographic profile of your audience</p>
-          </div>
-          <div className="p-3 md:p-6">
-            <PsychographicsTab />
-          </div>
-        </div>
-        
-        <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
-          <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
-            <h2 className="text-sm md:text-base font-semibold text-white">{tabs[2].sectionTitle}</h2>
-            <p className="text-gray-400 text-[10px] md:text-xs">Survey responses and audience insights</p>
-          </div>
-          <div className="p-3 md:p-6">
-            <SurveyTab />
+          
+          <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
+            <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
+              <h2 className="text-sm md:text-base font-semibold text-white">{tabs[1].sectionTitle}</h2>
+              <p className="text-gray-400 text-[10px] md:text-xs">Detailed psychographic profile of your audience</p>
+            </div>
+            <div className="p-3 md:p-6">
+              <PsychographicsTab />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else if (activeView === "responses") {
+      return (
+        <div className="space-y-8 pb-10">
+          <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
+            <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
+              <h2 className="text-sm md:text-base font-semibold text-white">{tabs[2].sectionTitle}</h2>
+              <p className="text-gray-400 text-[10px] md:text-xs">Survey responses and audience insights</p>
+            </div>
+            <div className="p-3 md:p-6">
+              <SurveyTab />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    return null;
   };
 
   return (
@@ -229,6 +247,45 @@ const Index = () => {
                     <X className="h-3 w-3 text-gray-400" />
                   </Button>
                 </Badge>
+                
+                <div className="mt-3">
+                  <Tabs defaultValue="stats" value={activeView} onValueChange={handleTabChange} className="w-full">
+                    <TabsList className="w-full flex justify-center bg-gray-900 border border-gray-800 p-1 rounded-lg">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <IconTabsTrigger value="stats" className="bg-gray-900 text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400">
+                            <BarChart3 className="h-4 w-4" />
+                          </IconTabsTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="text-xs">
+                          <p>Stats</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <IconTabsTrigger value="responses" className="bg-gray-900 text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400">
+                            <ClipboardList className="h-4 w-4" />
+                          </IconTabsTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="text-xs">
+                          <p>Responses</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <IconTabsTrigger value="chat" className="bg-gray-900 text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400">
+                            <MessageSquare className="h-4 w-4" />
+                          </IconTabsTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="text-xs">
+                          <p>Chat</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TabsList>
+                  </Tabs>
+                </div>
               </div>
             </div>
           )}
@@ -240,7 +297,7 @@ const Index = () => {
               </div>
             ) : (
               <div className={`${isAnimating ? 'backdrop-blur-sm' : ''} transition-all duration-300`}>
-                <ScrollArea className="h-[calc(100vh-140px)] pr-4 -mr-4">
+                <ScrollArea className="h-[calc(100vh-180px)] pr-4 -mr-4">
                   {renderVerticalFeed()}
                 </ScrollArea>
               </div>

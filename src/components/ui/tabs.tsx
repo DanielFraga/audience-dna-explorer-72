@@ -51,4 +51,20 @@ const TabsContent = React.forwardRef<
 ))
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+// IconTabsTrigger - a variant with equal width/height for icon-only tabs
+const IconTabsTrigger = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "inline-flex items-center justify-center whitespace-nowrap rounded-md h-9 w-9 text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400 data-[state=active]:shadow-sm",
+      className
+    )}
+    {...props}
+  />
+))
+IconTabsTrigger.displayName = "IconTabsTrigger"
+
+export { Tabs, TabsList, TabsTrigger, TabsContent, IconTabsTrigger }
