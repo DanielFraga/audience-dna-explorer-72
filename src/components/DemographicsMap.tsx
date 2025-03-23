@@ -4,16 +4,22 @@ import React from 'react';
 const DemographicsMap = () => {
   return (
     <div className="h-[460px] relative rounded-lg overflow-hidden">
-      {/* Simplified Map Background */}
-      <div className="absolute inset-0 bg-slate-900">
-        {/* Simple dark background with gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-800 to-slate-900" />
+      {/* Map Background */}
+      <div className="absolute inset-0">
+        {/* Dark world map background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2600&q=80')",
+            filter: "brightness(0.3) saturate(0.6) hue-rotate(200deg)"
+          }}
+        />
+        
+        {/* Gradient overlay for better readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-70" />
       </div>
       
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-70" />
-      
-      {/* Only the three main city locations */}
+      {/* The three main city locations */}
       <div className="absolute inset-0">
         {/* Copenhagen */}
         <div className="absolute top-[35%] left-[51%]">
