@@ -45,7 +45,7 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                 <IconTabsTrigger 
                   value="stats" 
                   aria-label="Stats"
-                  className="z-10 h-12 w-16 flex flex-col items-center justify-center"
+                  className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "stats" ? "z-20 scale-110 transition-transform" : ""}`}
                 >
                   <BarChart3 className={`h-5 w-5 mb-1 ${currentTab === "stats" ? "text-white" : ""}`} />
                   <span className={`text-xs font-medium ${currentTab === "stats" ? "text-white" : ""}`}>Stats</span>
@@ -56,7 +56,7 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                 <IconTabsTrigger 
                   value="responses" 
                   aria-label="Survey Responses"
-                  className="z-10 h-12 w-16 flex flex-col items-center justify-center"
+                  className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "responses" ? "z-20 scale-110 transition-transform" : ""}`}
                 >
                   <ClipboardList className={`h-5 w-5 mb-1 ${currentTab === "responses" ? "text-white" : ""}`} />
                   <span className={`text-xs font-medium ${currentTab === "responses" ? "text-white" : ""}`}>Responses</span>
@@ -67,7 +67,7 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                 <IconTabsTrigger 
                   value="chat" 
                   aria-label="Chat"
-                  className="z-10 h-12 w-16 flex flex-col items-center justify-center"
+                  className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "chat" ? "z-20 scale-110 transition-transform" : ""}`}
                 >
                   <MessageSquare className={`h-5 w-5 mb-1 ${currentTab === "chat" ? "text-white" : ""}`} />
                   <span className={`text-xs font-medium ${currentTab === "chat" ? "text-white" : ""}`}>Chat</span>
