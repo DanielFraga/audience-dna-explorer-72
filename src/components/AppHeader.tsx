@@ -32,14 +32,8 @@ const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHea
         {/* First frame - search term */}
         <div className="h-[50px] px-3 md:px-6">
           <div className="h-full flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="md:hidden flex items-center">
-                {/* Hamburger menu placeholder aligned with the text */}
-                <div className="w-5 h-5 flex items-center justify-center">
-                  <div className="w-4 h-4 bg-gray-700 rounded-sm"></div>
-                </div>
-              </div>
-              <h2 className="text-2xl font-grotesk font-semibold text-white pl-0 pb-0.5 translate-y-[2px]">"{ searchTerm }"</h2>
+            <div className="flex items-center">
+              <h2 className="text-2xl font-grotesk font-semibold text-white pb-0.5 translate-y-[2px]">"{ searchTerm }"</h2>
             </div>
             <div className="w-10"></div> {/* Empty space for balance */}
           </div>
