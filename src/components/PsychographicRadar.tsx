@@ -1,7 +1,6 @@
 
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { Radar } from 'lucide-react';
 
 interface PsychographicPoint {
   subject: string;

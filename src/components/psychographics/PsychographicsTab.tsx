@@ -1,10 +1,15 @@
-
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import PsychographicRadar from "../PsychographicRadar";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "@/components/ui/carousel";
 
 // Original psychographic data - Only keeping Big5
 const psychographicData = [
@@ -116,194 +121,156 @@ export const PsychographicsTab: FC = () => {
 
   return (
     <div className="space-y-6 animate-slide-up">
-      {/* Cobweb Graph Card - NOW FIRST */}
-      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Visual representation of Big5 personality traits
-          </TooltipContent>
-        </Tooltip>
-        
-        <div className="space-y-3 mb-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <Radar className="w-3.5 h-3.5 text-gray-400" />
-              <h3 className="text-xs font-semibold text-white">
-                BIG 5 Profile
-              </h3>
-            </div>
-            
-            <div className="text-xs text-gray-400">
-              5 traits
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-1.5">
-            {[
-              { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
-              { text: "Creative", color: "bg-[#ea384c] text-white" },
-            ].map((chip) => (
-              <span
-                key={chip.text}
-                className={`px-2 py-0.5 text-[10px] rounded-full ${chip.color}`}
-              >
-                {chip.text}
-              </span>
-            ))}
-          </div>
-        </div>
-        
-        <div className="relative mb-4">
-          <ResponsiveContainer width="100%" height={400}>
-            <RechartsRadarChart data={selectedGroupData}>
-              <defs>
-                <linearGradient id="psychographicGradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#33C3F0" stopOpacity={0.6} />
-                  <stop offset="50%" stopColor="#1EAEDB" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="#0FA0CE" stopOpacity={0.3} />
-                </linearGradient>
-              </defs>
-              <PolarGrid stroke="#374151" />
-              <PolarAngleAxis
-                dataKey="subject"
-                tick={({ x, y, payload }) => {
-                  const point = fullPsychographicData.find(p => p.subject === payload.value);
-                  if (!point) return null;
-                  
-                  const isActive = activePoint === point.subject;
-                  
-                  return (
-                    <g transform={`translate(${x},${y})`}>
-                      <g 
-                        className="cursor-pointer"
-                        onMouseEnter={() => setHoveredPoint(point.subject)}
-                        onMouseLeave={() => setHoveredPoint(null)}
-                        onClick={() => setActivePoint(point.subject)}
-                      >
-                        <circle
-                          cx="0"
-                          cy="0"
-                          r={isActive ? "5" : "3"}
-                          fill={colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0]?.replace('bg-[', '').replace(']', '') || '#6B7280'}
-                          stroke={isActive ? "#FFFFFF" : "none"}
-                          strokeWidth={1}
-                        />
-                        <text
-                          x="10"
-                          y="0"
-                          dy="0.35em"
-                          textAnchor="start"
-                          fill={isActive ? "#FFFFFF" : "#9CA3AF"}
-                          fontWeight={isActive ? "bold" : "normal"}
-                          style={{ fontSize: isActive ? '12px' : '11px' }}
-                        >
-                          {point.subject}
-                        </text>
-                      </g>
-                    </g>
-                  );
-                }}
-              />
-              <RadarChart
-                name="Psychographic Profile"
-                dataKey="A"
-                stroke="#3B82F6"
-                fill="url(#psychographicGradient)"
-                fillOpacity={0.6}
-              />
-            </RechartsRadarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-      
-      {/* Stats Card - NOW SECOND */}
-      <div ref={statsRef}>
-        <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-            </TooltipTrigger>
-            <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-              Detailed breakdown of Big5 personality traits
-            </TooltipContent>
-          </Tooltip>
-          
-          <div className="flex items-center gap-1.5 mb-4">
-            <ChartBar className="w-3.5 h-3.5 text-gray-400" />
-            <h3 className="text-xs font-semibold text-white">Stats</h3>
-          </div>
-
-          <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
-            <div className="border border-gray-800 rounded-md overflow-hidden">
-              <button 
-                className="w-full flex items-center justify-between p-2 bg-gray-700 text-white"
-              >
-                <span className="font-medium text-white">
-                  BIG 5
-                </span>
-                <ChevronDown className="w-4 h-4 text-gray-400" />
-              </button>
+      <Carousel className="w-full relative">
+        <CarouselContent>
+          {/* Cobweb Graph Card - First slide */}
+          <CarouselItem>
+            <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                </TooltipTrigger>
+                <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                  Visual representation of Big5 personality traits
+                </TooltipContent>
+              </Tooltip>
               
-              <div className="space-y-1 p-1.5">
-                {psychographicData.map((point) => (
-                  <Collapsible key={point.subject}>
-                    <CollapsibleTrigger className="w-full">
-                      <div 
-                        ref={el => itemRefs.current[point.subject] = el}
-                        className={`flex justify-between items-center transition-colors duration-150 rounded px-2 py-1 cursor-pointer group 
-                          ${activePoint === point.subject ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
-                          ${activePoint === point.subject ? 'border-l-2 border-blue-500' : ''}
-                        `}
-                        onMouseEnter={() => setHoveredPoint(point.subject)}
-                        onMouseLeave={() => setHoveredPoint(null)}
-                        onClick={() => setActivePoint(point.subject)}
-                      >
-                        <div className="flex items-center gap-1.5">
-                          <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0] || 'bg-gray-500'}`} />
-                          <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
-                            {point.fullName}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
-                            {point.A}
-                          </span>
-                          <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
-                        </div>
-                      </div>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      {psychographicDescriptions[point.subject] ? (
-                        <div className="px-2 py-2 space-y-1">
-                          <p className="text-gray-300 text-[10px] font-medium leading-relaxed pl-3 border-l border-gray-700 mb-2">
-                            {psychographicDescriptions[point.subject].empirical}
-                          </p>
-                          <div className="space-y-1.5">
-                            {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                              <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
-                                {desc}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="px-2 py-2">
-                          <p className="text-gray-500 text-[10px] leading-relaxed">
-                            No detailed information available.
-                          </p>
-                        </div>
-                      )}
-                    </CollapsibleContent>
-                  </Collapsible>
-                ))}
+              <div className="space-y-3 mb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <Radar className="w-3.5 h-3.5 text-gray-400" />
+                    <h3 className="text-xs font-semibold text-white">
+                      BIG 5 Profile
+                    </h3>
+                  </div>
+                  
+                  <div className="text-xs text-gray-400">
+                    5 traits
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
+                    { text: "Creative", color: "bg-[#ea384c] text-white" },
+                    { text: "Analytical", color: "bg-[#7E69AB] text-white" },
+                    { text: "Empathetic", color: "bg-[#F97316] text-white" },
+                    { text: "Disciplined", color: "bg-[#33C3F0] text-white" },
+                    { text: "Curious", color: "bg-[#9b87f5] text-white" },
+                    { text: "Collaborative", color: "bg-[#0FA0CE] text-white" },
+                  ].map((chip) => (
+                    <span
+                      key={chip.text}
+                      className={`px-2 py-0.5 text-[10px] rounded-full ${chip.color}`}
+                    >
+                      {chip.text}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="relative">
+                <PsychographicRadar data={selectedGroupData} />
               </div>
             </div>
+          </CarouselItem>
+          
+          {/* Stats Card - Second slide */}
+          <CarouselItem>
+            <div ref={statsRef} className="h-full">
+              <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
+                    Detailed breakdown of Big5 personality traits
+                  </TooltipContent>
+                </Tooltip>
+                
+                <div className="flex items-center gap-1.5 mb-4">
+                  <ChartBar className="w-3.5 h-3.5 text-gray-400" />
+                  <h3 className="text-xs font-semibold text-white">Stats</h3>
+                </div>
+
+                <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
+                  <div className="border border-gray-800 rounded-md overflow-hidden">
+                    <button 
+                      className="w-full flex items-center justify-between p-2 bg-gray-700 text-white"
+                    >
+                      <span className="font-medium text-white">
+                        BIG 5
+                      </span>
+                      <ChevronDown className="w-4 h-4 text-gray-400" />
+                    </button>
+                    
+                    <div className="space-y-1 p-1.5">
+                      {psychographicData.map((point) => (
+                        <Collapsible key={point.subject}>
+                          <CollapsibleTrigger className="w-full">
+                            <div 
+                              ref={el => itemRefs.current[point.subject] = el}
+                              className={`flex justify-between items-center transition-colors duration-150 rounded px-2 py-1 cursor-pointer group 
+                                ${activePoint === point.subject ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
+                                ${activePoint === point.subject ? 'border-l-2 border-blue-500' : ''}
+                              `}
+                              onMouseEnter={() => setHoveredPoint(point.subject)}
+                              onMouseLeave={() => setHoveredPoint(null)}
+                              onClick={() => setActivePoint(point.subject)}
+                            >
+                              <div className="flex items-center gap-1.5">
+                                <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0] || 'bg-gray-500'}`} />
+                                <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
+                                  {point.fullName}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
+                                  {point.A}
+                                </span>
+                                <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                              </div>
+                            </div>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent>
+                            {psychographicDescriptions[point.subject] ? (
+                              <div className="px-2 py-2 space-y-1">
+                                <p className="text-gray-300 text-[10px] font-medium leading-relaxed pl-3 border-l border-gray-700 mb-2">
+                                  {psychographicDescriptions[point.subject].empirical}
+                                </p>
+                                <div className="space-y-1.5">
+                                  {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
+                                    <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
+                                      {desc}
+                                    </p>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="px-2 py-2">
+                                <p className="text-gray-500 text-[10px] leading-relaxed">
+                                  No detailed information available.
+                                </p>
+                              </div>
+                            )}
+                          </CollapsibleContent>
+                        </Collapsible>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CarouselItem>
+        </CarouselContent>
+        
+        <div className="absolute z-10 flex justify-center w-full bottom-2">
+          <div className="flex gap-2 items-center">
+            <CarouselPrevious className="relative left-0 h-7 w-7 border-gray-700 bg-gray-800/70 hover:bg-gray-700" />
+            <CarouselNext className="relative right-0 h-7 w-7 border-gray-700 bg-gray-800/70 hover:bg-gray-700" />
           </div>
         </div>
-      </div>
+      </Carousel>
     </div>
   );
 };
