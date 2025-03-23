@@ -29,10 +29,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-950 border-t border-gray-800/60 pb-safe">
       <div className="w-full max-w-lg mx-auto">
         <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
-          <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1 w-full h-[60px]">
+          <TabsList className="bg-gray-950 border border-gray-800/60 relative px-1 w-full h-[60px]">
             {/* Toggle button that moves behind active tab */}
             <div 
-              className="absolute bg-gray-700 rounded-md transition-all duration-300 h-[48px] top-[6px]"
+              className="absolute bg-gray-800 rounded-md transition-all duration-300 h-[48px] top-[6px]"
               style={{
                 left: currentTab === "stats" ? "16.67%" : currentTab === "responses" ? "50%" : "83.33%",
                 width: "70px",
