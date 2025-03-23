@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { MessageSquare, Info, Settings, Feedback } from 'lucide-react';
+import { MessageSquare, Info, Settings, MessageCircle } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { SidebarHeader } from './sidebar/SidebarHeader';
@@ -38,7 +38,7 @@ const MainSidebar = ({ isOpen = false, onToggle }: { isOpen?: boolean, onToggle?
     },
     {
       title: "Feedback",
-      icon: <Feedback className="w-4 h-4" />,
+      icon: <MessageCircle className="w-4 h-4" />,
       path: "#"
     }
   ];
