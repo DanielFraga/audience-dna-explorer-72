@@ -14,6 +14,8 @@ import { Textarea } from "../components/ui/textarea";
 import { useIsMobile } from "../hooks/use-mobile";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
+import { Badge } from "../components/ui/badge";
+import { X } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -213,11 +215,20 @@ const Index = () => {
               </div>
               
               <div className="px-3 pb-3 md:px-6 md:pb-3" ref={resultsRef}>
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center justify-between shadow-md animate-fade-in whitespace-nowrap overflow-hidden"
-                >
-                  <span className="truncate">"holiday" - 450/10000 respondents</span>
-                </Button>
+                <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
+                  <span className="mr-1">450 out of 10000 respondents</span>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
+                    onClick={() => {
+                      setSearchTerm("");
+                      setShowResults(false);
+                    }}
+                  >
+                    <X className="h-3 w-3 text-gray-400" />
+                  </Button>
+                </Badge>
               </div>
             </div>
           )}
