@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { SendHorizontal, User2, Info, X, Search, Download } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
@@ -6,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +64,6 @@ const Chat = () => {
   };
 
   const handleSearch = () => {
-    // Store search term in sessionStorage for tooltip context
     sessionStorage.setItem('searchTerm', searchTerm);
     console.log("Searching for:", searchTerm);
   };
@@ -253,30 +251,28 @@ const Chat = () => {
               </Carousel>
             </div>
             
-            {/* Input field with aligned elements */}
-            <div className="relative rounded-xl overflow-hidden border border-gray-800 shadow-lg focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 transition-all duration-200">
-              <div className="flex items-center">
-                <Textarea
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSendMessage();
-                    }
-                  }}
-                  placeholder="Ask about your audience..."
-                  className="bg-gray-900 text-white rounded-lg border-0 focus:outline-none focus:ring-0 min-h-[60px] md:min-h-[60px] resize-none py-3 px-4 text-sm flex-grow"
-                />
-                <Button
-                  onClick={() => handleSendMessage()}
-                  className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg h-10 mr-3"
-                  disabled={!inputValue.trim()}
-                >
-                  <SendHorizontal className="h-4 w-4 mr-1 md:mr-2" />
-                  <span className={isMobile ? "sr-only" : ""}>Send</span>
-                </Button>
-              </div>
+            {/* Single line input field with integrated send button */}
+            <div className="relative flex h-8 rounded-lg overflow-hidden border border-gray-800 shadow-md focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 transition-all duration-200 bg-gray-900">
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
+                placeholder="Ask about your audience..."
+                className="border-0 h-8 bg-transparent focus-visible:ring-0 text-sm flex-grow text-white"
+              />
+              <Button
+                onClick={() => handleSendMessage()}
+                className="h-8 rounded-none border-l border-gray-800 bg-transparent hover:bg-gray-800 px-3 text-gray-400 hover:text-white"
+                disabled={!inputValue.trim()}
+                size="sm"
+              >
+                <SendHorizontal className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
