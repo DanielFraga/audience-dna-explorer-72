@@ -14,6 +14,7 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { useIsMobile } from "../hooks/use-mobile";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -201,38 +202,54 @@ const Index = () => {
         <MainSidebar />
         
         <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-6 animate-fade-in ${isMobile ? 'mt-16' : ''}`}>
-          {/* Top Search Section - Only show when results are visible */}
-          {showResults && (
-            <div className="mb-4 md:mb-8 mt-8 md:mt-0">
-              <div className="flex flex-col md:flex-row gap-3 md:gap-0 items-start md:items-center">
-                <div className="relative w-full md:w-[calc(100%-260px)]">
-                  <input
-                    type="text"
-                    placeholder="Explore your audience..."
-                    className="w-full px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  />
-                  <Search className="absolute left-3 top-2.5 text-gray-500 w-4 h-4" />
-                </div>
-                
-                <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
-                  <button 
-                    className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
-                    onClick={handleSearch}
-                  >
-                    Search
-                  </button>
-                  <button 
-                    className="flex-1 md:flex-none px-3 py-1.5 text-[11px] font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center whitespace-nowrap"
-                  >
-                    <Download className="w-3 h-3 mr-1" />
-                    Export
-                  </button>
-                </div>
+          {/* Top Search Section - Always visible */}
+          <div className="mb-4 md:mb-8 mt-8 md:mt-0">
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  placeholder="Explore your audience..."
+                  className="w-full px-4 py-2 pl-9 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                />
+                <Search className="absolute left-3 top-2.5 text-gray-500 w-3.5 h-3.5" />
               </div>
               
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                    onClick={handleSearch}
+                  >
+                    <Search className="w-4 h-4 text-gray-300" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Search</p>
+                </TooltipContent>
+              </Tooltip>
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                  >
+                    <Download className="w-4 h-4 text-gray-300" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Export</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+            
+            {showResults && (
               <Button 
                 className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center flex-wrap gap-1.5 shadow-md animate-fade-in"
               >
@@ -244,8 +261,8 @@ const Index = () => {
                   <span className="md:inline">respondents</span>
                 </span>
               </Button>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Content Container */}
           <div className={`${!showResults ? "mt-0" : ""}`}>
@@ -263,7 +280,7 @@ const Index = () => {
                 </div>
               </div>
             ) : (
-              <div className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-lg min-h-[calc(100vh-6rem)] md:min-h-[500px] flex items-center justify-center border border-gray-800/50 shadow-lg backdrop-blur-sm">
+              <div className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-lg min-h-[calc(100vh-8rem)] md:min-h-[500px] flex items-center justify-center border border-gray-800/50 shadow-lg backdrop-blur-sm">
                 {renderContent()}
               </div>
             )}
