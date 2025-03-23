@@ -231,6 +231,20 @@ const Chat = () => {
 
         <div className="border-t border-gray-800 p-3 md:p-4 flex items-center justify-center">
           <div className="max-w-2xl w-full mx-auto space-y-3 md:space-y-4">
+            {/* Moved suggested response buttons above the input field */}
+            <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center">
+              {PRESET_QUESTIONS.map((question, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[10px] md:text-xs py-1 h-auto"
+                  onClick={() => handleSendMessage(question)}
+                >
+                  {question}
+                </Button>
+              ))}
+            </div>
+            
             <div className="relative">
               <Textarea
                 value={inputValue}
@@ -251,19 +265,6 @@ const Chat = () => {
                 <SendHorizontal className="h-4 w-4 mr-1 md:mr-2" />
                 <span className={isMobile ? "sr-only" : ""}>Send</span>
               </Button>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center">
-              {PRESET_QUESTIONS.map((question, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[10px] md:text-xs py-1 h-auto"
-                  onClick={() => handleSendMessage(question)}
-                >
-                  {question}
-                </Button>
-              ))}
             </div>
           </div>
         </div>
