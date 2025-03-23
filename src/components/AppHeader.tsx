@@ -1,5 +1,5 @@
 
-import { Search, Download, Menu } from "lucide-react";
+import { Search, Download, Menu, Cuboid } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X } from 'lucide-react';
@@ -56,7 +56,12 @@ const AppHeader = ({
                 </Button>
                 <h2 className="text-2xl font-grotesk font-semibold text-white pb-0.5 translate-y-[2px]">"{ searchTerm }"</h2>
               </div>
-              <div className="w-10"></div> {/* Empty space for balance */}
+              
+              <div className="flex items-center">
+                <div className="gradient-cube-icon w-8 h-8 flex items-center justify-center rounded-md overflow-hidden">
+                  <Cuboid className="h-6 w-6 text-white" />
+                </div>
+              </div>
             </div>
           </div>
           
