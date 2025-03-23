@@ -1,12 +1,9 @@
 
 import React from 'react';
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const DemographicsMap = () => {
-  const isMobile = useIsMobile();
-  
   return (
-    <div className={`${isMobile ? 'h-[200px]' : 'h-[240px]'} relative rounded-lg overflow-hidden`}>
+    <div className="h-[240px] relative rounded-lg overflow-hidden">
       {/* Map Background */}
       <div className="absolute inset-0">
         {/* Dark world map background with proper containment */}
@@ -28,10 +25,10 @@ const DemographicsMap = () => {
         {/* Copenhagen */}
         <div className="absolute top-[25%] left-[58%]">
           <div className="relative">
-            <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-3 h-3'} bg-gradient-glow rounded-full animate-pulse`} />
-            <div className={`absolute -bottom-1 -left-1 ${isMobile ? 'w-4 h-4' : 'w-5 h-5'} bg-gradient-glow rounded-full animate-ping opacity-30`} />
+            <div className="w-3 h-3 bg-gradient-glow rounded-full animate-pulse" />
+            <div className="absolute -bottom-1 -left-1 w-5 h-5 bg-gradient-glow rounded-full animate-ping opacity-30" />
           </div>
-          <div className={`mt-1 ${isMobile ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-1 text-xs'} bg-gray-900/80 backdrop-blur-sm rounded-md text-white whitespace-nowrap border border-gray-800 shadow-lg`}>
+          <div className="mt-1.5 px-2.5 py-1 bg-gray-900/80 backdrop-blur-sm rounded-md text-xs text-white whitespace-nowrap border border-gray-800 shadow-lg">
             Copenhagen (42%)
           </div>
         </div>
@@ -39,10 +36,10 @@ const DemographicsMap = () => {
         {/* London */}
         <div className="absolute top-[40%] left-[42%]">
           <div className="relative">
-            <div className={`${isMobile ? 'w-2 h-2' : 'w-2.5 h-2.5'} bg-gradient-glow rounded-full animate-pulse`} />
-            <div className={`absolute -bottom-1 -left-1 ${isMobile ? 'w-3.5 h-3.5' : 'w-4.5 h-4.5'} bg-gradient-glow rounded-full animate-ping opacity-30`} />
+            <div className="w-2.5 h-2.5 bg-gradient-glow rounded-full animate-pulse" />
+            <div className="absolute -bottom-1 -left-1 w-4.5 h-4.5 bg-gradient-glow rounded-full animate-ping opacity-30" />
           </div>
-          <div className={`mt-1 ${isMobile ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-1 text-xs'} bg-gray-900/80 backdrop-blur-sm rounded-md text-white whitespace-nowrap border border-gray-800 shadow-lg`}>
+          <div className="mt-1.5 px-2.5 py-1 bg-gray-900/80 backdrop-blur-sm rounded-md text-xs text-white whitespace-nowrap border border-gray-800 shadow-lg">
             London (35%)
           </div>
         </div>
@@ -50,10 +47,10 @@ const DemographicsMap = () => {
         {/* New York */}
         <div className="absolute top-[32%] left-[20%]">
           <div className="relative">
-            <div className={`${isMobile ? 'w-1.5 h-1.5' : 'w-2 h-2'} bg-gradient-glow rounded-full animate-pulse`} />
-            <div className={`absolute -bottom-1 -left-1 ${isMobile ? 'w-3 h-3' : 'w-4 h-4'} bg-gradient-glow rounded-full animate-ping opacity-30`} />
+            <div className="w-2 h-2 bg-gradient-glow rounded-full animate-pulse" />
+            <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-gradient-glow rounded-full animate-ping opacity-30" />
           </div>
-          <div className={`mt-1 ${isMobile ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-1 text-xs'} bg-gray-900/80 backdrop-blur-sm rounded-md text-white whitespace-nowrap border border-gray-800 shadow-lg`}>
+          <div className="mt-1.5 px-2.5 py-1 bg-gray-900/80 backdrop-blur-sm rounded-md text-xs text-white whitespace-nowrap border border-gray-800 shadow-lg">
             New York (15%)
           </div>
         </div>
