@@ -1,5 +1,5 @@
 
-import { ShieldCheck, Info } from 'lucide-react';
+import { ShieldCheck, Info, X } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -7,16 +7,34 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import MainSidebar from "@/components/MainSidebar";
-import { X } from 'lucide-react';
+import IconTabs from "@/components/IconTabs";
+import { useNavigate } from "react-router-dom";
 
 const AboutUs = () => {
   const [showCertDialog, setShowCertDialog] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-4 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
+        <div className="flex flex-col items-center mb-6">
+          <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2">
+            <span className="mr-1">450 out of 10000 respondents</span>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
+              onClick={() => navigate('/saved-audiences')}
+            >
+              <X className="h-3 w-3 text-gray-400" />
+            </Button>
+          </Badge>
+          
+          <IconTabs currentTab="responses" />
+        </div>
+        
         <div className="space-y-3">
           <h1 className="text-2xl font-display font-semibold text-gray-100">About Us</h1>
           

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { SendHorizontal, User2, Info, X } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
@@ -10,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
+import IconTabs from "@/components/IconTabs";
 
 interface Message {
   id: string;
@@ -20,7 +20,7 @@ interface Message {
 
 const PRESET_QUESTIONS = [
   "Top three insights on this audience",
-  "Quick overview",
+  "Quick overview", 
   "Explain their psychography"
 ];
 
@@ -44,11 +44,9 @@ const Chat = () => {
     setMessages((prev) => [...prev, newMessage]);
     setInputValue("");
 
-    // Increment question count
     const newQuestionCount = questionCount + 1;
     setQuestionCount(newQuestionCount);
 
-    // Simulate assistant response based on question number
     setTimeout(() => {
       const assistantResponse: Message = {
         id: (Date.now() + 1).toString(),
@@ -115,8 +113,7 @@ const Chat = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
-        {/* Respondent Count Badge */}
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex items-center">
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center">
           <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2">
             <span className="mr-1">450 out of 10000 respondents</span>
             <Button 
@@ -128,10 +125,11 @@ const Chat = () => {
               <X className="h-3 w-3 text-gray-400" />
             </Button>
           </Badge>
+          
+          <IconTabs currentTab="chat" />
         </div>
 
-        {/* Chat Messages */}
-        <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''} ${isMobile ? 'mt-10' : ''}`}>
+        <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''} ${isMobile ? 'mt-24' : 'mt-20'}`}>
           <div className="space-y-3 p-4">
             {messages.map((message) => (
               <div
@@ -168,10 +166,8 @@ const Chat = () => {
           </div>
         </ScrollArea>
 
-        {/* Input Area with Preset Questions */}
         <div className={`border-t border-gray-800 p-3 md:p-4 ${messages.length === 0 ? 'flex-1' : ''} flex items-center justify-center`}>
           <div className="max-w-2xl w-full mx-auto space-y-3 md:space-y-4">
-            {/* Text Input */}
             <div className="relative">
               <Textarea
                 value={inputValue}
@@ -194,7 +190,6 @@ const Chat = () => {
               </Button>
             </div>
 
-            {/* Preset Questions */}
             <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center">
               {PRESET_QUESTIONS.map((question, index) => (
                 <Button
