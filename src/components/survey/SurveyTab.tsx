@@ -1,10 +1,16 @@
-
 import { FC, useState } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X } from "lucide-react";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "../ui/carousel";
 
 const wordsetData = [
   {
@@ -225,111 +231,7 @@ export const SurveyTab: FC = () => {
 
   return (
     <div className="space-y-8 animate-slide-up">
-      {/* Wordset Cards - Changed from grid to flex column */}
-      <div className="flex flex-col space-y-4">
-        {wordsetData.map((wordset, index) => (
-          <div 
-            key={index}
-            className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors flex flex-col"
-          >
-            <h3 className="text-lg font-semibold text-white mb-1">
-              {wordset.title}
-            </h3>
-            <p className="text-sm text-gray-400 mb-4">
-              {wordset.subheader}
-            </p>
-            <div className="flex flex-wrap gap-2 flex-grow">
-              {wordset.positiveWords?.map((word, wordIndex) => (
-                <Badge
-                  key={`positive-${wordIndex}`}
-                  variant="outline"
-                  className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
-                >
-                  {word.text}
-                  <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                </Badge>
-              ))}
-              {wordset.negativeWords?.map((word, wordIndex) => (
-                <Badge
-                  key={`negative-${wordIndex}`}
-                  variant="outline"
-                  className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
-                >
-                  {word.text}
-                  <span className="text-[10px] font-semibold">{word.score}%</span>
-                </Badge>
-              ))}
-            </div>
-            <div className="mt-4 text-center">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-xs text-gray-400 hover:text-white"
-                onClick={() => handleOpenDialog(index)}
-              >
-                See more
-              </Button>
-            </div>
-
-            {/* Dialog for "See more" */}
-            <Dialog open={openDialog === index} onOpenChange={handleCloseDialog}>
-              <DialogContent className="bg-gray-900 border border-gray-800 max-w-lg">
-                <DialogHeader className="relative">
-                  <DialogTitle className="text-lg font-semibold text-white">
-                    {wordset.title}
-                  </DialogTitle>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-0 top-0 text-gray-400 hover:text-white"
-                    onClick={handleCloseDialog}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </DialogHeader>
-                <ScrollArea className="h-72 rounded-md">
-                  <div className="p-4">
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {wordset.allPositiveWords?.map((word, wordIndex) => (
-                            <Badge
-                              key={`positive-all-${wordIndex}`}
-                              variant="outline"
-                              className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
-                            >
-                              {word.text}
-                              <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {wordset.allNegativeWords?.map((word, wordIndex) => (
-                            <Badge
-                              key={`negative-all-${wordIndex}`}
-                              variant="outline"
-                              className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
-                            >
-                              {word.text}
-                              <span className="text-[10px] font-semibold">{word.score}%</span>
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ScrollArea>
-              </DialogContent>
-            </Dialog>
-          </div>
-        ))}
-      </div>
-
-      {/* Survey Cards - Already changed to flex column */}
+      {/* Survey Cards at the top */}
       <div className="flex flex-col space-y-3">
         {surveyData.map((item, index) => (
           <div 
@@ -373,7 +275,126 @@ export const SurveyTab: FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Wordset Cards in Carousel at the bottom */}
+      <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
+        <h3 className="text-lg font-semibold text-white mb-4">Key Insights</h3>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {wordsetData.map((wordset, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 h-full hover:border-gray-700 transition-colors flex flex-col">
+                  <h3 className="text-lg font-semibold text-white mb-1">
+                    {wordset.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    {wordset.subheader}
+                  </p>
+                  <div className="flex flex-wrap gap-2 flex-grow">
+                    {wordset.positiveWords?.map((word, wordIndex) => (
+                      <Badge
+                        key={`positive-${wordIndex}`}
+                        variant="outline"
+                        className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
+                      >
+                        {word.text}
+                        <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                      </Badge>
+                    ))}
+                    {wordset.negativeWords?.map((word, wordIndex) => (
+                      <Badge
+                        key={`negative-${wordIndex}`}
+                        variant="outline"
+                        className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
+                      >
+                        {word.text}
+                        <span className="text-[10px] font-semibold">{word.score}%</span>
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="mt-4 text-center">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-xs text-gray-400 hover:text-white"
+                      onClick={() => handleOpenDialog(index)}
+                    >
+                      See more
+                    </Button>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex justify-center mt-4 gap-2">
+            <CarouselPrevious className="relative -left-0 bg-gray-800 hover:bg-gray-700 border-gray-700" />
+            <CarouselNext className="relative -right-0 bg-gray-800 hover:bg-gray-700 border-gray-700" />
+          </div>
+        </Carousel>
+      </div>
+
+      {/* Dialogs for "See more" - keep them unchanged */}
+      {wordsetData.map((wordset, index) => (
+        <Dialog key={index} open={openDialog === index} onOpenChange={handleCloseDialog}>
+          <DialogContent className="bg-gray-900 border border-gray-800 max-w-lg">
+            <DialogHeader className="relative">
+              <DialogTitle className="text-lg font-semibold text-white">
+                {wordset.title}
+              </DialogTitle>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-0 top-0 text-gray-400 hover:text-white"
+                onClick={handleCloseDialog}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogHeader>
+            <ScrollArea className="h-72 rounded-md">
+              <div className="p-4">
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {wordset.allPositiveWords?.map((word, wordIndex) => (
+                        <Badge
+                          key={`positive-all-${wordIndex}`}
+                          variant="outline"
+                          className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}
+                        >
+                          {word.text}
+                          <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {wordset.allNegativeWords?.map((word, wordIndex) => (
+                        <Badge
+                          key={`negative-all-${wordIndex}`}
+                          variant="outline"
+                          className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}
+                        >
+                          {word.text}
+                          <span className="text-[10px] font-semibold">{word.score}%</span>
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollArea>
+          </DialogContent>
+        </Dialog>
+      ))}
     </div>
   );
 };
-
