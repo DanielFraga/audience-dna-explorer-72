@@ -32,7 +32,7 @@ export function InteractiveTooltip({ children, content, searchTerm }: Interactiv
         <div className="mb-1 text-blue-400 text-[10px] font-medium">
           {searchTerm ? `Related to "${searchTerm}"` : 'Information'}
         </div>
-        <div className="line-clamp-2 text-[11px] text-gray-300">{content}</div>
+        <div className="text-[11px] text-gray-300 max-h-[200px] overflow-y-auto">{content}</div>
       </PopoverContent>
     </Popover>
   );
