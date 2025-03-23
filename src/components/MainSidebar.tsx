@@ -1,8 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { Search, MessageSquare, Info, Settings } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation, Link } from 'react-router-dom';
-import { MobileMenuButton } from './sidebar/MobileMenuButton';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
 import { AudienceSection } from './sidebar/AudienceSection';
@@ -55,8 +55,6 @@ const MainSidebar = () => {
 
   return (
     <>
-      <MobileMenuButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
-
       {isMobile && isOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
