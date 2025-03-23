@@ -67,6 +67,15 @@
   .gradient-background {
     @apply bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800/50 shadow-lg backdrop-blur-sm;
   }
+  
+  /* Tab positioning utilities */
+  .tab-container {
+    @apply flex justify-between w-full;
+  }
+  
+  .tab-section {
+    @apply flex-1 flex justify-center items-center;
+  }
 }
 
 /* Custom scrollbar styling */

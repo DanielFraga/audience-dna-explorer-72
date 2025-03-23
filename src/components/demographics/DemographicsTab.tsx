@@ -75,7 +75,7 @@ export const DemographicsTab: FC = () => {
       </div>
 
       {/* Location Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
+      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[110px] relative">
         <InteractiveTooltip 
           content={`Geographic data suggests ${searchTerm} is most popular in Copenhagen (42%), followed by London (35%).`}
           searchTerm={searchTerm}
@@ -177,7 +177,7 @@ export const DemographicsTab: FC = () => {
       </div>
       
       {/* Map Card */}
-      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative h-[280px]">
         <InteractiveTooltip 
           content={`Geographic heatmap visualizes where ${searchTerm} has the most engagement, with hotspots in Europe and North America.`}
           searchTerm={searchTerm}

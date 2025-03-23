@@ -31,7 +31,7 @@ const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHea
       <div className="h-[50px] flex items-center justify-between px-3 md:px-6">
         <div className="flex items-center">
           <div className="w-10 md:hidden"></div> {/* Placeholder for mobile menu icon */}
-          <h2 className="text-2xl font-grotesk font-semibold text-white">{searchTerm}</h2>
+          <h2 className="text-2xl font-grotesk font-semibold text-white pl-3 pb-1">{searchTerm}</h2>
         </div>
         <div className="w-10"></div> {/* Empty space for balance */}
       </div>
@@ -71,7 +71,7 @@ const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHea
       
       {/* Third line - navigation tabs */}
       <div className="h-[50px] flex items-center justify-center">
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-lg px-4">
           <IconTabs currentTab={currentTab} />
         </div>
       </div>
