@@ -1,459 +1,65 @@
 
 import { FC } from 'react';
-import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
-import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
-import DemographicsMap from "../DemographicsMap";
+import { ChartContainer } from "@/components/ui/chart";
 import { 
-  BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, 
-  PieChart, Pie, CartesianGrid, LabelList 
-} from 'recharts';
-import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import { useIsMobile } from "@/hooks/use-mobile";
+  AgeDistributionChart, 
+  GenderDistributionChart, 
+  LocationDistributionChart, 
+  IncomeDistributionChart, 
+  AncestryDistributionChart,
+  GeographicDistributionMap
+} from './charts';
 
 export const DemographicsTab: FC = () => {
-  const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
-  const { isMobile, width } = useIsMobile();
-  
-  // Calculate responsive dimensions
-  const getFontSize = () => width < 375 ? 8 : width < 450 ? 9 : 11;
-  const getLabelFontSize = () => width < 375 ? 8 : width < 450 ? 10 : 12;
-  const getBarGap = () => isMobile ? 1 : 4;
-  const getAxisTitleSize = () => width < 375 ? 7 : 8;
-  const getChartHeight = () => width < 375 ? 180 : 220;
-  
-  // Fix: Return a properly typed radius value for Bar components
-  const getBarRadius = (): [number, number, number, number] => [4, 4, 0, 0];
-  
-  // Age Distribution Data
-  const ageData = [
-    { name: '16-29', value: 28 },
-    { name: '30-45', value: 35 },
-    { name: '45-60', value: 22 },
-    { name: '60+', value: 15 },
-  ];
-
-  // Gender Distribution Data
-  const genderData = [
-    { name: 'Male', value: 48, fill: '#4F46E5' },
-    { name: 'Female', value: 51, fill: '#9B87F5' },
-    { name: 'Other', value: 1, fill: '#6B7280' },
-  ];
-
-  // Location Distribution Data
-  const locationData = [
-    { name: 'Copenhagen, DK', value: 42 },
-    { name: 'London, UK', value: 35 },
-    { name: 'New York, US', value: 15 },
-    { name: 'Other', value: 8 },
-  ];
-
-  // Income Distribution Data
-  const incomeData = [
-    { name: '<30k', value: 18 },
-    { name: '30k-75k', value: 45 },
-    { name: '75k-120k', value: 25 },
-    { name: '>120k', value: 12 },
-  ];
-
-  // Updated Ancestry Distribution Data with new categories
-  const ancestryData = [
-    { name: 'European', value: 30, fill: '#F97316' }, // Bright Orange
-    { name: 'East Asian', value: 25, fill: '#FEF7CD' }, // Soft Yellow
-    { name: 'African', value: 20, fill: '#FB923C' }, // Amber
-    { name: 'Hispanic', value: 25, fill: '#FEC6A1' }, // Soft Orange
-  ];
-
-  // Color ranges for charts
-  const ageColors = ['#93C5FD', '#60A5FA', '#3B82F6', '#2563EB'];
-  const locationColors = ['#34D399', '#10B981', '#059669', '#047857'];
-  const incomeColors = ['#C4B5FD', '#A78BFA', '#8B5CF6', '#7C3AED'];
-
-  // RENDERLESS LABEL - for the ancestry chart
-  const renderCustomizedLabel = (props: any) => {
-    const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
-    const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    const textAnchor = x > cx ? 'start' : 'end';
-    
-    // Only render labels for segments with enough space
-    return (
-      <text 
-        x={x} 
-        y={y} 
-        fill="white" 
-        textAnchor={textAnchor} 
-        dominantBaseline="central"
-        fontSize={getAxisTitleSize()}
-        fontWeight="500"
-      >
-        {`${name}: ${value}%`}
-      </text>
-    );
-  };
-
   return (
     <div className="space-y-4 animate-slide-up pt-2">
-      {/* Age Distribution Card */}
-      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <InteractiveTooltip 
-          content={`Age distribution shows that ${searchTerm} is most popular among 30-45 year olds, who represent 35% of the audience.`}
-          searchTerm={searchTerm}
-        >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-          </button>
-        </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-1">
-          <ChartBar className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-bold text-white">Age Distribution</h3>
-        </div>
-        <div className={`h-[${getChartHeight()}px] w-full`}>
-          <ChartContainer 
-            config={{
-              ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
-            }}
-          >
-            <BarChart 
-              data={ageData}
-              margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
-              barCategoryGap={0}
-            >
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-              <XAxis 
-                dataKey="name"
-                axisLine={false} 
-                tickLine={false}
-                tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
-              />
-              <YAxis 
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(value) => `${value}%`}
-                domain={[0, 40]}
-                tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
-                width={isMobile ? 25 : 30}
-              />
-              <ChartTooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                        <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Bar 
-                dataKey="value" 
-                radius={getBarRadius()}
-                barSize={isMobile ? width / (ageData.length * 3) : 40}
-              >
-                {ageData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={ageColors[index]} />
-                ))}
-                <LabelList 
-                  dataKey="value" 
-                  position="top" 
-                  formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
-                  offset={2}
-                />
-              </Bar>
-            </BarChart>
-          </ChartContainer>
-        </div>
-      </div>
+      {/* Wrap Age Distribution Chart with styling config */}
+      <ChartContainer 
+        config={{
+          ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
+        }}
+      >
+        <AgeDistributionChart />
+      </ChartContainer>
 
-      {/* Gender Distribution Card */}
-      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <InteractiveTooltip 
-          content={`Gender analysis reveals that ${searchTerm} slightly appeals more to females (51%) than males (48%).`}
-          searchTerm={searchTerm}
-        >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-          </button>
-        </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-1">
-          <Users className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Gender Distribution</h3>
-        </div>
-        <div className="h-[120px] w-full">
-          <ChartContainer 
-            config={{
-              genderPie: { theme: { light: '#9B87F5', dark: '#9B87F5' } },
-            }}
-          >
-            <PieChart>
-              <Pie
-                data={genderData}
-                cx="50%"
-                cy="50%"
-                innerRadius={isMobile ? 25 : 30}
-                outerRadius={isMobile ? 40 : 50}
-                paddingAngle={2}
-                dataKey="value"
-                labelLine={false}
-                label={({ name, value, cx, x, y }) => {
-                  if (value < 5) return null;
-                  return (
-                    <text 
-                      x={x} 
-                      y={y} 
-                      fill="white" 
-                      textAnchor={x > cx ? 'start' : 'end'} 
-                      dominantBaseline="central"
-                      fontSize={9}
-                    >
-                      {`${name}: ${value}%`}
-                    </text>
-                  );
-                }}
-              >
-                {genderData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <ChartTooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                        <p className="text-white font-medium">{`${payload[0].name}: ${payload[0].value}%`}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-            </PieChart>
-          </ChartContainer>
-        </div>
-      </div>
+      {/* Wrap Gender Distribution Chart with styling config */}
+      <ChartContainer 
+        config={{
+          genderPie: { theme: { light: '#9B87F5', dark: '#9B87F5' } },
+        }}
+      >
+        <GenderDistributionChart />
+      </ChartContainer>
 
-      {/* Location Distribution Card */}
-      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <InteractiveTooltip 
-          content={`Geographic data suggests ${searchTerm} is most popular in Copenhagen (42%), followed by London (35%).`}
-          searchTerm={searchTerm}
-        >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-          </button>
-        </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-1">
-          <MapPin className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-bold text-white">Location Distribution</h3>
-        </div>
-        <div className={`h-[${getChartHeight()}px] w-full`}>
-          <ChartContainer 
-            config={{
-              locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
-            }}
-          >
-            <BarChart 
-              data={locationData}
-              margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
-              barGap={getBarGap()}
-            >
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-              <XAxis 
-                dataKey="name"
-                axisLine={false} 
-                tickLine={false}
-                tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
-                angle={isMobile ? -25 : 0}
-                textAnchor={isMobile ? "end" : "middle"}
-                height={isMobile ? 50 : 30}
-                interval={0}
-              />
-              <YAxis 
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(value) => `${value}%`}
-                domain={[0, 50]}
-                tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
-                width={isMobile ? 25 : 30}
-              />
-              <ChartTooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                        <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Bar 
-                dataKey="value" 
-                radius={getBarRadius()}
-                barSize={isMobile ? width / (locationData.length * 3) : 40}
-              >
-                {locationData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={locationColors[index]} />
-                ))}
-                <LabelList 
-                  dataKey="value" 
-                  position="top" 
-                  formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
-                  offset={2}
-                />
-              </Bar>
-            </BarChart>
-          </ChartContainer>
-        </div>
-      </div>
+      {/* Wrap Location Distribution Chart with styling config */}
+      <ChartContainer 
+        config={{
+          locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
+        }}
+      >
+        <LocationDistributionChart />
+      </ChartContainer>
 
-      {/* Income Distribution Card */}
-      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <InteractiveTooltip 
-          content={`Income analysis shows ${searchTerm} resonates most with middle-income groups (30k-75k), comprising 45% of respondents.`}
-          searchTerm={searchTerm}
-        >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-          </button>
-        </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-1">
-          <DollarSign className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-bold text-white">Income Distribution</h3>
-        </div>
-        <div className={`h-[${getChartHeight()}px] w-full`}>
-          <ChartContainer 
-            config={{
-              incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
-            }}
-          >
-            <BarChart 
-              data={incomeData}
-              margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
-              barCategoryGap={0}
-            >
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-              <XAxis 
-                dataKey="name"
-                axisLine={false} 
-                tickLine={false}
-                tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
-              />
-              <YAxis 
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(value) => `${value}%`}
-                domain={[0, 50]}
-                tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
-                width={isMobile ? 25 : 30}
-              />
-              <ChartTooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                        <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Bar 
-                dataKey="value" 
-                radius={getBarRadius()}
-                barSize={isMobile ? width / (incomeData.length * 3) : 40}
-              >
-                {incomeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={incomeColors[index]} />
-                ))}
-                <LabelList 
-                  dataKey="value" 
-                  position="top" 
-                  formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
-                  offset={2}
-                />
-              </Bar>
-            </BarChart>
-          </ChartContainer>
-        </div>
-      </div>
+      {/* Wrap Income Distribution Chart with styling config */}
+      <ChartContainer 
+        config={{
+          incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
+        }}
+      >
+        <IncomeDistributionChart />
+      </ChartContainer>
 
-      {/* Ancestry Distribution Card - Donut chart */}
-      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <InteractiveTooltip 
-          content={`Ancestry data shows ${searchTerm} has diverse appeal across different ethnic backgrounds, with European ancestry representing the largest group (30%).`}
-          searchTerm={searchTerm}
-        >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-          </button>
-        </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-1">
-          <User className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-bold text-white">Ancestry Distribution</h3>
-        </div>
-        <div className="h-[180px] w-full">
-          <ChartContainer 
-            config={{
-              ancestryPie: { theme: { light: '#F97316', dark: '#F97316' } },
-            }}
-          >
-            <PieChart>
-              <Pie
-                data={ancestryData}
-                cx="50%"
-                cy="50%"
-                innerRadius={isMobile ? 30 : 40}
-                outerRadius={isMobile ? 55 : 70}
-                paddingAngle={2}
-                dataKey="value"
-                labelLine={false}
-                label={isMobile ? null : renderCustomizedLabel}
-              >
-                {ancestryData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
-                ))}
-              </Pie>
-              <ChartTooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                        <p className="text-white font-medium">{`${payload[0].name} Ancestry: ${payload[0].value}%`}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-            </PieChart>
-          </ChartContainer>
-        </div>
-      </div>
-      
-      {/* Map Card */}
-      <div className="p-2 sm:p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <InteractiveTooltip 
-          content={`Geographic heatmap visualizes where ${searchTerm} has the most engagement, with hotspots in Europe and North America.`}
-          searchTerm={searchTerm}
-        >
-          <button className="absolute top-2 right-2 z-10">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-          </button>
-        </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
-          <MapPin className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Geographic Distribution</h3>
-        </div>
-        <DemographicsMap />
-      </div>
+      {/* Wrap Ancestry Distribution Chart with styling config */}
+      <ChartContainer 
+        config={{
+          ancestryPie: { theme: { light: '#F97316', dark: '#F97316' } },
+        }}
+      >
+        <AncestryDistributionChart />
+      </ChartContainer>
+
+      {/* Geographic Distribution Map doesn't need chart wrapping */}
+      <GeographicDistributionMap />
     </div>
   );
 };
