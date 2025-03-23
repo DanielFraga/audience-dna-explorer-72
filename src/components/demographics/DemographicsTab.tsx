@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -68,7 +69,7 @@ export const DemographicsTab: FC = () => {
         <div className="h-[120px] w-full">
           <ChartContainer 
             config={{
-              ageBar: { theme: { dark: '#3B82F6' } },
+              ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
             }}
           >
             <ResponsiveContainer width="100%" height="100%">
@@ -141,7 +142,7 @@ export const DemographicsTab: FC = () => {
         <div className="h-[130px] w-full">
           <ChartContainer 
             config={{
-              genderPie: { theme: { dark: '#9B87F5' } },
+              genderPie: { theme: { light: '#9B87F5', dark: '#9B87F5' } },
             }}
           >
             <ResponsiveContainer width="100%" height="100%">
@@ -212,7 +213,7 @@ export const DemographicsTab: FC = () => {
         <div className="h-[130px] w-full">
           <ChartContainer 
             config={{
-              locationBar: { theme: { dark: '#10B981' } },
+              locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
             }}
           >
             <ResponsiveContainer width="100%" height="100%">
@@ -285,7 +286,7 @@ export const DemographicsTab: FC = () => {
         <div className="h-[130px] w-full">
           <ChartContainer 
             config={{
-              incomeBar: { theme: { dark: '#8B5CF6' } },
+              incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
             }}
           >
             <ResponsiveContainer width="100%" height="100%">
