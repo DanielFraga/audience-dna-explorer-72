@@ -47,8 +47,8 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                   aria-label="Stats"
                   className="z-10 h-12 w-16 flex flex-col items-center justify-center"
                 >
-                  <BarChart3 className="h-5 w-5 mb-1" />
-                  <span className="text-xs font-medium">Stats</span>
+                  <BarChart3 className={`h-5 w-5 mb-1 ${currentTab === "stats" ? "text-white" : ""}`} />
+                  <span className={`text-xs font-medium ${currentTab === "stats" ? "text-white" : ""}`}>Stats</span>
                 </IconTabsTrigger>
               </div>
               
@@ -58,8 +58,8 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                   aria-label="Survey Responses"
                   className="z-10 h-12 w-16 flex flex-col items-center justify-center"
                 >
-                  <ClipboardList className="h-5 w-5 mb-1" />
-                  <span className="text-xs font-medium">Responses</span>
+                  <ClipboardList className={`h-5 w-5 mb-1 ${currentTab === "responses" ? "text-white" : ""}`} />
+                  <span className={`text-xs font-medium ${currentTab === "responses" ? "text-white" : ""}`}>Responses</span>
                 </IconTabsTrigger>
               </div>
               
@@ -69,8 +69,8 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                   aria-label="Chat"
                   className="z-10 h-12 w-16 flex flex-col items-center justify-center"
                 >
-                  <MessageSquare className="h-5 w-5 mb-1" />
-                  <span className="text-xs font-medium">Chat</span>
+                  <MessageSquare className={`h-5 w-5 mb-1 ${currentTab === "chat" ? "text-white" : ""}`} />
+                  <span className={`text-xs font-medium ${currentTab === "chat" ? "text-white" : ""}`}>Chat</span>
                 </IconTabsTrigger>
               </div>
             </div>
