@@ -108,28 +108,22 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={ageData}
-                layout="vertical"
-                margin={{ top: 15, right: 30, left: 25, bottom: 5 }}
-                align="left"
+                margin={{ top: 5, right: 20, left: 10, bottom: 25 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
-                  type="number"
+                  dataKey="name"
                   axisLine={false} 
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  dy={10}
+                />
+                <YAxis 
+                  axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 40]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                />
-                <YAxis 
-                  dataKey="name"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={25}
-                  tickMargin={0}
-                  dx={-5}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -143,13 +137,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {ageData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={ageColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="right" 
+                    position="top" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
@@ -254,28 +248,25 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={locationData}
-                layout="vertical"
-                margin={{ top: 15, right: 30, left: 25, bottom: 5 }}
-                align="left"
+                margin={{ top: 5, right: 20, left: 10, bottom: 30 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
-                  type="number"
+                  dataKey="name"
                   axisLine={false} 
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: '#D1D5DB', width: 80 }}
+                  angle={-25}
+                  textAnchor="end"
+                  height={60}
+                  dy={12}
+                />
+                <YAxis 
+                  axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                />
-                <YAxis 
-                  dataKey="name"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={25}
-                  tickMargin={0}
-                  dx={-5}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -289,13 +280,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {locationData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={locationColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="right" 
+                    position="top" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
@@ -329,28 +320,22 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={incomeData}
-                layout="vertical"
-                margin={{ top: 15, right: 30, left: 25, bottom: 5 }}
-                align="left"
+                margin={{ top: 5, right: 20, left: 10, bottom: 25 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
-                  type="number"
+                  dataKey="name"
                   axisLine={false} 
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  dy={10}
+                />
+                <YAxis 
+                  axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                />
-                <YAxis 
-                  dataKey="name"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={25}
-                  tickMargin={0}
-                  dx={-5}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -364,13 +349,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {incomeData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={incomeColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="right" 
+                    position="top" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
