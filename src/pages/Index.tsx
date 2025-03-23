@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Users, Globe, Sparkles } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -39,11 +38,10 @@ const Index = () => {
   const handleSearch = () => {
     if (searchTerm.trim()) {
       setIsAnimating(true);
-      // Trigger animation and then show results after delay
       setTimeout(() => {
         setShowResults(true);
         setIsAnimating(false);
-      }, 800); // Animation duration
+      }, 800);
       console.log("Searching for:", searchTerm);
     }
   };
@@ -58,18 +56,18 @@ const Index = () => {
       return (
         <div className={`flex flex-col items-center justify-center py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
           <div className="mb-6 md:mb-8 relative">
-            <div className="w-18 h-18 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
+            <div className="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
-              <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-white" />
+              <Sparkles className="w-12 h-12 md:w-14 md:h-14 text-white" />
             </div>
-            <div className="absolute -right-3 md:-right-4 -top-3 md:-top-4">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <Users className="w-4 h-4 md:w-5 md:h-5 text-white" />
+            <div className="absolute -right-4 md:-right-5 -top-4 md:-top-5">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
             </div>
-            <div className="absolute -left-2 md:-left-3 -bottom-2 md:-bottom-3">
-              <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <Globe className="w-3 h-3 md:w-4 md:h-4 text-white" />
+            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
             </div>
           </div>
@@ -166,7 +164,6 @@ const Index = () => {
         <MainSidebar />
         
         <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in ${isMobile ? '' : ''}`}>
-          {/* Top Search Bar - Only shown when results are visible */}
           {showResults && (
             <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in">
               <div className="flex items-center gap-2 p-3 md:p-6">
