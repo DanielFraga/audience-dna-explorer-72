@@ -32,8 +32,6 @@ const Index = () => {
   
   useEffect(() => {
     if (location.state?.preserveSearch) {
-      // If we're coming back with preserveSearch flag, maintain the current state
-      // No need to reset anything
       navigate('/', { replace: true, state: {} });
     } else if (location.state?.resetSearch) {
       setSearchTerm("");
@@ -96,12 +94,11 @@ const Index = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="w-full px-4 py-2.5 pl-9 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
-            <Search className="absolute left-3 top-3 text-gray-500 w-3.5 h-3.5" />
             <button 
               className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
               onClick={handleSearch}

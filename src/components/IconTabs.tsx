@@ -1,19 +1,27 @@
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Tabs, TabsList, IconTabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, MessageSquare, ClipboardList } from "lucide-react";
 
 const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleTabChange = (value: string) => {
     if (value === "stats") {
-      navigate("/");
+      // Preserve search when going to stats view
+      navigate("/", { 
+        state: { preserveSearch: true } 
+      });
     } else if (value === "responses") {
-      navigate("/survey-audience");
+      navigate("/survey-audience", {
+        state: { preserveSearch: true }
+      });
     } else if (value === "chat") {
-      navigate("/chat");
+      navigate("/chat", {
+        state: { preserveSearch: true }
+      });
     }
   };
 

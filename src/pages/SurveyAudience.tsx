@@ -3,13 +3,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { X } from 'lucide-react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import MainSidebar from "@/components/MainSidebar";
 import IconTabs from "@/components/IconTabs";
 import { SurveyTab } from "@/components/survey/SurveyTab";
 
 const SurveyAudience = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
