@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { SendHorizontal, User2, Info, X, Search, Download } from "lucide-react";
+import { SendHorizontal, User2, X } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -63,11 +64,6 @@ const Chat = () => {
     }, 1000);
   };
 
-  const handleSearch = () => {
-    sessionStorage.setItem('searchTerm', searchTerm);
-    console.log("Searching for:", searchTerm);
-  };
-
   const renderMessage = (message: Message) => {
     if (message.sender === "assistant") {
       if (message.content.includes("(80 out of 100)")) {
@@ -116,56 +112,10 @@ const Chat = () => {
         <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in border-b border-gray-800/60">
           <div className="flex items-center gap-2 p-3 md:p-4">
             {isMobile && <div className="w-10"></div>}
-            <div className="relative flex-1">
-              <input
-                type="text"
-                placeholder="Explore audience..."
-                className="w-full px-4 py-2 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    size="icon" 
-                    variant="ghost" 
-                    className="w-8 h-8 rounded-full overflow-hidden relative p-0"
-                    onClick={handleSearch}
-                  >
-                    <div className="absolute inset-0 gradient-glow opacity-70"></div>
-                    <Search className="w-4 h-4 text-white relative z-10" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">Search</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    size="icon" 
-                    variant="ghost" 
-                    className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
-                  >
-                    <Download className="w-4 h-4 text-gray-300" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">Export</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
           </div>
           
           <div className="px-3 pb-2 md:px-4 md:pb-2">
-            <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
+            <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
               <span className="mr-1">450 out of 10000 respondents</span>
               <Button 
                 variant="ghost" 
