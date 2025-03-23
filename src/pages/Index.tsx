@@ -53,57 +53,57 @@ const Index = () => {
   const renderContent = () => {
     if (!showResults) {
       return (
-        <div className="flex flex-col items-center justify-center py-8 md:py-16 text-center animate-fade-in px-4">
-          <div className="mb-8 md:mb-10 relative">
-            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center py-6 md:py-12 text-center animate-fade-in px-4">
+          <div className="mb-6 md:mb-8 relative">
+            <div className="w-18 h-18 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
-              <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-white" />
+              <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-white" />
             </div>
-            <div className="absolute -right-4 md:-right-6 -top-4 md:-top-6">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
+            <div className="absolute -right-3 md:-right-4 -top-3 md:-top-4">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <Users className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
             </div>
-            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
+            <div className="absolute -left-2 md:-left-3 -bottom-2 md:-bottom-3">
+              <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                <Globe className="w-3 h-3 md:w-4 md:h-4 text-white" />
               </div>
             </div>
           </div>
           
-          <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 tracking-tight">Cubular</h1>
-          <h2 className="text-lg md:text-xl font-medium text-gray-300 mb-2 md:mb-3">
+          <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">
             Explore Your Global Audience
           </h2>
-          <p className="text-gray-400 max-w-md mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
-            Discover insights about your audience's demographics, psychographics, and behaviors. Start by typing a keyword in the search bar below.
+          <p className="text-gray-400 max-w-md mb-5 md:mb-6 leading-relaxed text-xs md:text-sm">
+            Discover insights about your audience's demographics, psychographics, and behaviors.
           </p>
           
-          <div className="relative w-full max-w-md mx-auto mb-6 md:mb-8">
+          <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
             <input
               type="text"
-              placeholder="What audience do you want to explore?"
-              className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-700 bg-gray-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-sm"
+              placeholder="Search audiences..."
+              className="w-full px-4 py-2.5 pl-9 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
-            <Search className="absolute left-3 top-3.5 text-gray-500 w-4 h-4" />
+            <Search className="absolute left-3 top-3 text-gray-500 w-3.5 h-3.5" />
             <button 
-              className="absolute right-2 top-2 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+              className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
               onClick={handleSearch}
             >
               Search
             </button>
           </div>
           
-          <div className="space-y-3 text-gray-500 text-xs md:text-sm">
+          <div className="space-y-2 text-gray-500 text-xs">
             <p>Try searching for:</p>
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-wrap gap-1.5 justify-center">
               {["holiday", "gaming", "fashion", "technology", "health", "food"].map((suggestion) => (
                 <button 
                   key={suggestion}
-                  className="px-3 py-1 md:py-1.5 bg-gray-800 hover:bg-gray-700 rounded-full transition-colors text-xs"
+                  className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow"
                   onClick={() => {
                     setSearchTerm(suggestion);
                     setTimeout(() => handleSearch(), 100);
@@ -228,7 +228,7 @@ const Index = () => {
                 </div>
               </div>
             ) : (
-              <div className="bg-gray-900 rounded-lg min-h-[calc(100vh-6rem)] md:min-h-[500px] flex items-center justify-center">
+              <div className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-lg min-h-[calc(100vh-6rem)] md:min-h-[500px] flex items-center justify-center border border-gray-800/50 shadow-lg backdrop-blur-sm">
                 {renderContent()}
               </div>
             )}
