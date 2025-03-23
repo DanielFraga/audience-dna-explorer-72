@@ -7,42 +7,42 @@ const insightsData = [
   {
     title: "Unseen Longing for Prestige Brands",
     nugget: "Our purchase analytics reveal a 35% spike in conversion rates for premium brands among aspirational users, indicating an intense subconscious pull toward status products even when budget options exist.",
-    interpretation: "This 35% conversion increase is significantly above the 20% industry average for luxury goods. The data suggests that when users search for products related to this topic, they're more likely to consider premium options, possibly due to the aspirational nature of the content they're consuming.",
+    interpretation: "A 35% conversion rate is significantly above average. This data shows users are more likely to purchase premium products related to your search term, suggesting strong aspirational market potential.",
     color: "blue",
     summary: "35% higher conversion for premium brands"
   },
   {
     title: "Fluid Digital Engagement Patterns",
     nugget: "Our cross-platform tracking shows 85% of users navigate seamlessly between our mobile and desktop interfaces, with tech-savvy segments demonstrating 40% higher interaction rates on innovative features.",
-    interpretation: "The 85% cross-platform usage rate is exceptionally high compared to the typical 60% industry benchmark. This indicates your audience is highly adaptable and comfortable with technology across devices, suggesting content should be optimized for both mobile and desktop experiences.",
+    interpretation: "The 85% cross-platform usage is much higher than typical rates (60%). Your audience actively uses both mobile and desktop, meaning content should be optimized for all devices.",
     color: "purple",
     summary: "85% cross-platform usage, 40% higher engagement"
   },
   {
     title: "Torn Between Indulgence and Ethics",
     nugget: "Our sustainability metrics show 60% of eco-conscious users willing to pay premium prices for green products, yet our impulse purchase tracking indicates significant spikes in non-sustainable buying during emotional triggers.",
-    interpretation: "The 60% willingness to pay premium for sustainable options is moderate-to-high compared to the general market (typically 40-45%). However, the data shows a clear value-action gap when users face emotional purchase decisions, suggesting marketing should address both ethical considerations and emotional benefits.",
+    interpretation: "60% willingness to pay premium for sustainable options is moderate-high (market average: 40-45%). This reveals a gap between stated values and purchase behavior for your audience.",
     color: "green",
     summary: "60% pay premium for green, still impulse buy non-green"
   },
   {
     title: "Collective Trust in Peer Voices",
     nugget: "Our social validation metrics show peer recommendations influence 70% of purchase decisions among younger demographics on our platform, particularly in experimental or niche market segments.",
-    interpretation: "The 70% peer influence rate is substantially higher than the broader market average of 50-55%. This data point highlights the critical importance of user-generated content and testimonials when marketing to this audience, especially for novel or specialized offerings.",
+    interpretation: "The 70% peer influence rate exceeds market average (50-55%). For your audience, peer recommendations are crucial, especially when marketing novel or specialized offerings.",
     color: "orange",
     summary: "70% of youth purchasing influenced by peers"
   },
   {
     title: "Curious Minds Embracing the New",
     nugget: "Our feature adoption analytics identify segments with high curiosity—often creative professionals on our platform—driving 50% of early adoption rates and showing 30% higher engagement with cutting-edge features.",
-    interpretation: "The 50% share of early adoption is notably high (market average is 30-35%). This indicates your audience contains a significant proportion of innovators and early adopters who value novelty and are willing to experiment with new offerings before the mainstream market.",
+    interpretation: "50% early adoption share is higher than average (30-35%). Your audience contains many early adopters who value novelty and are willing to try new offerings before others.",
     color: "pink",
     summary: "Creative pros drive 50% of early adoption"
   },
   {
     title: "Mesmerized by Quality Promises",
     nugget: "Our site analytics show premium audience segments exhibiting 65% increased brand loyalty when our messaging combines luxury and durability themes with rhythmic, reassuring content structures.",
-    interpretation: "The 65% loyalty increase represents a very strong response to quality-focused messaging (20-30% above typical market response). This insight suggests that emphasizing long-term value and premium attributes in your communications will resonate particularly well with this audience.",
+    interpretation: "65% increased loyalty is substantially above typical response rates. Your audience strongly responds to messaging that emphasizes quality and long-term value over price considerations.",
     color: "teal",
     summary: "65% more loyalty with luxury+durability messaging"
   }
