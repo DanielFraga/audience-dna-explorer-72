@@ -5,6 +5,7 @@ import { Users, MapPin, Search, MessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import IconTabs from "@/components/IconTabs";
 
 interface AudienceEntry {
   id: number;
@@ -82,14 +83,16 @@ const SavedAudiences = () => {
                 variant="ghost" 
                 size="icon" 
                 className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/', { state: { preserveSearch: true } })}
               >
                 <X className="h-3 w-3 text-gray-400" />
               </Button>
             </Badge>
           </div>
           
-          <Card className="bg-gray-800/50 border-gray-700 flex-1">
+          <IconTabs currentTab="audiences" />
+          
+          <Card className="bg-gray-800/50 border-gray-700 flex-1 mt-4">
             <CardContent className="p-3">
               <div className="divide-y divide-gray-700">
                 <div className="grid grid-cols-4 gap-3 pb-3 text-sm font-medium text-gray-400">

@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Users, Globe, Sparkles, BarChart3, MessageSquare, ClipboardList } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -32,7 +33,11 @@ const Index = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    if (location.state?.resetSearch) {
+    if (location.state?.preserveSearch) {
+      // If we're coming back with preserveSearch flag, maintain the current state
+      // No need to reset anything
+      navigate('/', { replace: true, state: {} });
+    } else if (location.state?.resetSearch) {
       setSearchTerm("");
       setShowResults(false);
       navigate('/', { replace: true, state: {} });
