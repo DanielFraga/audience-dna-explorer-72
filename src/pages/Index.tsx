@@ -14,6 +14,7 @@ import { useIsMobile } from "../hooks/use-mobile";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import AppHeader from "@/components/AppHeader";
+import IconTabs from "@/components/IconTabs";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -153,14 +154,14 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return (
-        <div className="space-y-8 pb-10 max-w-3xl mx-auto">
+        <div className="space-y-8 pb-24 max-w-3xl mx-auto">
           <DemographicsTab />
           <PsychographicsTab />
         </div>
       );
     } else if (activeView === "responses") {
       return (
-        <div className="space-y-8 pb-10 max-w-3xl mx-auto">
+        <div className="space-y-8 pb-24 max-w-3xl mx-auto">
           <SurveyTab />
         </div>
       );
@@ -197,6 +198,8 @@ const Index = () => {
               </div>
             )}
           </div>
+          
+          {showResults && <IconTabs currentTab="stats" />}
         </div>
 
         <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>

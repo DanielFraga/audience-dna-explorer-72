@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import AppHeader from "@/components/AppHeader";
+import IconTabs from "@/components/IconTabs";
 
 interface Message {
   id: string;
@@ -120,7 +121,7 @@ const Chat = () => {
 
         {/* Messages area */}
         <ScrollArea className="flex-1 px-1 md:px-2">
-          <div className="space-y-4 p-4 max-w-3xl mx-auto">
+          <div className="space-y-4 p-4 pb-24 max-w-3xl mx-auto">
             {messages.length === 0 && (
               <div className="flex items-center justify-center h-32 md:h-40">
                 <div className="text-center text-gray-500 max-w-xs">
@@ -165,7 +166,7 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input area */}
-        <div className="border-t border-gray-800 p-3 md:p-4 bg-gray-950/80 backdrop-blur-sm">
+        <div className="border-t border-gray-800 p-3 md:p-4 bg-gray-950/80 backdrop-blur-sm pb-[86px]">
           <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
             {/* Suggested response buttons in a carousel */}
             <div className="w-full mb-2">
@@ -211,6 +212,8 @@ const Chat = () => {
             </div>
           </div>
         </div>
+        
+        <IconTabs currentTab="chat" />
       </div>
     </div>
   );

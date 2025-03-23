@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-import IconTabs from "@/components/IconTabs";
 
 interface AppHeaderProps {
   searchTerm?: string;
@@ -84,15 +83,6 @@ const AppHeader = ({
               >
                 <Download className="w-4 h-4 text-gray-300" />
               </Button>
-            </div>
-          </div>
-        </div>
-        
-        {/* Third frame - navigation tabs */}
-        <div className="h-[60px]">
-          <div className="h-full flex items-center justify-center">
-            <div className="w-full max-w-lg px-4">
-              <IconTabs currentTab={currentTab} />
             </div>
           </div>
         </div>
