@@ -1,4 +1,3 @@
-
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -13,7 +12,6 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel";
 
-// Original psychographic data - Only keeping Big5
 const psychographicData = [
   { subject: 'Op', A: 80, fullName: 'Openness' },
   { subject: 'Co', A: 65, fullName: 'Conscientiousness' },
@@ -22,7 +20,6 @@ const psychographicData = [
   { subject: 'Ne', A: 30, fullName: 'Neuroticism' },
 ];
 
-// Create group definitions - Only keeping Big5
 const psychographicGroups = [
   {
     id: 'big5',
@@ -31,7 +28,6 @@ const psychographicGroups = [
   }
 ];
 
-// Full dataset - Only Big5
 const fullPsychographicData = psychographicData;
 
 const colorMap = {
@@ -90,7 +86,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
   }
 };
 
-// Function to find which group a trait belongs to
 const findGroupForTrait = (trait: string): string | null => {
   for (const group of psychographicGroups) {
     if (group.items.includes(trait)) {
@@ -100,7 +95,6 @@ const findGroupForTrait = (trait: string): string | null => {
   return null;
 };
 
-// Function to get data for a specific group
 const getGroupData = (groupId: string): any[] => {
   const group = psychographicGroups.find(g => g.id === groupId);
   if (!group) return [];
@@ -119,14 +113,12 @@ export const PsychographicsTab: FC = () => {
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
 
-  // Filter data based on selected group - always Big5
   const selectedGroupData = getGroupData('big5');
 
   return (
     <div className="space-y-6 animate-slide-up">
       <Carousel className="w-full relative">
         <CarouselContent className="h-full">
-          {/* Cobweb Graph Card - First slide */}
           <CarouselItem className="flex items-center justify-center">
             <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
               <InteractiveTooltip 
@@ -145,10 +137,6 @@ export const PsychographicsTab: FC = () => {
                     <h3 className="text-xs font-semibold text-white">
                       BIG 5 Profile
                     </h3>
-                  </div>
-                  
-                  <div className="text-xs text-gray-400">
-                    5 traits
                   </div>
                 </div>
 
@@ -178,7 +166,6 @@ export const PsychographicsTab: FC = () => {
             </div>
           </CarouselItem>
           
-          {/* Stats Card - Second slide */}
           <CarouselItem className="flex items-center justify-center">
             <div ref={statsRef} className="h-full w-full">
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
