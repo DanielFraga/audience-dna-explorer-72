@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { X, Sparkles, Users, Globe } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -46,7 +45,6 @@ const Index = () => {
   const handleSearch = () => {
     if (searchTerm.trim()) {
       setIsAnimating(true);
-      // Store search term in sessionStorage for tooltip context
       sessionStorage.setItem('searchTerm', searchTerm);
       setTimeout(() => {
         setShowResults(true);
@@ -167,7 +165,7 @@ const Index = () => {
                 {isMobile && <div className="w-10"></div>}
               </div>
               
-              <div className="px-3 pb-3 md:px-6 md:pb-3 flex flex-wrap items-center gap-2" ref={resultsRef}>
+              <div className="px-3 pb-3 md:px-6 md:pb-3 flex flex-wrap items-center gap-2 ml-10 md:ml-0" ref={resultsRef}>
                 <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between px-3 py-1.5">
                   <span className="mr-1">450 out of 10000 respondents</span>
                   <Button 
