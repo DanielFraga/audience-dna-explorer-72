@@ -54,7 +54,7 @@ const Index = () => {
   const renderContent = () => {
     if (!showResults) {
       return (
-        <div className={`flex flex-col items-center justify-center py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
+        <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
           <div className="mb-6 md:mb-8 relative">
             <div className="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
@@ -224,7 +224,7 @@ const Index = () => {
 
           <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
             {!showResults ? (
-              <div className="gradient-background min-h-[calc(100vh-8rem)] md:min-h-[500px] flex items-center justify-center h-full">
+              <div className="gradient-background min-h-screen flex items-center justify-center h-full">
                 {renderContent()}
               </div>
             ) : (
