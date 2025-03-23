@@ -10,9 +10,11 @@ import {
   CartesianGrid, LabelList 
 } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const DemographicsTab: FC = () => {
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
+  const isMobile = useIsMobile();
 
   // Age Distribution Data
   const ageData = [
@@ -106,10 +108,12 @@ export const DemographicsTab: FC = () => {
             }}
             className="flex justify-center items-center"
           >
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
               <BarChart 
                 data={ageData}
-                margin={{ top: 5, right: 20, left: 40, bottom: 25 }}
+                margin={isMobile ? 
+                  { top: 5, right: 10, left: 20, bottom: 25 } : 
+                  { top: 5, right: 20, left: 40, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
@@ -125,7 +129,7 @@ export const DemographicsTab: FC = () => {
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 40]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={35}
+                  width={isMobile ? 25 : 35}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -177,14 +181,14 @@ export const DemographicsTab: FC = () => {
             }}
             className="flex justify-center items-center"
           >
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
               <PieChart>
                 <Pie
                   data={genderData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={30}
-                  outerRadius={50}
+                  innerRadius={isMobile ? 25 : 30}
+                  outerRadius={isMobile ? 45 : 50}
                   paddingAngle={2}
                   dataKey="value"
                   labelLine={false}
@@ -249,17 +253,19 @@ export const DemographicsTab: FC = () => {
             }}
             className="flex justify-center items-center"
           >
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
               <BarChart 
                 data={locationData}
-                margin={{ top: 5, right: 20, left: 40, bottom: 30 }}
+                margin={isMobile ? 
+                  { top: 5, right: 10, left: 20, bottom: 30 } : 
+                  { top: 5, right: 20, left: 40, bottom: 30 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
                   dataKey="name"
                   axisLine={false} 
                   tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB', width: 80 }}
+                  tick={{ fontSize: 10, fill: '#D1D5DB', width: isMobile ? 60 : 80 }}
                   angle={-25}
                   textAnchor="end"
                   height={60}
@@ -271,7 +277,7 @@ export const DemographicsTab: FC = () => {
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={35}
+                  width={isMobile ? 25 : 35}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -323,10 +329,12 @@ export const DemographicsTab: FC = () => {
             }}
             className="flex justify-center items-center"
           >
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
               <BarChart 
                 data={incomeData}
-                margin={{ top: 5, right: 20, left: 40, bottom: 25 }}
+                margin={isMobile ? 
+                  { top: 5, right: 10, left: 20, bottom: 25 } : 
+                  { top: 5, right: 20, left: 40, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
@@ -342,7 +350,7 @@ export const DemographicsTab: FC = () => {
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
                   tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={35}
+                  width={isMobile ? 25 : 35}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -394,18 +402,18 @@ export const DemographicsTab: FC = () => {
             }}
             className="flex justify-center items-center"
           >
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
               <PieChart>
                 <Pie
                   data={ancestryData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={40}
-                  outerRadius={70}
+                  innerRadius={isMobile ? 35 : 40}
+                  outerRadius={isMobile ? 60 : 70}
                   paddingAngle={2}
                   dataKey="value"
                   labelLine={false}  // Remove label lines
-                  label={renderCustomizedLabel}
+                  label={isMobile ? null : renderCustomizedLabel}
                 >
                   {ancestryData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />

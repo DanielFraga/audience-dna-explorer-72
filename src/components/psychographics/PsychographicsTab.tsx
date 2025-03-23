@@ -4,6 +4,7 @@ import { Info, ChartBar, Radar, ChevronDown } from 'lucide-react';
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import PsychographicRadar from "../PsychographicRadar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { 
   Carousel,
   CarouselContent,
@@ -106,6 +107,7 @@ export const PsychographicsTab: FC = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
+  const isMobile = useIsMobile();
 
   const selectedGroupData = getGroupData('big5');
 
@@ -145,8 +147,10 @@ export const PsychographicsTab: FC = () => {
                 </div>
               </div>
               
-              <div className="relative">
-                <PsychographicRadar data={selectedGroupData} />
+              <div className="relative flex justify-center items-center">
+                <div className={isMobile ? "w-[90%] mx-auto" : "w-full"}>
+                  <PsychographicRadar data={selectedGroupData} />
+                </div>
               </div>
             </div>
           </CarouselItem>
