@@ -13,6 +13,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { useIsMobile } from "../hooks/use-mobile";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -76,13 +77,13 @@ const Index = () => {
             Explore Your Global Audience
           </h2>
           <p className="text-gray-400 max-w-md mb-5 md:mb-6 leading-relaxed text-xs md:text-sm">
-            Discover insights about your audience's demographics, psychographics, and behaviors.
+            Discover insights about your audience.
           </p>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
             <input
               type="text"
-              placeholder="Search audiences..."
+              placeholder="Search..."
               className="w-full px-4 py-2.5 pl-9 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -134,6 +135,66 @@ const Index = () => {
     }
   };
 
+  const renderMobileTabs = () => (
+    <Tabs 
+      defaultValue="WHO_DEMO" 
+      value={activeTab}
+      onValueChange={setActiveTab}
+      className="w-full"
+    >
+      <TabsList className="flex flex-col w-full bg-gray-800 rounded-lg mb-4 p-1 space-y-1">
+        {tabs.map((tab) => (
+          <TabsTrigger 
+            key={tab.id} 
+            value={tab.id}
+            className="py-2 px-4 w-full text-xs font-medium data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-none data-[state=active]:border-l-2 data-[state=active]:border-blue-600"
+          >
+            <div className="flex flex-col items-start">
+              <span>{tab.label}</span>
+              {tab.subLabel && (
+                <span className="text-[9px] text-gray-400">
+                  {tab.subLabel}
+                </span>
+              )}
+            </div>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
+  );
+
+  const renderDesktopTabs = () => (
+    <div className="overflow-x-auto -mx-3 md:-mx-0 px-3 md:px-0">
+      <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
+        {tabs.map((tab, index) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`flex-1 py-3 md:py-4 text-[10px] md:text-xs font-medium transition-colors relative ${
+              activeTab === tab.id
+                ? "text-white bg-gray-900"
+                : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
+            } ${index === 0 ? "rounded-tl-lg" : ""} ${
+              index === tabs.length - 1 ? "rounded-tr-lg" : ""
+            }`}
+          >
+            <div className="flex flex-col items-center">
+              <span>{tab.label}</span>
+              {tab.subLabel && (
+                <span className="text-[9px] md:text-[10px] text-gray-400 mt-0.5">
+                  {tab.subLabel}
+                </span>
+              )}
+            </div>
+            {activeTab === tab.id && (
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
+            )}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
@@ -144,15 +205,17 @@ const Index = () => {
           {showResults && (
             <div className="mb-4 md:mb-8 mt-8 md:mt-0">
               <div className="flex flex-col md:flex-row gap-3 md:gap-0 items-start md:items-center">
-                <input
-                  type="text"
-                  placeholder="Explore your audience..."
-                  className="w-full md:w-[calc(100%-260px)] px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                />
-                <Search className="absolute left-3 top-2.5 text-gray-500 w-4 h-4" />
+                <div className="relative w-full md:w-[calc(100%-260px)]">
+                  <input
+                    type="text"
+                    placeholder="Explore your audience..."
+                    className="w-full px-4 py-2 pl-10 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  />
+                  <Search className="absolute left-3 top-2.5 text-gray-500 w-4 h-4" />
+                </div>
                 
                 <div className="flex items-center space-x-2 w-full md:w-auto md:ml-3">
                   <button 
@@ -189,40 +252,12 @@ const Index = () => {
             {/* Tabs and Content Container */}
             {showResults ? (
               <div className="transition-all duration-300 opacity-100">
-                {/* Tabs */}
-                <div className="overflow-x-auto -mx-3 md:-mx-0 px-3 md:px-0">
-                  <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
-                    {tabs.map((tab, index) => (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`flex-1 py-3 md:py-4 text-[10px] md:text-xs font-medium transition-colors relative ${
-                          activeTab === tab.id
-                            ? "text-white bg-gray-900"
-                            : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
-                        } ${index === 0 ? "rounded-tl-lg" : ""} ${
-                          index === tabs.length - 1 ? "rounded-tr-lg" : ""
-                        }`}
-                      >
-                        <div className="flex flex-col items-center">
-                          <span>{tab.label}</span>
-                          {tab.subLabel && (
-                            <span className="text-[9px] md:text-[10px] text-gray-400 mt-0.5">
-                              {tab.subLabel}
-                            </span>
-                          )}
-                        </div>
-                        {activeTab === tab.id && (
-                          <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                {/* Mobile or Desktop Tabs based on screen size */}
+                {isMobile ? renderMobileTabs() : renderDesktopTabs()}
 
                 {/* Content Area */}
-                <div className="bg-gray-900 rounded-b-lg p-3 md:p-6 overflow-x-auto">
-                  <div className="min-w-[600px]">
+                <div className={`bg-gray-900 ${isMobile ? 'rounded-lg' : 'rounded-b-lg'} p-3 md:p-6 overflow-x-auto`}>
+                  <div className={isMobile ? "" : "min-w-[600px]"}>
                     {renderContent()}
                   </div>
                 </div>
