@@ -1,9 +1,10 @@
 
 import MainSidebar from "@/components/MainSidebar";
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, MapPin, Search, MessageSquare } from "lucide-react";
+import { Users, MapPin, Search, MessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 interface AudienceEntry {
   id: number;
@@ -73,6 +74,21 @@ const SavedAudiences = () => {
       
       <div className="main-container transition-all duration-300 md:ml-[208px] md:collapsed:ml-16">
         <div className="flex flex-col h-full">
+          {/* Respondent Count Badge */}
+          <div className="flex justify-center mb-4">
+            <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2">
+              <span className="mr-1">450 out of 10000 respondents</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
+                onClick={() => navigate('/')}
+              >
+                <X className="h-3 w-3 text-gray-400" />
+              </Button>
+            </Badge>
+          </div>
+          
           <Card className="bg-gray-800/50 border-gray-700 flex-1">
             <CardContent className="p-3">
               <div className="divide-y divide-gray-700">

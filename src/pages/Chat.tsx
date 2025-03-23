@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { SendHorizontal, User2, Info } from "lucide-react";
+import { SendHorizontal, User2, Info, X } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -8,6 +8,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useNavigate } from "react-router-dom";
 
 interface Message {
   id: string;
@@ -26,6 +28,8 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
+  const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   const handleSendMessage = (content: string = inputValue) => {
     if (!content.trim()) return;
@@ -112,14 +116,22 @@ const Chat = () => {
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
         {/* Respondent Count Badge */}
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
-          <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700">
-            450 out of 10000 respondents
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex items-center">
+          <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2">
+            <span className="mr-1">450 out of 10000 respondents</span>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
+              onClick={() => navigate('/saved-audiences')}
+            >
+              <X className="h-3 w-3 text-gray-400" />
+            </Button>
           </Badge>
         </div>
 
         {/* Chat Messages */}
-        <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''}`}>
+        <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''} ${isMobile ? 'mt-10' : ''}`}>
           <div className="space-y-3 p-4">
             {messages.map((message) => (
               <div
@@ -129,11 +141,11 @@ const Chat = () => {
                 }`}
               >
                 <div
-                  className={`flex items-start gap-2 max-w-[80%] ${
+                  className={`flex items-start gap-2 max-w-[90%] md:max-w-[80%] ${
                     message.sender === "user" ? "flex-row-reverse" : ""
                   }`}
                 >
-                  <Avatar className="h-7 w-7">
+                  <Avatar className="h-7 w-7 shrink-0">
                     {message.sender === "user" ? (
                       <User2 className="h-4 w-4 text-gray-400" />
                     ) : (
@@ -157,8 +169,8 @@ const Chat = () => {
         </ScrollArea>
 
         {/* Input Area with Preset Questions */}
-        <div className={`border-t border-gray-800 p-4 ${messages.length === 0 ? 'flex-1' : ''} flex items-center justify-center`}>
-          <div className="max-w-2xl w-full mx-auto space-y-4">
+        <div className={`border-t border-gray-800 p-3 md:p-4 ${messages.length === 0 ? 'flex-1' : ''} flex items-center justify-center`}>
+          <div className="max-w-2xl w-full mx-auto space-y-3 md:space-y-4">
             {/* Text Input */}
             <div className="relative">
               <Textarea
@@ -171,24 +183,24 @@ const Chat = () => {
                   }
                 }}
                 placeholder="Ask about your audience..."
-                className="bg-gray-900 text-white rounded-lg border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 min-h-[120px] resize-none pr-24"
+                className="bg-gray-900 text-white rounded-lg border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 min-h-[80px] md:min-h-[120px] resize-none pr-16 md:pr-24"
               />
               <Button
                 onClick={() => handleSendMessage()}
-                className="absolute bottom-3 right-3 bg-blue-600 hover:bg-blue-700 text-white"
+                className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-blue-600 hover:bg-blue-700 text-white scale-90 md:scale-100"
               >
-                <SendHorizontal className="h-4 w-4 mr-2" />
-                <span>Send</span>
+                <SendHorizontal className="h-4 w-4 mr-1 md:mr-2" />
+                <span className={isMobile ? "sr-only" : ""}>Send</span>
               </Button>
             </div>
 
             {/* Preset Questions */}
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center">
               {PRESET_QUESTIONS.map((question, index) => (
                 <Button
                   key={index}
                   variant="outline"
-                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[10px] md:text-xs py-1 h-auto"
                   onClick={() => handleSendMessage(question)}
                 >
                   {question}
