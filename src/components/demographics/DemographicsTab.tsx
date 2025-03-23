@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -401,7 +402,7 @@ export const DemographicsTab: FC = () => {
                   outerRadius={70}
                   paddingAngle={2}
                   dataKey="value"
-                  labelLine={true}
+                  labelLine={false}  // Remove label lines
                   label={renderCustomizedLabel}
                 >
                   {ancestryData.map((entry, index) => (
