@@ -9,16 +9,32 @@ export function useIsMobile() {
   )
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    const checkMobile = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < MOBILE_BREAKPOINT);
+    }
     
     // Initial check
     checkMobile()
     
-    // Set up event listener for resize
-    window.addEventListener("resize", checkMobile)
+    // Set up event listener for resize with debounce for performance
+    let timeoutId: number | null = null;
+    const handleResize = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = window.setTimeout(checkMobile, 100);
+    };
+    
+    window.addEventListener("resize", handleResize);
     
     // Clean up
-    return () => window.removeEventListener("resize", checkMobile)
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
   }, [])
 
   return isMobile

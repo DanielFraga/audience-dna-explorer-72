@@ -96,9 +96,9 @@ export const DemographicsTab: FC = () => {
         </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-1">
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
+          <h3 className="text-xs font-bold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[220px] w-full">
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
@@ -106,30 +106,23 @@ export const DemographicsTab: FC = () => {
           >
             <BarChart 
               data={ageData}
-              margin={isMobile ? 
-                { top: 10, right: 10, left: 0, bottom: 5 } : 
-                { top: 5, right: 20, left: 5, bottom: 25 }}
-              layout={isMobile ? "vertical" : "horizontal"}
+              margin={{ top: 15, right: 10, left: 5, bottom: 25 }}
+              barCategoryGap={1}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis 
-                dataKey={isMobile ? "value" : "name"}
-                type={isMobile ? "number" : "category"}
+                dataKey="name"
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: 9, fill: '#D1D5DB' }}
-                tickFormatter={isMobile ? (value) => `${value}%` : undefined}
-                domain={isMobile ? [0, 40] : undefined}
+                tick={{ fontSize: isMobile ? 9 : 11, fill: '#D1D5DB' }}
               />
               <YAxis 
-                dataKey={isMobile ? "name" : "value"}
-                type={isMobile ? "category" : "number"}
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={!isMobile ? (value) => `${value}%` : undefined}
-                domain={!isMobile ? [0, 40] : undefined}
-                tick={{ fontSize: 9, fill: '#9CA3AF' }}
-                width={isMobile ? 50 : 30}
+                tickFormatter={(value) => `${value}%`}
+                domain={[0, 40]}
+                tick={{ fontSize: isMobile ? 9 : 11, fill: '#9CA3AF' }}
+                width={30}
               />
               <ChartTooltip
                 content={({ active, payload }) => {
@@ -149,9 +142,9 @@ export const DemographicsTab: FC = () => {
                 ))}
                 <LabelList 
                   dataKey="value" 
-                  position={isMobile ? "right" : "top"} 
+                  position="top" 
                   formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: 9, fontWeight: 500 }}
+                  style={{ fill: 'white', fontSize: isMobile ? 9 : 12, fontWeight: 600 }}
                 />
               </Bar>
             </BarChart>
@@ -190,9 +183,7 @@ export const DemographicsTab: FC = () => {
                 dataKey="value"
                 labelLine={false}
                 label={({ name, value, cx, x, y }) => {
-                  // Don't render label for very small segments (like "Other: 1%")
                   if (value < 5) return null;
-                  
                   return (
                     <text 
                       x={x} 
@@ -240,9 +231,9 @@ export const DemographicsTab: FC = () => {
         </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-1">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
+          <h3 className="text-xs font-bold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[220px] w-full">
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
@@ -250,33 +241,26 @@ export const DemographicsTab: FC = () => {
           >
             <BarChart 
               data={locationData}
-              margin={isMobile ? 
-                { top: 10, right: 10, left: 0, bottom: 5 } : 
-                { top: 5, right: 20, left: 5, bottom: 30 }}
-              layout={isMobile ? "vertical" : "horizontal"}
+              margin={{ top: 15, right: 10, left: 5, bottom: 25 }}
+              barGap={4}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis 
-                dataKey={isMobile ? "value" : "name"}
-                type={isMobile ? "number" : "category"}
+                dataKey="name"
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: 9, fill: '#D1D5DB' }}
-                angle={!isMobile ? -25 : 0}
-                textAnchor={!isMobile ? "end" : "middle"}
-                height={!isMobile ? 60 : 30}
-                tickFormatter={isMobile ? (value) => `${value}%` : undefined}
-                domain={isMobile ? [0, 50] : undefined}
+                tick={{ fontSize: isMobile ? 8 : 10, fill: '#D1D5DB' }}
+                angle={-25}
+                textAnchor="end"
+                height={60}
               />
               <YAxis 
-                dataKey={isMobile ? "name" : "value"}
-                type={isMobile ? "category" : "number"}
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={!isMobile ? (value) => `${value}%` : undefined}
-                domain={!isMobile ? [0, 50] : undefined}
-                tick={{ fontSize: 9, fill: '#9CA3AF' }}
-                width={isMobile ? 80 : 30}
+                tickFormatter={(value) => `${value}%`}
+                domain={[0, 50]}
+                tick={{ fontSize: isMobile ? 9 : 11, fill: '#9CA3AF' }}
+                width={30}
               />
               <ChartTooltip
                 content={({ active, payload }) => {
@@ -296,9 +280,9 @@ export const DemographicsTab: FC = () => {
                 ))}
                 <LabelList 
                   dataKey="value" 
-                  position={isMobile ? "right" : "top"} 
+                  position="top" 
                   formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: 9, fontWeight: 500 }}
+                  style={{ fill: 'white', fontSize: isMobile ? 9 : 12, fontWeight: 600 }}
                 />
               </Bar>
             </BarChart>
@@ -318,9 +302,9 @@ export const DemographicsTab: FC = () => {
         </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-1">
           <DollarSign className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
+          <h3 className="text-xs font-bold text-white">Income Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[220px] w-full">
           <ChartContainer 
             config={{
               incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
@@ -328,30 +312,23 @@ export const DemographicsTab: FC = () => {
           >
             <BarChart 
               data={incomeData}
-              margin={isMobile ? 
-                { top: 10, right: 10, left: 0, bottom: 5 } : 
-                { top: 5, right: 20, left: 5, bottom: 25 }}
-              layout={isMobile ? "vertical" : "horizontal"}
+              margin={{ top: 15, right: 10, left: 5, bottom: 25 }}
+              barCategoryGap={1}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis 
-                dataKey={isMobile ? "value" : "name"}
-                type={isMobile ? "number" : "category"}
+                dataKey="name"
                 axisLine={false} 
                 tickLine={false}
-                tick={{ fontSize: 9, fill: '#D1D5DB' }}
-                tickFormatter={isMobile ? (value) => `${value}%` : undefined}
-                domain={isMobile ? [0, 50] : undefined}
+                tick={{ fontSize: isMobile ? 9 : 11, fill: '#D1D5DB' }}
               />
               <YAxis 
-                dataKey={isMobile ? "name" : "value"}
-                type={isMobile ? "category" : "number"}
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={!isMobile ? (value) => `${value}%` : undefined}
-                domain={!isMobile ? [0, 50] : undefined}
-                tick={{ fontSize: 9, fill: '#9CA3AF' }}
-                width={isMobile ? 50 : 30}
+                tickFormatter={(value) => `${value}%`}
+                domain={[0, 50]}
+                tick={{ fontSize: isMobile ? 9 : 11, fill: '#9CA3AF' }}
+                width={30}
               />
               <ChartTooltip
                 content={({ active, payload }) => {
@@ -371,9 +348,9 @@ export const DemographicsTab: FC = () => {
                 ))}
                 <LabelList 
                   dataKey="value" 
-                  position={isMobile ? "right" : "top"} 
+                  position="top" 
                   formatter={(value: number) => `${value}%`}
-                  style={{ fill: 'white', fontSize: 9, fontWeight: 500 }}
+                  style={{ fill: 'white', fontSize: isMobile ? 9 : 12, fontWeight: 600 }}
                 />
               </Bar>
             </BarChart>
@@ -410,7 +387,7 @@ export const DemographicsTab: FC = () => {
                 outerRadius={isMobile ? 55 : 70}
                 paddingAngle={2}
                 dataKey="value"
-                labelLine={false}  // Remove label lines
+                labelLine={false}
                 label={isMobile ? null : renderCustomizedLabel}
               >
                 {ancestryData.map((entry, index) => (
@@ -453,4 +430,3 @@ export const DemographicsTab: FC = () => {
     </div>
   );
 };
-
