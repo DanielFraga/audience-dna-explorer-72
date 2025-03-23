@@ -1,11 +1,9 @@
-
 import { useState, useEffect, useRef } from "react";
-import { Search, Download, Users, Globe, Sparkles, BarChart3, MessageSquare, ClipboardList } from "lucide-react";
+import { Search, Download, Sparkles, Globe, Users } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
 import MainSidebar from "../components/MainSidebar";
-import { tabs } from "../constants/tabs";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
 import { SurveyTab } from "../components/survey/SurveyTab";
@@ -17,7 +15,7 @@ import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Badge } from "../components/ui/badge";
 import { X } from "lucide-react";
-import { Tabs, TabsList, TabsContent, IconTabsTrigger } from "../components/ui/tabs";
+import IconTabs from "../components/IconTabs";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -139,40 +137,15 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return (
-        <div className="space-y-8 pb-10">
-          <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
-            <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
-              <h2 className="text-sm md:text-base font-semibold text-white">{tabs[0].sectionTitle}</h2>
-              <p className="text-gray-400 text-[10px] md:text-xs">Detailed breakdown of audience demographics</p>
-            </div>
-            <div className="p-3 md:p-6">
-              <DemographicsTab />
-            </div>
-          </div>
-          
-          <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
-            <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
-              <h2 className="text-sm md:text-base font-semibold text-white">{tabs[1].sectionTitle}</h2>
-              <p className="text-gray-400 text-[10px] md:text-xs">Detailed psychographic profile of your audience</p>
-            </div>
-            <div className="p-3 md:p-6">
-              <PsychographicsTab />
-            </div>
-          </div>
+        <div className="space-y-8 pb-10 max-w-3xl mx-auto">
+          <DemographicsTab />
+          <PsychographicsTab />
         </div>
       );
     } else if (activeView === "responses") {
       return (
-        <div className="space-y-8 pb-10">
-          <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
-            <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
-              <h2 className="text-sm md:text-base font-semibold text-white">{tabs[2].sectionTitle}</h2>
-              <p className="text-gray-400 text-[10px] md:text-xs">Survey responses and audience insights</p>
-            </div>
-            <div className="p-3 md:p-6">
-              <SurveyTab />
-            </div>
-          </div>
+        <div className="space-y-8 pb-10 max-w-3xl mx-auto">
+          <SurveyTab />
         </div>
       );
     }
@@ -194,12 +167,11 @@ const Index = () => {
                   <input
                     type="text"
                     placeholder="Explore audience..."
-                    className="w-full px-4 py-2 pl-9 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   />
-                  <Search className="absolute left-3 top-2.5 text-gray-500 w-3.5 h-3.5" />
                 </div>
                 
                 <Tooltip>
@@ -207,10 +179,11 @@ const Index = () => {
                     <Button 
                       size="icon" 
                       variant="ghost" 
-                      className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                      className="w-8 h-8 rounded-full overflow-hidden relative p-0"
                       onClick={handleSearch}
                     >
-                      <Search className="w-4 h-4 text-gray-300" />
+                      <div className="absolute inset-0 gradient-glow opacity-70"></div>
+                      <Search className="w-4 h-4 text-white relative z-10" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -235,7 +208,7 @@ const Index = () => {
               </div>
               
               <div className="px-3 pb-3 md:px-6 md:pb-3" ref={resultsRef}>
-                <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
+                <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
                   <span className="mr-1">450 out of 10000 respondents</span>
                   <Button 
                     variant="ghost" 
@@ -251,42 +224,7 @@ const Index = () => {
                 </Badge>
                 
                 <div className="mt-3">
-                  <Tabs defaultValue="stats" value={activeView} onValueChange={handleTabChange} className="w-full">
-                    <TabsList className="w-full flex justify-center bg-gray-900 border border-gray-800 p-1 rounded-lg">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <IconTabsTrigger value="stats" className="bg-gray-900 text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400">
-                            <BarChart3 className="h-4 w-4" />
-                          </IconTabsTrigger>
-                        </TooltipTrigger>
-                        <TooltipContent side="bottom" className="text-xs">
-                          <p>Stats</p>
-                        </TooltipContent>
-                      </Tooltip>
-                      
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <IconTabsTrigger value="responses" className="bg-gray-900 text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400">
-                            <ClipboardList className="h-4 w-4" />
-                          </IconTabsTrigger>
-                        </TooltipTrigger>
-                        <TooltipContent side="bottom" className="text-xs">
-                          <p>Responses</p>
-                        </TooltipContent>
-                      </Tooltip>
-                      
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <IconTabsTrigger value="chat" className="bg-gray-900 text-gray-400 data-[state=active]:bg-gray-800 data-[state=active]:text-blue-400">
-                            <MessageSquare className="h-4 w-4" />
-                          </IconTabsTrigger>
-                        </TooltipTrigger>
-                        <TooltipContent side="bottom" className="text-xs">
-                          <p>Chat</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TabsList>
-                  </Tabs>
+                  <IconTabs currentTab={activeView as "stats" | "responses" | "chat"} />
                 </div>
               </div>
             </div>

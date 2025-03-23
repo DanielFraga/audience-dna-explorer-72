@@ -23,7 +23,7 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
             value="responses" 
             onClick={() => navigate("/survey-audience")}
             aria-label="Survey Responses"
-            className="mx-4"
+            className="mx-6"
           >
             <ClipboardList className="h-4 w-4" />
           </IconTabsTrigger>
