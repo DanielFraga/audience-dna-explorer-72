@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Sparkles, Globe, Users } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -32,13 +31,9 @@ const Index = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    // Ensure search persists when toggling between views
     if (location.state?.preserveSearch) {
-      // If we're preserving search, don't reset anything, just replace the state to avoid loops
       navigate('/', { replace: true, state: {} });
       
-      // If we don't have search results showing but preserveSearch is true,
-      // and we have a searchTerm, then we should show results
       if (!showResults && searchTerm) {
         setShowResults(true);
       }
@@ -82,12 +77,12 @@ const Index = () => {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
               <Sparkles className="w-12 h-12 md:w-14 md:h-14 text-white" />
             </div>
-            <div className="absolute -right-4 md:-right-5 -top-4 md:-top-5">
+            <div className="absolute -right-4 md:-right-5 -top-4 md:-top-5 animate-float-slow">
               <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
             </div>
-            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4">
+            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4 animate-float-slower">
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                 <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
