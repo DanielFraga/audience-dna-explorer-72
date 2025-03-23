@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import IconTabs from "@/components/IconTabs";
-import RightSideMenu from "./RightSideMenu";
 
 interface AppHeaderProps {
   searchTerm?: string;
@@ -50,7 +49,7 @@ const AppHeader = ({
               </Button>
               <h2 className="text-2xl font-grotesk font-semibold text-white pb-0.5 translate-y-[2px]">"{ searchTerm }"</h2>
             </div>
-            <RightSideMenu />
+            <div className="w-10"></div> {/* Empty space for balance */}
           </div>
         </div>
         

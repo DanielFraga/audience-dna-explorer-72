@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Search, MessageSquare, Info, Settings } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
 import { AudienceSection } from './sidebar/AudienceSection';
@@ -13,6 +13,7 @@ const MainSidebar = () => {
   const isMobile = useIsMobile();
   const [selectedAudience, setSelectedAudience] = useState("holiday");
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isMobile) {
@@ -31,6 +32,13 @@ const MainSidebar = () => {
       setIsOpen(true);
     }
   }, [isMobile]);
+
+  const handleNavigation = (path: string) => {
+    navigate(path, { state: { preserveSearch: true } });
+    if (isMobile) {
+      setIsOpen(false);
+    }
+  };
 
   const menuItems: MenuItem[] = [
     {
@@ -117,13 +125,12 @@ const MainSidebar = () => {
           )}
 
           <div className="mt-auto pt-4">
-            <Link
-              to="/settings"
-              className={`flex items-center px-3 py-2 rounded-lg transition-colors text-[11px]
+            <button
+              onClick={() => handleNavigation('/settings')}
+              className={`flex items-center px-3 py-2 rounded-lg transition-colors text-[11px] w-full
                 hover:bg-gray-800/50 ${location.pathname === '/settings' 
                   ? 'bg-blue-600/20 text-blue-400' 
                   : 'bg-gray-800/50 text-gray-300'}`}
-              onClick={() => isMobile && setIsOpen(false)}
               title={!isOpen && !isMobile ? "Settings" : undefined}
             >
               <div className="flex items-center justify-center w-full">
@@ -132,7 +139,7 @@ const MainSidebar = () => {
                   <span className="ml-2.5">Settings</span>
                 )}
               </div>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
