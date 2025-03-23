@@ -20,7 +20,9 @@ export const DemographicsTab: FC = () => {
   const getBarGap = () => isMobile ? 1 : 4;
   const getAxisTitleSize = () => width < 375 ? 7 : 8;
   const getChartHeight = () => width < 375 ? 180 : 220;
-  const getBarRadius = () => [4, 4, 0, 0];
+  
+  // Fix: Return a properly typed radius value for Bar components
+  const getBarRadius = (): [number, number, number, number] => [4, 4, 0, 0];
   
   // Age Distribution Data
   const ageData = [

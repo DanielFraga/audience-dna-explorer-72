@@ -10,7 +10,8 @@ import { Button } from './ui/button';
 
 const MainSidebar = ({ isOpen = false, onToggle }: { isOpen?: boolean, onToggle?: () => void }) => {
   const [sidebarOpen, setSidebarOpen] = useState(isOpen);
-  const isMobile = useIsMobile();
+  const mobileInfo = useIsMobile();
+  const isMobile = mobileInfo.isMobile;
   const location = useLocation();
   const navigate = useNavigate();
 
