@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { SendHorizontal, User2, X } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
@@ -114,8 +113,8 @@ const Chat = () => {
             {isMobile && <div className="w-10"></div>}
           </div>
           
-          <div className="px-3 pb-2 md:px-4 md:pb-2">
-            <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
+          <div className="px-3 pb-2 md:px-4 md:pb-2 flex flex-wrap items-center gap-2">
+            <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between px-3 py-1.5">
               <span className="mr-1">450 out of 10000 respondents</span>
               <Button 
                 variant="ghost" 
@@ -127,7 +126,11 @@ const Chat = () => {
               </Button>
             </Badge>
             
-            <div className="mt-2">
+            <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 px-3 py-1.5">
+              <span>holiday</span>
+            </Badge>
+            
+            <div className="w-full mt-2">
               <IconTabs currentTab="chat" />
             </div>
           </div>

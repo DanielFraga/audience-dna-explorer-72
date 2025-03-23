@@ -1,6 +1,5 @@
-
 import { useState, useEffect, useRef } from "react";
-import { Search, Download, Sparkles, Globe, Users } from "lucide-react";
+import { X } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,9 +12,7 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { useIsMobile } from "../hooks/use-mobile";
 import { ScrollArea } from "../components/ui/scroll-area";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Badge } from "../components/ui/badge";
-import { X } from "lucide-react";
 import IconTabs from "../components/IconTabs";
 
 const Index = () => {
@@ -165,54 +162,12 @@ const Index = () => {
         <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in ${isMobile ? '' : ''}`}>
           {showResults && (
             <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in">
-              <div className="flex items-center gap-2 p-3 md:p-6">
+              <div className="flex items-center gap-2 p-3 md:p-4">
                 {isMobile && <div className="w-10"></div>}
-                <div className="relative flex-1">
-                  <input
-                    type="text"
-                    placeholder="Explore audience..."
-                    className="w-full px-4 py-2 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  />
-                </div>
-                
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
-                      className="w-8 h-8 rounded-full overflow-hidden relative p-0"
-                      onClick={handleSearch}
-                    >
-                      <div className="absolute inset-0 gradient-glow opacity-70"></div>
-                      <Search className="w-4 h-4 text-white relative z-10" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-xs">Search</p>
-                  </TooltipContent>
-                </Tooltip>
-                
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
-                      className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
-                    >
-                      <Download className="w-4 h-4 text-gray-300" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-xs">Export</p>
-                  </TooltipContent>
-                </Tooltip>
               </div>
               
-              <div className="px-3 pb-3 md:px-6 md:pb-3" ref={resultsRef}>
-                <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
+              <div className="px-3 pb-3 md:px-6 md:pb-3 flex flex-wrap items-center gap-2" ref={resultsRef}>
+                <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between px-3 py-1.5">
                   <span className="mr-1">450 out of 10000 respondents</span>
                   <Button 
                     variant="ghost" 
@@ -227,7 +182,11 @@ const Index = () => {
                   </Button>
                 </Badge>
                 
-                <div className="mt-3">
+                <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 px-3 py-1.5">
+                  <span>holiday</span>
+                </Badge>
+                
+                <div className="w-full mt-3">
                   <IconTabs currentTab={activeView as "stats" | "responses" | "chat"} />
                 </div>
               </div>
