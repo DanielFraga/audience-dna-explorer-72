@@ -87,12 +87,14 @@ const Index = () => {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
               <Sparkles className="w-12 h-12 md:w-14 md:h-14 text-white" />
             </div>
-            <div className="absolute -right-4 md:-right-5 -top-4 md:-top-5 animate-float-slow">
+            
+            <div className="absolute -right-4 md:-right-5 -top-4 md:-top-5 animate-orbit">
               <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
             </div>
-            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4 animate-float-slower">
+            
+            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4 animate-orbit-reverse">
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                 <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
@@ -100,9 +102,12 @@ const Index = () => {
           </div>
           
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-6 md:mb-8">
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">
             Discover insights about your audience
           </h2>
+          <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">
+            Enter a search term below to begin exploring insights about your audience
+          </p>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
             <input
