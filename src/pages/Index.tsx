@@ -1,5 +1,6 @@
+
 import { useState, useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { X, Sparkles, Users, Globe } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
