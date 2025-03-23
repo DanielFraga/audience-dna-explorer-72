@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -45,12 +44,12 @@ export const DemographicsTab: FC = () => {
     { name: '>120k', value: 12 },
   ];
 
-  // Ancestry Distribution Data - New data with warm colors
+  // Updated Ancestry Distribution Data with new categories
   const ancestryData = [
-    { name: 'Western European', value: 30, fill: '#F97316' }, // Bright Orange
+    { name: 'European', value: 30, fill: '#F97316' }, // Bright Orange
     { name: 'East Asian', value: 25, fill: '#FEF7CD' }, // Soft Yellow
-    { name: 'Sub-Saharan African', value: 20, fill: '#FB923C' }, // Amber
-    { name: 'Indigenous & Diverse', value: 25, fill: '#FEC6A1' }, // Soft Orange
+    { name: 'African', value: 20, fill: '#FB923C' }, // Amber
+    { name: 'Hispanic', value: 25, fill: '#FEC6A1' }, // Soft Orange
   ];
 
   // Color ranges for charts
@@ -372,10 +371,10 @@ export const DemographicsTab: FC = () => {
         </div>
       </div>
 
-      {/* Ancestry Distribution Card - New donut chart */}
+      {/* Ancestry Distribution Card - Donut chart */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
-          content={`Ancestry data shows ${searchTerm} has diverse appeal across different ethnic backgrounds, with Western European ancestry representing the largest group (30%).`}
+          content={`Ancestry data shows ${searchTerm} has diverse appeal across different ethnic backgrounds, with European ancestry representing the largest group (30%).`}
           searchTerm={searchTerm}
         >
           <button className="absolute top-2 right-2">
