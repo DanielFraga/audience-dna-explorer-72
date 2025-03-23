@@ -1,3 +1,4 @@
+
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -122,10 +123,10 @@ export const PsychographicsTab: FC = () => {
   return (
     <div className="space-y-6 animate-slide-up">
       <Carousel className="w-full relative">
-        <CarouselContent>
+        <CarouselContent className="h-full">
           {/* Cobweb Graph Card - First slide */}
-          <CarouselItem>
-            <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+          <CarouselItem className="flex items-center justify-center">
+            <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
@@ -176,8 +177,8 @@ export const PsychographicsTab: FC = () => {
           </CarouselItem>
           
           {/* Stats Card - Second slide */}
-          <CarouselItem>
-            <div ref={statsRef} className="h-full">
+          <CarouselItem className="flex items-center justify-center">
+            <div ref={statsRef} className="h-full w-full">
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
                 <Tooltip>
                   <TooltipTrigger asChild>
