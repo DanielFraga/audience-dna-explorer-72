@@ -329,8 +329,8 @@ export const SurveyTab: FC = () => {
         ))}
       </div>
 
-      {/* Survey Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      {/* Survey Cards - Changed from grid to flex column */}
+      <div className="flex flex-col space-y-3">
         {surveyData.map((item, index) => (
           <div 
             key={index}
