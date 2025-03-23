@@ -1,7 +1,5 @@
-
 import { FC, useState, useRef } from 'react';
-import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info, ChartBar, Radar, ChevronDown } from 'lucide-react';
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import PsychographicRadar from "../PsychographicRadar";
@@ -185,69 +183,58 @@ export const PsychographicsTab: FC = () => {
                 </div>
 
                 <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
-                  <div className="border border-gray-800 rounded-md overflow-hidden">
-                    <button 
-                      className="w-full flex items-center justify-between p-2 bg-gray-700 text-white"
-                    >
-                      <span className="font-medium text-white">
-                        BIG 5
-                      </span>
-                      <ChevronDown className="w-4 h-4 text-gray-400" />
-                    </button>
-                    
-                    <div className="space-y-1 p-1.5">
-                      {psychographicData.map((point) => (
-                        <Collapsible key={point.subject}>
-                          <CollapsibleTrigger className="w-full">
-                            <div 
-                              ref={el => itemRefs.current[point.subject] = el}
-                              className={`flex justify-between items-center transition-colors duration-150 rounded px-2 py-1 cursor-pointer group 
-                                ${activePoint === point.subject ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
-                                ${activePoint === point.subject ? 'border-l-2 border-blue-500' : ''}
-                              `}
-                              onMouseEnter={() => setHoveredPoint(point.subject)}
-                              onMouseLeave={() => setHoveredPoint(null)}
-                              onClick={() => setActivePoint(point.subject)}
-                            >
-                              <div className="flex items-center gap-1.5">
-                                <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0] || 'bg-gray-500'}`} />
-                                <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
-                                  {point.fullName}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
-                                  {point.A}
-                                </span>
-                                <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                  <div className="space-y-1 p-1.5">
+                    {psychographicData.map((point) => (
+                      <Collapsible key={point.subject}>
+                        <CollapsibleTrigger className="w-full">
+                          <div 
+                            ref={el => itemRefs.current[point.subject] = el}
+                            className={`flex justify-between items-center transition-colors duration-150 rounded px-2 py-1 cursor-pointer group 
+                              ${activePoint === point.subject ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
+                              ${activePoint === point.subject ? 'border-l-2 border-blue-500' : ''}
+                            `}
+                            onMouseEnter={() => setHoveredPoint(point.subject)}
+                            onMouseLeave={() => setHoveredPoint(null)}
+                            onClick={() => setActivePoint(point.subject)}
+                          >
+                            <div className="flex items-center gap-1.5">
+                              <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0] || 'bg-gray-500'}`} />
+                              <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
+                                {point.fullName}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
+                                {point.A}
+                              </span>
+                              <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                            </div>
+                          </div>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          {psychographicDescriptions[point.subject] ? (
+                            <div className="px-2 py-2 space-y-1">
+                              <p className="text-gray-300 text-[10px] font-medium leading-relaxed pl-3 border-l border-gray-700 mb-2">
+                                {psychographicDescriptions[point.subject].empirical}
+                              </p>
+                              <div className="space-y-1.5">
+                                {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
+                                  <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
+                                    {desc}
+                                  </p>
+                                ))}
                               </div>
                             </div>
-                          </CollapsibleTrigger>
-                          <CollapsibleContent>
-                            {psychographicDescriptions[point.subject] ? (
-                              <div className="px-2 py-2 space-y-1">
-                                <p className="text-gray-300 text-[10px] font-medium leading-relaxed pl-3 border-l border-gray-700 mb-2">
-                                  {psychographicDescriptions[point.subject].empirical}
-                                </p>
-                                <div className="space-y-1.5">
-                                  {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                                    <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
-                                      {desc}
-                                    </p>
-                                  ))}
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="px-2 py-2">
-                                <p className="text-gray-500 text-[10px] leading-relaxed">
-                                  No detailed information available.
-                                </p>
-                              </div>
-                            )}
-                          </CollapsibleContent>
-                        </Collapsible>
-                      ))}
-                    </div>
+                          ) : (
+                            <div className="px-2 py-2">
+                              <p className="text-gray-500 text-[10px] leading-relaxed">
+                                No detailed information available.
+                              </p>
+                            </div>
+                          )}
+                        </CollapsibleContent>
+                      </Collapsible>
+                    ))}
                   </div>
                 </div>
               </div>
