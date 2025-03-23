@@ -59,22 +59,22 @@
   }
 }
 
-/* Adding animation for orbiting icons */
+/* Improved animation for orbiting icons */
 @keyframes orbit {
   from {
-    transform: rotate(0deg) translateX(34px) rotate(0deg);
+    transform: rotate(0deg) translateX(60px) rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(34px) rotate(-360deg);
+    transform: rotate(360deg) translateX(60px) rotate(-360deg);
   }
 }
 
 @keyframes orbit-reverse {
   from {
-    transform: rotate(0deg) translateX(28px) rotate(0deg);
+    transform: rotate(0deg) translateX(60px) rotate(0deg);
   }
   to {
-    transform: rotate(-360deg) translateX(28px) rotate(360deg);
+    transform: rotate(-360deg) translateX(60px) rotate(360deg);
   }
 }
 

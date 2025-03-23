@@ -82,21 +82,27 @@ const Index = () => {
     if (!showResults) {
       return (
         <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
-          <div className="mb-6 md:mb-8 relative">
-            <div className="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
+          <div className="mb-6 md:mb-8 relative w-40 h-40 flex items-center justify-center">
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden z-10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
-              <Sparkles className="w-12 h-12 md:w-14 md:h-14 text-white" />
+              <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-white" />
             </div>
             
-            <div className="absolute -right-4 md:-right-5 -top-4 md:-top-5 animate-orbit">
+            <div className="animate-orbit">
               <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
             </div>
             
-            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4 animate-orbit-reverse">
+            <div className="animate-orbit-reverse" style={{ animationDelay: "-3s" }}>
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                 <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
+              </div>
+            </div>
+            
+            <div className="animate-orbit" style={{ animationDelay: "-5s" }}>
+              <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                <Search className="w-4 h-4 text-white" />
               </div>
             </div>
           </div>
