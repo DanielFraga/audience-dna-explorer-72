@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { SendHorizontal, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -121,8 +122,7 @@ const Chat = () => {
             {messages.length === 0 && (
               <div className="flex items-center justify-center h-32 md:h-40">
                 <div className="text-center text-gray-500 max-w-xs">
-                  <p className="text-sm mb-2">Ask questions about your audience to get insights</p>
-                  <p className="text-xs">Try one of the suggested questions below to get started</p>
+                  <p className="text-sm mb-2">Ask questions about your audience to get personalized insights</p>
                 </div>
               </div>
             )}
