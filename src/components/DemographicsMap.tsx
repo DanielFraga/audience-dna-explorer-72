@@ -55,16 +55,6 @@ const DemographicsMap = () => {
           </div>
         </div>
       </div>
-
-      {/* Legend */}
-      <div className="absolute bottom-3 left-3 bg-gray-900/80 backdrop-blur-sm px-3 py-2 rounded-md border border-gray-800 shadow-lg">
-        <div className="text-xs text-white font-medium mb-1.5">Population Density</div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-full h-1.5 rounded-full bg-gradient-to-r from-blue-500/30 via-blue-500/70 to-blue-500"></div>
-          <span className="text-[10px] text-gray-300">Low</span>
-          <span className="text-[10px] text-gray-300 ml-auto">High</span>
-        </div>
-      </div>
     </div>
   );
 };
