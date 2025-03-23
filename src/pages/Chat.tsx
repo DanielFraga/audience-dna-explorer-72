@@ -1,18 +1,16 @@
 
 import { useState } from "react";
-import { SendHorizontal, User2, X } from "lucide-react";
+import { SendHorizontal, User2 } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
-import IconTabs from "@/components/IconTabs";
-import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
+import AppHeader from "@/components/AppHeader";
 
 interface Message {
   id: string;
@@ -31,9 +29,15 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("holiday"); // Initialize with current audience
+  const [searchTerm] = useState("holiday"); // Initialize with current audience
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+
+  const handleResetSearch = () => {
+    navigate('/', { 
+      state: { resetSearch: true } 
+    });
+  };
 
   const handleSendMessage = (content: string = inputValue) => {
     if (!content.trim()) return;
@@ -108,30 +112,11 @@ const Chat = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
-        {/* Header section */}
-        <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in border-b border-gray-800/60">
-          <div className="flex items-center gap-2 p-3 md:p-4">
-            {isMobile && <div className="w-10"></div>}
-          </div>
-          
-          <div className="px-3 pb-2 md:px-4 md:pb-2">
-            <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
-              <span className="mr-1">450 out of 10000 respondents</span>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
-                onClick={() => navigate('/')}
-              >
-                <X className="h-3 w-3 text-gray-400" />
-              </Button>
-            </Badge>
-            
-            <div className="mt-2">
-              <IconTabs currentTab="chat" />
-            </div>
-          </div>
-        </div>
+        <AppHeader 
+          searchTerm="holiday"
+          currentTab="chat"
+          onResetSearch={handleResetSearch}
+        />
 
         {/* Messages area */}
         <ScrollArea className="flex-1 px-1 md:px-2">
