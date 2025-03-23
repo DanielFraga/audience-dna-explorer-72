@@ -3,16 +3,15 @@ import React from 'react';
 
 const DemographicsMap = () => {
   return (
-    <div className="h-[460px] relative rounded-lg overflow-hidden">
+    <div className="h-[240px] relative rounded-lg overflow-hidden">
       {/* Map Background */}
       <div className="absolute inset-0">
         {/* Dark world map background with proper containment */}
         <div 
-          className="absolute inset-0 bg-no-repeat"
+          className="absolute inset-0 bg-no-repeat bg-cover"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2600&q=80')",
             filter: "brightness(0.3) saturate(0.6) hue-rotate(200deg)",
-            backgroundSize: "100% 100%", // Force the image to fit exactly within container
             backgroundPosition: "center center"
           }}
         />

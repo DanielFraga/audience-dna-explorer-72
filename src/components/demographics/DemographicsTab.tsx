@@ -177,7 +177,7 @@ export const DemographicsTab: FC = () => {
       </div>
       
       {/* Map Card */}
-      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative h-[280px]">
+      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Geographic heatmap visualizes where ${searchTerm} has the most engagement, with hotspots in Europe and North America.`}
           searchTerm={searchTerm}
