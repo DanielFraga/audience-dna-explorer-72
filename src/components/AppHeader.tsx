@@ -89,7 +89,7 @@ const AppHeader = ({
         </div>
         
         {/* Third frame - navigation tabs */}
-        <div className="h-[50px]">
+        <div className="h-[60px]">
           <div className="h-full flex items-center justify-center">
             <div className="w-full max-w-lg px-4">
               <IconTabs currentTab={currentTab} />
