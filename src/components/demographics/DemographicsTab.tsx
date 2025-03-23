@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -65,7 +66,7 @@ export const DemographicsTab: FC = () => {
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[190px] w-full">
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
@@ -74,7 +75,7 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={ageData}
-                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
+                margin={{ top: 15, right: 25, left: 5, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
@@ -82,6 +83,9 @@ export const DemographicsTab: FC = () => {
                   axisLine={false} 
                   tickLine={false}
                   tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  angle={-35}
+                  textAnchor="end"
+                  height={50}
                 />
                 <YAxis 
                   axisLine={false}
@@ -204,7 +208,7 @@ export const DemographicsTab: FC = () => {
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[180px] w-full">
+        <div className="h-[190px] w-full">
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
@@ -213,7 +217,7 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={locationData}
-                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
+                margin={{ top: 15, right: 5, left: 5, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
@@ -275,7 +279,7 @@ export const DemographicsTab: FC = () => {
           <DollarSign className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
         </div>
-        <div className="h-[130px] w-full">
+        <div className="h-[190px] w-full">
           <ChartContainer 
             config={{
               incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
@@ -284,7 +288,7 @@ export const DemographicsTab: FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={incomeData}
-                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
+                margin={{ top: 15, right: 5, left: 5, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
@@ -292,6 +296,9 @@ export const DemographicsTab: FC = () => {
                   axisLine={false} 
                   tickLine={false}
                   tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  angle={-35}
+                  textAnchor="end"
+                  height={50}
                 />
                 <YAxis 
                   axisLine={false}
