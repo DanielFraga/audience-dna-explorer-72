@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Search, Download, Users, Globe, Sparkles } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -13,19 +13,19 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { useIsMobile } from "../hooks/use-mobile";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
+import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("WHO_DEMO");
   const [showResults, setShowResults] = useState(false);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
   const [dnaDescription, setDnaDescription] = useState("");
   const isMobile = useIsMobile();
+  const resultsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     // Check if we should reset the search when navigating here
@@ -119,82 +119,49 @@ const Index = () => {
         </div>
       );
     }
-
-    switch(activeTab) {
-      case "WHO_DEMO":
-        return <DemographicsTab />;
-      case "WHO_PSYCHO":
-        return <PsychographicsTab />;
-      case "WHAT":
-        return <SurveyTab />;
-      default:
-        return (
-          <div className="p-4 text-center text-gray-500">
-            Content for {activeTab} tab coming soon...
-          </div>
-        );
-    }
+    
+    // If showing results, we'll just render a scrollable container that will later be filled with all sections
+    return null;
   };
 
-  const renderMobileTabs = () => (
-    <Tabs 
-      defaultValue="WHO_DEMO" 
-      value={activeTab}
-      onValueChange={setActiveTab}
-      className="w-full"
-    >
-      <TabsList className="flex flex-col w-full bg-gray-800 rounded-lg mb-4 p-1 space-y-1">
-        {tabs.map((tab) => (
-          <TabsTrigger 
-            key={tab.id} 
-            value={tab.id}
-            className="py-2 px-4 w-full text-xs font-medium data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-none data-[state=active]:border-l-2 data-[state=active]:border-blue-600"
-          >
-            <div className="flex flex-col items-start">
-              <span>{tab.label}</span>
-              {tab.subLabel && (
-                <span className="text-[9px] text-gray-400">
-                  {tab.subLabel}
-                </span>
-              )}
-            </div>
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
-  );
-
-  const renderDesktopTabs = () => (
-    <div className="overflow-x-auto -mx-3 md:-mx-0 px-3 md:px-0">
-      <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
-        {tabs.map((tab, index) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 py-3 md:py-4 text-[10px] md:text-xs font-medium transition-colors relative ${
-              activeTab === tab.id
-                ? "text-white bg-gray-900"
-                : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
-            } ${index === 0 ? "rounded-tl-lg" : ""} ${
-              index === tabs.length - 1 ? "rounded-tr-lg" : ""
-            }`}
-          >
-            <div className="flex flex-col items-center">
-              <span>{tab.label}</span>
-              {tab.subLabel && (
-                <span className="text-[9px] md:text-[10px] text-gray-400 mt-0.5">
-                  {tab.subLabel}
-                </span>
-              )}
-            </div>
-            {activeTab === tab.id && (
-              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
-            )}
-          </button>
-        ))}
+  const renderVerticalFeed = () => {
+    return (
+      <div className="space-y-8 pb-10">
+        {/* Demographics Section */}
+        <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
+          <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
+            <h2 className="text-sm md:text-base font-semibold text-white">{tabs[0].sectionTitle}</h2>
+            <p className="text-gray-400 text-[10px] md:text-xs">Detailed breakdown of audience demographics</p>
+          </div>
+          <div className="p-3 md:p-6">
+            <DemographicsTab />
+          </div>
+        </div>
+        
+        {/* Psychographics Section */}
+        <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
+          <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
+            <h2 className="text-sm md:text-base font-semibold text-white">{tabs[1].sectionTitle}</h2>
+            <p className="text-gray-400 text-[10px] md:text-xs">Detailed psychographic profile of your audience</p>
+          </div>
+          <div className="p-3 md:p-6">
+            <PsychographicsTab />
+          </div>
+        </div>
+        
+        {/* Survey Responses Section */}
+        <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
+          <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
+            <h2 className="text-sm md:text-base font-semibold text-white">{tabs[2].sectionTitle}</h2>
+            <p className="text-gray-400 text-[10px] md:text-xs">Survey responses and audience insights</p>
+          </div>
+          <div className="p-3 md:p-6">
+            <SurveyTab />
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <TooltipProvider>
@@ -203,12 +170,12 @@ const Index = () => {
         
         <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-6 animate-fade-in ${isMobile ? 'mt-16' : ''}`}>
           {/* Top Search Section - Always visible */}
-          <div className="mb-4 md:mb-8 mt-8 md:mt-0">
+          <div className="sticky top-0 z-10 mb-4 md:mb-6 pt-8 md:pt-0 pb-4 bg-gray-950">
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
                 <input
                   type="text"
-                  placeholder="Explore your audience..."
+                  placeholder="Explore audience..."
                   className="w-full px-4 py-2 pl-9 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -250,39 +217,33 @@ const Index = () => {
             </div>
             
             {showResults && (
-              <Button 
-                className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center flex-wrap gap-1.5 shadow-md animate-fade-in"
-              >
-                <span className="whitespace-nowrap">Showing results for <span className="font-semibold">"{searchTerm}"</span></span>
-                <span className="hidden md:inline">•</span>
-                <span className="whitespace-nowrap">
-                  <span className="md:inline">Applicable to</span>
-                  <span className="px-2 py-0.5 bg-blue-700 rounded-full text-blue-100 mx-1">450</span>
-                  <span className="md:inline">respondents</span>
-                </span>
-              </Button>
+              <div className="mt-3 flex items-center" ref={resultsRef}>
+                <Button 
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center flex-wrap gap-1.5 shadow-md animate-fade-in"
+                >
+                  <span className="whitespace-nowrap">Showing results for <span className="font-semibold">"{searchTerm}"</span></span>
+                  <span className="hidden md:inline">•</span>
+                  <span className="whitespace-nowrap">
+                    <span className="md:inline">Applicable to</span>
+                    <span className="px-2 py-0.5 bg-blue-700 rounded-full text-blue-100 mx-1">450</span>
+                    <span className="md:inline">respondents</span>
+                  </span>
+                </Button>
+              </div>
             )}
           </div>
 
           {/* Content Container */}
           <div className={`${!showResults ? "mt-0" : ""}`}>
-            {/* Tabs and Content Container */}
-            {showResults ? (
-              <div className="transition-all duration-300 opacity-100">
-                {/* Mobile or Desktop Tabs based on screen size */}
-                {isMobile ? renderMobileTabs() : renderDesktopTabs()}
-
-                {/* Content Area */}
-                <div className={`bg-gray-900 ${isMobile ? 'rounded-lg' : 'rounded-b-lg'} p-3 md:p-6 overflow-x-auto`}>
-                  <div className={isMobile ? "" : "min-w-[600px]"}>
-                    {renderContent()}
-                  </div>
-                </div>
-              </div>
-            ) : (
+            {/* Render empty state or results feed based on state */}
+            {!showResults ? (
               <div className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-lg min-h-[calc(100vh-8rem)] md:min-h-[500px] flex items-center justify-center border border-gray-800/50 shadow-lg backdrop-blur-sm">
                 {renderContent()}
               </div>
+            ) : (
+              <ScrollArea className="h-[calc(100vh-140px)] pr-4 -mr-4">
+                {renderVerticalFeed()}
+              </ScrollArea>
             )}
           </div>
         </div>
