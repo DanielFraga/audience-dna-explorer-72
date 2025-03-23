@@ -47,41 +47,41 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
   Op: {
     empirical: "72% of respondents with high openness scores show significantly higher engagement with novel experiences and creative content.",
     interpretation: [
-      "According to the Five Factor Model, high openness indicates heightened curiosity and receptivity to new ideas.",
-      "Research by McCrae suggests these individuals prioritize exploration over familiarity, seeking intellectual stimulation.",
-      "From a neuroscience perspective, this trait correlates with increased activity in prefrontal regions associated with cognitive flexibility."
+      "At 80, this is a high value on the 0-100 scale, indicating a strong tendency towards this trait.",
+      "Scores above 75 on the 0-100 scale represent the top quartile for this dimension.",
+      "This score indicates that this trait is a defining characteristic of the audience."
     ]
   },
   Co: {
     empirical: "65% of conscientious respondents demonstrate stronger brand loyalty and 43% higher completion rates for loyalty programs.",
     interpretation: [
-      "The trait-based theory of personality suggests conscientious individuals value order and achievement through deliberate planning.",
-      "Costa & McCrae's research indicates these individuals emphasize reliability and are goal-directed in their approach to tasks.",
-      "From a behavioral perspective, this manifests as preference for predictable systems and resistance to impulsive decision-making."
+      "At 65, this is moderately high on the 0-100 scale, above the midpoint of 50.",
+      "Scores between 60-75 on the 0-100 scale indicate an above-average presence of this trait.",
+      "This score suggests this trait is notable but not dominant in the audience profile."
     ]
   },
   Ex: {
-    empirical: "53% of extraverted users engage with social media advertising at twice the rate of introverted users.",
+    empirical: "Extraversion metrics reveal patterns in social engagement and responsiveness to community-driven features.",
     interpretation: [
-      "Eysenck's theory suggests extraversion stems from lower baseline arousal levels, driving these individuals to seek external stimulation.",
-      "Social psychology research shows extraverts gain energy through interpersonal interaction and social validation.",
-      "Consumer behavior studies indicate these individuals are more receptive to group-based marketing approaches."
+      "At 45, this is slightly below the midpoint on the 0-100 scale.",
+      "Scores between 40-50 on the 0-100 scale indicate a moderate presence of this trait.",
+      "This score suggests a balanced distribution of this trait within the audience."
     ]
   },
   Ag: {
-    empirical: "68% of agreeable respondents prioritize ethical business practices and corporate social responsibility in purchasing decisions.",
+    empirical: "Agreeableness indicators correlate with preferences for collaborative experiences and ethical positioning.",
     interpretation: [
-      "The prosocial theory of agreeableness suggests these individuals place high value on harmonious relationships and social reciprocity.",
-      "Research by Graziano indicates agreeable people emphasize cooperation over competition and are more susceptible to conformity pressures.",
-      "From a consumer perspective, this translates to higher responsiveness to community-oriented and ethical messaging."
+      "At 70, this is relatively high on the 0-100 scale.",
+      "Scores between 65-80 on the 0-100 scale represent a strong presence of this trait.",
+      "This score indicates this trait is a significant characteristic in the audience profile."
     ]
   },
   Ne: {
-    empirical: "34% of respondents with high neuroticism scores show increased susceptibility to scarcity marketing and FOMO-based advertising.",
+    empirical: "Neuroticism measures show correlation with sensitivity to urgency messaging and risk perception.",
     interpretation: [
-      "Gray's Reinforcement Sensitivity Theory suggests neurotic individuals have heightened behavioral inhibition systems, increasing vigilance to potential threats.",
-      "Neurotic tendencies correlate with emotional reactivity and volatility in decision-making processes.",
-      "Studies show these individuals often engage in anticipatory problem-solving, leading to risk-averse behaviors in uncertain situations."
+      "At 30, this is relatively low on the 0-100 scale.",
+      "Scores below 40 on the 0-100 scale indicate a minimal presence of this trait.",
+      "This score suggests this trait is less prominent in the audience profile."
     ]
   }
 };
