@@ -19,15 +19,15 @@ const Settings = () => {
     <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
       <MainSidebar />
       
-      <div className="main-container transition-all duration-300 md:ml-[208px] md:collapsed:ml-16">
-        <div className="flex flex-col h-full">
+      <div className="main-container transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6">
+        <div className="flex flex-col h-full max-w-4xl mx-auto">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-100">Settings</h1>
             <p className="text-gray-400">Manage your account settings and preferences.</p>
           </div>
           
-          <Tabs defaultValue="profile" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
+          <Tabs defaultValue="profile" className="w-full space-y-6">
+            <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 mb-6">
               <TabsTrigger value="profile" className="text-sm">
                 <UserIcon className="w-4 h-4 mr-2" />
                 Profile
@@ -42,7 +42,7 @@ const Settings = () => {
               </TabsTrigger>
             </TabsList>
             
-            <TabsContent value="profile" className="space-y-4">
+            <TabsContent value="profile" className="space-y-6">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-gray-100">Profile Information</CardTitle>
@@ -51,8 +51,8 @@ const Settings = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <Avatar className="h-20 w-20">
+                  <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
+                    <Avatar className="h-20 w-20 mb-4 md:mb-0">
                       <AvatarImage src="/placeholder.svg" alt="Profile" />
                       <AvatarFallback className="bg-blue-600 text-white text-lg">JD</AvatarFallback>
                     </Avatar>
@@ -65,9 +65,9 @@ const Settings = () => {
                   
                   <Separator className="bg-gray-700" />
                   
-                  <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                      <Label htmlFor="name" className="text-right md:pt-2 text-gray-300">
+                  <div className="grid gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 md:gap-x-4 items-center">
+                      <Label htmlFor="name" className="md:text-right text-gray-300">
                         Full Name
                       </Label>
                       <div className="md:col-span-3">
@@ -79,8 +79,8 @@ const Settings = () => {
                         />
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                      <Label htmlFor="email" className="text-right md:pt-2 text-gray-300">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 md:gap-x-4 items-center">
+                      <Label htmlFor="email" className="md:text-right text-gray-300">
                         Email
                       </Label>
                       <div className="md:col-span-3">
@@ -112,14 +112,14 @@ const Settings = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                       <div className="flex items-center space-x-2">
                         <Bell className="w-4 h-4 text-gray-400" />
                         <Label htmlFor="email-notifs" className="text-gray-300">Email Notifications</Label>
                       </div>
                       <Switch id="email-notifs" defaultChecked />
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                       <div className="flex items-center space-x-2">
                         <Bell className="w-4 h-4 text-gray-400" />
                         <Label htmlFor="product-notifs" className="text-gray-300">Product Updates</Label>
@@ -131,7 +131,7 @@ const Settings = () => {
               </Card>
             </TabsContent>
             
-            <TabsContent value="data" className="space-y-4">
+            <TabsContent value="data" className="space-y-6">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-gray-100">Data Management</CardTitle>
@@ -139,9 +139,9 @@ const Settings = () => {
                     Control your data usage and privacy settings.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                <CardContent className="space-y-6">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="space-y-1">
                       <div className="text-sm font-medium text-gray-200">Data Sharing</div>
                       <div className="text-xs text-gray-400">Allow anonymous usage data to improve our services</div>
                     </div>
@@ -150,8 +150,8 @@ const Settings = () => {
                   
                   <Separator className="bg-gray-700" />
                   
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="space-y-1">
                       <div className="text-sm font-medium text-gray-200">Data Export</div>
                       <div className="text-xs text-gray-400">Download all your data</div>
                     </div>
@@ -162,8 +162,8 @@ const Settings = () => {
                   
                   <Separator className="bg-gray-700" />
                   
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="space-y-1">
                       <div className="text-sm font-medium text-gray-200">Account Deletion</div>
                       <div className="text-xs text-gray-400">Permanently delete your account and all data</div>
                     </div>
@@ -175,7 +175,7 @@ const Settings = () => {
               </Card>
             </TabsContent>
             
-            <TabsContent value="subscription" className="space-y-4">
+            <TabsContent value="subscription" className="space-y-6">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-gray-100">Subscription Details</CardTitle>
@@ -185,7 +185,7 @@ const Settings = () => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="bg-blue-900/20 border border-blue-700/30 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
                       <div className="text-lg font-semibold text-blue-400">Custom Plan</div>
                       <div className="bg-blue-600/20 text-blue-400 px-2 py-1 rounded text-xs font-semibold">
                         ACTIVE
