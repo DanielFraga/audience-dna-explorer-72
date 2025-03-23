@@ -1,15 +1,12 @@
-
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import DemographicsMap from "../DemographicsMap";
 import { 
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, 
-  PieChart, Pie, Legend, 
-  CartesianGrid, LabelList 
+  PieChart, Pie, CartesianGrid, LabelList 
 } from 'recharts';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export const DemographicsTab: FC = () => {
@@ -86,9 +83,9 @@ export const DemographicsTab: FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-slide-up pt-4">
+    <div className="space-y-4 animate-slide-up pt-2">
       {/* Age Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Age distribution shows that ${searchTerm} is most popular among 30-45 year olds, who represent 35% of the audience.`}
           searchTerm={searchTerm}
@@ -97,71 +94,73 @@ export const DemographicsTab: FC = () => {
             <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
+        <div className="flex items-center gap-1.5 mb-1">
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[220px] w-full flex justify-center">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
             }}
-            className="flex justify-center items-center"
           >
-            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
-              <BarChart 
-                data={ageData}
-                margin={isMobile ? 
-                  { top: 5, right: 10, left: 20, bottom: 25 } : 
-                  { top: 5, right: 20, left: 40, bottom: 25 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis 
-                  dataKey="name"
-                  axisLine={false} 
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  dy={10}
+            <BarChart 
+              data={ageData}
+              margin={isMobile ? 
+                { top: 10, right: 10, left: 0, bottom: 5 } : 
+                { top: 5, right: 20, left: 5, bottom: 25 }}
+              layout={isMobile ? "vertical" : "horizontal"}
+            >
+              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <XAxis 
+                dataKey={isMobile ? "value" : "name"}
+                type={isMobile ? "number" : "category"}
+                axisLine={false} 
+                tickLine={false}
+                tick={{ fontSize: 9, fill: '#D1D5DB' }}
+                tickFormatter={isMobile ? (value) => `${value}%` : undefined}
+                domain={isMobile ? [0, 40] : undefined}
+              />
+              <YAxis 
+                dataKey={isMobile ? "name" : "value"}
+                type={isMobile ? "category" : "number"}
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={!isMobile ? (value) => `${value}%` : undefined}
+                domain={!isMobile ? [0, 40] : undefined}
+                tick={{ fontSize: 9, fill: '#9CA3AF' }}
+                width={isMobile ? 50 : 30}
+              />
+              <ChartTooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                        <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                {ageData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={ageColors[index]} />
+                ))}
+                <LabelList 
+                  dataKey="value" 
+                  position={isMobile ? "right" : "top"} 
+                  formatter={(value: number) => `${value}%`}
+                  style={{ fill: 'white', fontSize: 9, fontWeight: 500 }}
                 />
-                <YAxis 
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(value) => `${value}%`}
-                  domain={[0, 40]}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={isMobile ? 25 : 35}
-                />
-                <ChartTooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                          <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                  {ageData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={ageColors[index]} />
-                  ))}
-                  <LabelList 
-                    dataKey="value" 
-                    position="top" 
-                    formatter={(value: number) => `${value}%`}
-                    style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
-                  />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+              </Bar>
+            </BarChart>
           </ChartContainer>
         </div>
       </div>
 
       {/* Gender Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Gender analysis reveals that ${searchTerm} slightly appeals more to females (51%) than males (48%).`}
           searchTerm={searchTerm}
@@ -170,70 +169,67 @@ export const DemographicsTab: FC = () => {
             <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
+        <div className="flex items-center gap-1.5 mb-1">
           <Users className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Gender Distribution</h3>
         </div>
-        <div className="h-[130px] w-full flex justify-center">
+        <div className="h-[120px] w-full">
           <ChartContainer 
             config={{
               genderPie: { theme: { light: '#9B87F5', dark: '#9B87F5' } },
             }}
-            className="flex justify-center items-center"
           >
-            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
-              <PieChart>
-                <Pie
-                  data={genderData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={isMobile ? 25 : 30}
-                  outerRadius={isMobile ? 45 : 50}
-                  paddingAngle={2}
-                  dataKey="value"
-                  labelLine={false}
-                  label={({ name, value, cx, x, y }) => {
-                    // Don't render label for very small segments (like "Other: 1%")
-                    if (value < 5) return null;
-                    
+            <PieChart>
+              <Pie
+                data={genderData}
+                cx="50%"
+                cy="50%"
+                innerRadius={isMobile ? 25 : 30}
+                outerRadius={isMobile ? 40 : 50}
+                paddingAngle={2}
+                dataKey="value"
+                labelLine={false}
+                label={({ name, value, cx, x, y }) => {
+                  // Don't render label for very small segments (like "Other: 1%")
+                  if (value < 5) return null;
+                  
+                  return (
+                    <text 
+                      x={x} 
+                      y={y} 
+                      fill="white" 
+                      textAnchor={x > cx ? 'start' : 'end'} 
+                      dominantBaseline="central"
+                      fontSize={9}
+                    >
+                      {`${name}: ${value}%`}
+                    </text>
+                  );
+                }}
+              >
+                {genderData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
+              <ChartTooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
                     return (
-                      <text 
-                        x={x} 
-                        y={y} 
-                        fill="white" 
-                        textAnchor={x > cx ? 'start' : 'end'} 
-                        dominantBaseline="central"
-                        fontSize={10}
-                      >
-                        {`${name}: ${value}%`}
-                      </text>
+                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                        <p className="text-white font-medium">{`${payload[0].name}: ${payload[0].value}%`}</p>
+                      </div>
                     );
-                  }}
-                >
-                  {genderData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <ChartTooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                          <p className="text-white font-medium">{`${payload[0].name}: ${payload[0].value}%`}</p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+                  }
+                  return null;
+                }}
+              />
+            </PieChart>
           </ChartContainer>
         </div>
       </div>
 
       {/* Location Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Geographic data suggests ${searchTerm} is most popular in Copenhagen (42%), followed by London (35%).`}
           searchTerm={searchTerm}
@@ -242,74 +238,76 @@ export const DemographicsTab: FC = () => {
             <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
+        <div className="flex items-center gap-1.5 mb-1">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[220px] w-full flex justify-center">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
             }}
-            className="flex justify-center items-center"
           >
-            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
-              <BarChart 
-                data={locationData}
-                margin={isMobile ? 
-                  { top: 5, right: 10, left: 20, bottom: 30 } : 
-                  { top: 5, right: 20, left: 40, bottom: 30 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis 
-                  dataKey="name"
-                  axisLine={false} 
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB', width: isMobile ? 60 : 80 }}
-                  angle={-25}
-                  textAnchor="end"
-                  height={60}
-                  dy={12}
+            <BarChart 
+              data={locationData}
+              margin={isMobile ? 
+                { top: 10, right: 10, left: 0, bottom: 5 } : 
+                { top: 5, right: 20, left: 5, bottom: 30 }}
+              layout={isMobile ? "vertical" : "horizontal"}
+            >
+              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <XAxis 
+                dataKey={isMobile ? "value" : "name"}
+                type={isMobile ? "number" : "category"}
+                axisLine={false} 
+                tickLine={false}
+                tick={{ fontSize: 9, fill: '#D1D5DB' }}
+                angle={!isMobile ? -25 : 0}
+                textAnchor={!isMobile ? "end" : "middle"}
+                height={!isMobile ? 60 : 30}
+                tickFormatter={isMobile ? (value) => `${value}%` : undefined}
+                domain={isMobile ? [0, 50] : undefined}
+              />
+              <YAxis 
+                dataKey={isMobile ? "name" : "value"}
+                type={isMobile ? "category" : "number"}
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={!isMobile ? (value) => `${value}%` : undefined}
+                domain={!isMobile ? [0, 50] : undefined}
+                tick={{ fontSize: 9, fill: '#9CA3AF' }}
+                width={isMobile ? 80 : 30}
+              />
+              <ChartTooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                        <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                {locationData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={locationColors[index]} />
+                ))}
+                <LabelList 
+                  dataKey="value" 
+                  position={isMobile ? "right" : "top"} 
+                  formatter={(value: number) => `${value}%`}
+                  style={{ fill: 'white', fontSize: 9, fontWeight: 500 }}
                 />
-                <YAxis 
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(value) => `${value}%`}
-                  domain={[0, 50]}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={isMobile ? 25 : 35}
-                />
-                <ChartTooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                          <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                  {locationData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={locationColors[index]} />
-                  ))}
-                  <LabelList 
-                    dataKey="value" 
-                    position="top" 
-                    formatter={(value: number) => `${value}%`}
-                    style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
-                  />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+              </Bar>
+            </BarChart>
           </ChartContainer>
         </div>
       </div>
 
       {/* Income Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Income analysis shows ${searchTerm} resonates most with middle-income groups (30k-75k), comprising 45% of respondents.`}
           searchTerm={searchTerm}
@@ -318,71 +316,73 @@ export const DemographicsTab: FC = () => {
             <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
+        <div className="flex items-center gap-1.5 mb-1">
           <DollarSign className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
         </div>
-        <div className="h-[180px] w-full flex justify-center">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
             }}
-            className="flex justify-center items-center"
           >
-            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
-              <BarChart 
-                data={incomeData}
-                margin={isMobile ? 
-                  { top: 5, right: 10, left: 20, bottom: 25 } : 
-                  { top: 5, right: 20, left: 40, bottom: 25 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis 
-                  dataKey="name"
-                  axisLine={false} 
-                  tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  dy={10}
+            <BarChart 
+              data={incomeData}
+              margin={isMobile ? 
+                { top: 10, right: 10, left: 0, bottom: 5 } : 
+                { top: 5, right: 20, left: 5, bottom: 25 }}
+              layout={isMobile ? "vertical" : "horizontal"}
+            >
+              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <XAxis 
+                dataKey={isMobile ? "value" : "name"}
+                type={isMobile ? "number" : "category"}
+                axisLine={false} 
+                tickLine={false}
+                tick={{ fontSize: 9, fill: '#D1D5DB' }}
+                tickFormatter={isMobile ? (value) => `${value}%` : undefined}
+                domain={isMobile ? [0, 50] : undefined}
+              />
+              <YAxis 
+                dataKey={isMobile ? "name" : "value"}
+                type={isMobile ? "category" : "number"}
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={!isMobile ? (value) => `${value}%` : undefined}
+                domain={!isMobile ? [0, 50] : undefined}
+                tick={{ fontSize: 9, fill: '#9CA3AF' }}
+                width={isMobile ? 50 : 30}
+              />
+              <ChartTooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                        <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                {incomeData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={incomeColors[index]} />
+                ))}
+                <LabelList 
+                  dataKey="value" 
+                  position={isMobile ? "right" : "top"} 
+                  formatter={(value: number) => `${value}%`}
+                  style={{ fill: 'white', fontSize: 9, fontWeight: 500 }}
                 />
-                <YAxis 
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(value) => `${value}%`}
-                  domain={[0, 50]}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={isMobile ? 25 : 35}
-                />
-                <ChartTooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                          <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                  {incomeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={incomeColors[index]} />
-                  ))}
-                  <LabelList 
-                    dataKey="value" 
-                    position="top" 
-                    formatter={(value: number) => `${value}%`}
-                    style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
-                  />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+              </Bar>
+            </BarChart>
           </ChartContainer>
         </div>
       </div>
 
       {/* Ancestry Distribution Card - Donut chart */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Ancestry data shows ${searchTerm} has diverse appeal across different ethnic backgrounds, with European ancestry representing the largest group (30%).`}
           searchTerm={searchTerm}
@@ -391,54 +391,51 @@ export const DemographicsTab: FC = () => {
             <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
+        <div className="flex items-center gap-1.5 mb-1">
           <User className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-bold text-white">Ancestry Distribution</h3>
         </div>
-        <div className="h-[210px] w-full flex justify-center">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               ancestryPie: { theme: { light: '#F97316', dark: '#F97316' } },
             }}
-            className="flex justify-center items-center"
           >
-            <ResponsiveContainer width={isMobile ? "95%" : "100%"} height="100%">
-              <PieChart>
-                <Pie
-                  data={ancestryData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={isMobile ? 35 : 40}
-                  outerRadius={isMobile ? 60 : 70}
-                  paddingAngle={2}
-                  dataKey="value"
-                  labelLine={false}  // Remove label lines
-                  label={isMobile ? null : renderCustomizedLabel}
-                >
-                  {ancestryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <ChartTooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                          <p className="text-white font-medium">{`${payload[0].name} Ancestry: ${payload[0].value}%`}</p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <PieChart>
+              <Pie
+                data={ancestryData}
+                cx="50%"
+                cy="50%"
+                innerRadius={isMobile ? 30 : 40}
+                outerRadius={isMobile ? 55 : 70}
+                paddingAngle={2}
+                dataKey="value"
+                labelLine={false}  // Remove label lines
+                label={isMobile ? null : renderCustomizedLabel}
+              >
+                {ancestryData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
+              <ChartTooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                        <p className="text-white font-medium">{`${payload[0].name} Ancestry: ${payload[0].value}%`}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+            </PieChart>
           </ChartContainer>
         </div>
       </div>
       
       {/* Map Card */}
-      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 sm:p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Geographic heatmap visualizes where ${searchTerm} has the most engagement, with hotspots in Europe and North America.`}
           searchTerm={searchTerm}
@@ -447,7 +444,7 @@ export const DemographicsTab: FC = () => {
             <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-4">
+        <div className="flex items-center gap-1.5 mb-2">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Geographic Distribution</h3>
         </div>
@@ -456,3 +453,4 @@ export const DemographicsTab: FC = () => {
     </div>
   );
 };
+
