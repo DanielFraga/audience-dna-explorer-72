@@ -28,10 +28,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
   return (
     <div className="flex justify-center w-full">
       <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
-        <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1 w-full h-[42px]">
+        <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1 w-full h-[50px]">
           {/* Toggle button that moves behind active tab */}
           <div 
-            className="absolute bg-gray-700 rounded-md transition-all duration-300 h-[30px] top-[6px]"
+            className="absolute bg-gray-700 rounded-md transition-all duration-300 h-[38px] top-[6px]"
             style={{
               left: currentTab === "stats" ? "16.67%" : currentTab === "responses" ? "50%" : "83.33%",
               width: "30px",
@@ -44,9 +44,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
               <IconTabsTrigger 
                 value="stats" 
                 aria-label="Stats"
-                className="z-10 h-10 w-10"
+                className="z-10 h-10 w-10 flex flex-col items-center justify-center pt-1"
               >
-                <BarChart3 className="h-4 w-4" />
+                <BarChart3 className="h-4 w-4 mb-1" />
+                <span className="text-[9px] font-medium">Stats</span>
               </IconTabsTrigger>
             </div>
             
@@ -54,9 +55,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
               <IconTabsTrigger 
                 value="responses" 
                 aria-label="Survey Responses"
-                className="z-10 h-10 w-10"
+                className="z-10 h-10 w-10 flex flex-col items-center justify-center pt-1"
               >
-                <ClipboardList className="h-4 w-4" />
+                <ClipboardList className="h-4 w-4 mb-1" />
+                <span className="text-[9px] font-medium">Responses</span>
               </IconTabsTrigger>
             </div>
             
@@ -64,9 +66,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
               <IconTabsTrigger 
                 value="chat" 
                 aria-label="Chat"
-                className="z-10 h-10 w-10"
+                className="z-10 h-10 w-10 flex flex-col items-center justify-center pt-1"
               >
-                <MessageSquare className="h-4 w-4" />
+                <MessageSquare className="h-4 w-4 mb-1" />
+                <span className="text-[9px] font-medium">Chat</span>
               </IconTabsTrigger>
             </div>
           </div>
