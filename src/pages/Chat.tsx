@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
 import IconTabs from "@/components/IconTabs";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 
 interface Message {
   id: string;
@@ -75,20 +76,14 @@ const Chat = () => {
         return (
           <>
             {parts[0]}
-            <span>(80 out of 100</span>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <sup className="text-blue-400 cursor-help">
-                    <Info className="w-3 h-3 inline" />
-                  </sup>
-                </TooltipTrigger>
-                <TooltipContent className="bg-gray-800 border-gray-700 text-white p-3 max-w-xs">
-                  <p>Openness reflects a person's willingness to try new experiences, engage with abstract concepts, and explore novel ideas. High scorers tend to be creative, curious, and appreciative of art and nature.</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <span>)</span>
+            <InteractiveTooltip 
+              content="Openness reflects a person's willingness to try new experiences, engage with abstract concepts, and explore novel ideas. High scorers tend to be creative, curious, and appreciative of art and nature."
+              searchTerm={searchTerm}
+            >
+              <span className="text-blue-400 font-medium cursor-help underline decoration-dotted underline-offset-2">
+                (80 out of 100)
+              </span>
+            </InteractiveTooltip>
             {parts[1]}
           </>
         );
@@ -97,17 +92,14 @@ const Chat = () => {
         return (
           <>
             {parts[0]}
-            wordset A
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <sup className="text-blue-400 cursor-help">1</sup>
-                </TooltipTrigger>
-                <TooltipContent className="bg-gray-800 border-gray-700 text-white p-3 max-w-xs">
-                  <p>Words in this set include: adventure, discover, explore, journey, wanderlust, excitement, novel, unique, exotic, experience</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <InteractiveTooltip 
+              content="Words in this set include: adventure, discover, explore, journey, wanderlust, excitement, novel, unique, exotic, experience"
+              searchTerm={searchTerm}
+            >
+              <span className="text-blue-400 font-medium cursor-help underline decoration-dotted underline-offset-2">
+                wordset A¹
+              </span>
+            </InteractiveTooltip>
             {parts[1]}
           </>
         );
@@ -121,15 +113,15 @@ const Chat = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
-        {/* Add the search bar and header from the explore audience page */}
-        <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in">
-          <div className="flex items-center gap-2 p-3 md:p-6">
+        {/* Header section */}
+        <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in border-b border-gray-800/60">
+          <div className="flex items-center gap-2 p-3 md:p-4">
             {isMobile && <div className="w-10"></div>}
             <div className="relative flex-1">
               <input
                 type="text"
                 placeholder="Explore audience..."
-                className="w-full px-4 py-2 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
+                className="w-full px-4 py-2 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -173,7 +165,7 @@ const Chat = () => {
             </TooltipProvider>
           </div>
           
-          <div className="px-3 pb-3 md:px-6 md:pb-3">
+          <div className="px-3 pb-2 md:px-4 md:pb-2">
             <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
               <span className="mr-1">450 out of 10000 respondents</span>
               <Button 
@@ -186,39 +178,48 @@ const Chat = () => {
               </Button>
             </Badge>
             
-            <div className="mt-3">
+            <div className="mt-2">
               <IconTabs currentTab="chat" />
             </div>
           </div>
         </div>
 
-        <ScrollArea className="flex-1">
-          <div className="space-y-3 p-4">
+        {/* Messages area */}
+        <ScrollArea className="flex-1 px-1 md:px-2">
+          <div className="space-y-4 p-4 max-w-3xl mx-auto">
+            {messages.length === 0 && (
+              <div className="flex items-center justify-center h-32 md:h-40">
+                <div className="text-center text-gray-500 max-w-xs">
+                  <p className="text-sm mb-2">Ask questions about your audience to get insights</p>
+                  <p className="text-xs">Try one of the suggested questions below to get started</p>
+                </div>
+              </div>
+            )}
+            
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex ${
                   message.sender === "user" ? "justify-end" : "justify-start"
-                }`}
+                } mb-2 animate-fade-in-up`}
               >
                 <div
-                  className={`flex items-start gap-2 max-w-[90%] md:max-w-[80%] ${
+                  className={`flex items-start gap-2 max-w-[90%] md:max-w-[75%] ${
                     message.sender === "user" ? "flex-row-reverse" : ""
                   }`}
                 >
-                  <Avatar className="h-7 w-7 shrink-0">
+                  <Avatar className={`h-7 w-7 shrink-0 ${message.sender === "assistant" ? "bg-blue-600" : "bg-gray-700"}`}>
                     {message.sender === "user" ? (
-                      <User2 className="h-4 w-4 text-gray-400" />
+                      <User2 className="h-4 w-4 text-gray-300" />
                     ) : (
-                      <AvatarImage src="/placeholder.svg" />
+                      <AvatarFallback className="text-white text-xs font-medium">AI</AvatarFallback>
                     )}
-                    <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                   <div
-                    className={`rounded-lg p-2 text-sm text-left ${
+                    className={`rounded-xl p-3 text-sm text-left shadow-sm ${
                       message.sender === "user"
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-800 text-gray-100"
+                        ? "bg-blue-600 text-white rounded-br-sm"
+                        : "bg-gray-800 text-gray-100 rounded-bl-sm"
                     }`}
                   >
                     {renderMessage(message)}
@@ -229,15 +230,16 @@ const Chat = () => {
           </div>
         </ScrollArea>
 
-        <div className="border-t border-gray-800 p-3 md:p-4 flex items-center justify-center">
-          <div className="max-w-2xl w-full mx-auto space-y-3 md:space-y-4">
-            {/* Moved suggested response buttons above the input field */}
-            <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center">
+        {/* Input area */}
+        <div className="border-t border-gray-800 p-3 md:p-4 bg-gray-950/80 backdrop-blur-sm">
+          <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
+            {/* Suggested response buttons */}
+            <div className="flex flex-wrap gap-2 justify-center mb-1">
               {PRESET_QUESTIONS.map((question, index) => (
                 <Button
                   key={index}
                   variant="outline"
-                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[10px] md:text-xs py-1 h-auto"
+                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[11px] md:text-xs py-1.5 h-auto rounded-full px-3 shadow-sm"
                   onClick={() => handleSendMessage(question)}
                 >
                   {question}
@@ -245,7 +247,8 @@ const Chat = () => {
               ))}
             </div>
             
-            <div className="relative">
+            {/* Input field */}
+            <div className="relative rounded-xl overflow-hidden border border-gray-800 shadow-lg focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 transition-all duration-200">
               <Textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -256,11 +259,12 @@ const Chat = () => {
                   }
                 }}
                 placeholder="Ask about your audience..."
-                className="bg-gray-900 text-white rounded-lg border border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-600 min-h-[80px] md:min-h-[120px] resize-none pr-16 md:pr-24"
+                className="bg-gray-900 text-white rounded-lg border-0 focus:outline-none focus:ring-0 min-h-[60px] md:min-h-[80px] resize-none pr-16 md:pr-24 py-3 px-4 text-sm"
               />
               <Button
                 onClick={() => handleSendMessage()}
-                className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-blue-600 hover:bg-blue-700 text-white scale-90 md:scale-100"
+                className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-blue-600 hover:bg-blue-700 text-white scale-90 md:scale-100 rounded-lg shadow-lg"
+                disabled={!inputValue.trim()}
               >
                 <SendHorizontal className="h-4 w-4 mr-1 md:mr-2" />
                 <span className={isMobile ? "sr-only" : ""}>Send</span>
