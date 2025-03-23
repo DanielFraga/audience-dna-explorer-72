@@ -28,9 +28,12 @@ const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHea
   return (
     <div className="sticky top-0 z-10 bg-gray-950 border-b border-gray-800/60">
       {/* First line - hamburger menu and search term */}
-      <div className="h-[50px] flex items-center px-3 md:px-6">
-        <div className="w-10 md:hidden"></div> {/* Placeholder for mobile menu icon */}
-        <h2 className="text-xl font-semibold text-white ml-2 md:ml-0">{searchTerm}</h2>
+      <div className="h-[50px] flex items-center justify-between px-3 md:px-6">
+        <div className="flex items-center">
+          <div className="w-10 md:hidden"></div> {/* Placeholder for mobile menu icon */}
+          <h2 className="text-2xl font-grotesk font-semibold text-white">{searchTerm}</h2>
+        </div>
+        <div className="w-10"></div> {/* Empty space for balance */}
       </div>
       
       {/* Second line - respondent count and action buttons */}
@@ -68,7 +71,9 @@ const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHea
       
       {/* Third line - navigation tabs */}
       <div className="h-[50px] flex items-center justify-center">
-        <IconTabs currentTab={currentTab} />
+        <div className="w-full max-w-xs">
+          <IconTabs currentTab={currentTab} />
+        </div>
       </div>
     </div>
   );

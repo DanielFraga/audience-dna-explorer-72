@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import MainSidebar from "../components/MainSidebar";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
+import { SurveyTab } from "../components/survey/SurveyTab";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -44,7 +45,6 @@ const Index = () => {
   const handleSearch = () => {
     if (searchTerm.trim()) {
       setIsAnimating(true);
-      // Store search term in sessionStorage for tooltip context
       sessionStorage.setItem('searchTerm', searchTerm);
       setTimeout(() => {
         setShowResults(true);

@@ -26,9 +26,9 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
   };
 
   return (
-    <div className="flex justify-center mt-2">
-      <Tabs value={currentTab} className="w-auto" onValueChange={handleTabChange}>
-        <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1">
+    <div className="flex justify-center w-full">
+      <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
+        <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1 w-full">
           {/* Toggle button that moves behind active tab */}
           <div 
             className="absolute bg-gray-700 rounded-md transition-all duration-300 h-[85%] top-[7.5%]"
