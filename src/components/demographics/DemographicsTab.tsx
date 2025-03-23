@@ -109,7 +109,8 @@ export const DemographicsTab: FC = () => {
               <BarChart 
                 data={ageData}
                 layout="vertical"
-                margin={{ top: 15, right: 30, left: 40, bottom: 5 }}
+                margin={{ top: 15, right: 30, left: 25, bottom: 5 }}
+                align="left"
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
                 <XAxis 
@@ -126,7 +127,9 @@ export const DemographicsTab: FC = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={40}
+                  width={25}
+                  tickMargin={0}
+                  dx={-5}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -252,7 +255,8 @@ export const DemographicsTab: FC = () => {
               <BarChart 
                 data={locationData}
                 layout="vertical"
-                margin={{ top: 15, right: 30, left: 80, bottom: 5 }}
+                margin={{ top: 15, right: 30, left: 25, bottom: 5 }}
+                align="left"
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
                 <XAxis 
@@ -269,7 +273,9 @@ export const DemographicsTab: FC = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={80}
+                  width={25}
+                  tickMargin={0}
+                  dx={-5}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -324,7 +330,8 @@ export const DemographicsTab: FC = () => {
               <BarChart 
                 data={incomeData}
                 layout="vertical"
-                margin={{ top: 15, right: 30, left: 50, bottom: 5 }}
+                margin={{ top: 15, right: 30, left: 25, bottom: 5 }}
+                align="left"
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} horizontal={true} vertical={false} />
                 <XAxis 
@@ -341,7 +348,9 @@ export const DemographicsTab: FC = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={50}
+                  width={25}
+                  tickMargin={0}
+                  dx={-5}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
