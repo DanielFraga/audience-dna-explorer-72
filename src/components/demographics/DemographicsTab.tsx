@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -66,7 +65,7 @@ export const DemographicsTab: FC = () => {
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[120px] w-full">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
@@ -74,27 +73,22 @@ export const DemographicsTab: FC = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
-                data={ageData} 
-                layout="vertical"
-                margin={{ top: 5, right: 30, left: 50, bottom: 5 }}
+                data={ageData}
+                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
-                  type="number" 
+                  dataKey="name" 
                   axisLine={false} 
                   tickLine={false}
-                  domain={[0, 100]}
-                  tickFormatter={(value) => `${value}%`}
-                  tickCount={6}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
                 />
                 <YAxis 
-                  type="category" 
-                  dataKey="name" 
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={40}
+                  tickFormatter={(value) => `${value}%`}
+                  domain={[0, 40]}
+                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -108,13 +102,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {ageData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={ageColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="right" 
+                    position="top" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
@@ -210,7 +204,7 @@ export const DemographicsTab: FC = () => {
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[130px] w-full">
+        <div className="h-[180px] w-full">
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
@@ -218,27 +212,25 @@ export const DemographicsTab: FC = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
-                data={locationData} 
-                layout="vertical"
-                margin={{ top: 5, right: 30, left: 65, bottom: 5 }}
+                data={locationData}
+                margin={{ top: 15, right: 5, left: 5, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
-                  type="number" 
+                  dataKey="name" 
                   axisLine={false} 
                   tickLine={false}
-                  domain={[0, 100]}
-                  tickFormatter={(value) => `${value}%`}
-                  tickCount={6}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
+                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  angle={-35}
+                  textAnchor="end"
+                  height={50}
                 />
                 <YAxis 
-                  type="category" 
-                  dataKey="name" 
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
-                  width={65}
+                  tickFormatter={(value) => `${value}%`}
+                  domain={[0, 50]}
+                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -252,13 +244,13 @@ export const DemographicsTab: FC = () => {
                     return null;
                   }}
                 />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {locationData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={locationColors[index]} />
                   ))}
                   <LabelList 
                     dataKey="value" 
-                    position="right" 
+                    position="top" 
                     formatter={(value: number) => `${value}%`}
                     style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
                   />
