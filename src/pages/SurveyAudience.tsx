@@ -1,5 +1,4 @@
 
-import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { SurveyTab } from "@/components/survey/SurveyTab";
 import AppHeader from "@/components/AppHeader";
@@ -30,11 +29,7 @@ const SurveyAudience = () => {
           </div>
           
           <div className="mt-6 pb-24">
-            <Card className="bg-gray-800/50 border-gray-700">
-              <CardContent className="p-6">
-                <SurveyTab />
-              </CardContent>
-            </Card>
+            <SurveyTab />
           </div>
         </div>
         
