@@ -2,21 +2,24 @@
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import DemographicsMap from "../DemographicsMap";
 
 export const DemographicsTab: FC = () => {
+  const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
+
   return (
     <div className="space-y-6 animate-slide-up">
       {/* Age Distribution Card */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Detailed breakdown of age groups across all respondents
-          </TooltipContent>
-        </Tooltip>
+        <InteractiveTooltip 
+          content={`Age distribution shows that ${searchTerm} is most popular among 30-45 year olds, who represent 35% of the audience.`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-2">
           <ChartBar className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
@@ -43,14 +46,14 @@ export const DemographicsTab: FC = () => {
 
       {/* Gender Distribution Card */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Distribution of gender identities in the respondent pool
-          </TooltipContent>
-        </Tooltip>
+        <InteractiveTooltip 
+          content={`Gender analysis reveals that ${searchTerm} slightly appeals more to females (51%) than males (48%).`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-2">
           <Users className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Gender Distribution</h3>
@@ -73,14 +76,14 @@ export const DemographicsTab: FC = () => {
 
       {/* Location Distribution Card */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Geographical distribution of respondents by area type
-          </TooltipContent>
-        </Tooltip>
+        <InteractiveTooltip 
+          content={`Geographic data suggests ${searchTerm} is most popular in Copenhagen (42%), followed by London (35%).`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-2">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
@@ -107,14 +110,14 @@ export const DemographicsTab: FC = () => {
 
       {/* Income Distribution Card */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Income range distribution across all respondents
-          </TooltipContent>
-        </Tooltip>
+        <InteractiveTooltip 
+          content={`Income analysis shows ${searchTerm} resonates most with middle-income groups (30k-75k), comprising 45% of respondents.`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-2">
           <DollarSign className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
@@ -141,14 +144,14 @@ export const DemographicsTab: FC = () => {
 
       {/* Ancestry Distribution Card */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Distribution of ancestral backgrounds among respondents
-          </TooltipContent>
-        </Tooltip>
+        <InteractiveTooltip 
+          content={`Ancestry data shows ${searchTerm} is most popular among Europeans (32%) and Asians (28%).`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-2">
           <User className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Ancestry Distribution</h3>
@@ -175,14 +178,14 @@ export const DemographicsTab: FC = () => {
       
       {/* Map Card */}
       <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2 z-10" />
-          </TooltipTrigger>
-          <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-            Geographic distribution of respondents across major cities
-          </TooltipContent>
-        </Tooltip>
+        <InteractiveTooltip 
+          content={`Geographic heatmap visualizes where ${searchTerm} has the most engagement, with hotspots in Europe and North America.`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2 z-10">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
         <div className="flex items-center gap-1.5 mb-4">
           <MapPin className="w-3.5 h-3.5 text-gray-400" />
           <h3 className="text-xs font-semibold text-white">Geographic Distribution</h3>

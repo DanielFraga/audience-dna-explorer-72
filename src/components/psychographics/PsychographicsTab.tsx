@@ -2,6 +2,7 @@
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import PsychographicRadar from "../PsychographicRadar";
 import { 
@@ -116,6 +117,7 @@ export const PsychographicsTab: FC = () => {
   const [selectedGroup, setSelectedGroup] = useState<string>('big5');
   const statsRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
 
   // Filter data based on selected group - always Big5
   const selectedGroupData = getGroupData('big5');
@@ -127,14 +129,14 @@ export const PsychographicsTab: FC = () => {
           {/* Cobweb Graph Card - First slide */}
           <CarouselItem className="flex items-center justify-center">
             <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-                </TooltipTrigger>
-                <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                  Visual representation of Big5 personality traits
-                </TooltipContent>
-              </Tooltip>
+              <InteractiveTooltip 
+                content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
+                searchTerm={searchTerm}
+              >
+                <button className="absolute top-2 right-2">
+                  <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                </button>
+              </InteractiveTooltip>
               
               <div className="space-y-3 mb-4">
                 <div className="flex items-center justify-between">
@@ -180,14 +182,14 @@ export const PsychographicsTab: FC = () => {
           <CarouselItem className="flex items-center justify-center">
             <div ref={statsRef} className="h-full w-full">
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="w-3.5 h-3.5 text-gray-400 cursor-help absolute top-2 right-2" />
-                  </TooltipTrigger>
-                  <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-                    Detailed breakdown of Big5 personality traits
-                  </TooltipContent>
-                </Tooltip>
+                <InteractiveTooltip 
+                  content={`Detailed breakdown of personality traits for audiences interested in ${searchTerm}, with empirical data and interpretations.`}
+                  searchTerm={searchTerm}
+                >
+                  <button className="absolute top-2 right-2">
+                    <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                  </button>
+                </InteractiveTooltip>
                 
                 <div className="flex items-center gap-1.5 mb-4">
                   <ChartBar className="w-3.5 h-3.5 text-gray-400" />

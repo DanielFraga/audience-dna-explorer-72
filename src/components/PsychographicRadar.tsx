@@ -1,6 +1,7 @@
 
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 
 interface PsychographicPoint {
   subject: string;
@@ -13,6 +14,16 @@ interface PsychographicRadarProps {
 }
 
 const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
+  const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
+  
+  const tooltipContent = {
+    'Op': `People interested in ${searchTerm} score highly in Openness, suggesting they enjoy novel experiences and creative content.`,
+    'Co': `The audience for ${searchTerm} demonstrates strong Conscientiousness, valuing reliability and goal-oriented behavior.`,
+    'Ex': `Extraversion scores for ${searchTerm} audiences suggest moderate social engagement and energy from external stimulation.`,
+    'Ag': `High Agreeableness indicates ${searchTerm} appeals to people who value harmony and cooperation in social settings.`,
+    'Ne': `Lower Neuroticism scores suggest ${searchTerm} audiences tend to be emotionally stable and less prone to anxiety.`,
+  };
+
   return (
     <div className="w-full h-[460px] relative">
       <ResponsiveContainer width="100%" height="100%">
@@ -66,23 +77,22 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
         };
 
         return (
-          <Tooltip key={point.subject}>
-            <TooltipTrigger asChild>
-              <span
-                className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
-                style={{
-                  left: `50%`,
-                  top: `50%`,
-                  transform: `translate(${x}px, ${y}px)`,
-                }}
-              >
-                {point.subject}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent className="bg-gray-800 border-gray-700 text-[11px]">
-              {point.fullName}
-            </TooltipContent>
-          </Tooltip>
+          <InteractiveTooltip 
+            key={point.subject}
+            content={tooltipContent[point.subject as keyof typeof tooltipContent] || `${point.fullName} trait for ${searchTerm} audience.`}
+            searchTerm={searchTerm}
+          >
+            <button
+              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
+              style={{
+                left: `50%`,
+                top: `50%`,
+                transform: `translate(${x}px, ${y}px)`,
+              }}
+            >
+              {point.subject}
+            </button>
+          </InteractiveTooltip>
         );
       })}
     </div>

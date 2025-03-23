@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Sparkles, Globe, Users } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -47,6 +48,8 @@ const Index = () => {
   const handleSearch = () => {
     if (searchTerm.trim()) {
       setIsAnimating(true);
+      // Store search term in sessionStorage for tooltip context
+      sessionStorage.setItem('searchTerm', searchTerm);
       setTimeout(() => {
         setShowResults(true);
         setIsAnimating(false);
