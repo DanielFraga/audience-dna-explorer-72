@@ -38,21 +38,30 @@
   
   .gradient-cube-icon {
     position: relative;
-    background: linear-gradient(45deg, #D946EF, #0EA5E9, #33C3F0, #FFFFFF);
-    background-size: 300% 300%;
-    animation: gradient-animation 5s ease infinite;
-    box-shadow: 0 0 10px rgba(217, 70, 239, 0.3);
+    background: linear-gradient(135deg, #D946EF 0%, #0EA5E9 50%, #33C3F0 75%, rgba(255, 255, 255, 0.8) 100%);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(209, 70, 239, 0.4);
   }
   
-  @keyframes gradient-animation {
+  .gradient-cube-icon:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 20px rgba(209, 70, 239, 0.6);
+  }
+  
+  .gradient-cube-icon svg {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+  }
+  
+  @keyframes subtle-float {
     0% {
-      background-position: 0% 50%;
+      transform: translateY(0);
     }
     50% {
-      background-position: 100% 50%;
+      transform: translateY(-3px);
     }
     100% {
-      background-position: 0% 50%;
+      transform: translateY(0);
     }
   }
 }

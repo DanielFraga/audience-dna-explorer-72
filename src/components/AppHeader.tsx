@@ -58,8 +58,8 @@ const AppHeader = ({
               </div>
               
               <div className="flex items-center">
-                <div className="gradient-cube-icon w-8 h-8 flex items-center justify-center rounded-md overflow-hidden">
-                  <Cuboid className="h-6 w-6 text-white" />
+                <div className="gradient-cube-icon w-9 h-9 flex items-center justify-center rounded-lg overflow-hidden animate-[subtle-float_3s_ease-in-out_infinite] transition-all duration-300">
+                  <Cuboid className="h-5 w-5 text-white" strokeWidth={1.5} />
                 </div>
               </div>
             </div>
