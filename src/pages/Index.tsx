@@ -3,27 +3,36 @@ import { useState, useEffect } from "react";
 import { Search, Download, Users, Globe, Sparkles } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import MainSidebar from "../components/MainSidebar";
 import { tabs } from "../constants/tabs";
 import { DemographicsTab } from "../components/demographics/DemographicsTab";
 import { PsychographicsTab } from "../components/psychographics/PsychographicsTab";
 import { SurveyTab } from "../components/survey/SurveyTab";
-import { InsightsTab } from "../components/insights/InsightsTab";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 
 const Index = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("WHO_DEMO");
-  const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
   const [dnaDescription, setDnaDescription] = useState("");
-  const totalRespondents = 1234;
+  
+  useEffect(() => {
+    // Check if we should reset the search when navigating here
+    if (location.state?.resetSearch) {
+      setSearchTerm("");
+      setShowResults(false);
+      
+      // Clear the location state to prevent resetting on subsequent renders
+      navigate('/', { replace: true, state: {} });
+    }
+  }, [location.state, navigate]);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
