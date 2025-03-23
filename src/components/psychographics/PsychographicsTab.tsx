@@ -1,3 +1,4 @@
+
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown } from 'lucide-react';
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
@@ -38,13 +39,11 @@ const colorMap = {
 } as const;
 
 interface PsychographicDescription {
-  empirical: string;
   interpretation: string[];
 }
 
 const psychographicDescriptions: Record<string, PsychographicDescription> = {
   Op: {
-    empirical: "72% of respondents with high openness scores show significantly higher engagement with novel experiences and creative content.",
     interpretation: [
       "At 80, this is a high value on the 0-100 scale, indicating a strong tendency towards this trait.",
       "Scores above 75 on the 0-100 scale represent the top quartile for this dimension.",
@@ -52,7 +51,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
     ]
   },
   Co: {
-    empirical: "65% of conscientious respondents demonstrate stronger brand loyalty and 43% higher completion rates for loyalty programs.",
     interpretation: [
       "At 65, this is moderately high on the 0-100 scale, above the midpoint of 50.",
       "Scores between 60-75 on the 0-100 scale indicate an above-average presence of this trait.",
@@ -60,7 +58,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
     ]
   },
   Ex: {
-    empirical: "Extraversion metrics reveal patterns in social engagement and responsiveness to community-driven features.",
     interpretation: [
       "At 45, this is slightly below the midpoint on the 0-100 scale.",
       "Scores between 40-50 on the 0-100 scale indicate a moderate presence of this trait.",
@@ -68,7 +65,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
     ]
   },
   Ag: {
-    empirical: "Agreeableness indicators correlate with preferences for collaborative experiences and ethical positioning.",
     interpretation: [
       "At 70, this is relatively high on the 0-100 scale.",
       "Scores between 65-80 on the 0-100 scale represent a strong presence of this trait.",
@@ -76,7 +72,6 @@ const psychographicDescriptions: Record<string, PsychographicDescription> = {
     ]
   },
   Ne: {
-    empirical: "Neuroticism measures show correlation with sensitivity to urgency messaging and risk perception.",
     interpretation: [
       "At 30, this is relatively low on the 0-100 scale.",
       "Scores below 40 on the 0-100 scale indicate a minimal presence of this trait.",
@@ -130,15 +125,6 @@ export const PsychographicsTab: FC = () => {
               </InteractiveTooltip>
               
               <div className="space-y-3 mb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <Radar className="w-3.5 h-3.5 text-gray-400" />
-                    <h3 className="text-xs font-semibold text-white">
-                      BIG 5 Profile
-                    </h3>
-                  </div>
-                </div>
-
                 <div className="flex flex-wrap gap-1.5">
                   {[
                     { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
@@ -214,9 +200,6 @@ export const PsychographicsTab: FC = () => {
                         <CollapsibleContent>
                           {psychographicDescriptions[point.subject] ? (
                             <div className="px-2 py-2 space-y-1">
-                              <p className="text-gray-300 text-[10px] font-medium leading-relaxed pl-3 border-l border-gray-700 mb-2">
-                                {psychographicDescriptions[point.subject].empirical}
-                              </p>
                               <div className="space-y-1.5">
                                 {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
                                   <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
