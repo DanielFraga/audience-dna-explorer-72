@@ -31,4 +31,3 @@ export const AudienceSection = ({ selectedAudience, onAudienceChange }: Audience
     </div>
   );
 };
-

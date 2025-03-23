@@ -168,10 +168,11 @@ const Index = () => {
       <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
         <MainSidebar />
         
-        <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-6 animate-fade-in ${isMobile ? 'mt-16' : ''}`}>
+        <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in ${isMobile ? '' : ''}`}>
           {/* Top Search Section - Always visible */}
-          <div className="sticky top-0 z-10 mb-4 md:mb-6 pt-8 md:pt-0 pb-4 bg-gray-950">
-            <div className="flex items-center gap-2">
+          <div className="sticky top-0 z-10 bg-gray-950 flex flex-col">
+            <div className="flex items-center gap-2 p-3 md:p-6">
+              {isMobile && <div className="w-10"></div>} {/* Placeholder for hamburger icon */}
               <div className="relative flex-1">
                 <input
                   type="text"
@@ -217,24 +218,18 @@ const Index = () => {
             </div>
             
             {showResults && (
-              <div className="mt-3 flex items-center" ref={resultsRef}>
+              <div className="px-3 pb-3 md:px-6 md:pb-3" ref={resultsRef}>
                 <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center flex-wrap gap-1.5 shadow-md animate-fade-in"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center justify-between shadow-md animate-fade-in whitespace-nowrap overflow-hidden"
                 >
-                  <span className="whitespace-nowrap">Showing results for <span className="font-semibold">"{searchTerm}"</span></span>
-                  <span className="hidden md:inline">•</span>
-                  <span className="whitespace-nowrap">
-                    <span className="md:inline">Applicable to</span>
-                    <span className="px-2 py-0.5 bg-blue-700 rounded-full text-blue-100 mx-1">450</span>
-                    <span className="md:inline">respondents</span>
-                  </span>
+                  <span className="truncate">"holiday" - 450/10000 respondents</span>
                 </Button>
               </div>
             )}
           </div>
 
           {/* Content Container */}
-          <div className={`${!showResults ? "mt-0" : ""}`}>
+          <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
             {/* Render empty state or results feed based on state */}
             {!showResults ? (
               <div className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-lg min-h-[calc(100vh-8rem)] md:min-h-[500px] flex items-center justify-center border border-gray-800/50 shadow-lg backdrop-blur-sm">
