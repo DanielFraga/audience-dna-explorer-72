@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { SendHorizontal, User2, Info, X } from "lucide-react";
+import { SendHorizontal, User2, Info, X, Search, Download } from "lucide-react";
 import MainSidebar from "../components/MainSidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -28,6 +29,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("holiday"); // Initialize with current audience
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
@@ -58,6 +60,12 @@ const Chat = () => {
       };
       setMessages((prev) => [...prev, assistantResponse]);
     }, 1000);
+  };
+
+  const handleSearch = () => {
+    // Store search term in sessionStorage for tooltip context
+    sessionStorage.setItem('searchTerm', searchTerm);
+    console.log("Searching for:", searchTerm);
   };
 
   const renderMessage = (message: Message) => {
@@ -113,23 +121,74 @@ const Chat = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center">
-          <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2">
-            <span className="mr-1">450 out of 10000 respondents</span>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
-              onClick={() => navigate('/saved-audiences')}
-            >
-              <X className="h-3 w-3 text-gray-400" />
-            </Button>
-          </Badge>
+        {/* Add the search bar and header from the explore audience page */}
+        <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in">
+          <div className="flex items-center gap-2 p-3 md:p-6">
+            {isMobile && <div className="w-10"></div>}
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Explore audience..."
+                className="w-full px-4 py-2 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              />
+            </div>
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  size="icon" 
+                  variant="ghost" 
+                  className="w-8 h-8 rounded-full overflow-hidden relative p-0"
+                  onClick={handleSearch}
+                >
+                  <div className="absolute inset-0 gradient-glow opacity-70"></div>
+                  <Search className="w-4 h-4 text-white relative z-10" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs">Search</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  size="icon" 
+                  variant="ghost" 
+                  className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                >
+                  <Download className="w-4 h-4 text-gray-300" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs">Export</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           
-          <IconTabs currentTab="chat" />
+          <div className="px-3 pb-3 md:px-6 md:pb-3">
+            <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between w-full px-3 py-1.5">
+              <span className="mr-1">450 out of 10000 respondents</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
+                onClick={() => navigate('/')}
+              >
+                <X className="h-3 w-3 text-gray-400" />
+              </Button>
+            </Badge>
+            
+            <div className="mt-3">
+              <IconTabs currentTab="chat" />
+            </div>
+          </div>
         </div>
 
-        <ScrollArea className={`flex-1 ${messages.length === 0 ? 'hidden' : ''} ${isMobile ? 'mt-24' : 'mt-20'}`}>
+        <ScrollArea className="flex-1">
           <div className="space-y-3 p-4">
             {messages.map((message) => (
               <div
@@ -166,7 +225,7 @@ const Chat = () => {
           </div>
         </ScrollArea>
 
-        <div className={`border-t border-gray-800 p-3 md:p-4 ${messages.length === 0 ? 'flex-1' : ''} flex items-center justify-center`}>
+        <div className="border-t border-gray-800 p-3 md:p-4 flex items-center justify-center">
           <div className="max-w-2xl w-full mx-auto space-y-3 md:space-y-4">
             <div className="relative">
               <Textarea
