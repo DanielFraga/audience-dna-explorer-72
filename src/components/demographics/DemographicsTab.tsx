@@ -9,7 +9,7 @@ export const DemographicsTab: FC = () => {
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
 
   return (
-    <div className="space-y-6 animate-slide-up">
+    <div className="space-y-6 animate-slide-up pt-4">
       {/* Age Distribution Card */}
       <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 h-[90px] relative">
         <InteractiveTooltip 
