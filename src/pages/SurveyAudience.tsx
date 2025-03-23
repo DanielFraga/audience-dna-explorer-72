@@ -12,6 +12,13 @@ const SurveyAudience = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Handle the X button click to reset search
+  const handleResetSearch = () => {
+    navigate('/', { 
+      state: { resetSearch: true } 
+    });
+  };
+
   return (
     <div className="min-h-screen md:h-screen bg-gray-950 font-grotesk text-[13px] md:overflow-hidden">
       <MainSidebar />
@@ -24,7 +31,7 @@ const SurveyAudience = () => {
               variant="ghost" 
               size="icon" 
               className="h-5 w-5 p-0 ml-1 hover:bg-gray-700 rounded-full"
-              onClick={() => navigate('/', { replace: true, state: { resetSearch: true } })}
+              onClick={handleResetSearch}
             >
               <X className="h-3 w-3 text-gray-400" />
             </Button>

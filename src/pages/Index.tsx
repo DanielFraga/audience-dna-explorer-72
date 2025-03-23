@@ -36,12 +36,18 @@ const Index = () => {
     if (location.state?.preserveSearch) {
       // If we're preserving search, don't reset anything, just replace the state to avoid loops
       navigate('/', { replace: true, state: {} });
+      
+      // If we don't have search results showing but preserveSearch is true,
+      // and we have a searchTerm, then we should show results
+      if (!showResults && searchTerm) {
+        setShowResults(true);
+      }
     } else if (location.state?.resetSearch) {
       setSearchTerm("");
       setShowResults(false);
       navigate('/', { replace: true, state: {} });
     }
-  }, [location.state, navigate]);
+  }, [location.state, navigate, searchTerm, showResults]);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -300,4 +306,3 @@ const Index = () => {
 };
 
 export default Index;
-

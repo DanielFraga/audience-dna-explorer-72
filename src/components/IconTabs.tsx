@@ -68,4 +68,3 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
 };
 
 export default IconTabs;
-
