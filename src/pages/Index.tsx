@@ -159,14 +159,14 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return (
-        <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+        <div className="space-y-6 pb-20 max-w-3xl mx-auto">
           <DemographicsTab />
           <PsychographicsTab />
         </div>
       );
     } else if (activeView === "responses") {
       return (
-        <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+        <div className="space-y-6 pb-20 max-w-3xl mx-auto">
           <SurveyTab />
         </div>
       );
@@ -187,7 +187,7 @@ const Index = () => {
             />
           )}
 
-          <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
+          <div className={`p-2 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
             {!showResults ? (
               <div className="gradient-background min-h-screen flex items-center justify-center h-full">
                 {renderContent()}

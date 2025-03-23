@@ -112,11 +112,11 @@ export const PsychographicsTab: FC = () => {
   const selectedGroupData = getGroupData('big5');
 
   return (
-    <div className="space-y-6 animate-slide-up">
+    <div className="space-y-4 animate-slide-up">
       <Carousel className="w-full relative">
         <CarouselContent className="h-full">
           <CarouselItem className="flex items-center justify-center">
-            <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
+            <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
               <InteractiveTooltip 
                 content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
                 searchTerm={searchTerm}
@@ -126,7 +126,7 @@ export const PsychographicsTab: FC = () => {
                 </button>
               </InteractiveTooltip>
               
-              <div className="space-y-3 mb-4">
+              <div className="space-y-2 mb-3">
                 <div className="flex flex-wrap gap-1.5">
                   {[
                     { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
@@ -148,7 +148,7 @@ export const PsychographicsTab: FC = () => {
               </div>
               
               <div className="relative flex justify-center items-center">
-                <div className={isMobile ? "w-[90%] mx-auto" : "w-full"}>
+                <div className={isMobile ? "w-[85%] mx-auto" : "w-full"}>
                   <PsychographicRadar data={selectedGroupData} />
                 </div>
               </div>
@@ -157,7 +157,7 @@ export const PsychographicsTab: FC = () => {
           
           <CarouselItem className="flex items-center justify-center">
             <div ref={statsRef} className="h-full w-full">
-              <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
+              <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
                 <InteractiveTooltip 
                   content={`Detailed breakdown of personality traits for audiences interested in ${searchTerm}, with empirical data and interpretations.`}
                   searchTerm={searchTerm}
@@ -167,13 +167,13 @@ export const PsychographicsTab: FC = () => {
                   </button>
                 </InteractiveTooltip>
                 
-                <div className="flex items-center gap-1.5 mb-4">
+                <div className="flex items-center gap-1.5 mb-3">
                   <ChartBar className="w-3.5 h-3.5 text-gray-400" />
                   <h3 className="text-xs font-semibold text-white">Stats</h3>
                 </div>
 
-                <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
-                  <div className="space-y-1 p-1.5">
+                <div className="space-y-2 text-[11px] max-h-[400px] overflow-y-auto pr-1">
+                  <div className="space-y-1 p-1">
                     {psychographicData.map((point) => (
                       <Collapsible key={point.subject}>
                         <CollapsibleTrigger className="w-full">
