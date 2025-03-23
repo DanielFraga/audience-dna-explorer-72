@@ -85,12 +85,9 @@ const Index = () => {
           </div>
           
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-6 md:mb-8">
             Discover insights about your audience
           </h2>
-          <p className="text-gray-400 max-w-md mb-5 md:mb-6 leading-relaxed text-xs md:text-sm">
-            explore by keywords
-          </p>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
             <input
