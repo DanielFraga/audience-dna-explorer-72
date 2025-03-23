@@ -1,4 +1,3 @@
-
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown } from 'lucide-react';
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
@@ -112,22 +111,22 @@ export const PsychographicsTab: FC = () => {
   const selectedGroupData = getGroupData('big5');
 
   return (
-    <div className="space-y-3 animate-slide-up">
+    <div className="space-y-2 animate-slide-up">
       <Carousel className="w-full relative">
         <CarouselContent className="h-full">
           <CarouselItem className="flex items-center justify-center">
-            <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
+            <div className="p-1.5 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
               <InteractiveTooltip 
                 content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
                 searchTerm={searchTerm}
               >
-                <button className="absolute top-2 right-2">
+                <button className="absolute top-1 right-1 z-10">
                   <Info className="w-3 h-3 text-gray-400 cursor-help" />
                 </button>
               </InteractiveTooltip>
               
-              <div className="space-y-1 mb-2">
-                <div className="flex flex-wrap gap-1">
+              <div className="space-y-0.5 mb-1">
+                <div className="flex flex-wrap gap-0.5">
                   {[
                     { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
                     { text: "Creative", color: "bg-[#ea384c] text-white" },
@@ -139,7 +138,7 @@ export const PsychographicsTab: FC = () => {
                   ].map((chip) => (
                     <span
                       key={chip.text}
-                      className={`px-1.5 py-0.5 text-[8px] rounded-full ${chip.color}`}
+                      className={`px-1 py-0.5 text-[7px] rounded-full ${chip.color}`}
                     >
                       {chip.text}
                     </span>
@@ -148,7 +147,7 @@ export const PsychographicsTab: FC = () => {
               </div>
               
               <div className="relative flex justify-center items-center">
-                <div className="w-[90%] mx-auto">
+                <div className="w-[95%] mx-auto">
                   <PsychographicRadar data={selectedGroupData} />
                 </div>
               </div>
@@ -157,29 +156,29 @@ export const PsychographicsTab: FC = () => {
           
           <CarouselItem className="flex items-center justify-center">
             <div ref={statsRef} className="h-full w-full">
-              <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative">
+              <div className="p-1.5 bg-gray-900 rounded-lg border border-gray-800 relative">
                 <InteractiveTooltip 
                   content={`Detailed breakdown of personality traits for audiences interested in ${searchTerm}, with empirical data and interpretations.`}
                   searchTerm={searchTerm}
                 >
-                  <button className="absolute top-2 right-2">
+                  <button className="absolute top-1 right-1">
                     <Info className="w-3 h-3 text-gray-400 cursor-help" />
                   </button>
                 </InteractiveTooltip>
                 
-                <div className="flex items-center gap-1 mb-2">
+                <div className="flex items-center gap-1 mb-1">
                   <ChartBar className="w-3 h-3 text-gray-400" />
-                  <h3 className="text-[10px] font-semibold text-white">Stats</h3>
+                  <h3 className="text-[9px] font-semibold text-white">Stats</h3>
                 </div>
 
-                <div className="space-y-1.5 text-[10px] max-h-[350px] overflow-y-auto pr-1">
-                  <div className="space-y-1 p-1">
+                <div className="space-y-1 text-[9px] max-h-[300px] overflow-y-auto pr-1">
+                  <div className="space-y-0.5 p-0.5">
                     {psychographicData.map((point) => (
                       <Collapsible key={point.subject}>
                         <CollapsibleTrigger className="w-full">
                           <div 
                             ref={el => itemRefs.current[point.subject] = el}
-                            className={`flex justify-between items-center transition-colors duration-150 rounded px-1.5 py-1 cursor-pointer group 
+                            className={`flex justify-between items-center transition-colors duration-150 rounded px-1 py-0.5 cursor-pointer group 
                               ${activePoint === point.subject ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
                               ${activePoint === point.subject ? 'border-l-2 border-blue-500' : ''}
                             `}
@@ -193,28 +192,28 @@ export const PsychographicsTab: FC = () => {
                                 {point.fullName}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1.5">
+                            <div className="flex items-center gap-1">
                               <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
                                 {point.A}
                               </span>
-                              <ChevronDown className="w-2.5 h-2.5 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                              <ChevronDown className="w-2 h-2 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
                             </div>
                           </div>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                           {psychographicDescriptions[point.subject] ? (
-                            <div className="px-2 py-1.5 space-y-1">
-                              <div className="space-y-1">
+                            <div className="px-1.5 py-1 space-y-0.5">
+                              <div className="space-y-0.5">
                                 {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                                  <p key={i} className="text-gray-500 text-[9px] leading-relaxed pl-2 border-l border-gray-800">
+                                  <p key={i} className="text-gray-500 text-[8px] leading-relaxed pl-1.5 border-l border-gray-800">
                                     {desc}
                                   </p>
                                 ))}
                               </div>
                             </div>
                           ) : (
-                            <div className="px-2 py-1.5">
-                              <p className="text-gray-500 text-[9px] leading-relaxed">
+                            <div className="px-1.5 py-1">
+                              <p className="text-gray-500 text-[8px] leading-relaxed">
                                 No detailed information available.
                               </p>
                             </div>
@@ -229,10 +228,10 @@ export const PsychographicsTab: FC = () => {
           </CarouselItem>
         </CarouselContent>
         
-        <div className="absolute z-10 flex justify-center w-full bottom-1">
-          <div className="flex gap-1.5 items-center">
-            <CarouselPrevious className="relative left-0 h-6 w-6 border-gray-700 bg-gray-800/70 hover:bg-gray-700" />
-            <CarouselNext className="relative right-0 h-6 w-6 border-gray-700 bg-gray-800/70 hover:bg-gray-700" />
+        <div className="absolute z-10 flex justify-center w-full bottom-0.5">
+          <div className="flex gap-1 items-center">
+            <CarouselPrevious className="relative left-0 h-5 w-5 border-gray-700 bg-gray-800/70 hover:bg-gray-700" />
+            <CarouselNext className="relative right-0 h-5 w-5 border-gray-700 bg-gray-800/70 hover:bg-gray-700" />
           </div>
         </div>
       </Carousel>

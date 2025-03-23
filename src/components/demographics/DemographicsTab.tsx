@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Info, ChartBar, Users, MapPin, DollarSign, User } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -86,22 +85,22 @@ export const DemographicsTab: FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-slide-up pt-4">
+    <div className="space-y-3 animate-slide-up pt-2">
       {/* Age Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Age distribution shows that ${searchTerm} is most popular among 30-45 year olds, who represent 35% of the audience.`}
           searchTerm={searchTerm}
         >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          <button className="absolute top-1 right-1">
+            <Info className="w-3 h-3 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
-          <ChartBar className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Age Distribution</h3>
+        <div className="flex items-center gap-1 mb-1">
+          <ChartBar className="w-3 h-3 text-gray-400" />
+          <h3 className="text-[10px] font-semibold text-white">Age Distribution</h3>
         </div>
-        <div className="h-[220px] w-full flex justify-center">
+        <div className="h-[180px] w-full flex justify-center">
           <ChartContainer 
             config={{
               ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
@@ -112,7 +111,7 @@ export const DemographicsTab: FC = () => {
               <BarChart 
                 data={ageData}
                 margin={isMobile ? 
-                  { top: 5, right: 10, left: 20, bottom: 25 } : 
+                  { top: 5, right: 5, left: 15, bottom: 15 } : 
                   { top: 5, right: 20, left: 40, bottom: 25 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
@@ -120,7 +119,7 @@ export const DemographicsTab: FC = () => {
                   dataKey="name"
                   axisLine={false} 
                   tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  tick={{ fontSize: isMobile ? 7 : 10, fill: '#D1D5DB' }}
                   dy={10}
                 />
                 <YAxis 
@@ -128,14 +127,14 @@ export const DemographicsTab: FC = () => {
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 40]}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={isMobile ? 25 : 35}
+                  tick={{ fontSize: isMobile ? 7 : 10, fill: '#9CA3AF' }}
+                  width={isMobile ? 20 : 35}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
+                        <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[9px]">
                           <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
                         </div>
                       );
@@ -151,7 +150,7 @@ export const DemographicsTab: FC = () => {
                     dataKey="value" 
                     position="top" 
                     formatter={(value: number) => `${value}%`}
-                    style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
+                    style={{ fill: 'white', fontSize: isMobile ? 7 : 10, fontWeight: 500 }}
                   />
                 </Bar>
               </BarChart>
@@ -161,20 +160,20 @@ export const DemographicsTab: FC = () => {
       </div>
 
       {/* Gender Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Gender analysis reveals that ${searchTerm} slightly appeals more to females (51%) than males (48%).`}
           searchTerm={searchTerm}
         >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          <button className="absolute top-1 right-1">
+            <Info className="w-3 h-3 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
-          <Users className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Gender Distribution</h3>
+        <div className="flex items-center gap-1 mb-1">
+          <Users className="w-3 h-3 text-gray-400" />
+          <h3 className="text-[10px] font-semibold text-white">Gender Distribution</h3>
         </div>
-        <div className="h-[130px] w-full flex justify-center">
+        <div className="h-[120px] w-full flex justify-center">
           <ChartContainer 
             config={{
               genderPie: { theme: { light: '#9B87F5', dark: '#9B87F5' } },
@@ -233,20 +232,20 @@ export const DemographicsTab: FC = () => {
       </div>
 
       {/* Location Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Geographic data suggests ${searchTerm} is most popular in Copenhagen (42%), followed by London (35%).`}
           searchTerm={searchTerm}
         >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          <button className="absolute top-1 right-1">
+            <Info className="w-3 h-3 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
-          <MapPin className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Location Distribution</h3>
+        <div className="flex items-center gap-1 mb-1">
+          <MapPin className="w-3 h-3 text-gray-400" />
+          <h3 className="text-[10px] font-semibold text-white">Location Distribution</h3>
         </div>
-        <div className="h-[220px] w-full flex justify-center">
+        <div className="h-[180px] w-full flex justify-center">
           <ChartContainer 
             config={{
               locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
@@ -257,15 +256,15 @@ export const DemographicsTab: FC = () => {
               <BarChart 
                 data={locationData}
                 margin={isMobile ? 
-                  { top: 5, right: 10, left: 20, bottom: 30 } : 
-                  { top: 5, right: 20, left: 40, bottom: 30 }}
+                  { top: 5, right: 5, left: 15, bottom: 20 } : 
+                  { top: 5, right: 20, left: 40, bottom: 20 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
                   dataKey="name"
                   axisLine={false} 
                   tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB', width: isMobile ? 60 : 80 }}
+                  tick={{ fontSize: isMobile ? 7 : 10, fill: '#D1D5DB', width: isMobile ? 60 : 80 }}
                   angle={-25}
                   textAnchor="end"
                   height={60}
@@ -276,8 +275,8 @@ export const DemographicsTab: FC = () => {
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={isMobile ? 25 : 35}
+                  tick={{ fontSize: isMobile ? 7 : 10, fill: '#9CA3AF' }}
+                  width={isMobile ? 20 : 35}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -299,7 +298,7 @@ export const DemographicsTab: FC = () => {
                     dataKey="value" 
                     position="top" 
                     formatter={(value: number) => `${value}%`}
-                    style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
+                    style={{ fill: 'white', fontSize: isMobile ? 7 : 10, fontWeight: 500 }}
                   />
                 </Bar>
               </BarChart>
@@ -309,20 +308,20 @@ export const DemographicsTab: FC = () => {
       </div>
 
       {/* Income Distribution Card */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Income analysis shows ${searchTerm} resonates most with middle-income groups (30k-75k), comprising 45% of respondents.`}
           searchTerm={searchTerm}
         >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          <button className="absolute top-1 right-1">
+            <Info className="w-3 h-3 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
-          <DollarSign className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Income Distribution</h3>
+        <div className="flex items-center gap-1 mb-1">
+          <DollarSign className="w-3 h-3 text-gray-400" />
+          <h3 className="text-[10px] font-semibold text-white">Income Distribution</h3>
         </div>
-        <div className="h-[180px] w-full flex justify-center">
+        <div className="h-[120px] w-full flex justify-center">
           <ChartContainer 
             config={{
               incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
@@ -333,15 +332,15 @@ export const DemographicsTab: FC = () => {
               <BarChart 
                 data={incomeData}
                 margin={isMobile ? 
-                  { top: 5, right: 10, left: 20, bottom: 25 } : 
-                  { top: 5, right: 20, left: 40, bottom: 25 }}
+                  { top: 5, right: 5, left: 15, bottom: 20 } : 
+                  { top: 5, right: 20, left: 40, bottom: 20 }}
               >
                 <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                 <XAxis 
                   dataKey="name"
                   axisLine={false} 
                   tickLine={false}
-                  tick={{ fontSize: 10, fill: '#D1D5DB' }}
+                  tick={{ fontSize: isMobile ? 7 : 10, fill: '#D1D5DB' }}
                   dy={10}
                 />
                 <YAxis 
@@ -349,8 +348,8 @@ export const DemographicsTab: FC = () => {
                   tickLine={false}
                   tickFormatter={(value) => `${value}%`}
                   domain={[0, 50]}
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  width={isMobile ? 25 : 35}
+                  tick={{ fontSize: isMobile ? 7 : 10, fill: '#9CA3AF' }}
+                  width={isMobile ? 20 : 35}
                 />
                 <ChartTooltip
                   content={({ active, payload }) => {
@@ -372,7 +371,7 @@ export const DemographicsTab: FC = () => {
                     dataKey="value" 
                     position="top" 
                     formatter={(value: number) => `${value}%`}
-                    style={{ fill: 'white', fontSize: 10, fontWeight: 500 }}
+                    style={{ fill: 'white', fontSize: isMobile ? 7 : 10, fontWeight: 500 }}
                   />
                 </Bar>
               </BarChart>
@@ -382,20 +381,20 @@ export const DemographicsTab: FC = () => {
       </div>
 
       {/* Ancestry Distribution Card - Donut chart */}
-      <div className="p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+      <div className="p-2 bg-gray-900 rounded-lg border border-gray-800 relative">
         <InteractiveTooltip 
           content={`Ancestry data shows ${searchTerm} has diverse appeal across different ethnic backgrounds, with European ancestry representing the largest group (30%).`}
           searchTerm={searchTerm}
         >
-          <button className="absolute top-2 right-2">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          <button className="absolute top-1 right-1">
+            <Info className="w-3 h-3 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-2">
-          <User className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-bold text-white">Ancestry Distribution</h3>
+        <div className="flex items-center gap-1 mb-1">
+          <User className="w-3 h-3 text-gray-400" />
+          <h3 className="text-[10px] font-bold text-white">Ancestry Distribution</h3>
         </div>
-        <div className="h-[210px] w-full flex justify-center">
+        <div className="h-[180px] w-full flex justify-center">
           <ChartContainer 
             config={{
               ancestryPie: { theme: { light: '#F97316', dark: '#F97316' } },
@@ -443,13 +442,13 @@ export const DemographicsTab: FC = () => {
           content={`Geographic heatmap visualizes where ${searchTerm} has the most engagement, with hotspots in Europe and North America.`}
           searchTerm={searchTerm}
         >
-          <button className="absolute top-2 right-2 z-10">
-            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          <button className="absolute top-1 right-1 z-10">
+            <Info className="w-3 h-3 text-gray-400 cursor-help" />
           </button>
         </InteractiveTooltip>
-        <div className="flex items-center gap-1.5 mb-4">
-          <MapPin className="w-3.5 h-3.5 text-gray-400" />
-          <h3 className="text-xs font-semibold text-white">Geographic Distribution</h3>
+        <div className="flex items-center gap-1 mb-4">
+          <MapPin className="w-3 h-3 text-gray-400" />
+          <h3 className="text-[10px] font-semibold text-white">Geographic Distribution</h3>
         </div>
         <DemographicsMap />
       </div>

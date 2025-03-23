@@ -53,14 +53,14 @@ export const InsightsTab: FC = () => {
   const isMobile = useIsMobile();
   
   return (
-    <div className={`grid ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-2 gap-4'} animate-slide-up`}>
+    <div className={`grid ${isMobile ? 'grid-cols-1 gap-1.5' : 'grid-cols-2 gap-4'} animate-slide-up`}>
       {insightsData.map((insight, index) => (
         <Card
           key={index}
           className="bg-gray-900 border-gray-800 hover:border-gray-700 transition-colors"
         >
-          <CardContent className={`${isMobile ? 'p-2' : 'p-4'}`}>
-            <h3 className={`${isMobile ? 'text-sm' : 'text-lg'} font-semibold mb-1.5 ${
+          <CardContent className={`${isMobile ? 'p-1.5' : 'p-4'}`}>
+            <h3 className={`${isMobile ? 'text-xs' : 'text-lg'} font-semibold mb-1 ${
               insight.color === "blue" ? "text-blue-400" :
               insight.color === "purple" ? "text-purple-400" :
               insight.color === "green" ? "text-green-400" :
@@ -71,9 +71,9 @@ export const InsightsTab: FC = () => {
               {insight.title}
             </h3>
             
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Button 
-                className={`w-full text-left justify-start font-normal text-[9px] ${isMobile ? 'py-1 px-1.5' : ''} ${
+                className={`w-full text-left justify-start font-normal text-[8px] ${isMobile ? 'py-0.5 px-1' : ''} ${
                   insight.color === "blue" ? "bg-blue-950/50 text-blue-200" :
                   insight.color === "purple" ? "bg-purple-950/50 text-purple-200" :
                   insight.color === "green" ? "bg-green-950/50 text-green-200" :
@@ -88,8 +88,8 @@ export const InsightsTab: FC = () => {
               </Button>
               
               <div>
-                <div className="mb-0.5 text-[9px] font-semibold text-gray-400">INTERPRETATION</div>
-                <p className={`text-gray-500 ${isMobile ? 'text-[9px]' : 'text-sm'} leading-relaxed`}>
+                <div className="mb-0.5 text-[8px] font-semibold text-gray-400">INTERPRETATION</div>
+                <p className={`text-gray-500 ${isMobile ? 'text-[8px]' : 'text-sm'} leading-relaxed`}>
                   {insight.interpretation}
                 </p>
               </div>

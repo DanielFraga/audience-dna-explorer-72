@@ -81,8 +81,8 @@ const Index = () => {
   const renderContent = () => {
     if (!showResults) {
       return (
-        <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
-          <div className="mb-6 md:mb-8 relative w-40 h-40 flex items-center justify-center">
+        <div className={`flex flex-col items-center justify-center min-h-screen py-4 md:py-12 text-center px-3 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
+          <div className="mb-5 md:mb-8 relative w-40 h-40 flex items-center justify-center">
             <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
               <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-white" />
@@ -159,14 +159,14 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return (
-        <div className="space-y-6 pb-20 max-w-3xl mx-auto">
+        <div className="space-y-3 pb-20 mx-auto">
           <DemographicsTab />
           <PsychographicsTab />
         </div>
       );
     } else if (activeView === "responses") {
       return (
-        <div className="space-y-6 pb-20 max-w-3xl mx-auto">
+        <div className="space-y-6 pb-20 mx-auto">
           <SurveyTab />
         </div>
       );
@@ -187,14 +187,14 @@ const Index = () => {
             />
           )}
 
-          <div className={`p-2 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
+          <div className={`p-1 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
             {!showResults ? (
               <div className="gradient-background min-h-screen flex items-center justify-center h-full">
                 {renderContent()}
               </div>
             ) : (
               <div className={`${isAnimating ? 'backdrop-blur-sm' : ''} transition-all duration-300`}>
-                <ScrollArea className="h-[calc(100vh-180px)] pr-4 -mr-4">
+                <ScrollArea className="h-[calc(100vh-180px)] pr-2 -mr-2">
                   {renderVerticalFeed()}
                 </ScrollArea>
               </div>
@@ -259,3 +259,4 @@ const Index = () => {
 };
 
 export default Index;
+

@@ -27,7 +27,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
   };
 
   return (
-    <div className="w-full h-[400px] relative">
+    <div className="w-full h-[300px] relative">
       <ResponsiveContainer width="100%" height="100%">
         <RechartsRadarChart data={data}>
           <defs>
@@ -40,7 +40,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
           <PolarGrid stroke="#374151" />
           <PolarAngleAxis
             dataKey="subject"
-            tick={{ fill: 'transparent', fontSize: isMobile ? 8 : 10 }}
+            tick={{ fill: 'transparent', fontSize: isMobile ? 6 : 10 }}
           />
           <RadarChart
             name="Psychographic Profile"
@@ -55,7 +55,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
       {/* Positioned Radar vertex chips */}
       {data.map((point, index) => {
         const angle = (index * 360) / data.length;
-        const radius = isMobile ? 140 : 160;
+        const radius = isMobile ? 100 : 160;
         const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
         const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
@@ -85,7 +85,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
             searchTerm={searchTerm}
           >
             <button
-              className={`px-1.5 py-0.5 text-[8px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
+              className={`px-1 py-0.5 text-[7px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
               style={{
                 left: `50%`,
                 top: `50%`,
