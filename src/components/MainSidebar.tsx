@@ -6,25 +6,13 @@ import { useLocation, Link } from 'react-router-dom';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
 import { AudienceSection } from './sidebar/AudienceSection';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const MainSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const [selectedAudience, setSelectedAudience] = useState("holiday");
   const location = useLocation();
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth < 768) {
-        setIsOpen(false);
-      }
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   useEffect(() => {
     if (!isMobile) {
@@ -34,6 +22,15 @@ const MainSidebar = () => {
       document.body.classList.remove('sidebar-collapsed');
     };
   }, [isOpen, isMobile]);
+
+  // When on mobile, automatically close the sidebar on initial render
+  useEffect(() => {
+    if (isMobile) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  }, [isMobile]);
 
   const menuItems: MenuItem[] = [
     {

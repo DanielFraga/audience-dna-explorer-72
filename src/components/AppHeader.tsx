@@ -1,5 +1,5 @@
 
-import { Search, Download } from "lucide-react";
+import { Search, Download, Menu } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X } from 'lucide-react';
@@ -10,9 +10,15 @@ interface AppHeaderProps {
   searchTerm?: string;
   currentTab: "stats" | "responses" | "chat";
   onResetSearch?: () => void;
+  onToggleSidebar?: () => void;
 }
 
-const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHeaderProps) => {
+const AppHeader = ({ 
+  searchTerm = "holiday", 
+  currentTab, 
+  onResetSearch,
+  onToggleSidebar 
+}: AppHeaderProps) => {
   const navigate = useNavigate();
 
   const handleResetSearch = () => {
@@ -32,7 +38,15 @@ const AppHeader = ({ searchTerm = "holiday", currentTab, onResetSearch }: AppHea
         {/* First frame - search term */}
         <div className="h-[50px] px-3 md:px-6">
           <div className="h-full flex items-center justify-between">
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 p-0 rounded-full text-gray-400 hover:text-white md:hidden"
+                onClick={onToggleSidebar}
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
               <h2 className="text-2xl font-grotesk font-semibold text-white pb-0.5 translate-y-[2px]">"{ searchTerm }"</h2>
             </div>
             <div className="w-10"></div> {/* Empty space for balance */}
