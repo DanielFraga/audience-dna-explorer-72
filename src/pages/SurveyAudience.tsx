@@ -24,8 +24,8 @@ const SurveyAudience = () => {
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-4 animate-fade-in h-[100vh] overflow-auto md:overflow-hidden">
-        <div className="flex flex-wrap items-center gap-2 mb-6">
-          <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 pr-2 flex items-center justify-between px-3 py-1.5">
+        <div className="flex flex-col items-center mb-6">
+          <Badge variant="outline" className="bg-gray-800 text-gray-300 border-gray-700 pr-2 gradient-stroke">
             <span className="mr-1">450 out of 10000 respondents</span>
             <Button 
               variant="ghost" 
@@ -37,13 +37,7 @@ const SurveyAudience = () => {
             </Button>
           </Badge>
           
-          <Badge variant="outline" className="gradient-stroke bg-gray-800 text-gray-300 border-gray-700 px-3 py-1.5">
-            <span>holiday</span>
-          </Badge>
-          
-          <div className="w-full mt-2">
-            <IconTabs currentTab="responses" />
-          </div>
+          <IconTabs currentTab="responses" />
         </div>
         
         <div className="space-y-3">
