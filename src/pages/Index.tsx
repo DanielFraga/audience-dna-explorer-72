@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Users, Globe, Sparkles } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,6 +24,7 @@ const Index = () => {
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
   const [dnaDescription, setDnaDescription] = useState("");
+  const [isAnimating, setIsAnimating] = useState(false);
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
   
@@ -36,7 +38,12 @@ const Index = () => {
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      setShowResults(true);
+      setIsAnimating(true);
+      // Trigger animation and then show results after delay
+      setTimeout(() => {
+        setShowResults(true);
+        setIsAnimating(false);
+      }, 800); // Animation duration
       console.log("Searching for:", searchTerm);
     }
   };
@@ -49,7 +56,7 @@ const Index = () => {
   const renderContent = () => {
     if (!showResults) {
       return (
-        <div className="flex flex-col items-center justify-center py-6 md:py-12 text-center animate-fade-in px-4 h-full">
+        <div className={`flex flex-col items-center justify-center py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
           <div className="mb-6 md:mb-8 relative">
             <div className="w-18 h-18 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
@@ -155,58 +162,59 @@ const Index = () => {
 
   return (
     <TooltipProvider>
-      <div className={`min-h-screen font-grotesk text-[13px] ${!showResults ? 'gradient-background' : 'bg-gray-950'}`}>
+      <div className={`min-h-screen font-grotesk text-[13px] gradient-background`}>
         <MainSidebar />
         
         <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in ${isMobile ? '' : ''}`}>
-          <div className="sticky top-0 z-10 bg-gray-950 flex flex-col">
-            <div className="flex items-center gap-2 p-3 md:p-6">
-              {isMobile && <div className="w-10"></div>}
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  placeholder="Explore audience..."
-                  className="w-full px-4 py-2 pl-9 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                />
-                <Search className="absolute left-3 top-2.5 text-gray-500 w-3.5 h-3.5" />
+          {/* Top Search Bar - Only shown when results are visible */}
+          {showResults && (
+            <div className="sticky top-0 z-10 bg-gray-950 flex flex-col animate-fade-in">
+              <div className="flex items-center gap-2 p-3 md:p-6">
+                {isMobile && <div className="w-10"></div>}
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    placeholder="Explore audience..."
+                    className="w-full px-4 py-2 pl-9 rounded-lg border border-gray-800 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-700 placeholder-gray-500 text-xs shadow-lg transition-all duration-300"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  />
+                  <Search className="absolute left-3 top-2.5 text-gray-500 w-3.5 h-3.5" />
+                </div>
+                
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      size="icon" 
+                      variant="ghost" 
+                      className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                      onClick={handleSearch}
+                    >
+                      <Search className="w-4 h-4 text-gray-300" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs">Search</p>
+                  </TooltipContent>
+                </Tooltip>
+                
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      size="icon" 
+                      variant="ghost" 
+                      className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                    >
+                      <Download className="w-4 h-4 text-gray-300" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs">Export</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
               
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    size="icon" 
-                    variant="ghost" 
-                    className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
-                    onClick={handleSearch}
-                  >
-                    <Search className="w-4 h-4 text-gray-300" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">Search</p>
-                </TooltipContent>
-              </Tooltip>
-              
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    size="icon" 
-                    variant="ghost" 
-                    className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
-                  >
-                    <Download className="w-4 h-4 text-gray-300" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">Export</p>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-            
-            {showResults && (
               <div className="px-3 pb-3 md:px-6 md:pb-3" ref={resultsRef}>
                 <Button 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center justify-between shadow-md animate-fade-in whitespace-nowrap overflow-hidden"
@@ -214,8 +222,8 @@ const Index = () => {
                   <span className="truncate">"holiday" - 450/10000 respondents</span>
                 </Button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
             {!showResults ? (
@@ -223,9 +231,11 @@ const Index = () => {
                 {renderContent()}
               </div>
             ) : (
-              <ScrollArea className="h-[calc(100vh-140px)] pr-4 -mr-4">
-                {renderVerticalFeed()}
-              </ScrollArea>
+              <div className={`${isAnimating ? 'backdrop-blur-sm' : ''} transition-all duration-300`}>
+                <ScrollArea className="h-[calc(100vh-140px)] pr-4 -mr-4">
+                  {renderVerticalFeed()}
+                </ScrollArea>
+              </div>
             )}
           </div>
         </div>
