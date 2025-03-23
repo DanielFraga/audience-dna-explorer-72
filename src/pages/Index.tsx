@@ -18,7 +18,9 @@ import AppHeader from "@/components/AppHeader";
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return sessionStorage.getItem('searchTerm') || "";
+  });
   const [showResults, setShowResults] = useState(false);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
@@ -27,20 +29,32 @@ const Index = () => {
   const [activeView, setActiveView] = useState("stats");
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
   
+  useEffect(() => {
+    const storedTerm = sessionStorage.getItem('searchTerm');
+    if (storedTerm) {
+      setSearchTerm(storedTerm);
+      setShowResults(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (location.state?.preserveSearch) {
       navigate('/', { replace: true, state: {} });
       
-      if (!showResults && searchTerm) {
+      const storedTerm = sessionStorage.getItem('searchTerm');
+      if (storedTerm && !showResults) {
+        setSearchTerm(storedTerm);
         setShowResults(true);
       }
     } else if (location.state?.resetSearch) {
       setSearchTerm("");
       setShowResults(false);
+      sessionStorage.removeItem('searchTerm');
       navigate('/', { replace: true, state: {} });
     }
-  }, [location.state, navigate, searchTerm, showResults]);
+  }, [location.state, navigate, showResults]);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -57,11 +71,16 @@ const Index = () => {
   const handleResetSearch = () => {
     setSearchTerm("");
     setShowResults(false);
+    sessionStorage.removeItem('searchTerm');
   };
 
   const handleSaveDna = () => {
     console.log("Saving DNA with name:", dnaName);
     navigate("/chat");
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const renderContent = () => {
@@ -161,6 +180,7 @@ const Index = () => {
               searchTerm={searchTerm} 
               currentTab="stats" 
               onResetSearch={handleResetSearch}
+              onToggleSidebar={toggleSidebar}
             />
           )}
 

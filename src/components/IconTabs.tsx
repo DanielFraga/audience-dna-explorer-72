@@ -9,8 +9,8 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
   const location = useLocation();
 
   const handleTabChange = (value: string) => {
+    // Always preserve search when navigating between tabs
     if (value === "stats") {
-      // Always preserve search when navigating between tabs
       navigate("/", { 
         state: { preserveSearch: true } 
       });
