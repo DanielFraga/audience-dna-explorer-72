@@ -12,6 +12,7 @@ import { SurveyTab } from "../components/survey/SurveyTab";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Index = () => {
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [dnaName, setDnaName] = useState(`Audience: ${searchTerm}`);
   const [dnaDescription, setDnaDescription] = useState("");
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     // Check if we should reset the search when navigating here
@@ -51,37 +53,37 @@ const Index = () => {
   const renderContent = () => {
     if (!showResults) {
       return (
-        <div className="flex flex-col items-center justify-center py-16 text-center animate-fade-in">
-          <div className="mb-10 relative">
-            <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center py-8 md:py-16 text-center animate-fade-in px-4">
+          <div className="mb-8 md:mb-10 relative">
+            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
-              <Sparkles className="w-12 h-12 text-white" />
+              <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-white" />
             </div>
-            <div className="absolute -right-6 -top-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <Users className="w-6 h-6 text-white" />
+            <div className="absolute -right-4 md:-right-6 -top-4 md:-top-6">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
             </div>
-            <div className="absolute -left-4 -bottom-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <Globe className="w-5 h-5 text-white" />
+            <div className="absolute -left-3 md:-left-4 -bottom-3 md:-bottom-4">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
             </div>
           </div>
           
-          <h1 className="text-3xl font-bold text-white mb-3 tracking-tight">Cubular</h1>
-          <h2 className="text-xl font-medium text-gray-300 mb-3">
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 tracking-tight">Cubular</h1>
+          <h2 className="text-lg md:text-xl font-medium text-gray-300 mb-2 md:mb-3">
             Explore Your Global Audience
           </h2>
-          <p className="text-gray-400 max-w-md mb-8 leading-relaxed">
-            Discover insights about your audience's demographics, psychographics, and behaviors. Start by typing a keyword in the search bar above.
+          <p className="text-gray-400 max-w-md mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
+            Discover insights about your audience's demographics, psychographics, and behaviors. Start by typing a keyword in the search bar below.
           </p>
           
-          <div className="relative w-full max-w-md mx-auto mb-8">
+          <div className="relative w-full max-w-md mx-auto mb-6 md:mb-8">
             <input
               type="text"
               placeholder="What audience do you want to explore?"
-              className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-700 bg-gray-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-700 bg-gray-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-sm"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -95,13 +97,13 @@ const Index = () => {
             </button>
           </div>
           
-          <div className="space-y-4 text-gray-500 text-sm">
+          <div className="space-y-3 text-gray-500 text-xs md:text-sm">
             <p>Try searching for:</p>
-            <div className="flex gap-2 justify-center flex-wrap">
+            <div className="flex flex-wrap gap-2 justify-center">
               {["holiday", "gaming", "fashion", "technology", "health", "food"].map((suggestion) => (
                 <button 
                   key={suggestion}
-                  className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-full transition-colors"
+                  className="px-3 py-1 md:py-1.5 bg-gray-800 hover:bg-gray-700 rounded-full transition-colors text-xs"
                   onClick={() => {
                     setSearchTerm(suggestion);
                     setTimeout(() => handleSearch(), 100);
@@ -137,11 +139,11 @@ const Index = () => {
       <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
         <MainSidebar />
         
-        <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-4 md:p-6 animate-fade-in">
+        <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 p-3 md:p-6 animate-fade-in ${isMobile ? 'mt-16' : ''}`}>
           {/* Top Search Section - Only show when results are visible */}
           {showResults && (
-            <div className="mb-8 mt-14 md:mt-0">
-              <div className="relative flex flex-col md:flex-row gap-3 md:gap-0 items-start md:items-center">
+            <div className="mb-4 md:mb-8 mt-8 md:mt-0">
+              <div className="flex flex-col md:flex-row gap-3 md:gap-0 items-start md:items-center">
                 <input
                   type="text"
                   placeholder="Explore your audience..."
@@ -169,30 +171,32 @@ const Index = () => {
               </div>
               
               <Button 
-                className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-medium p-2 px-3 rounded-lg flex items-center gap-1.5 shadow-md animate-fade-in"
+                className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-[10px] md:text-[11px] font-medium p-2 px-3 rounded-lg flex items-center flex-wrap gap-1.5 shadow-md animate-fade-in"
               >
-                <span>Showing results for <span className="font-semibold">"{searchTerm}"</span></span>
-                <span>•</span>
-                <span>Applicable to</span>
-                <span className="px-2 py-0.5 bg-blue-700 rounded-full text-blue-100">450 out of 10000</span>
-                <span>respondents</span>
+                <span className="whitespace-nowrap">Showing results for <span className="font-semibold">"{searchTerm}"</span></span>
+                <span className="hidden md:inline">•</span>
+                <span className="whitespace-nowrap">
+                  <span className="md:inline">Applicable to</span>
+                  <span className="px-2 py-0.5 bg-blue-700 rounded-full text-blue-100 mx-1">450</span>
+                  <span className="md:inline">respondents</span>
+                </span>
               </Button>
             </div>
           )}
 
-          {/* Adjust top margin when no results are shown */}
-          <div className={`${!showResults ? "mt-14 md:mt-0" : ""}`}>
+          {/* Content Container */}
+          <div className={`${!showResults ? "mt-0" : ""}`}>
             {/* Tabs and Content Container */}
             {showResults ? (
               <div className="transition-all duration-300 opacity-100">
                 {/* Tabs */}
-                <div className="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0">
+                <div className="overflow-x-auto -mx-3 md:-mx-0 px-3 md:px-0">
                   <div className="flex w-full bg-gray-800 rounded-t-lg min-w-[600px]">
                     {tabs.map((tab, index) => (
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`flex-1 py-4 text-xs font-medium transition-colors relative ${
+                        className={`flex-1 py-3 md:py-4 text-[10px] md:text-xs font-medium transition-colors relative ${
                           activeTab === tab.id
                             ? "text-white bg-gray-900"
                             : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/80"
@@ -203,7 +207,7 @@ const Index = () => {
                         <div className="flex flex-col items-center">
                           <span>{tab.label}</span>
                           {tab.subLabel && (
-                            <span className="text-[10px] text-gray-400 mt-0.5">
+                            <span className="text-[9px] md:text-[10px] text-gray-400 mt-0.5">
                               {tab.subLabel}
                             </span>
                           )}
@@ -217,14 +221,14 @@ const Index = () => {
                 </div>
 
                 {/* Content Area */}
-                <div className="bg-gray-900 rounded-b-lg p-4 md:p-6 overflow-x-auto">
+                <div className="bg-gray-900 rounded-b-lg p-3 md:p-6 overflow-x-auto">
                   <div className="min-w-[600px]">
                     {renderContent()}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="bg-gray-900 rounded-lg p-4 md:p-6 min-h-[500px] flex items-center justify-center">
+              <div className="bg-gray-900 rounded-lg min-h-[calc(100vh-6rem)] md:min-h-[500px] flex items-center justify-center">
                 {renderContent()}
               </div>
             )}
@@ -232,7 +236,7 @@ const Index = () => {
         </div>
 
         <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
-          <DialogContent className="bg-gray-900 border border-gray-800 text-gray-100">
+          <DialogContent className="bg-gray-900 border border-gray-800 text-gray-100 w-[95%] max-w-md mx-auto">
             <DialogHeader>
               <DialogTitle className="text-lg font-medium text-gray-100">Save Audience DNA</DialogTitle>
             </DialogHeader>
