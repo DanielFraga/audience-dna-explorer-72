@@ -28,43 +28,43 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
   return (
     <div className="flex justify-center w-full">
       <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
-        <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1 w-full">
+        <TabsList className="bg-gray-800/60 border border-gray-700 relative px-1 w-full h-[42px]">
           {/* Toggle button that moves behind active tab */}
           <div 
-            className="absolute bg-gray-700 rounded-md transition-all duration-300 h-[85%] top-[7.5%]"
+            className="absolute bg-gray-700 rounded-md transition-all duration-300 h-[30px] top-[6px]"
             style={{
               left: currentTab === "stats" ? "16.67%" : currentTab === "responses" ? "50%" : "83.33%",
-              width: "10%",
+              width: "30px",
               transform: "translateX(-50%)"
             }}
           />
           
-          <div className="flex justify-between w-full">
-            <div className="flex-1 flex justify-center">
+          <div className="tab-container">
+            <div className="tab-section">
               <IconTabsTrigger 
                 value="stats" 
                 aria-label="Stats"
-                className="z-10"
+                className="z-10 h-10 w-10"
               >
                 <BarChart3 className="h-4 w-4" />
               </IconTabsTrigger>
             </div>
             
-            <div className="flex-1 flex justify-center">
+            <div className="tab-section">
               <IconTabsTrigger 
                 value="responses" 
                 aria-label="Survey Responses"
-                className="z-10"
+                className="z-10 h-10 w-10"
               >
                 <ClipboardList className="h-4 w-4" />
               </IconTabsTrigger>
             </div>
             
-            <div className="flex-1 flex justify-center">
+            <div className="tab-section">
               <IconTabsTrigger 
                 value="chat" 
                 aria-label="Chat"
-                className="z-10"
+                className="z-10 h-10 w-10"
               >
                 <MessageSquare className="h-4 w-4" />
               </IconTabsTrigger>
