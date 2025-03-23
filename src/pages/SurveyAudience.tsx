@@ -16,7 +16,7 @@ const SurveyAudience = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+    <div className="min-h-screen gradient-background font-grotesk text-[13px]">
       <div className="h-[100vh] overflow-auto">
         <AppHeader 
           searchTerm="holiday" 
