@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Users, Globe, Sparkles } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,12 +27,9 @@ const Index = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    // Check if we should reset the search when navigating here
     if (location.state?.resetSearch) {
       setSearchTerm("");
       setShowResults(false);
-      
-      // Clear the location state to prevent resetting on subsequent renders
       navigate('/', { replace: true, state: {} });
     }
   }, [location.state, navigate]);
@@ -46,16 +42,14 @@ const Index = () => {
   };
 
   const handleSaveDna = () => {
-    // Here you would actually save the DNA with the provided name
     console.log("Saving DNA with name:", dnaName);
-    // Navigate to chat with this audience
     navigate("/chat");
   };
 
   const renderContent = () => {
     if (!showResults) {
       return (
-        <div className="flex flex-col items-center justify-center py-6 md:py-12 text-center animate-fade-in px-4">
+        <div className="flex flex-col items-center justify-center py-6 md:py-12 text-center animate-fade-in px-4 h-full">
           <div className="mb-6 md:mb-8 relative">
             <div className="w-18 h-18 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
@@ -120,14 +114,12 @@ const Index = () => {
       );
     }
     
-    // If showing results, we'll just render a scrollable container that will later be filled with all sections
     return null;
   };
 
   const renderVerticalFeed = () => {
     return (
       <div className="space-y-8 pb-10">
-        {/* Demographics Section */}
         <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
           <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
             <h2 className="text-sm md:text-base font-semibold text-white">{tabs[0].sectionTitle}</h2>
@@ -138,7 +130,6 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Psychographics Section */}
         <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
           <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
             <h2 className="text-sm md:text-base font-semibold text-white">{tabs[1].sectionTitle}</h2>
@@ -149,7 +140,6 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Survey Responses Section */}
         <div className="bg-gray-900 rounded-lg border border-gray-800/50 overflow-hidden">
           <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-800/50">
             <h2 className="text-sm md:text-base font-semibold text-white">{tabs[2].sectionTitle}</h2>
@@ -165,14 +155,13 @@ const Index = () => {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gray-950 font-grotesk text-[13px]">
+      <div className={`min-h-screen font-grotesk text-[13px] ${!showResults ? 'gradient-background' : 'bg-gray-950'}`}>
         <MainSidebar />
         
         <div className={`transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 animate-fade-in ${isMobile ? '' : ''}`}>
-          {/* Top Search Section - Always visible */}
           <div className="sticky top-0 z-10 bg-gray-950 flex flex-col">
             <div className="flex items-center gap-2 p-3 md:p-6">
-              {isMobile && <div className="w-10"></div>} {/* Placeholder for hamburger icon */}
+              {isMobile && <div className="w-10"></div>}
               <div className="relative flex-1">
                 <input
                   type="text"
@@ -228,11 +217,9 @@ const Index = () => {
             )}
           </div>
 
-          {/* Content Container */}
           <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
-            {/* Render empty state or results feed based on state */}
             {!showResults ? (
-              <div className="bg-gradient-to-b from-gray-900 to-gray-950 rounded-lg min-h-[calc(100vh-8rem)] md:min-h-[500px] flex items-center justify-center border border-gray-800/50 shadow-lg backdrop-blur-sm">
+              <div className="gradient-background min-h-[calc(100vh-8rem)] md:min-h-[500px] flex items-center justify-center h-full">
                 {renderContent()}
               </div>
             ) : (

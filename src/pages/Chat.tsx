@@ -107,7 +107,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="h-screen bg-gray-950 font-grotesk text-[13px]">
+    <div className="h-screen gradient-background font-grotesk text-[13px]">
       <MainSidebar />
       
       <div className="transition-all duration-300 md:ml-[208px] md:collapsed:ml-16 h-full flex flex-col">
@@ -203,4 +203,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
