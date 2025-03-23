@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Search, Download, Sparkles, Globe, Users } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,7 +32,9 @@ const Index = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
+    // Ensure search persists when toggling between views
     if (location.state?.preserveSearch) {
+      // If we're preserving search, don't reset anything, just replace the state to avoid loops
       navigate('/', { replace: true, state: {} });
     } else if (location.state?.resetSearch) {
       setSearchTerm("");
@@ -297,3 +300,4 @@ const Index = () => {
 };
 
 export default Index;
+

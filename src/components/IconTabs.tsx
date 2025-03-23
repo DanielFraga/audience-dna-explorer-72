@@ -10,7 +10,7 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
 
   const handleTabChange = (value: string) => {
     if (value === "stats") {
-      // Preserve search when going to stats view
+      // Always preserve search when navigating between tabs
       navigate("/", { 
         state: { preserveSearch: true } 
       });
@@ -68,3 +68,4 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
 };
 
 export default IconTabs;
+

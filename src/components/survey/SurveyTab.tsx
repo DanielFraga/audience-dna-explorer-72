@@ -225,8 +225,8 @@ export const SurveyTab: FC = () => {
 
   return (
     <div className="space-y-8 animate-slide-up">
-      {/* Wordset Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      {/* Wordset Cards - Changed from grid to flex column */}
+      <div className="flex flex-col space-y-4">
         {wordsetData.map((wordset, index) => (
           <div 
             key={index}
@@ -329,7 +329,7 @@ export const SurveyTab: FC = () => {
         ))}
       </div>
 
-      {/* Survey Cards - Changed from grid to flex column */}
+      {/* Survey Cards - Already changed to flex column */}
       <div className="flex flex-col space-y-3">
         {surveyData.map((item, index) => (
           <div 
@@ -376,3 +376,4 @@ export const SurveyTab: FC = () => {
     </div>
   );
 };
+
