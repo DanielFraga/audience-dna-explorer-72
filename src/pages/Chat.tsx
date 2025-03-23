@@ -12,6 +12,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
 import IconTabs from "@/components/IconTabs";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 interface Message {
   id: string;
@@ -233,42 +234,49 @@ const Chat = () => {
         {/* Input area */}
         <div className="border-t border-gray-800 p-3 md:p-4 bg-gray-950/80 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
-            {/* Suggested response buttons */}
-            <div className="flex flex-wrap gap-2 justify-center mb-1">
-              {PRESET_QUESTIONS.map((question, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[11px] md:text-xs py-1.5 h-auto rounded-full px-3 shadow-sm"
-                  onClick={() => handleSendMessage(question)}
-                >
-                  {question}
-                </Button>
-              ))}
+            {/* Suggested response buttons in a carousel */}
+            <div className="w-full mb-2">
+              <Carousel className="w-full" opts={{ align: 'start', dragFree: true }}>
+                <CarouselContent className="-ml-1">
+                  {PRESET_QUESTIONS.map((question, index) => (
+                    <CarouselItem key={index} className="pl-1 basis-auto">
+                      <Button
+                        variant="outline"
+                        className="bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white text-[11px] md:text-xs py-1.5 h-auto rounded-full px-3 shadow-sm whitespace-nowrap"
+                        onClick={() => handleSendMessage(question)}
+                      >
+                        {question}
+                      </Button>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </div>
             
-            {/* Input field */}
+            {/* Input field with aligned elements */}
             <div className="relative rounded-xl overflow-hidden border border-gray-800 shadow-lg focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 transition-all duration-200">
-              <Textarea
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-                placeholder="Ask about your audience..."
-                className="bg-gray-900 text-white rounded-lg border-0 focus:outline-none focus:ring-0 min-h-[60px] md:min-h-[80px] resize-none pr-16 md:pr-24 py-3 px-4 text-sm"
-              />
-              <Button
-                onClick={() => handleSendMessage()}
-                className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-blue-600 hover:bg-blue-700 text-white scale-90 md:scale-100 rounded-lg shadow-lg"
-                disabled={!inputValue.trim()}
-              >
-                <SendHorizontal className="h-4 w-4 mr-1 md:mr-2" />
-                <span className={isMobile ? "sr-only" : ""}>Send</span>
-              </Button>
+              <div className="flex items-center">
+                <Textarea
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                  placeholder="Ask about your audience..."
+                  className="bg-gray-900 text-white rounded-lg border-0 focus:outline-none focus:ring-0 min-h-[60px] md:min-h-[60px] resize-none py-3 px-4 text-sm flex-grow"
+                />
+                <Button
+                  onClick={() => handleSendMessage()}
+                  className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg h-10 mr-3"
+                  disabled={!inputValue.trim()}
+                >
+                  <SendHorizontal className="h-4 w-4 mr-1 md:mr-2" />
+                  <span className={isMobile ? "sr-only" : ""}>Send</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
