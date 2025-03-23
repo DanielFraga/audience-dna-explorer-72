@@ -136,37 +136,41 @@ const Chat = () => {
               />
             </div>
             
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
-                  className="w-8 h-8 rounded-full overflow-hidden relative p-0"
-                  onClick={handleSearch}
-                >
-                  <div className="absolute inset-0 gradient-glow opacity-70"></div>
-                  <Search className="w-4 h-4 text-white relative z-10" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p className="text-xs">Search</p>
-              </TooltipContent>
-            </Tooltip>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    className="w-8 h-8 rounded-full overflow-hidden relative p-0"
+                    onClick={handleSearch}
+                  >
+                    <div className="absolute inset-0 gradient-glow opacity-70"></div>
+                    <Search className="w-4 h-4 text-white relative z-10" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Search</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
-                  className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
-                >
-                  <Download className="w-4 h-4 text-gray-300" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p className="text-xs">Export</p>
-              </TooltipContent>
-            </Tooltip>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 p-1.5"
+                  >
+                    <Download className="w-4 h-4 text-gray-300" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Export</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           
           <div className="px-3 pb-3 md:px-6 md:pb-3">
