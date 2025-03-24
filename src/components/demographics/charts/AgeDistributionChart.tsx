@@ -52,6 +52,9 @@ export const AgeDistributionChart: FC = () => {
           barCategoryGap={0}
           width={width || 300}
           height={getChartHeight()}
+          // The key fix: prevent background color change on hover
+          onMouseEnter={(e) => e.stopPropagation()}
+          style={{ backgroundColor: '#1A2526' }}
         >
           <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
           <XAxis 
@@ -79,6 +82,7 @@ export const AgeDistributionChart: FC = () => {
               }
               return null;
             }}
+            cursor={{ fill: 'rgba(0, 0, 0, 0.1)' }} // Dark transparent cursor on hover
           />
           <Bar 
             dataKey="value" 
