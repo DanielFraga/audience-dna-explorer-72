@@ -52,8 +52,8 @@ export const AgeDistributionChart: FC = () => {
           barCategoryGap={0}
           width={width || 300}
           height={getChartHeight()}
-          // Fix: Use a different approach to prevent hover background changes
-          // by using a style prop instead of trying to stop propagation
+          // The key fix: prevent background color change on hover
+          onMouseEnter={(e) => e.stopPropagation()}
           style={{ backgroundColor: '#1A2526' }}
         >
           <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
