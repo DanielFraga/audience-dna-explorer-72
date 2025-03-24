@@ -34,9 +34,9 @@ const MainSidebar = ({ isOpen = false, onToggle }: { isOpen?: boolean, onToggle?
       path: "/survey-audience"
     },
     {
-      title: "Chat",
-      icon: <MessageSquare className="w-4 h-4" />,
-      path: "/chat"
+      title: "Settings",
+      icon: <Settings className="w-4 h-4" />,
+      path: "/settings"
     },
     {
       title: "Feedback",
