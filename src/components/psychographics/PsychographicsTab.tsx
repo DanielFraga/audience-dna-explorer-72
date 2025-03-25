@@ -12,6 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel";
+import { Label } from "@/components/ui/label";
 
 const psychographicData = [
   { subject: 'Op', A: 80, fullName: 'Openness' },
@@ -117,6 +118,11 @@ export const PsychographicsTab: FC = () => {
         <CarouselContent className="h-full">
           <CarouselItem className="flex items-center justify-center">
             <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
+              <div className="flex items-center gap-1.5 mb-4">
+                <Radar className="w-3.5 h-3.5 text-gray-400" />
+                <Label className="text-xs font-semibold text-white">Psychographics</Label>
+              </div>
+              
               <InteractiveTooltip 
                 content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
                 searchTerm={searchTerm}
