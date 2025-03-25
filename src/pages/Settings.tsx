@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { CreditCard, Mail, Shield, UserIcon } from "lucide-react";
+import { CreditCard, Mail, UserIcon } from "lucide-react";
 import { useState } from "react";
 
 const Settings = () => {
@@ -27,14 +26,10 @@ const Settings = () => {
           </div>
           
           <Tabs defaultValue="profile" className="w-full space-y-6">
-            <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-2 mb-6">
               <TabsTrigger value="profile" className="text-sm">
                 <UserIcon className="w-4 h-4 mr-2" />
                 Profile
-              </TabsTrigger>
-              <TabsTrigger value="data" className="text-sm">
-                <Shield className="w-4 h-4 mr-2" />
-                Data & Privacy
               </TabsTrigger>
               <TabsTrigger value="subscription" className="text-sm">
                 <CreditCard className="w-4 h-4 mr-2" />
@@ -104,79 +99,26 @@ const Settings = () => {
               </Card>
             </TabsContent>
             
-            <TabsContent value="data" className="space-y-6">
-              <Card className="bg-gray-800/50 border-gray-700">
-                <CardHeader>
-                  <CardTitle className="text-gray-100">Data Management</CardTitle>
-                  <CardDescription className="text-gray-400">
-                    Control your data usage and privacy settings.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="text-sm font-medium text-gray-200">Data Sharing</div>
-                      <div className="text-xs text-gray-400">Allow anonymous usage data to improve our services</div>
-                    </div>
-                    <Switch id="data-sharing" defaultChecked />
-                  </div>
-                  
-                  <Separator className="bg-gray-700" />
-                  
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="text-sm font-medium text-gray-200">Data Export</div>
-                      <div className="text-xs text-gray-400">Download all your data</div>
-                    </div>
-                    <Button variant="outline" size="sm" className="text-gray-300 border-gray-600">
-                      Export
-                    </Button>
-                  </div>
-                  
-                  <Separator className="bg-gray-700" />
-                  
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="text-sm font-medium text-gray-200">Account Deletion</div>
-                      <div className="text-xs text-gray-400">Permanently delete your account and all data</div>
-                    </div>
-                    <Button variant="destructive" size="sm">
-                      Delete Account
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
             <TabsContent value="subscription" className="space-y-6">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-gray-100">Subscription Details</CardTitle>
                   <CardDescription className="text-gray-400">
-                    View and manage your subscription information.
+                    View your current subscription information.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="bg-blue-900/20 border border-blue-700/30 rounded-lg p-4">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-                      <div className="text-lg font-semibold text-blue-400">Custom Plan</div>
+                      <div className="text-lg font-semibold text-blue-400">Pilot Program</div>
                       <div className="bg-blue-600/20 text-blue-400 px-2 py-1 rounded text-xs font-semibold">
                         ACTIVE
                       </div>
                     </div>
                     <p className="text-gray-300 mb-4">
-                      You are currently on a custom plan tailored for pilot program participants. 
-                      This includes enhanced features and priority support.
+                      You are now on a Pilot subscription, which includes enhanced features and priority support. 
+                      For more information contact the Cubular Pilot Program team.
                     </p>
-                    <div className="mb-4">
-                      <div className="text-sm text-gray-400 mb-1">Plan Features:</div>
-                      <ul className="text-gray-300 list-disc list-inside space-y-1 ml-2">
-                        <li>Unlimited audience analysis</li>
-                        <li>Premium insights dashboard</li>
-                        <li>Advanced demographic targeting</li>
-                        <li>Priority customer support</li>
-                      </ul>
-                    </div>
                     <Button className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white">
                       <Mail className="w-4 h-4" />
                       Contact Cubular Pilot Program Team
