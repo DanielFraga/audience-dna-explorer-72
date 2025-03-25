@@ -160,7 +160,7 @@ export const PsychographicsTab: FC = () => {
                 
                 <div className="flex items-center gap-1.5 mb-4">
                   <ChartBar className="w-3.5 h-3.5 text-gray-400" />
-                  <h3 className="text-xs font-semibold text-white">Stats</h3>
+                  <h3 className="text-xs font-semibold text-white">Psychographics - Description</h3>
                 </div>
 
                 <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
