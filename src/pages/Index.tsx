@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Users, Globe, Search, Download } from "lucide-react";
+import { Sparkles, Users, Globe, Search, Download, Menu } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -14,6 +14,7 @@ import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import AppHeader from "@/components/AppHeader";
 import IconTabs from "@/components/IconTabs";
+import MainSidebar from "@/components/MainSidebar";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Index = () => {
   const [dnaDescription, setDnaDescription] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
   const [activeView, setActiveView] = useState("stats");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
   
@@ -78,10 +80,25 @@ const Index = () => {
     navigate("/chat");
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   const renderContent = () => {
     if (!showResults) {
       return (
         <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
+          <div className="absolute top-4 left-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 p-0 rounded-full text-gray-400 hover:text-white"
+              onClick={toggleSidebar}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </div>
+          
           <div className="mb-6 md:mb-8 relative w-40 h-40 flex items-center justify-center">
             <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
@@ -178,6 +195,8 @@ const Index = () => {
   return (
     <TooltipProvider>
       <div className={`min-h-screen font-grotesk text-[13px] gradient-background`}>
+        <MainSidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+        
         <div className={`animate-fade-in`}>
           {showResults && (
             <AppHeader 
