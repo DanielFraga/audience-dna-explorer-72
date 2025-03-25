@@ -6,8 +6,7 @@ import {
   GenderDistributionChart, 
   LocationDistributionChart, 
   IncomeDistributionChart, 
-  AncestryDistributionChart,
-  GeographicDistributionMap
+  AncestryDistributionChart
 } from './charts';
 
 export const DemographicsTab: FC = () => {
@@ -57,9 +56,6 @@ export const DemographicsTab: FC = () => {
       >
         <AncestryDistributionChart />
       </ChartContainer>
-
-      {/* Geographic Distribution Map doesn't need chart wrapping */}
-      <GeographicDistributionMap />
     </div>
   );
 };
