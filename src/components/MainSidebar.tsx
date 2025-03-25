@@ -31,7 +31,7 @@ const MainSidebar = ({ isOpen = false, onToggle }: { isOpen?: boolean, onToggle?
     {
       title: "About Us",
       icon: <Info className="w-4 h-4" />,
-      path: "/survey-audience"
+      path: "/about"
     },
     {
       title: "Settings",
