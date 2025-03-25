@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Bell, CreditCard, Mail, Shield, UserIcon } from "lucide-react";
+import { CreditCard, Mail, Shield, UserIcon } from "lucide-react";
 import { useState } from "react";
 
 const Settings = () => {
@@ -99,33 +99,6 @@ const Settings = () => {
                     <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                       Save Changes
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gray-800/50 border-gray-700">
-                <CardHeader>
-                  <CardTitle className="text-gray-100">Notification Preferences</CardTitle>
-                  <CardDescription className="text-gray-400">
-                    Manage how you receive notifications.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                      <div className="flex items-center space-x-2">
-                        <Bell className="w-4 h-4 text-gray-400" />
-                        <Label htmlFor="email-notifs" className="text-gray-300">Email Notifications</Label>
-                      </div>
-                      <Switch id="email-notifs" defaultChecked />
-                    </div>
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                      <div className="flex items-center space-x-2">
-                        <Bell className="w-4 h-4 text-gray-400" />
-                        <Label htmlFor="product-notifs" className="text-gray-300">Product Updates</Label>
-                      </div>
-                      <Switch id="product-notifs" defaultChecked />
-                    </div>
                   </div>
                 </CardContent>
               </Card>
