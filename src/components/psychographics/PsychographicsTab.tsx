@@ -1,4 +1,3 @@
-
 import { FC, useState, useRef } from 'react';
 import { Info, ChartBar, Radar, ChevronDown } from 'lucide-react';
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
@@ -133,23 +132,9 @@ export const PsychographicsTab: FC = () => {
               </InteractiveTooltip>
               
               <div className="space-y-3 mb-4">
-                <div className="flex flex-wrap gap-1.5">
-                  {[
-                    { text: "Adventurous", color: "bg-[#0EA5E9] text-white" },
-                    { text: "Creative", color: "bg-[#ea384c] text-white" },
-                    { text: "Analytical", color: "bg-[#7E69AB] text-white" },
-                    { text: "Empathetic", color: "bg-[#F97316] text-white" },
-                    { text: "Disciplined", color: "bg-[#33C3F0] text-white" },
-                    { text: "Curious", color: "bg-[#9b87f5] text-white" },
-                    { text: "Collaborative", color: "bg-[#0FA0CE] text-white" },
-                  ].map((chip) => (
-                    <span
-                      key={chip.text}
-                      className={`px-2 py-0.5 text-[10px] rounded-full ${chip.color}`}
-                    >
-                      {chip.text}
-                    </span>
-                  ))}
+                <div className="px-1 space-y-2 text-gray-300 text-xs">
+                  <p>People interested in holiday topics score high in openness and agreeableness, with moderate conscientiousness.</p>
+                  <p>They show below average neuroticism and moderate extraversion, suggesting they enjoy new experiences while valuing harmony.</p>
                 </div>
               </div>
               
