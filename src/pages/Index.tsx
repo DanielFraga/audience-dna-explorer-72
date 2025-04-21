@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Sparkles, Users, Globe, Search, Download, Menu } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -136,8 +135,7 @@ const Index = () => {
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
             <input
               type="text"
--              placeholder="→ Search a topic to explore how your audience thinks, feels, and reacts."
-+              placeholder="Type a topic. Reveal your audience’s mind."
+              placeholder="Type a topic. Reveal your audience's mind."
               className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
