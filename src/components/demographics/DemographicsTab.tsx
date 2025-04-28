@@ -5,8 +5,7 @@ import {
   AgeDistributionChart, 
   GenderDistributionChart, 
   LocationDistributionChart, 
-  IncomeDistributionChart, 
-  AncestryDistributionChart
+  IncomeDistributionChart
 } from './charts';
 
 export const DemographicsTab: FC = () => {
@@ -47,15 +46,7 @@ export const DemographicsTab: FC = () => {
       >
         <IncomeDistributionChart />
       </ChartContainer>
-
-      {/* Wrap Ancestry Distribution Chart with styling config */}
-      <ChartContainer 
-        config={{
-          ancestryPie: { theme: { light: '#F97316', dark: '#F97316' } },
-        }}
-      >
-        <AncestryDistributionChart />
-      </ChartContainer>
     </div>
   );
 };
+
