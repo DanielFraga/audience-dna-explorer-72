@@ -1,4 +1,3 @@
-
 import { FC, useState, useEffect } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -301,6 +300,18 @@ const wordsetData = [{
 }, {
   title: "Media Sources",
   subheader: "Content Consumption Channels",
+  roleLabels: [
+    "TikTok",
+    "Netflix",
+    "YouTube",
+    "Instagram",
+    "Spotify",
+    "Disney+",
+    "Twitch",
+    "HBO Max",
+    "Podcasts"
+  ],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
     text: "TikTok",
     score: 88
@@ -383,6 +394,7 @@ const wordsetData = [{
     score: -58
   }]
 }];
+
 const surveyData = [{
   question: "What factors influence your holiday purchase decisions?",
   response: "I typically plan my holiday shopping months in advance to find the best deals and ensure availability.",
@@ -471,7 +483,7 @@ export const SurveyTab: FC = () => {
           </div>)}
       </div>
 
-      {/* Wordset Cards in Carousel at the bottom - removing the title */}
+      {/* Wordset Cards in Carousel at the bottom */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
         <Carousel opts={{
         align: "start",
@@ -489,15 +501,15 @@ export const SurveyTab: FC = () => {
                     </p>
                   )}
                   <div className="flex flex-wrap gap-2 flex-grow">
-                    {/* Display blue chips for Societal Role and Disposition with reduced height */}
-                    {(wordset.title === "Societal Role" || wordset.title === "Disposition") && wordset.roleLabels?.map((label, labelIndex) => (
+                    {/* Display blue chips for Societal Role, Disposition, and Media Sources with reduced height */}
+                    {(wordset.title === "Societal Role" || wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => (
                       <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
                         {label}
                       </Badge>
                     ))}
                     
-                    {/* Display regular chips for other sections */}
-                    {wordset.title !== "Societal Role" && wordset.title !== "Disposition" && (
+                    {/* No sections should display regular chips anymore */}
+                    {wordset.title !== "Societal Role" && wordset.title !== "Disposition" && wordset.title !== "Media Sources" && (
                       <>
                         {wordset.positiveWords?.map((word, wordIndex) => (
                           <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
@@ -529,7 +541,7 @@ export const SurveyTab: FC = () => {
         </Carousel>
       </div>
 
-      {/* Dialogs for "See more" - keep them unchanged */}
+      {/* Dialogs for "See more" */}
       {wordsetData.map((wordset, index) => <Dialog key={index} open={openDialog === index} onOpenChange={handleCloseDialog}>
           <DialogContent className="bg-gray-900 border border-gray-800 max-w-lg">
             <DialogHeader className="relative">
@@ -542,30 +554,43 @@ export const SurveyTab: FC = () => {
             </DialogHeader>
             <ScrollArea className="h-72 rounded-md">
               <div className="p-4">
-                <div className="space-y-4">
+                {/* For Media Sources, only show the positive words in blue */}
+                {wordset.title === "Media Sources" ? (
                   <div>
-                    <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
+                    <h4 className="text-sm font-medium text-blue-400 mb-2">Media Sources</h4>
                     <div className="flex flex-wrap gap-2">
-                      {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor || "text-blue-400 border-blue-400 bg-blue-400/10"} flex items-center gap-1`}>
+                      {wordset.allPositiveWords?.map((word, wordIndex) => (
+                        <Badge key={`positive-all-${wordIndex}`} variant="outline" className="text-xs text-blue-400 border-blue-400 bg-blue-400/10">
                           {word.text}
-                          <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                        </Badge>)}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {wordset.allNegativeWords?.map((word, wordIndex) => <Badge key={`negative-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor || "text-red-400 border-red-400 bg-red-400/10"} flex items-center gap-1`}>
-                          {word.text}
-                          <span className="text-[10px] font-semibold">{word.score}%</span>
-                        </Badge>)}
+                ) : (
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor || "text-blue-400 border-blue-400 bg-blue-400/10"} flex items-center gap-1`}>
+                            {word.text}
+                            <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                          </Badge>)}
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {wordset.allNegativeWords?.map((word, wordIndex) => <Badge key={`negative-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor || "text-red-400 border-red-400 bg-red-400/10"} flex items-center gap-1`}>
+                            {word.text}
+                            <span className="text-[10px] font-semibold">{word.score}%</span>
+                          </Badge>)}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </ScrollArea>
           </DialogContent>
         </Dialog>)}
     </div>;
 };
-
