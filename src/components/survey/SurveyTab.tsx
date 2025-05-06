@@ -464,7 +464,10 @@ export const SurveyTab: FC = () => {
                   <h3 className="text-lg font-semibold text-white mb-1">
                     {wordset.title}
                   </h3>
-                  {wordset.subheader}
+                  {/* Remove the subheader for Media Sources */}
+                  {wordset.title === "Disposition" && wordset.subheader && (
+                    <p className="text-sm text-gray-400 mb-3">{wordset.subheader}</p>
+                  )}
                   <div className="flex flex-wrap gap-2 flex-grow">
                     {/* Display blue chips for Societal Role, Disposition, and Media Sources with reduced height */}
                     {(wordset.title === "Societal Role" || wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
