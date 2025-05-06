@@ -469,7 +469,7 @@ export const SurveyTab: FC = () => {
       }} className="w-full">
           <CarouselContent>
             {wordsetData.map((wordset, index) => <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 h-full hover:border-gray-700 transition-colors flex flex-col">
+                <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors flex flex-col">
                   <h3 className="text-lg font-semibold text-white mb-1">
                     {wordset.title}
                   </h3>
@@ -479,9 +479,9 @@ export const SurveyTab: FC = () => {
                     </p>
                   )}
                   <div className="flex flex-wrap gap-2 flex-grow">
-                    {/* Display blue chips for Societal Role */}
+                    {/* Display blue chips for Societal Role with reduced height */}
                     {wordset.title === "Societal Role" && wordset.roleLabels?.map((label, labelIndex) => (
-                      <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs ${wordset.chipColor}`}>
+                      <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
                         {label}
                       </Badge>
                     ))}
