@@ -31,6 +31,7 @@ const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     const storedTerm = sessionStorage.getItem('searchTerm');
     if (storedTerm) {
@@ -82,6 +83,7 @@ const Index = () => {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+  
   const renderContent = () => {
     if (!showResults) {
       return <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
@@ -134,7 +136,7 @@ const Index = () => {
           <div className="space-y-2 text-gray-500 text-xs">
             <p>Try:</p>
             <div className="flex flex-wrap gap-1.5 justify-center">
-              {["Dark Lipstick buyers in London", "gaming", "fashion", "technology", "health", "food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
+              {["Dark Lipstick buyers in London", "backpacking in Thailand", "fashion", "technology", "health", "food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
               setSearchTerm(suggestion);
               setTimeout(() => handleSearch(), 100);
             }}>
@@ -146,6 +148,7 @@ const Index = () => {
     }
     return null;
   };
+  
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return <div className="space-y-8 pb-24 max-w-3xl mx-auto">

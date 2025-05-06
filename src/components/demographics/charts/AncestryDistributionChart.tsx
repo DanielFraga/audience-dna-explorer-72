@@ -1,69 +1,52 @@
+
 import { FC } from 'react';
-import { PieChart, Pie, Cell } from 'recharts';
-import { ChartTooltip } from "@/components/ui/chart";
-import { User } from 'lucide-react';
-import { useIsMobile } from "@/hooks/use-mobile";
-import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
-import { Info } from 'lucide-react';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-// Updated Ancestry Distribution Data with new categories
-const ancestryData = [{
-  name: 'European',
-  value: 30,
-  fill: '#F97316'
-},
-// Bright Orange
-{
-  name: 'East Asian',
-  value: 25,
-  fill: '#FEF7CD'
-},
-// Soft Yellow
-{
-  name: 'African',
-  value: 20,
-  fill: '#FB923C'
-},
-// Amber
-{
-  name: 'Hispanic',
-  value: 25,
-  fill: '#FEC6A1'
-} // Soft Orange
+// This is mock data for the ancestry distribution
+const ancestryData = [
+  { name: 'Western Europe', value: 45 },
+  { name: 'Eastern Europe', value: 23 },
+  { name: 'Northern Europe', value: 18 },
+  { name: 'Southern Europe', value: 12 },
+  { name: 'Sub-Saharan Africa', value: 8 },
+  { name: 'East Asia', value: 6 },
+  { name: 'South Asia', value: 5 },
+  { name: 'Middle East', value: 4 },
+  { name: 'Native American', value: 2 },
+  { name: 'Pacific Islander', value: 1 },
 ];
-export const AncestryDistributionChart: FC = () => {
-  const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
-  const {
-    isMobile,
-    width
-  } = useIsMobile();
 
-  // Calculate responsive dimensions
-  const getAxisTitleSize = () => width < 375 ? 7 : 8;
+interface AncestryDistributionChartProps {}
 
-  // RENDERLESS LABEL - for the ancestry chart
-  const renderCustomizedLabel = (props: any) => {
-    const {
-      cx,
-      cy,
-      midAngle,
-      innerRadius,
-      outerRadius,
-      percent,
-      index,
-      name,
-      value
-    } = props;
-    const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    const textAnchor = x > cx ? 'start' : 'end';
-
-    // Only render labels for segments with enough space
-    return <text x={x} y={y} fill="white" textAnchor={textAnchor} dominantBaseline="central" fontSize={getAxisTitleSize()} fontWeight="500">
-        {`${name}: ${value}%`}
-      </text>;
-  };
-  return;
+export const AncestryDistributionChart: FC<AncestryDistributionChartProps> = () => {
+  return (
+    <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-800">
+      <h3 className="text-lg font-semibold text-white mb-4">Ancestry Distribution</h3>
+      <div className="h-60">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={ancestryData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis
+              dataKey="name"
+              tick={{ fill: '#9CA3AF', fontSize: 10 }}
+              tickLine={{ stroke: '#4B5563' }}
+              axisLine={{ stroke: '#4B5563' }}
+            />
+            <YAxis
+              tick={{ fill: '#9CA3AF', fontSize: 10 }}
+              tickLine={{ stroke: '#4B5563' }}
+              axisLine={{ stroke: '#4B5563' }}
+            />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#F9FAFB' }}
+              cursor={{ fill: '#374151', opacity: 0.3 }}
+            />
+            <Bar dataKey="value" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
 };
+
+export default AncestryDistributionChart;
