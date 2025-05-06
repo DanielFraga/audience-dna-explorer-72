@@ -1,3 +1,4 @@
+
 import { FC, useState, useEffect } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -207,6 +208,15 @@ const wordsetData = [{
 }, {
   title: "Disposition",
   subheader: "Holidays & Cultural References",
+  roleLabels: [
+    "Shy",
+    "Pathological Buyer",
+    "Impressionable",
+    "Radical",
+    "Low Self Esteem",
+    "Decisive"
+  ],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
     text: "Christmas",
     score: 78
@@ -479,15 +489,15 @@ export const SurveyTab: FC = () => {
                     </p>
                   )}
                   <div className="flex flex-wrap gap-2 flex-grow">
-                    {/* Display blue chips for Societal Role with reduced height */}
-                    {wordset.title === "Societal Role" && wordset.roleLabels?.map((label, labelIndex) => (
+                    {/* Display blue chips for Societal Role and Disposition with reduced height */}
+                    {(wordset.title === "Societal Role" || wordset.title === "Disposition") && wordset.roleLabels?.map((label, labelIndex) => (
                       <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
                         {label}
                       </Badge>
                     ))}
                     
                     {/* Display regular chips for other sections */}
-                    {wordset.title !== "Societal Role" && (
+                    {wordset.title !== "Societal Role" && wordset.title !== "Disposition" && (
                       <>
                         {wordset.positiveWords?.map((word, wordIndex) => (
                           <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
@@ -558,3 +568,4 @@ export const SurveyTab: FC = () => {
         </Dialog>)}
     </div>;
 };
+
