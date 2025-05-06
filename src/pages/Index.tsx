@@ -15,7 +15,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/toolti
 import AppHeader from "@/components/AppHeader";
 import IconTabs from "@/components/IconTabs";
 import MainSidebar from "@/components/MainSidebar";
-
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,7 +30,6 @@ const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
   const resultsRef = useRef<HTMLDivElement>(null);
-  
   useEffect(() => {
     const storedTerm = sessionStorage.getItem('searchTerm');
     if (storedTerm) {
@@ -39,11 +37,12 @@ const Index = () => {
       setShowResults(true);
     }
   }, []);
-
   useEffect(() => {
     if (location.state?.preserveSearch) {
-      navigate('/', { replace: true, state: {} });
-      
+      navigate('/', {
+        replace: true,
+        state: {}
+      });
       const storedTerm = sessionStorage.getItem('searchTerm');
       if (storedTerm && !showResults) {
         setSearchTerm(storedTerm);
@@ -53,10 +52,12 @@ const Index = () => {
       setSearchTerm("");
       setShowResults(false);
       sessionStorage.removeItem('searchTerm');
-      navigate('/', { replace: true, state: {} });
+      navigate('/', {
+        replace: true,
+        state: {}
+      });
     }
   }, [location.state, navigate, showResults]);
-
   const handleSearch = () => {
     if (searchTerm.trim()) {
       setIsAnimating(true);
@@ -68,33 +69,23 @@ const Index = () => {
       console.log("Searching for:", searchTerm);
     }
   };
-
   const handleResetSearch = () => {
     setSearchTerm("");
     setShowResults(false);
     sessionStorage.removeItem('searchTerm');
   };
-
   const handleSaveDna = () => {
     console.log("Saving DNA with name:", dnaName);
     navigate("/chat");
   };
-
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
   const renderContent = () => {
     if (!showResults) {
-      return (
-        <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
+      return <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
           <div className="absolute top-4 left-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 p-0 rounded-full text-gray-400 hover:text-white"
-              onClick={toggleSidebar}
-            >
+            <Button variant="ghost" size="icon" className="h-8 w-8 p-0 rounded-full text-gray-400 hover:text-white" onClick={toggleSidebar}>
               <Menu className="h-5 w-5" />
             </Button>
           </div>
@@ -111,13 +102,17 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="animate-orbit-reverse z-20" style={{ animationDelay: "-3s" }}>
+            <div className="animate-orbit-reverse z-20" style={{
+            animationDelay: "-3s"
+          }}>
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                 <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
             </div>
             
-            <div className="animate-orbit z-20" style={{ animationDelay: "-5s" }}>
+            <div className="animate-orbit z-20" style={{
+            animationDelay: "-5s"
+          }}>
               <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                 <Search className="w-4 h-4 text-white" />
               </div>
@@ -125,26 +120,14 @@ const Index = () => {
           </div>
           
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">
-            Talk to the psychology of your audience.
-          </h2>
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">Talk to the hivemind - and hear its unique voices.</h2>
           <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">
             Get fresh, real human data — and turn it into emotional insights, personas, and message clarity.
           </p>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
-            <input
-              type="text"
-              placeholder="Type a topic. Reveal your audience's mind."
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            />
-            <button 
-              className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-              onClick={handleSearch}
-            >
+            <input type="text" placeholder="Type a topic. Reveal your audience's mind." className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
+            <button className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors" onClick={handleSearch}>
               Search
             </button>
           </div>
@@ -152,72 +135,46 @@ const Index = () => {
           <div className="space-y-2 text-gray-500 text-xs">
             <p>Try:</p>
             <div className="flex flex-wrap gap-1.5 justify-center">
-              {["holiday", "gaming", "fashion", "technology", "health", "food"].map((suggestion) => (
-                <button 
-                  key={suggestion}
-                  className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow"
-                  onClick={() => {
-                    setSearchTerm(suggestion);
-                    setTimeout(() => handleSearch(), 100);
-                  }}
-                >
+              {["holiday", "gaming", "fashion", "technology", "health", "food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
+              setSearchTerm(suggestion);
+              setTimeout(() => handleSearch(), 100);
+            }}>
                   {suggestion}
-                </button>
-              ))}
+                </button>)}
             </div>
           </div>
-        </div>
-      );
+        </div>;
     }
-    
     return null;
   };
-
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
-      return (
-        <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+      return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
           <DemographicsTab />
           <PsychographicsTab />
-        </div>
-      );
+        </div>;
     } else if (activeView === "responses") {
-      return (
-        <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+      return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
           <SurveyTab />
-        </div>
-      );
+        </div>;
     }
-    
     return null;
   };
-
-  return (
-    <TooltipProvider>
+  return <TooltipProvider>
       <div className={`min-h-screen font-grotesk text-[13px] gradient-background`}>
         <MainSidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
         
         <div className={`animate-fade-in`}>
-          {showResults && (
-            <AppHeader 
-              searchTerm={searchTerm} 
-              currentTab="stats" 
-              onResetSearch={handleResetSearch}
-            />
-          )}
+          {showResults && <AppHeader searchTerm={searchTerm} currentTab="stats" onResetSearch={handleResetSearch} />}
 
           <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
-            {!showResults ? (
-              <div className="gradient-background min-h-screen flex items-center justify-center h-full">
+            {!showResults ? <div className="gradient-background min-h-screen flex items-center justify-center h-full">
                 {renderContent()}
-              </div>
-            ) : (
-              <div className={`${isAnimating ? 'backdrop-blur-sm' : ''} transition-all duration-300`}>
+              </div> : <div className={`${isAnimating ? 'backdrop-blur-sm' : ''} transition-all duration-300`}>
                 <ScrollArea className="h-[calc(100vh-180px)] pr-4 -mr-4">
                   {renderVerticalFeed()}
                 </ScrollArea>
-              </div>
-            )}
+              </div>}
           </div>
           
           {showResults && <IconTabs currentTab="stats" />}
@@ -233,39 +190,21 @@ const Index = () => {
                 <label htmlFor="dna-name" className="block text-sm font-medium text-gray-300">
                   Name your audience DNA
                 </label>
-                <Input
-                  id="dna-name"
-                  value={dnaName}
-                  onChange={(e) => setDnaName(e.target.value)}
-                  className="bg-gray-800 border-gray-700 focus:ring-blue-600 text-gray-100"
-                  placeholder="Enter a name for this audience DNA"
-                />
+                <Input id="dna-name" value={dnaName} onChange={e => setDnaName(e.target.value)} className="bg-gray-800 border-gray-700 focus:ring-blue-600 text-gray-100" placeholder="Enter a name for this audience DNA" />
               </div>
               
               <div className="space-y-2">
                 <label htmlFor="dna-description" className="block text-sm font-medium text-gray-300">
                   Description (optional)
                 </label>
-                <Textarea
-                  id="dna-description"
-                  value={dnaDescription}
-                  onChange={(e) => setDnaDescription(e.target.value)}
-                  className="bg-gray-800 border-gray-700 focus:ring-blue-600 text-gray-100 min-h-[80px]"
-                  placeholder="Add a description for this audience DNA"
-                />
+                <Textarea id="dna-description" value={dnaDescription} onChange={e => setDnaDescription(e.target.value)} className="bg-gray-800 border-gray-700 focus:ring-blue-600 text-gray-100 min-h-[80px]" placeholder="Add a description for this audience DNA" />
               </div>
               
               <div className="pt-4 flex flex-col space-y-2">
-                <button
-                  onClick={handleSaveDna}
-                  className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
-                >
+                <button onClick={handleSaveDna} className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium">
                   Save & Chat with this Audience
                 </button>
-                <button
-                  onClick={() => setShowSaveDialog(false)}
-                  className="w-full px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors text-sm"
-                >
+                <button onClick={() => setShowSaveDialog(false)} className="w-full px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors text-sm">
                   Cancel
                 </button>
               </div>
@@ -273,8 +212,6 @@ const Index = () => {
           </DialogContent>
         </Dialog>
       </div>
-    </TooltipProvider>
-  );
+    </TooltipProvider>;
 };
-
 export default Index;
