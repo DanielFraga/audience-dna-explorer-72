@@ -1,4 +1,3 @@
-
 import { FC, useState, useEffect } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -9,6 +8,16 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 const wordsetData = [{
   title: "Societal Role",
+  roleLabels: [
+    "Single",
+    "Engineer",
+    "Mathematician",
+    "Designer",
+    "Higher Education",
+    "Lone Wolf",
+    "One child"
+  ],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
     text: "Happy",
     score: 85
@@ -27,6 +36,42 @@ const wordsetData = [{
   }, {
     text: "Confident",
     score: 73
+  }, {
+    text: "Pleased",
+    score: 70
+  }, {
+    text: "Enthusiastic",
+    score: 88
+  }, {
+    text: "Optimistic",
+    score: 82
+  }, {
+    text: "Proud",
+    score: 75
+  }, {
+    text: "Grateful",
+    score: 87
+  }, {
+    text: "Relaxed",
+    score: 62
+  }, {
+    text: "Inspired",
+    score: 80
+  }, {
+    text: "Hopeful",
+    score: 72
+  }, {
+    text: "Joyful",
+    score: 90
+  }, {
+    text: "Thrilled",
+    score: 93
+  }, {
+    text: "Content",
+    score: 65
+  }, {
+    text: "Cheerful",
+    score: 83
   }],
   negativeWords: [{
     text: "Frustrated",
@@ -67,6 +112,42 @@ const wordsetData = [{
   }, {
     text: "Confident",
     score: 73
+  }, {
+    text: "Pleased",
+    score: 70
+  }, {
+    text: "Enthusiastic",
+    score: 88
+  }, {
+    text: "Optimistic",
+    score: 82
+  }, {
+    text: "Proud",
+    score: 75
+  }, {
+    text: "Grateful",
+    score: 87
+  }, {
+    text: "Relaxed",
+    score: 62
+  }, {
+    text: "Inspired",
+    score: 80
+  }, {
+    text: "Hopeful",
+    score: 72
+  }, {
+    text: "Joyful",
+    score: 90
+  }, {
+    text: "Thrilled",
+    score: 93
+  }, {
+    text: "Content",
+    score: 65
+  }, {
+    text: "Cheerful",
+    score: 83
   }, {
     text: "Pleased",
     score: 70
@@ -350,12 +431,15 @@ export const SurveyTab: FC = () => {
     const sorted = [...surveyData].sort((a, b) => b.confidence - a.confidence);
     setSortedSurveyData(sorted);
   }, []);
+  
   const handleOpenDialog = (index: number) => {
     setOpenDialog(index);
   };
+  
   const handleCloseDialog = () => {
     setOpenDialog(null);
   };
+  
   return <div className="space-y-8 animate-slide-up">
       {/* Survey Cards at the top - now using sortedSurveyData */}
       <div className="flex flex-col space-y-3">
@@ -374,8 +458,6 @@ export const SurveyTab: FC = () => {
             <p className="text-sm font-medium text-white mb-3 pr-12 line-clamp-3">
               {item.response}
             </p>
-
-            
           </div>)}
       </div>
 
@@ -397,14 +479,30 @@ export const SurveyTab: FC = () => {
                     </p>
                   )}
                   <div className="flex flex-wrap gap-2 flex-grow">
-                    {wordset.positiveWords?.map((word, wordIndex) => <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
-                        {word.text}
-                        <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                      </Badge>)}
-                    {wordset.negativeWords?.map((word, wordIndex) => <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
-                        {word.text}
-                        <span className="text-[10px] font-semibold">{word.score}%</span>
-                      </Badge>)}
+                    {/* Display blue chips for Societal Role */}
+                    {wordset.title === "Societal Role" && wordset.roleLabels?.map((label, labelIndex) => (
+                      <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs ${wordset.chipColor}`}>
+                        {label}
+                      </Badge>
+                    ))}
+                    
+                    {/* Display regular chips for other sections */}
+                    {wordset.title !== "Societal Role" && (
+                      <>
+                        {wordset.positiveWords?.map((word, wordIndex) => (
+                          <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
+                            {word.text}
+                            <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                          </Badge>
+                        ))}
+                        {wordset.negativeWords?.map((word, wordIndex) => (
+                          <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
+                            {word.text}
+                            <span className="text-[10px] font-semibold">{word.score}%</span>
+                          </Badge>
+                        ))}
+                      </>
+                    )}
                   </div>
                   <div className="mt-4 text-center">
                     <Button variant="ghost" size="sm" className="text-xs text-gray-400 hover:text-white" onClick={() => handleOpenDialog(index)}>
@@ -438,7 +536,7 @@ export const SurveyTab: FC = () => {
                   <div>
                     <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
                     <div className="flex flex-wrap gap-2">
-                      {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
+                      {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor || "text-blue-400 border-blue-400 bg-blue-400/10"} flex items-center gap-1`}>
                           {word.text}
                           <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
                         </Badge>)}
@@ -447,7 +545,7 @@ export const SurveyTab: FC = () => {
                   <div>
                     <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
                     <div className="flex flex-wrap gap-2">
-                      {wordset.allNegativeWords?.map((word, wordIndex) => <Badge key={`negative-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
+                      {wordset.allNegativeWords?.map((word, wordIndex) => <Badge key={`negative-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor || "text-red-400 border-red-400 bg-red-400/10"} flex items-center gap-1`}>
                           {word.text}
                           <span className="text-[10px] font-semibold">{word.score}%</span>
                         </Badge>)}
