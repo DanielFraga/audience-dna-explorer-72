@@ -1,11 +1,13 @@
+
 import { useState, useEffect } from 'react';
-import { MessageSquare, Info, Settings, MessageCircle, X } from 'lucide-react';
+import { MessageSquare, Info, Settings, MessageCircle, X, LogOut } from 'lucide-react';
 import { MenuItem } from '@/types/sidebar';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { NavigationMenu } from './sidebar/NavigationMenu';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from './ui/button';
+
 const MainSidebar = ({
   isOpen = false,
   onToggle
@@ -23,6 +25,7 @@ const MainSidebar = ({
   useEffect(() => {
     setSidebarOpen(isOpen);
   }, [isOpen]);
+
   const handleNavigation = (path: string) => {
     navigate(path, {
       state: {
@@ -33,6 +36,7 @@ const MainSidebar = ({
       onToggle();
     }
   };
+
   const menuItems: MenuItem[] = [{
     title: "About Us",
     icon: <Info className="w-4 h-4" />,
@@ -46,6 +50,17 @@ const MainSidebar = ({
     icon: <MessageCircle className="w-4 h-4" />,
     path: "#"
   }];
+
+  const handleLogout = () => {
+    // For now, just redirect to homepage
+    navigate('/', { 
+      state: { resetSearch: true } 
+    });
+    if (isMobile && onToggle) {
+      onToggle();
+    }
+  };
+
   if (!sidebarOpen) return null;
   return <>
       <div className="fixed inset-0 bg-black/50 z-40" onClick={onToggle} />
@@ -65,10 +80,19 @@ const MainSidebar = ({
           </div>
 
           <div className="mt-auto pt-4">
-            
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className="w-full flex items-center justify-start text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2"
+              onClick={handleLogout}
+            >
+              <LogOut className="w-4 h-4 mr-2.5" />
+              <span className="text-xs">Logout</span>
+            </Button>
           </div>
         </div>
       </div>
     </>;
 };
+
 export default MainSidebar;
