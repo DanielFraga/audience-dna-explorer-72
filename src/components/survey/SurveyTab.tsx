@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+
 const wordsetData = [{
   title: "Sentiment",
   subheader: "Emotional Responses",
@@ -406,9 +407,9 @@ export const SurveyTab: FC = () => {
               </div>
             </div>
 
-            <p className="text-sm font-medium text-white mb-3 pr-12 line-clamp-3" dangerouslySetInnerHTML={{
-          __html: item.response.replace(/holiday/gi, match => `<span class="text-blue-400">${match}</span>`)
-        }} />
+            <p className="text-sm font-medium text-white mb-3 pr-12 line-clamp-3">
+              {item.response}
+            </p>
 
             
           </div>)}
