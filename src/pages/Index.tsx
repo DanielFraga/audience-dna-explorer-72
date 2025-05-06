@@ -120,7 +120,7 @@ const Index = () => {
           </div>
           
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">Talk to the hivemind - and hear its unique voices.</h2>
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">Conversations with the Hivemind. </h2>
           <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">
             Get fresh, real human data — and turn it into emotional insights, personas, and message clarity.
           </p>
