@@ -5,18 +5,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
-
 const wordsetData = [{
   title: "Societal Role",
-  roleLabels: [
-    "Single",
-    "Engineer",
-    "Mathematician",
-    "Designer",
-    "Higher Education",
-    "Lone Wolf",
-    "One child"
-  ],
+  roleLabels: ["Single", "Engineer", "Mathematician", "Designer", "Higher Education", "Lone Wolf", "One child"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
     text: "Happy",
@@ -207,14 +198,7 @@ const wordsetData = [{
 }, {
   title: "Disposition",
   subheader: "Holidays & Cultural References",
-  roleLabels: [
-    "Shy",
-    "Pathological Buyer",
-    "Impressionable",
-    "Radical",
-    "Low Self Esteem",
-    "Decisive"
-  ],
+  roleLabels: ["Shy", "Pathological Buyer", "Impressionable", "Radical", "Low Self Esteem", "Decisive"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
     text: "Christmas",
@@ -300,17 +284,7 @@ const wordsetData = [{
 }, {
   title: "Media Sources",
   subheader: "Content Consumption Channels",
-  roleLabels: [
-    "TikTok",
-    "Netflix",
-    "YouTube",
-    "Instagram",
-    "Spotify",
-    "Disney+",
-    "Twitch",
-    "HBO Max",
-    "Podcasts"
-  ],
+  roleLabels: ["TikTok", "Netflix", "YouTube", "Instagram", "Spotify", "Disney+", "Twitch", "HBO Max", "Podcasts"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
     text: "TikTok",
@@ -394,7 +368,6 @@ const wordsetData = [{
     score: -58
   }]
 }];
-
 const surveyData = [{
   question: "What factors influence your holiday purchase decisions?",
   response: "I typically plan my holiday shopping months in advance to find the best deals and ensure availability.",
@@ -453,15 +426,12 @@ export const SurveyTab: FC = () => {
     const sorted = [...surveyData].sort((a, b) => b.confidence - a.confidence);
     setSortedSurveyData(sorted);
   }, []);
-  
   const handleOpenDialog = (index: number) => {
     setOpenDialog(index);
   };
-  
   const handleCloseDialog = () => {
     setOpenDialog(null);
   };
-  
   return <div className="space-y-8 animate-slide-up">
       {/* Survey Cards at the top - now using sortedSurveyData */}
       <div className="flex flex-col space-y-3">
@@ -495,42 +465,28 @@ export const SurveyTab: FC = () => {
                   <h3 className="text-lg font-semibold text-white mb-1">
                     {wordset.title}
                   </h3>
-                  {wordset.subheader && (
-                    <p className="text-sm text-gray-400 mb-4">
+                  {wordset.subheader && <p className="text-sm text-gray-400 mb-4">
                       {wordset.subheader}
-                    </p>
-                  )}
+                    </p>}
                   <div className="flex flex-wrap gap-2 flex-grow">
                     {/* Display blue chips for Societal Role, Disposition, and Media Sources with reduced height */}
-                    {(wordset.title === "Societal Role" || wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => (
-                      <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
+                    {(wordset.title === "Societal Role" || wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
                         {label}
-                      </Badge>
-                    ))}
+                      </Badge>)}
                     
                     {/* No sections should display regular chips anymore */}
-                    {wordset.title !== "Societal Role" && wordset.title !== "Disposition" && wordset.title !== "Media Sources" && (
-                      <>
-                        {wordset.positiveWords?.map((word, wordIndex) => (
-                          <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
+                    {wordset.title !== "Societal Role" && wordset.title !== "Disposition" && wordset.title !== "Media Sources" && <>
+                        {wordset.positiveWords?.map((word, wordIndex) => <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
                             {word.text}
                             <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                          </Badge>
-                        ))}
-                        {wordset.negativeWords?.map((word, wordIndex) => (
-                          <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
+                          </Badge>)}
+                        {wordset.negativeWords?.map((word, wordIndex) => <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
                             {word.text}
                             <span className="text-[10px] font-semibold">{word.score}%</span>
-                          </Badge>
-                        ))}
-                      </>
-                    )}
+                          </Badge>)}
+                      </>}
                   </div>
-                  <div className="mt-4 text-center">
-                    <Button variant="ghost" size="sm" className="text-xs text-gray-400 hover:text-white" onClick={() => handleOpenDialog(index)}>
-                      See more
-                    </Button>
-                  </div>
+                  
                 </div>
               </CarouselItem>)}
           </CarouselContent>
@@ -555,19 +511,14 @@ export const SurveyTab: FC = () => {
             <ScrollArea className="h-72 rounded-md">
               <div className="p-4">
                 {/* For Media Sources, only show the positive words in blue */}
-                {wordset.title === "Media Sources" ? (
-                  <div>
+                {wordset.title === "Media Sources" ? <div>
                     <h4 className="text-sm font-medium text-blue-400 mb-2">Media Sources</h4>
                     <div className="flex flex-wrap gap-2">
-                      {wordset.allPositiveWords?.map((word, wordIndex) => (
-                        <Badge key={`positive-all-${wordIndex}`} variant="outline" className="text-xs text-blue-400 border-blue-400 bg-blue-400/10">
+                      {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className="text-xs text-blue-400 border-blue-400 bg-blue-400/10">
                           {word.text}
-                        </Badge>
-                      ))}
+                        </Badge>)}
                     </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
+                  </div> : <div className="space-y-4">
                     <div>
                       <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
                       <div className="flex flex-wrap gap-2">
@@ -586,8 +537,7 @@ export const SurveyTab: FC = () => {
                           </Badge>)}
                       </div>
                     </div>
-                  </div>
-                )}
+                  </div>}
               </div>
             </ScrollArea>
           </DialogContent>
