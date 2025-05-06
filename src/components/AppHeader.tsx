@@ -31,6 +31,12 @@ const AppHeader = ({
     }
   };
 
+  const navigateToHome = () => {
+    navigate('/', { 
+      state: { resetSearch: true } 
+    });
+  };
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -56,6 +62,20 @@ const AppHeader = ({
                 </Button>
                 <h2 className="text-2xl font-grotesk font-semibold text-white pb-0.5 translate-y-[2px]">"{ searchTerm }"</h2>
               </div>
+              
+              {/* Added Cubular logo */}
+              <Button
+                variant="ghost"
+                className="h-8 p-1 rounded-md text-blue-500 hover:bg-gray-800 transition-colors"
+                onClick={navigateToHome}
+              >
+                <div className="flex items-center gap-1.5">
+                  <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-md flex items-center justify-center shadow-md">
+                    <span className="text-xs font-bold text-white">C</span>
+                  </div>
+                  <span className="text-xs font-medium text-gray-100">CUBULAR</span>
+                </div>
+              </Button>
             </div>
           </div>
           
