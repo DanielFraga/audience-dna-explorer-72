@@ -381,7 +381,7 @@ export const SurveyTab: FC = () => {
 
       {/* Wordset Cards in Carousel at the bottom */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
-        <h3 className="text-lg font-semibold text-white mb-4">Social Role</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">Societal Role</h3>
         <Carousel opts={{
         align: "start",
         loop: true
