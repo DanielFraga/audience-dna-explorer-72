@@ -120,10 +120,8 @@ const Index = () => {
           </div>
           
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">Conversations with the Hivemind. </h2>
-          <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">
-            Get fresh, real human data — and turn it into emotional insights, personas, and message clarity.
-          </p>
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">Conversations with the Hivemind.</h2>
+          <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">Explore, interact and act with </p>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
             <input type="text" placeholder="Type a topic. Reveal your audience's mind." className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
