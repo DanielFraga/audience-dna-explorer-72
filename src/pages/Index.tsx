@@ -134,7 +134,7 @@ const Index = () => {
           <div className="space-y-2 text-gray-500 text-xs">
             <p>Try:</p>
             <div className="flex flex-wrap gap-1.5 justify-center">
-              {["Expensive Cosmetics Buyers", "gaming", "fashion", "technology", "health", "food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
+              {["Dark Lipstick buyers in London", "gaming", "fashion", "technology", "health", "food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
               setSearchTerm(suggestion);
               setTimeout(() => handleSearch(), 100);
             }}>
