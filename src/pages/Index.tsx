@@ -125,7 +125,7 @@ const Index = () => {
           <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">Find your audience in Live Data. </p>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
-            <input type="text" placeholder="What do you look for" className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
+            <input type="text" placeholder="What do you look for..." className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
             <button className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors" onClick={handleSearch}>
               Search
             </button>
