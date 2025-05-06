@@ -1,3 +1,4 @@
+
 import { FC, useState, useEffect } from 'react';
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -7,8 +8,7 @@ import { X } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 
 const wordsetData = [{
-  title: "Sentiment",
-  subheader: "Emotional Responses",
+  title: "Societal Role",
   positiveWords: [{
     text: "Happy",
     score: 85
@@ -124,7 +124,7 @@ const wordsetData = [{
     score: -89
   }]
 }, {
-  title: "Cultural Milieu",
+  title: "Disposition",
   subheader: "Holidays & Cultural References",
   positiveWords: [{
     text: "Christmas",
@@ -379,9 +379,8 @@ export const SurveyTab: FC = () => {
           </div>)}
       </div>
 
-      {/* Wordset Cards in Carousel at the bottom */}
+      {/* Wordset Cards in Carousel at the bottom - removing the title */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
-        <h3 className="text-lg font-semibold text-white mb-4">Social Role</h3>
         <Carousel opts={{
         align: "start",
         loop: true
@@ -392,9 +391,11 @@ export const SurveyTab: FC = () => {
                   <h3 className="text-lg font-semibold text-white mb-1">
                     {wordset.title}
                   </h3>
-                  <p className="text-sm text-gray-400 mb-4">
-                    {wordset.subheader}
-                  </p>
+                  {wordset.subheader && (
+                    <p className="text-sm text-gray-400 mb-4">
+                      {wordset.subheader}
+                    </p>
+                  )}
                   <div className="flex flex-wrap gap-2 flex-grow">
                     {wordset.positiveWords?.map((word, wordIndex) => <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
                         {word.text}
