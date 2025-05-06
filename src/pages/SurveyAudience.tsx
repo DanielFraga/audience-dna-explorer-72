@@ -1,11 +1,9 @@
-
 import { useNavigate } from "react-router-dom";
 import { SurveyTab } from "@/components/survey/SurveyTab";
 import { DemographicsTab } from "@/components/demographics/DemographicsTab";
 import { useState } from "react";
 import AppHeader from "@/components/AppHeader";
 import IconTabs from "@/components/IconTabs";
-
 const SurveyAudience = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'survey' | 'demographics'>('survey');
@@ -18,9 +16,7 @@ const SurveyAudience = () => {
       }
     });
   };
-
-  return (
-    <div className="min-h-screen gradient-background font-grotesk text-[13px]">
+  return <div className="min-h-screen gradient-background font-grotesk text-[13px]">
       <div className="h-[100vh] overflow-auto">
         <AppHeader searchTerm="holiday" currentTab="responses" onResetSearch={handleResetSearch} />
         
@@ -30,28 +26,7 @@ const SurveyAudience = () => {
           </div>
           
           {/* Simple tab buttons */}
-          <div className="flex gap-4 mt-4 mb-2">
-            <button 
-              onClick={() => setActiveTab('survey')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'survey' 
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' 
-                  : 'text-gray-400 hover:text-gray-300'
-              }`}
-            >
-              Survey Results
-            </button>
-            <button 
-              onClick={() => setActiveTab('demographics')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'demographics' 
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' 
-                  : 'text-gray-400 hover:text-gray-300'
-              }`}
-            >
-              Demographics
-            </button>
-          </div>
+          
           
           <div className="mt-6 pb-24">
             {activeTab === 'survey' ? <SurveyTab /> : <DemographicsTab />}
@@ -60,8 +35,6 @@ const SurveyAudience = () => {
         
         <IconTabs currentTab="responses" />
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default SurveyAudience;
