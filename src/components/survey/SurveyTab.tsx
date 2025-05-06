@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+
 const wordsetData = [{
   title: "Societal Role",
   roleLabels: ["Single", "Engineer", "Mathematician", "Designer", "Higher Education", "Lone Wolf", "One child"],
@@ -197,7 +198,6 @@ const wordsetData = [{
   }]
 }, {
   title: "Disposition",
-  subheader: "Holidays & Cultural References",
   roleLabels: ["Shy", "Pathological Buyer", "Impressionable", "Radical", "Low Self Esteem", "Decisive"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
   positiveWords: [{
@@ -367,6 +367,7 @@ const wordsetData = [{
     score: -58
   }]
 }];
+
 const surveyData = [{
   question: "What factors influence your holiday purchase decisions?",
   response: "I typically plan my holiday shopping months in advance to find the best deals and ensure availability.",
