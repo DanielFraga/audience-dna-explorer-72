@@ -122,42 +122,6 @@ const wordsetData = [{
   }, {
     text: "Anxious",
     score: -89
-  }, {
-    text: "Angry",
-    score: -85
-  }, {
-    text: "Sad",
-    score: -75
-  }, {
-    text: "Stressed",
-    score: -82
-  }, {
-    text: "Worried",
-    score: -68
-  }, {
-    text: "Overwhelmed",
-    score: -78
-  }, {
-    text: "Unsatisfied",
-    score: -71
-  }, {
-    text: "Discouraged",
-    score: -63
-  }, {
-    text: "Hesitant",
-    score: -50
-  }, {
-    text: "Doubtful",
-    score: -55
-  }, {
-    text: "Uncomfortable",
-    score: -60
-  }, {
-    text: "Unhappy",
-    score: -77
-  }, {
-    text: "Skeptical",
-    score: -42
   }]
 }, {
   title: "Cultural Milieu",
@@ -417,7 +381,7 @@ export const SurveyTab: FC = () => {
 
       {/* Wordset Cards in Carousel at the bottom */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
-        <h3 className="text-lg font-semibold text-white mb-4">Key Insights</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">Social Role</h3>
         <Carousel opts={{
         align: "start",
         loop: true
