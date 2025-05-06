@@ -37,6 +37,16 @@ const MainSidebar = ({
     }
   };
 
+  const handleLogout = () => {
+    // For now, just redirect to homepage
+    navigate('/', { 
+      state: { resetSearch: true } 
+    });
+    if (isMobile && onToggle) {
+      onToggle();
+    }
+  };
+
   const menuItems: MenuItem[] = [{
     title: "About Us",
     icon: <Info className="w-4 h-4" />,
@@ -50,16 +60,6 @@ const MainSidebar = ({
     icon: <MessageCircle className="w-4 h-4" />,
     path: "#"
   }];
-
-  const handleLogout = () => {
-    // For now, just redirect to homepage
-    navigate('/', { 
-      state: { resetSearch: true } 
-    });
-    if (isMobile && onToggle) {
-      onToggle();
-    }
-  };
 
   if (!sidebarOpen) return null;
   return <>
@@ -77,18 +77,21 @@ const MainSidebar = ({
 
           <div className="mt-8">
             <NavigationMenu items={menuItems} isOpen={true} isMobile={isMobile} onMobileItemClick={onToggle} />
-          </div>
-
-          <div className="mt-auto pt-4">
+            
+            {/* Logout button placed directly beneath the navigation menu */}
             <Button 
               variant="ghost" 
               size="sm"
-              className="w-full flex items-center justify-start text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2"
+              className="w-full flex items-center justify-start text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg px-3 py-2 mt-1.5"
               onClick={handleLogout}
             >
               <LogOut className="w-4 h-4 mr-2.5" />
               <span className="text-xs">Logout</span>
             </Button>
+          </div>
+
+          <div className="mt-auto pt-4">
+            {/* Removed logout button from here */}
           </div>
         </div>
       </div>
