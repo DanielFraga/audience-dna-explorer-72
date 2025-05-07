@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Sparkles, Users, Globe, Search, Download, Menu } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -136,7 +137,7 @@ const Index = () => {
           <div className="space-y-2 text-gray-500 text-xs">
             <p>Try:</p>
             <div className="flex flex-wrap gap-1.5 justify-center">
-              {["Dark Lipstick buyers in London", "Backpacking in Thailand", "fashion", "Quality focused Car Buyers", "health", "food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
+              {["Dark Lipstick buyers in London", "Backpacking in Thailand", "Fashion", "Quality focused Car Buyers", "Health", "Food"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
               setSearchTerm(suggestion);
               setTimeout(() => handleSearch(), 100);
             }}>
