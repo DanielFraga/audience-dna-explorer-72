@@ -134,17 +134,22 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
           </button>
         </InteractiveTooltip>
         
-        {/* Text Description at top */}
-        <div className="space-y-3 mb-6">
-          <div className="px-1 space-y-2 text-gray-300 text-sm">
-            <p>Your audience shows high loyalty to identity-driven bets, strong emotional triggers around underdog wins, and selective trust in betting sources. Social engagement spikes during friend group chats, with notable segments split between risk-maximizers and methodical analyzers.</p>
+        {/* Two-column layout on desktop, stacked on mobile */}
+        <div className="flex flex-col md:flex-row md:gap-6 space-y-4 md:space-y-0">
+          {/* Column 1: Text Description */}
+          <div className="md:w-2/5 space-y-3">
+            <div className="px-1 space-y-2 text-gray-300 text-sm">
+              <p>Your audience shows high loyalty to identity-driven bets, strong emotional triggers around underdog wins, and selective trust in betting sources. Social engagement spikes during friend group chats, with notable segments split between risk-maximizers and methodical analyzers.</p>
+            </div>
           </div>
-        </div>
-        
-        {/* Radar Chart underneath */}
-        <div className="relative flex justify-center items-center">
-          <div className="w-full max-w-[400px] mx-auto">
-            <PsychographicRadar data={selectedGroupData} />
+          
+          {/* Column 2: Radar Chart */}
+          <div className="md:w-3/5">
+            <div className="relative flex justify-center items-center">
+              <div className="w-full max-w-[350px] md:max-w-[400px]">
+                <PsychographicRadar data={selectedGroupData} />
+              </div>
+            </div>
           </div>
         </div>
         
