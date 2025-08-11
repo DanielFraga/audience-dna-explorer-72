@@ -122,6 +122,7 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
 
   // Radar only view for desktop left column
   if (isRadarOnly) {
+    console.log("PsychographicsTab: Rendering isRadarOnly view");
     return (
       <div className="space-y-4">
         <InteractiveTooltip 

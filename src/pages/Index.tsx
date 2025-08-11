@@ -154,7 +154,7 @@ const Index = () => {
     if (activeView === "stats") {
       return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8 pt-4">
           {/* Desktop Layout: Psychographics side-by-side with robust grid */}
-          <div className="xl:block hidden">
+          <div className="lg:block hidden">
             {/* Psychographics Section - Custom Grid Layout */}
             <div className="psychographics-grid mb-6">
               {/* Radar Chart Card */}
@@ -189,7 +189,7 @@ const Index = () => {
           </div>
           
           {/* Mobile/Tablet Layout: Single-column stacked layout */}
-          <div className="xl:hidden">
+          <div className="lg:hidden">
             <PsychographicsTab />
             <div className="mt-6">
               <DemographicsTab />
