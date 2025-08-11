@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X, ChevronDown } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import GlassCard from "@/components/ui/GlassCard";
 
 const wordsetData = [{
@@ -348,6 +349,11 @@ const surveyData = [{
 export const SurveyTab: FC = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
   const [sortedSurveyData, setSortedSurveyData] = useState([...surveyData]);
+  const [showMore, setShowMore] = useState<Record<string, boolean>>({});
+
+  const toggleShowMore = (key: string) => {
+    setShowMore((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   // Sort the survey data by confidence score (high to low) on component mount
   useEffect(() => {
@@ -411,112 +417,132 @@ export const SurveyTab: FC = () => {
     }
   };
 
+  const getAdvancedBullets = (title: string) => {
+    switch (title) {
+      case "Societal Role":
+        return [
+          { label: "Behavioural & contextual", content: "Intent signals, micro-moments, life events" },
+          { label: "Competitive overlap", content: "Brand affinity, lookalikes, anti-affinity" },
+        ];
+      case "Influencer / Creator Collaborator Profile":
+        return [
+          { label: "Engagement tiers", content: "Avg. ER, high-responder cohorts" },
+          { label: "Reach tiers", content: "Nano/Micro/Mid sync by phase" },
+          { label: "Cross-platform", content: "YouTube ↔ Instagram ↔ Twitch overlaps" },
+        ];
+      case "Best-Performing Channels / Placements":
+        return [
+          { label: "Placement prefs", content: "In-feed, Stories/Reels, rewarded video" },
+          { label: "Time-on-platform", content: "In-game, commute, late-night sessions" },
+          { label: "App ecosystem", content: "Wallets, scores apps, community hubs" },
+        ];
+      case "Optimal Timing":
+        return [
+          { label: "Recency decay", content: "1h, 24h, 3d windows by engagement" },
+          { label: "Retargeting tiers", content: "Viewers → engagers → add-to-wallet → bettors" },
+        ];
+      case "Triggering Moments":
+        return [
+          { label: "Emotion-led triggers", content: "Momentum, rivalry heat, comeback arcs" },
+          { label: "Resonance profiles", content: "Underdog, defiance, tribe pride" },
+          { label: "Trending hooks", content: "Live clips, stats spikes, fan rituals" },
+        ];
+      case "Activation Guidance":
+        return [
+          { label: "Sequencing", content: "TikTok hook → IG retarget → Search → purchase" },
+          { label: "Influencer sync", content: "Drop windows aligned to match cycles" },
+        ];
+      default:
+        return [];
+    }
+  };
+
   const renderCardContent = (wordset: any) => {
-    // Handle merged Optimal Timing card
-    if (wordset?.isMerged && wordset?.title === "Optimal Timing") {
-      return (
-        <div className="flex-grow">
-          <div className="space-y-6">
-            {/* Timing Section */}
-            <div>
-              <h4 className="text-sm font-medium text-gray-200 mb-3">Timing</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                {wordset.timingBullets.map((bullet: any, idx: number) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <div>
-                      <span className="font-medium text-white">{bullet.label}</span> {bullet.content}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            {/* Budget Section */}
-            <div>
-              <h4 className="text-sm font-medium text-gray-200 mb-3">Budget</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                {wordset.biddingBullets.map((bullet: any, idx: number) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-yellow-400 mt-1.5 flex-shrink-0"></div>
-                    <div>
-                      <span className="font-medium text-white">{bullet.label}</span> {bullet.content}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      );
+    if (!wordset) return null;
+
+    const title = wordset?.title;
+    const key = title === "Optimal Timing" ? "Timing & Budget" : title;
+
+    // Essentials zone (always visible)
+    let essentials: Array<{ label?: string; content: string; dot?: string }> = [];
+
+    if (wordset?.isMerged && title === "Optimal Timing") {
+      const t = wordset.timingBullets?.[0];
+      const b = wordset.biddingBullets?.[0];
+      if (t) essentials.push({ label: t.label.replace(/:$/, ''), content: t.content, dot: "bg-blue-400" });
+      if (b) essentials.push({ label: b.label.replace(/:$/, ''), content: b.content, dot: "bg-yellow-400" });
+    } else if (title === "Societal Role") {
+      essentials = [
+        { content: "Bettor mindsets: Underdog chaser, ego-driven, social bettor", dot: "bg-purple-400" },
+        { content: "Demographics: 25–44, male-skewed (65%), mobile-first (iOS 55%, Android 45%)", dot: "bg-green-400" },
+      ];
+    } else if (title === "Influencer / Creator Collaborator Profile") {
+      essentials = (wordset.bulletPoints || []).slice(0, 4).map((bp: any, i: number) => ({
+        content: `${bp.label}: ${bp.content}`,
+        dot: ["bg-pink-400","bg-yellow-400","bg-cyan-400","bg-red-400"][i % 4]
+      }));
+    } else if (title === "Best-Performing Channels / Placements") {
+      essentials = (wordset.bulletPoints || []).slice(0, 3).map((bp: any, i: number) => ({
+        content: `${bp.label} ${bp.content}`,
+        dot: ["bg-blue-400","bg-green-400","bg-purple-400"][i % 3]
+      }));
+    } else if (title === "Triggering Moments" || title === "Activation Guidance") {
+      essentials = (wordset.bulletPoints || []).slice(0, 3).map((bp: any, i: number) => ({
+        content: `${bp.label}: ${bp.content}`,
+        dot: ["bg-red-400","bg-yellow-400","bg-teal-400"][i % 3]
+      }));
     }
 
-    if (wordset?.title === "Societal Role") {
-      return (
-        <div className="space-y-4 flex-grow">
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-              <div>
-                <span className="font-medium text-white">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
-              </div>
+    const advanced = getAdvancedBullets(title);
+
+    return (
+      <div className="flex flex-col gap-3">
+        {/* Essentials (always visible) */}
+        <ul className="space-y-2 text-[14px] text-gray-300">
+          {essentials.map((e, idx) => (
+            <li key={idx} className="flex items-start gap-3">
+              <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${e.dot || 'bg-gray-400'}`} />
+              <span className="leading-snug">
+                {e.content}
+              </span>
             </li>
-            <li className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0"></div>
-              <div>
-                <span className="font-medium text-white">Demographics:</span> <span className="font-semibold text-blue-400">25–44</span>, male-skewed (65%), mobile-first (iOS 55%, Android 45%), Tier-1 EN + LATAM high-LTV
-              </div>
-            </li>
-          </ul>
-        </div>
-      );
-    }
+          ))}
+        </ul>
 
-    if (wordset?.bulletPoints) {
-      return (
-        <div className="flex-grow">
-          <ul className="space-y-2 text-sm text-gray-300">
-            {wordset.bulletPoints.map((bullet: any, idx: number) => {
-              const getColorForCard = (title: string, index: number) => {
-                if (title === "Best-Performing Channels / Placements") return ["bg-blue-400", "bg-green-400", "bg-purple-400"][index % 3];
-                if (title === "Influencer / Creator Collaborator Profile") return ["bg-pink-400", "bg-yellow-400", "bg-cyan-400", "bg-red-400"][index % 4];
-                if (title === "Triggering Moments") return ["bg-red-400", "bg-yellow-400", "bg-green-400"][index % 3];
-                if (title === "Activation Guidance") return ["bg-purple-400", "bg-orange-400", "bg-teal-400"][index % 3];
-                return "bg-gray-400";
-              };
-              
-              return (
-                <li key={idx} className="flex items-start gap-3">
-                  <div className={`w-2 h-2 rounded-full ${getColorForCard(wordset.title, idx)} mt-1.5 flex-shrink-0`}></div>
-                  <div>
-                    {/* Handle platform names for Best-Performing Channels */}
-                    {wordset.title === "Best-Performing Channels / Placements" ? (
-                      <>
-                        <span className="font-semibold text-white">{bullet.label}</span> {bullet.content}
-                      </>
-                    ) : bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
-                      <span dangerouslySetInnerHTML={{
-                        __html: `<span class="font-medium text-white">${bullet.label}:</span> ${bullet.content
-                          .replace(/Twitch/g, '<span class="font-semibold text-blue-400">Twitch</span>')
-                          .replace(/Instagram/g, '<span class="font-semibold text-blue-400">Instagram</span>')
-                          .replace(/YouTuber/g, '<span class="font-semibold text-blue-400">YouTuber</span>')
-                          .replace(/Podcast/g, '<span class="font-semibold text-blue-400">Podcast</span>')}`
-                      }} />
-                    ) : (
-                      <>
-                        <span className="font-medium text-white">{bullet.label}:</span> {bullet.content}
-                      </>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      );
-    }
-
-    return null;
+        {/* Advanced (accordion) */}
+        {advanced.length > 0 && (
+          <Accordion type="single" collapsible>
+              <AccordionItem value="advanced">
+              <AccordionTrigger className="h-11 py-0 text-[15px] font-medium no-underline">
+                Advanced insights
+              </AccordionTrigger>
+              <AccordionContent className="pt-0">
+                <ul className="space-y-2 text-[14px] text-gray-300">
+                  {advanced.map((a, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${essentials[i]?.dot || 'bg-gray-400'}`} />
+                      <span className={`${showMore[key] ? '' : 'line-clamp-3'} leading-snug`}>
+                        <span className="font-medium text-white">{a.label}: </span>{a.content}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {advanced.length > 2 && (
+                  <button
+                    type="button"
+                    onClick={() => toggleShowMore(key)}
+                    className="mt-2 text-xs text-blue-400 hover:underline"
+                    aria-expanded={!!showMore[key]}
+                  >
+                    {showMore[key] ? 'See less' : 'See more'}
+                  </button>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -532,7 +558,7 @@ export const SurveyTab: FC = () => {
               </h2>
               
               {/* Grid of Cards - 2 rows of 3 cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 min-[320px]:grid-cols-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 min-[320px]:grid-cols-1">
                 {section.cards.map((card, cardIndex) => {
                   const cardConfig = getCardConfig(card?.title || "");
                   
