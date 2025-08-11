@@ -197,175 +197,35 @@ const wordsetData = [{
     score: -89
   }]
 }, {
-  title: "Disposition",
-  roleLabels: ["Shy", "Pathological Buyer", "Impressionable", "Radical", "Low Self Esteem", "Decisive"],
+  title: "Best-Performing Channels / Placements",
+  roleLabels: ["Meta: Facebook Feed, Reels, Audience Network (Rewarded Video)", "Google: YouTube In-Stream, Display Network – sports & betting affinity audiences", "Programmatic/DV360: Sports news, betting forums, esports streams"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-  positiveWords: [{
-    text: "Christmas",
-    score: 78
-  }, {
-    text: "Halloween",
-    score: 82
-  }, {
-    text: "Super Bowl",
-    score: 75
-  }, {
-    text: "Black Friday",
-    score: 65
-  }],
-  negativeWords: [{
-    text: "Black Friday Rush",
-    score: -45
-  }, {
-    text: "Holiday Stress",
-    score: -62
-  }, {
-    text: "Commercialization",
-    score: -58
-  }, {
-    text: "FOMO",
-    score: -70
-  }],
+  positiveWords: [],
+  negativeWords: [],
   positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
-  allPositiveWords: [{
-    text: "Christmas",
-    score: 78
-  }, {
-    text: "Halloween",
-    score: 82
-  }, {
-    text: "Super Bowl",
-    score: 75
-  }, {
-    text: "Black Friday",
-    score: 65
-  }, {
-    text: "Thanksgiving",
-    score: 88
-  }, {
-    text: "New Year's Eve",
-    score: 85
-  }, {
-    text: "Valentine's Day",
-    score: 72
-  }, {
-    text: "Pride Month",
-    score: 77
-  }, {
-    text: "Fourth of July",
-    score: 80
-  }],
-  allNegativeWords: [{
-    text: "Black Friday Rush",
-    score: -45
-  }, {
-    text: "Holiday Stress",
-    score: -62
-  }, {
-    text: "Commercialization",
-    score: -58
-  }, {
-    text: "FOMO",
-    score: -70
-  }, {
-    text: "Holiday Traffic",
-    score: -65
-  }, {
-    text: "Overcrowding",
-    score: -55
-  }, {
-    text: "Gift Pressure",
-    score: -48
-  }, {
-    text: "Season Depression",
-    score: -75
-  }]
+  allPositiveWords: [],
+  allNegativeWords: []
 }, {
-  title: "Media Sources",
-  roleLabels: ["TikTok", "Netflix", "YouTube", "Instagram", "Spotify", "Disney+", "Twitch", "HBO Max", "Podcasts"],
+  title: "Optimal Timing",
+  roleLabels: ["Peak CTR: 1–2 hours before live matches or big events", "Retarget lapsed bettors within 24h of event finish"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-  positiveWords: [{
-    text: "TikTok",
-    score: 88
-  }, {
-    text: "Netflix",
-    score: 92
-  }, {
-    text: "YouTube",
-    score: 85
-  }, {
-    text: "Instagram",
-    score: 78
-  }],
-  negativeWords: [{
-    text: "Cable TV",
-    score: -45
-  }, {
-    text: "Pop-up Ads",
-    score: -82
-  }, {
-    text: "Spam Email",
-    score: -75
-  }, {
-    text: "Clickbait",
-    score: -68
-  }],
+  positiveWords: [],
+  negativeWords: [],
   positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
-  allPositiveWords: [{
-    text: "TikTok",
-    score: 88
-  }, {
-    text: "Netflix",
-    score: 92
-  }, {
-    text: "YouTube",
-    score: 85
-  }, {
-    text: "Instagram",
-    score: 78
-  }, {
-    text: "Spotify",
-    score: 90
-  }, {
-    text: "Disney+",
-    score: 82
-  }, {
-    text: "Twitch",
-    score: 76
-  }, {
-    text: "HBO Max",
-    score: 80
-  }, {
-    text: "Podcasts",
-    score: 87
-  }],
-  allNegativeWords: [{
-    text: "Cable TV",
-    score: -45
-  }, {
-    text: "Pop-up Ads",
-    score: -82
-  }, {
-    text: "Spam Email",
-    score: -75
-  }, {
-    text: "Clickbait",
-    score: -68
-  }, {
-    text: "Intrusive Ads",
-    score: -72
-  }, {
-    text: "Fake News",
-    score: -88
-  }, {
-    text: "Paywalls",
-    score: -65
-  }, {
-    text: "Buffering",
-    score: -58
-  }]
+  allPositiveWords: [],
+  allNegativeWords: []
+}, {
+  title: "Bidding & Budget Tips",
+  roleLabels: ["Start with tCPI < $5 for mobile acquisition, then scale to tROAS campaigns after day 3"],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: []
 }];
 
 const surveyData = [{
@@ -495,14 +355,14 @@ export const SurveyTab: FC = () => {
                   ) : (
                     <div className="flex flex-wrap gap-2 flex-grow">
                       {/* Display blue chips for Disposition and Media Sources with reduced height */}
-                      {(wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => (
+                      {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && wordset.roleLabels?.map((label, labelIndex) => (
                         <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
                           {label}
                         </Badge>
                       ))}
 
                       {/* No sections should display regular chips anymore */}
-                      {wordset.title !== "Disposition" && wordset.title !== "Media Sources" && (
+                      {wordset.title !== "Best-Performing Channels / Placements" && wordset.title !== "Optimal Timing" && wordset.title !== "Bidding & Budget Tips" && (
                         <>
                           {wordset.positiveWords?.map((word, wordIndex) => (
                             <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
