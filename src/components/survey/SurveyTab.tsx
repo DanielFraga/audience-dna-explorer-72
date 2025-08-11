@@ -419,8 +419,8 @@ export const SurveyTab: FC = () => {
           <div className="space-y-6">
             {/* Timing Section */}
             <div>
-              <h4 className="text-sm font-medium text-gray-200 mb-3">Timing</h4>
-              <ul className="space-y-2 text-[15px] text-gray-300">
+              <h4 className="text-sm font-medium text-white mb-3">Timing</h4>
+              <ul className="space-y-2 text-[15px] text-white">
                 {wordset.timingBullets.map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
@@ -434,8 +434,8 @@ export const SurveyTab: FC = () => {
             
             {/* Budget Section */}
             <div>
-              <h4 className="text-sm font-medium text-gray-200 mb-3">Budget</h4>
-              <ul className="space-y-2 text-[15px] text-gray-300">
+              <h4 className="text-sm font-medium text-white mb-3">Budget</h4>
+              <ul className="space-y-2 text-[15px] text-white">
                 {wordset.biddingBullets.map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-yellow-400 mt-1.5 flex-shrink-0"></div>
@@ -450,7 +450,7 @@ export const SurveyTab: FC = () => {
               <div className="my-3">
                 <div className="h-px bg-border/40" />
               </div>
-              <ul className="space-y-2 text-[15px] text-foreground/90">
+              <ul className="space-y-2 text-[15px] text-white">
                 <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Engagement-level retargeting (3s, 10s, 75% viewers, clickers, ATC, purchasers)</li>
                 <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Recency decay windows (1-day hot, 7-day warm, 30-day cold)</li>
                 <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Budget ramp sequencing for each tier</li>
@@ -466,7 +466,7 @@ export const SurveyTab: FC = () => {
     if (wordset?.title === "Societal Role") {
       return (
         <div className="space-y-4 flex-grow">
-          <ul className="space-y-2 text-[15px] text-gray-300">
+          <ul className="space-y-2 text-[15px] text-white">
             <li className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
               <div>
@@ -487,7 +487,7 @@ export const SurveyTab: FC = () => {
           </div>
 
           {/* Advanced bullets */}
-          <ul className="space-y-2 text-[15px] text-foreground/90">
+          <ul className="space-y-2 text-[15px] text-white">
             <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Purchase intent signals (recent store visits, engaged with relevant influencers in past 7 days)</li>
             <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Micro-moments (lunchtime scroll, evening relaxation)</li>
             <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Life events (engagement, moving, new job)</li>
@@ -500,7 +500,7 @@ export const SurveyTab: FC = () => {
     if (wordset?.bulletPoints) {
       return (
         <div className="flex-grow">
-          <ul className="space-y-2 text-sm text-gray-300">
+          <ul className="space-y-2 text-[15px] text-white">
             {wordset.bulletPoints.map((bullet: any, idx: number) => {
               const getColorForCard = (title: string, index: number) => {
                 if (title === "Best-Performing Channels / Placements") return ["bg-blue-400", "bg-green-400", "bg-purple-400"][index % 3];
