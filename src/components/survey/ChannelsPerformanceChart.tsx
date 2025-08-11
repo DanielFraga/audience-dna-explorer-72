@@ -1,86 +1,22 @@
 import { FC } from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 
 interface ChannelData {
-  channel: string;
-  meta: number;
-  google: number;
-  dv360: number;
-  total: number;
+  label: string;
+  value: number;
+  family: 'meta' | 'google' | 'dv360';
 }
 
 const channelData: ChannelData[] = [
-  { channel: 'Meta Feed', meta: 92, google: 15, dv360: 8, total: 100 },
-  { channel: 'YouTube In-Stream', meta: 12, google: 89, dv360: 25, total: 100 },
-  { channel: 'Meta Audience Network', meta: 78, google: 20, dv360: 12, total: 100 },
-  { channel: 'Esports Streams', meta: 10, google: 30, dv360: 65, total: 100 },
-].sort((a, b) => (b.meta + b.google + b.dv360) - (a.meta + a.google + a.dv360));
+  { label: "Meta Feed", value: 92, family: "meta" as const },
+  { label: "Meta Audience Network", value: 78, family: "meta" as const },
+  { label: "YouTube In-Stream", value: 89, family: "google" as const },
+  { label: "Esports Streams", value: 65, family: "dv360" as const }
+].sort((a, b) => b.value - a.value);
 
 const platformColors = {
   meta: '#3B82F6',
   google: '#22C55E',
   dv360: '#A855F7'
-};
-
-const CustomStackedBar = (props: any) => {
-  const { payload, x, y, width, height } = props;
-  if (!payload) return null;
-
-  const { meta, google, dv360 } = payload;
-  const total = meta + google + dv360;
-  
-  let currentX = x;
-  const segments = [
-    { value: meta, color: platformColors.meta, label: 'Meta' },
-    { value: google, color: platformColors.google, label: 'Google' },
-    { value: dv360, color: platformColors.dv360, label: 'DV360' }
-  ];
-
-  return (
-    <g>
-      {segments.map((segment, index) => {
-        if (segment.value === 0) return null;
-        
-        const segmentWidth = (segment.value / 100) * width;
-        const segmentX = currentX;
-        
-        const result = (
-          <g key={index}>
-            <rect
-              x={segmentX}
-              y={y}
-              width={segmentWidth}
-              height={height}
-              fill={segment.color}
-              rx={index === 0 ? 2 : 0}
-              ry={index === 0 ? 2 : 0}
-              style={{
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
-              }}
-            />
-            {segmentWidth > 30 && (
-              <text
-                x={segmentX + segmentWidth / 2}
-                y={y + height / 2}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                className="font-bold"
-                style={{
-                  fontSize: '11px',
-                  fill: '#ffffff'
-                }}
-              >
-                {segment.value}%
-              </text>
-            )}
-          </g>
-        );
-        
-        currentX += segmentWidth;
-        return result;
-      })}
-    </g>
-  );
 };
 
 const ChannelsPerformanceChart: FC = () => {
@@ -105,45 +41,83 @@ const ChannelsPerformanceChart: FC = () => {
       </div>
       
       {/* Chart Section - 55% of card height */}
-      <div className="flex-none px-4" style={{ height: '55%' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={channelData}
-            layout="horizontal"
-            margin={{ top: 8, right: 60, left: 8, bottom: 8 }}
-            barCategoryGap={10}
-          >
-            <CartesianGrid 
-              strokeDasharray="2 2" 
-              stroke="#4b5563" 
-              vertical={true}
-              horizontal={false}
-            />
-            <XAxis 
-              type="number" 
-              domain={[0, 100]}
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 12, fill: '#9ca3af' }}
-              tickFormatter={(value) => `${value}%`}
-              ticks={[0, 25, 50, 75, 100]}
-            />
-            <YAxis 
-              type="category" 
-              dataKey="channel"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 14, fill: '#f3f4f6' }}
-              width={140}
-              interval={0}
-            />
-            <Bar 
-              dataKey="total"
-              shape={<CustomStackedBar />}
-              barSize={12}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+      <div className="flex-none px-4" style={{ height: '55%', overflow: 'visible' }}>
+        <div className="relative h-full p-4">
+          {/* X-axis grid lines and labels */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[0, 25, 50, 75, 100].map((tick) => (
+              <div
+                key={tick}
+                className="absolute top-0 bottom-8"
+                style={{ 
+                  left: `${16 + (tick * (100 - 32)) / 100}%`,
+                  borderLeft: tick === 0 ? 'none' : '1px dashed #4b5563'
+                }}
+              >
+                <span 
+                  className="absolute -bottom-6 text-xs text-gray-400 transform -translate-x-1/2"
+                  style={{ left: 0 }}
+                >
+                  {tick}%
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Chart bars */}
+          <div className="space-y-3 pt-2 pb-8">
+            {channelData.map((channel, index) => (
+              <div key={channel.label} className="relative flex items-center">
+                {/* Channel label */}
+                <div className="w-32 pr-4 text-right">
+                  <span className="text-sm text-white/90 font-medium">
+                    {channel.label}
+                  </span>
+                </div>
+                
+                {/* Bar container */}
+                <div className="flex-1 relative">
+                  {/* Background track */}
+                  <div 
+                    className="w-full h-3 rounded-md"
+                    style={{ 
+                      background: 'rgba(255,255,255,0.06)',
+                      borderRadius: '6px'
+                    }}
+                  />
+                  
+                  {/* Filled bar */}
+                  <div
+                    className="absolute top-0 h-3 rounded-md transition-all duration-300"
+                    style={{
+                      width: `${channel.value}%`,
+                      backgroundColor: platformColors[channel.family],
+                      borderRadius: '6px',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+                    }}
+                  />
+                  
+                  {/* Value label */}
+                  <div
+                    className="absolute top-0 h-3 flex items-center"
+                    style={{
+                      left: channel.value >= 40 ? `${channel.value - 8}%` : `${channel.value + 2}%`
+                    }}
+                  >
+                    <span 
+                      className="text-xs font-bold px-1"
+                      style={{
+                        color: channel.value >= 40 ? '#ffffff' : platformColors[channel.family]
+                      }}
+                    >
+                      {channel.value}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       
       {/* Text Section - 45% of card height with 16px gap */}
