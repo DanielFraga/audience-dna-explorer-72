@@ -108,7 +108,7 @@ const getGroupData = (groupId: string): any[] => {
   );
 };
 
-export const PsychographicsTab: FC = () => {
+export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boolean }> = ({ isRadarOnly = false, isTraitsOnly = false }) => {
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [activePoint, setActivePoint] = useState<string | null>(null);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['igaming']);
@@ -119,6 +119,98 @@ export const PsychographicsTab: FC = () => {
   const isMobile = useIsMobile();
 
   const selectedGroupData = getGroupData('igaming');
+
+  // Radar only view for desktop left column
+  if (isRadarOnly) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-1.5 mb-4">
+          <Radar className="w-4 h-4 text-gray-400" />
+          <Label className="text-base font-semibold text-white">Psychographics</Label>
+        </div>
+        
+        <InteractiveTooltip 
+          content={`This radar chart visualizes how audiences interested in ${searchTerm} score across 6 iGaming-specific personality traits.`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
+        
+        <div className="space-y-3 mb-4">
+          <div className="px-1 space-y-2 text-gray-300 text-sm">
+            <p>Your audience shows high loyalty to identity-driven bets, strong emotional triggers around underdog wins, and selective trust in betting sources. Social engagement spikes during friend group chats, with notable segments split between risk-maximizers and methodical analyzers.</p>
+          </div>
+        </div>
+        
+        <div className="relative flex justify-center items-center">
+          <div className="w-full">
+            <PsychographicRadar data={selectedGroupData} />
+          </div>
+        </div>
+        
+        <div className="text-center mt-3">
+          <p className="text-[10px] text-gray-500 italic">Based on 1,248 bettor responses (SWE + EU, July 2025)</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Traits only view for desktop right column
+  if (isTraitsOnly) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-1.5 mb-4">
+          <ChartBar className="w-4 h-4 text-gray-400" />
+          <h3 className="text-base font-semibold text-white">Psychographics – iGaming Traits</h3>
+        </div>
+
+        <div className="space-y-3 text-sm max-h-[460px] overflow-y-auto pr-1">
+          <div className="space-y-2 p-1.5">
+            {psychographicData.map((point) => (
+              <div key={point.subject} className="border border-gray-800 rounded-lg">
+                <div className={`flex justify-between items-center p-3 rounded-lg bg-gray-800/50`}>
+                  <div className="flex items-center gap-3">
+                    <InteractiveTooltip 
+                      content={`${point.subject} stands for ${point.fullName}`}
+                      searchTerm={searchTerm}
+                    >
+                      <span 
+                        className="w-3 h-3 rounded-full cursor-help" 
+                        style={{ backgroundColor: point.color }}
+                      />
+                    </InteractiveTooltip>
+                    <span className="text-gray-200 font-medium text-base">
+                      {point.fullName}
+                    </span>
+                  </div>
+                  <span className="font-semibold text-white text-base">
+                    {point.A}
+                  </span>
+                </div>
+                
+                {/* Always expanded content */}
+                {psychographicDescriptions[point.subject] && (
+                  <div className="px-3 pb-3 space-y-2 border-t border-gray-700/50 pt-2">
+                    <div className="space-y-2">
+                      {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
+                        <p key={i} className="text-gray-400 text-sm leading-relaxed pl-3 border-l-2 border-gray-700">
+                          {desc}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Original mobile layout
 
   return (
     <div className="space-y-6 animate-slide-up">

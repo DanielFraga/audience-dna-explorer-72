@@ -2,6 +2,7 @@
 import { Radar as RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, RadarChart as RechartsRadarChart } from 'recharts';
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
+import { useEffect, useRef, useState } from 'react';
 
 interface PsychographicPoint {
   subject: string;
@@ -15,19 +16,43 @@ interface PsychographicRadarProps {
 
 const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState({ width: 460, height: 460 });
+  
+  // ResizeObserver for responsive behavior
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        // Maintain aspect ratio and prevent stretching
+        const size = Math.min(width, height, 500);
+        setContainerSize({ width: size, height: size });
+      }
+    });
+    
+    resizeObserver.observe(containerRef.current);
+    
+    return () => resizeObserver.disconnect();
+  }, []);
   
   const tooltipContent = {
-    'Op': `People interested in ${searchTerm} score highly in Openness, suggesting they enjoy novel experiences and creative content.`,
-    'Co': `The audience for ${searchTerm} demonstrates strong Conscientiousness, valuing reliability and goal-oriented behavior.`,
-    'Ex': `Extraversion scores for ${searchTerm} audiences suggest moderate social engagement and energy from external stimulation.`,
-    'Ag': `High Agreeableness indicates ${searchTerm} appeals to people who value harmony and cooperation in social settings.`,
-    'Ne': `Lower Neuroticism scores suggest ${searchTerm} audiences tend to be emotionally stable and less prone to anxiety.`,
+    'Lf': `Loyalty-first bettors align bets with personal/team identity for ${searchTerm} interests.`,
+    'Sm': `Suspicious of mainstream - prefers niche or alternative betting sources related to ${searchTerm}.`,
+    'Ed': `Emotion-driven betting decisions influenced by feelings and excitement around ${searchTerm}.`,
+    'Sb': `Social bettors influenced by friend groups and social validation in ${searchTerm} contexts.`,
+    'Rm': `Risk-maximizers seeking high-risk, high-reward opportunities with ${searchTerm} content.`,
+    'Ma': `Methodical analyzers using data and analysis before placing ${searchTerm}-related bets.`,
   };
 
   return (
-    <div className="w-full h-[460px] relative">
+    <div ref={containerRef} className="w-full h-[460px] relative overflow-hidden">
       <ResponsiveContainer width="100%" height="100%">
-        <RechartsRadarChart data={data}>
+        <RechartsRadarChart 
+          data={data}
+          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+        >
           <defs>
             <linearGradient id="psychographicGradient" x1="0" y1="1" x2="1" y2="0">
               <stop offset="0%" stopColor="#2563eb" stopOpacity={0.7} />
@@ -35,17 +60,20 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
               <stop offset="100%" stopColor="#60a5fa" stopOpacity={0.3} />
             </linearGradient>
           </defs>
-          <PolarGrid stroke="#374151" />
+          <PolarGrid stroke="#374151" strokeWidth={1} />
           <PolarAngleAxis
             dataKey="subject"
-            tick={{ fill: 'transparent', fontSize: 10 }}
+            tick={{ fill: 'transparent', fontSize: 1 }}
+            className="text-transparent"
           />
           <RadarChart
             name="Psychographic Profile"
             dataKey="A"
             stroke="#3B82F6"
+            strokeWidth={2}
             fill="url(#psychographicGradient)"
             fillOpacity={1}
+            dot={{ fill: '#3B82F6', r: 4 }}
           />
         </RechartsRadarChart>
       </ResponsiveContainer>
@@ -53,27 +81,17 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
       {/* Positioned Radar vertex chips */}
       {data.map((point, index) => {
         const angle = (index * 360) / data.length;
-        const radius = 160;
+        const radius = Math.min(containerSize.width, containerSize.height) * 0.35;
         const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
         const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
         const colorMap = {
-          'Op': 'bg-[#9b87f5] text-white',
-          'Co': 'bg-[#7E69AB] text-white',
-          'Ex': 'bg-[#6E59A5] text-white',
-          'Ag': 'bg-[#0EA5E9] text-white',
-          'Ne': 'bg-[#33C3F0] text-white',
-          'RT': 'bg-[#1EAEDB] text-white',
-          'In': 'bg-[#F97316] text-white',
-          'PS': 'bg-[#FEC6A1] text-gray-700',
-          'BL': 'bg-[#FEF7CD] text-gray-700',
-          'SI': 'bg-[#D6BCFA] text-gray-700',
-          'TA': 'bg-[#E5DEFF] text-gray-700',
-          'QF': 'bg-[#9b87f5] text-white',
-          'Su': 'bg-[#7E69AB] text-white',
-          'SS': 'bg-[#6E59A5] text-white',
-          'Im': 'bg-[#0EA5E9] text-white',
-          'Tr': 'bg-[#33C3F0] text-white',
+          'Lf': 'bg-[#3B82F6] text-white',
+          'Sm': 'bg-[#F97316] text-white',
+          'Ed': 'bg-[#3B82F6] text-white',
+          'Sb': 'bg-[#F97316] text-white',
+          'Rm': 'bg-[#10B981] text-white',
+          'Ma': 'bg-[#10B981] text-white',
         };
 
         return (
@@ -83,7 +101,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
             searchTerm={searchTerm}
           >
             <button
-              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 text-white ${colorMap[point.subject as keyof typeof colorMap]?.replace(/text-\w+-\d+/g, '').replace(/text-gray-\d+/g, '')}`}
+              className={`px-2 py-1 text-xs font-medium rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-20 hover:scale-110 transition-transform ${colorMap[point.subject as keyof typeof colorMap] || 'bg-gray-500 text-white'}`}
               style={{
                 left: `50%`,
                 top: `50%`,

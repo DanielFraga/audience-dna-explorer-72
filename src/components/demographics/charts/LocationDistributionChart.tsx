@@ -1,6 +1,6 @@
 
 import { FC } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, LabelList, ResponsiveContainer } from 'recharts';
 import { ChartTooltip } from "@/components/ui/chart";
 import { MapPin } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -23,84 +23,88 @@ export const LocationDistributionChart: FC = () => {
   const { isMobile, width } = useIsMobile();
   
   // Calculate responsive dimensions
-  const getFontSize = () => width < 375 ? 8 : width < 450 ? 9 : 11;
-  const getLabelFontSize = () => width < 375 ? 8 : width < 450 ? 10 : 12;
-  const getBarGap = () => isMobile ? 1 : 4;
-  const getChartHeight = () => width < 375 ? 180 : 220;
+  const getFontSize = () => width < 375 ? 10 : width < 450 ? 11 : 13;
+  const getLabelFontSize = () => width < 375 ? 10 : width < 450 ? 12 : 14;
+  const getChartHeight = () => width < 375 ? 200 : width < 768 ? 240 : 260;
   
   // Return a properly typed radius value for Bar components
-  const getBarRadius = (): [number, number, number, number] => [4, 4, 0, 0];
+  const getBarRadius = (): [number, number, number, number] => [6, 6, 0, 0];
 
   return (
-    <div className="p-2 sm:p-3 bg-gray-900 rounded-lg border border-gray-800 relative">
+    <div className="p-5 bg-gray-900 rounded-xl border border-gray-800 relative">
       <InteractiveTooltip 
         content={`Geographic data suggests ${searchTerm} is most popular in Copenhagen (42%), followed by London (35%).`}
         searchTerm={searchTerm}
       >
-        <button className="absolute top-2 right-2">
-          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+        <button className="absolute top-3 right-3 z-10">
+          <Info className="w-4 h-4 text-gray-400 cursor-help hover:text-gray-300 transition-colors" />
         </button>
       </InteractiveTooltip>
-      <div className="flex items-center gap-1.5 mb-1">
-        <MapPin className="w-3.5 h-3.5 text-gray-400" />
-        <h3 className="text-xs font-bold text-white">Location Distribution</h3>
+      <div className="flex items-center gap-2 mb-4">
+        <MapPin className="w-4 h-4 text-gray-400" />
+        <h3 className="text-base font-semibold text-white">Location Distribution</h3>
       </div>
-      <div style={{ height: `${getChartHeight()}px` }} className="w-full">
-        <BarChart 
-          data={locationData}
-          margin={{ top: 15, right: isMobile ? 5 : 10, left: isMobile ? 0 : 5, bottom: 25 }}
-          barGap={getBarGap()}
-          width={width || 300}
-          height={getChartHeight()}
-        >
-          <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-          <XAxis 
-            dataKey="name"
-            axisLine={false} 
-            tickLine={false}
-            tick={{ fontSize: getFontSize(), fill: '#D1D5DB' }}
-            angle={isMobile ? -25 : 0}
-            textAnchor={isMobile ? "end" : "middle"}
-            height={isMobile ? 50 : 30}
-            interval={0}
-          />
-          <YAxis 
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={(value) => `${value}%`}
-            domain={[0, 50]}
-            tick={{ fontSize: getFontSize(), fill: '#9CA3AF' }}
-            width={isMobile ? 25 : 30}
-          />
-          <ChartTooltip
-            content={({ active, payload }) => {
-              if (active && payload && payload.length) {
-                return (
-                  <div className="bg-gray-800 px-2 py-1 border border-gray-700 rounded text-[10px]">
-                    <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
-                  </div>
-                );
-              }
-              return null;
-            }}
-          />
-          <Bar 
-            dataKey="value" 
-            radius={getBarRadius()}
-            barSize={isMobile ? width / (locationData.length * 3) : 40}
+      <div style={{ height: `${getChartHeight()}px` }} className="w-full overflow-visible">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart 
+            data={locationData}
+            margin={{ top: 20, right: 10, left: 10, bottom: 50 }}
+            barCategoryGap="15%"
           >
-            {locationData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={locationColors[index]} />
-            ))}
-            <LabelList 
-              dataKey="value" 
-              position="top" 
-              formatter={(value: number) => `${value}%`}
-              style={{ fill: 'white', fontSize: getLabelFontSize(), fontWeight: 600 }}
-              offset={2}
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+            <XAxis 
+              dataKey="name"
+              axisLine={false} 
+              tickLine={false}
+              tick={{ fontSize: getFontSize(), fill: '#D1D5DB', fontWeight: 500 }}
+              angle={-25}
+              textAnchor="end"
+              height={60}
+              interval={0}
             />
-          </Bar>
-        </BarChart>
+            <YAxis 
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(value) => `${value}%`}
+              domain={[0, 'dataMax + 5']}
+              tick={{ fontSize: getFontSize(), fill: '#9CA3AF', fontWeight: 500 }}
+              width={35}
+            />
+            <ChartTooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-gray-800 px-3 py-2 border border-gray-700 rounded-lg text-sm shadow-lg">
+                      <p className="text-white font-medium">{`${payload[0].payload.name}: ${payload[0].value}%`}</p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Bar 
+              dataKey="value" 
+              radius={getBarRadius()}
+              minPointSize={22}
+            >
+              {locationData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={locationColors[index]} />
+              ))}
+              <LabelList 
+                dataKey="value" 
+                position="top" 
+                formatter={(value: number) => `${value}%`}
+                style={{ 
+                  fill: 'white', 
+                  fontSize: getLabelFontSize(), 
+                  fontWeight: 600,
+                  textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+                }}
+                offset={8}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

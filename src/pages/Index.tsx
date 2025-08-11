@@ -151,15 +151,40 @@ const Index = () => {
   
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
-      return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+      return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8">
           <p className="text-xs sm:text-sm text-gray-300 bg-gray-900/60 border border-gray-800 rounded-md p-3">
             Snapshot of who your audience is — demographics, psychographics, and key segment markers.
           </p>
-          <PsychographicsTab />
-          <DemographicsTab />
+          
+          {/* Desktop Layout: Psychographics 2-column, Demographics 2x2 grid */}
+          <div className="xl:block hidden">
+            {/* Psychographics Section - 2 columns */}
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              {/* Left Column: Radar Chart */}
+              <div className="bg-gray-900 rounded-xl border border-gray-800 p-5">
+                <PsychographicsTab isRadarOnly={true} />
+              </div>
+              
+              {/* Right Column: Traits List */}
+              <div className="bg-gray-900 rounded-xl border border-gray-800 p-5">
+                <PsychographicsTab isTraitsOnly={true} />
+              </div>
+            </div>
+            
+            {/* Demographics Section - 2x2 grid */}
+            <DemographicsTab isDesktopGrid={true} />
+          </div>
+          
+          {/* Mobile/Tablet Layout: Original stacked layout */}
+          <div className="xl:hidden">
+            <PsychographicsTab />
+            <div className="mt-6">
+              <DemographicsTab />
+            </div>
+          </div>
         </div>;
     } else if (activeView === "responses") {
-      return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+      return <div className="space-y-8 pb-24 max-w-7xl mx-auto px-6 lg:px-8">
           <SurveyTab />
         </div>;
     }
@@ -167,7 +192,7 @@ const Index = () => {
   };
   
   return <TooltipProvider>
-      <div className={`min-h-screen font-grotesk text-[13px] gradient-background`}>
+      <div className={`min-h-screen font-grotesk text-[13px] gradient-background max-w-[1440px] mx-auto`}>
         <MainSidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
         
         <div className={`animate-fade-in`}>
