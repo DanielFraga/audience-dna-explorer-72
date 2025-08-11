@@ -545,13 +545,6 @@ export const SurveyTab: FC = () => {
         <div className="space-y-8">
           {sections.map((section, sectionIndex) => (
             <div key={sectionIndex} className="space-y-4">
-              {/* Section Header */}
-              <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/40">
-                <h2 className="text-lg md:text-xl font-medium text-white">
-                  {section.title}
-                </h2>
-              </div>
-              
               {/* Grid of Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 min-[320px]:grid-cols-1">
                 {section.cards.map((card, cardIndex) => {
@@ -579,13 +572,6 @@ export const SurveyTab: FC = () => {
       {/* Angles That Might Resonate Section */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-6 border border-gray-800">
         <div className="space-y-6">
-          {/* Section Header */}
-          <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/40">
-            <h2 className="text-lg md:text-xl font-medium text-white">
-              🎯 Angles That Might Resonate
-            </h2>
-          </div>
-          
           {/* Angle Tiles Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <div className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-6 border border-white/15 min-h-[160px] flex flex-col justify-center hover-scale animate-fade-in">
