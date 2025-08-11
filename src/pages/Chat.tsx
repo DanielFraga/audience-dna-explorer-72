@@ -90,7 +90,7 @@ const Chat = () => {
           <div className="space-y-4 p-4 pb-24 max-w-3xl mx-auto">
             {messages.length === 0 && <div className="flex items-center justify-center h-32 md:h-40">
                 <div className="text-center text-gray-500 max-w-xs">
-                  <p className="text-sm mb-2">Chat to your audience.  Explore the Hivemind. Interact with Real Human Data. </p>
+                  <p className="text-sm mb-2">Ask anything about this audience. Our AI will instantly interpret real human data to help you target smarter. </p>
                 </div>
               </div>}
             
