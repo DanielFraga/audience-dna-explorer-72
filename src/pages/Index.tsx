@@ -152,8 +152,8 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
-          <DemographicsTab />
           <PsychographicsTab />
+          <DemographicsTab />
         </div>;
     } else if (activeView === "responses") {
       return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
