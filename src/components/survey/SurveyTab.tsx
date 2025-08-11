@@ -541,7 +541,7 @@ export const SurveyTab: FC = () => {
   return (
     <div className="space-y-8 animate-slide-up">
       {/* Targeting & Activation Cards in 3x3 Grid */}
-      <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-6 border border-gray-800">
+      <div className="mt-8 p-3 md:p-6">
         <div className="space-y-8">
           {sections.map((section, sectionIndex) => (
             <div key={sectionIndex} className="space-y-4">
@@ -575,7 +575,7 @@ export const SurveyTab: FC = () => {
       </div>
 
       {/* Angles That Might Resonate Section */}
-      <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-6 border border-gray-800">
+      <div className="mt-8 p-3 md:p-6">
         <div className="space-y-6">
           {/* Subtle Section Label */}
           <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">
