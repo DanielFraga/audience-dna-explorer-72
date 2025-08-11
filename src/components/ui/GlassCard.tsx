@@ -16,7 +16,7 @@ const GlassCard: React.FC<GlassCardProps> = ({ title, children, className }) => 
       )}
     >
       <div className="h-11 flex items-center gap-2 text-foreground text-base md:text-[17px] font-semibold tracking-tight border-b border-border/60 mb-3">
-        {typeof title === "string" ? <h3 className="leading-none">{title}</h3> : title}
+        {typeof title === "string" ? <h3 className="leading-none text-white">{title}</h3> : title}
       </div>
       <div className="pt-2 text-white [&_*]:!text-white">
         {children}
