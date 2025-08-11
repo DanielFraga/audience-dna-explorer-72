@@ -6,13 +6,14 @@ interface ChannelData {
   meta: number;
   google: number;
   dv360: number;
+  total: number;
 }
 
 const channelData: ChannelData[] = [
-  { channel: 'Meta Feed', meta: 92, google: 15, dv360: 8 },
-  { channel: 'YouTube In-Stream', meta: 12, google: 89, dv360: 25 },
-  { channel: 'Meta Audience Network', meta: 78, google: 20, dv360: 12 },
-  { channel: 'Esports Streams', meta: 10, google: 30, dv360: 65 },
+  { channel: 'Meta Feed', meta: 92, google: 15, dv360: 8, total: 100 },
+  { channel: 'YouTube In-Stream', meta: 12, google: 89, dv360: 25, total: 100 },
+  { channel: 'Meta Audience Network', meta: 78, google: 20, dv360: 12, total: 100 },
+  { channel: 'Esports Streams', meta: 10, google: 30, dv360: 65, total: 100 },
 ].sort((a, b) => (b.meta + b.google + b.dv360) - (a.meta + a.google + a.dv360));
 
 const platformColors = {
@@ -137,7 +138,7 @@ const ChannelsPerformanceChart: FC = () => {
               interval={0}
             />
             <Bar 
-              dataKey={(data) => data.meta + data.google + data.dv360}
+              dataKey="total"
               shape={<CustomStackedBar />}
               barSize={12}
             />
