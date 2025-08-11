@@ -68,48 +68,9 @@ const SurveyAudience = () => {
   };
   return <div className="min-h-screen gradient-background font-grotesk text-[13px]">
       <div className="h-[100vh] overflow-auto">
-        <AppHeader searchTerm="holiday" currentTab="responses" onResetSearch={handleResetSearch} />
+        <AppHeader searchTerm="holiday" currentTab="responses" onResetSearch={handleResetSearch} onExportPDF={handleExportPDF} onExportCSV={handleExportCSV} />
         
         <div className="p-3 md:p-6 pt-4">
-          {/* Export Button - Fixed positioning within page flow */}
-          <div className="flex justify-end mb-6">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="secondary" 
-                  size="sm" 
-                  className="flex items-center gap-2"
-                  aria-label="Export targeting data"
-                >
-                  <Download className="h-4 w-4" />
-                  Export
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent 
-                align="end" 
-                className="w-48 bg-background border-border z-50"
-                aria-label="Export options"
-              >
-                <DropdownMenuItem 
-                  onClick={handleExportPDF}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-800"
-                  aria-label="Export as PDF"
-                >
-                  <FileText className="h-4 w-4" />
-                  Export as PDF
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={handleExportCSV}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-800"
-                  aria-label="Export as CSV"
-                >
-                  <Table className="h-4 w-4" />
-                  Export as CSV
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          
           <div className="pb-24">
             {activeTab === 'survey' ? <SurveyTab /> : <DemographicsTab />}
           </div>

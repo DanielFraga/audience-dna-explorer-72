@@ -1,6 +1,7 @@
-import { Search, Download, Menu } from "lucide-react";
+import { Search, Download, Menu, FileText, Table } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -10,11 +11,15 @@ interface AppHeaderProps {
   searchTerm?: string;
   currentTab: "stats" | "responses" | "chat";
   onResetSearch?: () => void;
+  onExportPDF?: () => void;
+  onExportCSV?: () => void;
 }
 const AppHeader = ({
   searchTerm = "holiday",
   currentTab,
-  onResetSearch
+  onResetSearch,
+  onExportPDF,
+  onExportCSV
 }: AppHeaderProps) => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -71,6 +76,45 @@ const AppHeader = ({
               
               
               <div className="flex items-center gap-2">
+                {/* Export Button - only show on responses tab */}
+                {currentTab === "responses" && onExportPDF && onExportCSV && (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button 
+                        variant="secondary" 
+                        size="sm" 
+                        className="flex items-center gap-2"
+                        aria-label="Export targeting data"
+                      >
+                        <Download className="h-4 w-4" />
+                        Export
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent 
+                      align="end" 
+                      className="w-48 bg-background border-border z-50"
+                      aria-label="Export options"
+                    >
+                      <DropdownMenuItem 
+                        onClick={onExportPDF}
+                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-800"
+                        aria-label="Export as PDF"
+                      >
+                        <FileText className="h-4 w-4" />
+                        Export as PDF
+                      </DropdownMenuItem>
+                      <DropdownMenuItem 
+                        onClick={onExportCSV}
+                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-800"
+                        aria-label="Export as CSV"
+                      >
+                        <Table className="h-4 w-4" />
+                        Export as CSV
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+                
                 <Button size="icon" variant="ghost" className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700">
                   <Search className="w-4 h-4 text-gray-300" />
                 </Button>
