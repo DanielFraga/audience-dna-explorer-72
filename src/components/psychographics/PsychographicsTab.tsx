@@ -108,7 +108,7 @@ const getGroupData = (groupId: string): any[] => {
   );
 };
 
-export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boolean }> = ({ isRadarOnly = false, isTraitsOnly = false }) => {
+export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boolean; isDetailOnly?: boolean }> = ({ isRadarOnly = false, isTraitsOnly = false, isDetailOnly = false }) => {
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [activePoint, setActivePoint] = useState<string | null>(null);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['igaming']);
@@ -206,6 +206,64 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
               </Collapsible>
             ))}
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Detail only view for desktop - the iGaming Traits card
+  if (isDetailOnly) {
+    return (
+      <div className="space-y-2 text-sm max-h-[400px] overflow-y-auto pr-1">
+        <div className="space-y-1 p-1.5">
+          {psychographicData.map((point) => (
+            <Collapsible key={point.subject}>
+              <CollapsibleTrigger className="w-full">
+                <div 
+                  ref={el => itemRefs.current[point.subject] = el}
+                  className={`flex justify-between items-center transition-colors duration-150 rounded px-2 py-1 cursor-pointer group 
+                    ${activePoint === point.subject ? 'bg-gray-700' : hoveredPoint === point.subject ? 'bg-gray-800' : ''}
+                    ${activePoint === point.subject ? 'border-l-2 border-blue-500' : ''}
+                  `}
+                  onMouseEnter={() => setHoveredPoint(point.subject)}
+                  onMouseLeave={() => setHoveredPoint(null)}
+                  onClick={() => setActivePoint(point.subject)}
+                >
+                <div className="flex items-center gap-1.5">
+                  <span className={`w-2 h-2 rounded-full`} style={{ backgroundColor: psychographicData.find(p => p.subject === point.subject)?.color || '#6B7280' }} />
+                  <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
+                    {point.fullName}
+                  </span>
+                </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
+                      {point.A}
+                    </span>
+                    <ChevronDown className="w-3 h-3 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+                  </div>
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                {psychographicDescriptions[point.subject] ? (
+                  <div className="px-2 py-2 space-y-1">
+                    <div className="space-y-1.5">
+                      {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
+                        <p key={i} className="text-gray-400 text-xs leading-relaxed pl-3 border-l border-gray-800">
+                          {desc}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-2 py-2">
+                    <p className="text-gray-400 text-xs leading-relaxed">
+                      No detailed information available.
+                    </p>
+                  </div>
+                )}
+              </CollapsibleContent>
+            </Collapsible>
+          ))}
         </div>
       </div>
     );

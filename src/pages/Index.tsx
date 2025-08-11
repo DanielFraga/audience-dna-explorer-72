@@ -153,12 +153,12 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8 pt-4">
-          {/* Desktop Layout: Psychographics 60/40 split, Demographics 2x2 grid */}
+          {/* Desktop Layout: Psychographics with radar + 2 trait cards in same row */}
           <div className="xl:block hidden">
-            {/* Psychographics Section - 60/40 responsive grid */}
-            <div className="grid grid-cols-5 gap-6 mb-6">
-              {/* Left Column: Radar Chart (60% width - 3 of 5 columns) */}
-              <div className="col-span-3">
+            {/* Psychographics Section - 3-column layout */}
+            <div className="grid grid-cols-12 gap-6 mb-6">
+              {/* Left Column: Radar Chart (50% width - 6 of 12 columns) */}
+              <div className="col-span-6">
                 <GlassCard title={
                   <div className="flex items-center gap-1.5">
                     <Radar className="w-4 h-4 text-gray-400" />
@@ -169,8 +169,9 @@ const Index = () => {
                 </GlassCard>
               </div>
               
-              {/* Right Column: Traits List (40% width - 2 of 5 columns) */}
-              <div className="col-span-2">
+              {/* Right Column: Two trait cards stacked (50% width - 6 of 12 columns) */}
+              <div className="col-span-6 space-y-6">
+                {/* Trait Overview Card */}
                 <GlassCard title={
                   <div className="flex items-center gap-1.5">
                     <ChartBar className="w-4 h-4 text-gray-400" />
@@ -178,6 +179,16 @@ const Index = () => {
                   </div>
                 }>
                   <PsychographicsTab isTraitsOnly={true} />
+                </GlassCard>
+                
+                {/* iGaming Traits Detail Card */}
+                <GlassCard title={
+                  <div className="flex items-center gap-1.5">
+                    <ChartBar className="w-4 h-4 text-gray-400" />
+                    <span>Psychographics – iGaming Traits</span>
+                  </div>
+                }>
+                  <PsychographicsTab isDetailOnly={true} />
                 </GlassCard>
               </div>
             </div>
