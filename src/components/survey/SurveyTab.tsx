@@ -546,30 +546,74 @@ export const SurveyTab: FC = () => {
 
   return (
     <div className="space-y-8 animate-slide-up pt-4">
-      {/* Targeting & Activation Cards in 3x3 Grid */}
+      {/* Targeting & Activation - Asymmetrical Grid */}
       <div className="p-3 md:p-6">
-        <div className="space-y-8">
-          {sections.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="space-y-4">
-              {/* Subtle Section Label */}
-              <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">
-                {section.title}
-              </h2>
-              
-              {/* Grid of Cards - 2 rows of 3 cards */}
-              <div id="targeting-export-root" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 min-[320px]:grid-cols-1">
-                {section.cards.map((card, cardIndex) => {
-                  const cardConfig = getCardConfig(card?.title || "");
-                  
-                  return (
-                    <GlassCard title={cardConfig.title}>
-                      {renderCardContent(card)}
-                    </GlassCard>
-                  );
-                })}
+        <div id="targeting-export-root" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 auto-rows-auto">
+          {/* Audience Segments - full-height left column */}
+          {(() => {
+            const audience = wordsetData.find(w => w.title === "Societal Role");
+            if (!audience) return null;
+            const config = getCardConfig(audience.title);
+            return (
+              <div className="xl:col-start-1 xl:row-span-4">
+                <GlassCard title={config.title} className="xl:p-6">
+                  {renderCardContent(audience)}
+                </GlassCard>
               </div>
-            </div>
-          ))}
+            );
+          })()}
+
+          {/* Timing & Budget - 1x2 tall in middle column */}
+          {(() => {
+            const timingMerged = { 
+              title: "Optimal Timing", 
+              isMerged: true,
+              timingBullets: wordsetData.find(w => w.title === "Optimal Timing")?.bulletPoints || [],
+              biddingBullets: wordsetData.find(w => w.title === "Bidding & Budget Tips")?.bulletPoints || []
+            };
+            const config = getCardConfig(timingMerged.title);
+            return (
+              <div className="xl:col-start-2 xl:row-span-2">
+                <GlassCard title={config.title} className="xl:p-6">
+                  {renderCardContent(timingMerged)}
+                </GlassCard>
+              </div>
+            );
+          })()}
+
+          {/* Best-Performing Channels - 1x2 tall in right column (advanced added) */}
+          {(() => {
+            const channels = wordsetData.find(w => w.title === "Best-Performing Channels / Placements");
+            if (!channels) return null;
+            const config = getCardConfig(channels.title);
+            return (
+              <div className="xl:col-start-3 xl:row-span-2">
+                <GlassCard title={config.title} className="xl:p-6">
+                  {renderCardContent(channels)}
+                </GlassCard>
+              </div>
+            );
+          })()}
+
+          {/* Remaining small cards */}
+          {(() => {
+            const smallCards = [
+              wordsetData.find(w => w.title === "Triggering Moments"),
+              wordsetData.find(w => w.title === "Activation Guidance"),
+              wordsetData.find(w => w.title === "Influencer / Creator Collaborator Profile"),
+            ].filter(Boolean) as any[];
+
+            return smallCards.map((card, idx) => {
+              const config = getCardConfig(card.title || "");
+              return (
+                <div key={config.title + idx}>
+                  <GlassCard title={config.title}>
+                    {renderCardContent(card)}
+                  </GlassCard>
+                </div>
+              );
+            });
+          })()}
         </div>
       </div>
 
