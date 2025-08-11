@@ -371,7 +371,7 @@ export const SurveyTab: FC = () => {
     setOpenDialog(null);
   };
 
-  // Organize cards by sections for 3x3 grid
+  // Organize cards by sections for 2x3 grid (6 cards total)
   const sections = [
     {
       title: "🎯 Target Audience",
@@ -382,19 +382,16 @@ export const SurveyTab: FC = () => {
       ]
     },
     {
-      title: "📍 Placement & Timing", 
+      title: "📍 Placement & Execution", 
       cards: [
-        wordsetData.find(w => w.title === "Optimal Timing"),
+        { 
+          title: "Optimal Timing", 
+          isMerged: true,
+          timingBullets: wordsetData.find(w => w.title === "Optimal Timing")?.bulletPoints || [],
+          biddingBullets: wordsetData.find(w => w.title === "Bidding & Budget Tips")?.bulletPoints || []
+        },
         wordsetData.find(w => w.title === "Triggering Moments"),
         wordsetData.find(w => w.title === "Activation Guidance")
-      ]
-    },
-    {
-      title: "⚙️ Execution",
-      cards: [
-        wordsetData.find(w => w.title === "Bidding & Budget Tips"),
-        { title: "Reserved Slot", isPlaceholder: true },
-        { title: "Reserved Slot", isPlaceholder: true }
       ]
     }
   ];
@@ -423,12 +420,43 @@ export const SurveyTab: FC = () => {
   };
 
   const renderCardContent = (wordset: any) => {
-    if (wordset?.isPlaceholder) {
+    // Handle merged Optimal Timing card
+    if (wordset?.isMerged && wordset?.title === "Optimal Timing") {
       return (
-        <div className="flex-grow flex items-center justify-center">
-          <div className="text-center text-gray-400 py-8">
-            <div className="text-3xl mb-2">⚪</div>
-            <div className="text-sm">Reserved slot</div>
+        <div className="flex-grow">
+          <div className="bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-white/10 h-full">
+            {/* Optimal Timing Section */}
+            <div className="mb-4">
+              <h4 className="text-sm font-medium text-gray-200 mb-3">Optimal Timing</h4>
+              <ul className="space-y-3 text-xs text-gray-300">
+                {wordset.timingBullets.map((bullet: any, idx: number) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-sm mt-0.5">⏰</span>
+                    <div>
+                      <span className="font-semibold text-gray-200">{bullet.label}</span> {bullet.content}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Subtle divider */}
+            <div className="border-t border-gray-600/30 my-4"></div>
+            
+            {/* Bidding & Budget Tips Section */}
+            <div>
+              <h4 className="text-sm font-medium text-gray-200 mb-3">Bidding & Budget Tips</h4>
+              <ul className="space-y-3 text-xs text-gray-300">
+                {wordset.biddingBullets.map((bullet: any, idx: number) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-sm mt-0.5">💰</span>
+                    <div>
+                      <span className="font-semibold text-gray-200">{bullet.label}</span> {bullet.content}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       );
@@ -437,7 +465,7 @@ export const SurveyTab: FC = () => {
     if (wordset?.title === "Societal Role") {
       return (
         <div className="space-y-4 flex-grow">
-          <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+          <div className="bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-white/10">
             <ul className="space-y-3 text-xs text-gray-300">
               <li className="flex items-start gap-2">
                 <span className="text-sm mt-0.5">🎯</span>
@@ -478,7 +506,7 @@ export const SurveyTab: FC = () => {
     if (wordset?.bulletPoints) {
       return (
         <div className="flex-grow">
-          <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40 h-full">
+          <div className="bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-white/10 h-full">
             <ul className="space-y-3 text-xs text-gray-300">
               {wordset.bulletPoints.map((bullet: any, idx: number) => (
                 <li key={idx} className="flex items-start gap-2">
@@ -532,7 +560,7 @@ export const SurveyTab: FC = () => {
                   return (
                     <div 
                       key={cardIndex} 
-                      className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 min-h-[280px] flex flex-col hover-scale animate-fade-in min-w-[320px]"
+                      className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-4 border border-white/15 min-h-[280px] flex flex-col hover-scale animate-fade-in min-w-[320px]"
                     >
                       <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
                         {cardConfig.title}
