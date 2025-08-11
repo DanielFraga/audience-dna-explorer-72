@@ -55,11 +55,11 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
               <div className="tab-section">
                 <IconTabsTrigger 
                   value="responses" 
-                  aria-label="Survey Responses"
+                  aria-label="Targeting & Activation"
                   className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "responses" ? "z-20 scale-110 transition-transform" : ""}`}
                 >
                   <ClipboardList className={`h-5 w-5 mb-1 ${currentTab === "responses" ? "text-white" : ""}`} />
-                  <span className={`text-xs font-medium ${currentTab === "responses" ? "text-white" : ""}`}>Responses</span>
+                  <span className={`text-xs font-medium ${currentTab === "responses" ? "text-white" : ""}`}>Targeting & Activation</span>
                 </IconTabsTrigger>
               </div>
               

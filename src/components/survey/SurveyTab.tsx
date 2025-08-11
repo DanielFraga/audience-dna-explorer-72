@@ -269,6 +269,60 @@ const wordsetData = [{
     label: "Start with tCPI:",
     content: "< $5 for mobile acquisition, then scale to tROAS campaigns after day 3"
   }]
+}, {
+  title: "Triggering Moments",
+  roleLabels: [],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: [],
+  bulletPoints: [
+    { label: "🚨", content: "Breaking injury updates and lineup changes" },
+    { label: "⚡", content: "Live odds swings and momentum shifts" },
+    { label: "🏆", content: "Cup finals, derby matches, and rivalries" },
+    { label: "📰", content: "Transfer rumors and major news cycles" }
+  ]
+}, {
+  title: "Activation Guidance",
+  roleLabels: [],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: [],
+  bulletPoints: [
+    { label: "🧭", content: "Sequential messaging: awareness → education → conversion" },
+    { label: "📍", content: "Geo/time segmentation around stadiums and match windows" },
+    { label: "🤝", content: "Coordinate drops with influencer posting schedules" },
+    { label: "🔁", content: "Retarget engaged viewers with boosted offers" }
+  ]
+}, {
+  title: "Future expansion slot",
+  roleLabels: [],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: [],
+  bulletPoints: []
+}, {
+  title: "Future expansion slot",
+  roleLabels: [],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: [],
+  bulletPoints: []
 }];
 const surveyData = [{
   question: "What factors influence your holiday purchase decisions?",
@@ -322,6 +376,8 @@ const surveyData = [{
 export const SurveyTab: FC = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
   const [sortedSurveyData, setSortedSurveyData] = useState([...surveyData]);
+  const [page, setPage] = useState(0);
+  const pageSize = 9;
 
   // Sort the survey data by confidence score (high to low) on component mount
   useEffect(() => {
