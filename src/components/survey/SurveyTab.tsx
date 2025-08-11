@@ -619,14 +619,14 @@ export const SurveyTab: FC = () => {
 
       {/* Angles That Might Resonate Section */}
       <div className="mt-8 p-3 md:p-6">
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6">
           {/* Subtle Section Label */}
           <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">
             🎯 Angles That Might Resonate
           </h2>
           
-          {/* Angle Tiles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {/* Angle Tiles - All in same row */}
+          <div className="grid grid-cols-3 gap-6">
             <div className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-6 border border-white/15 min-h-[160px] flex flex-col justify-center hover-scale animate-fade-in">
               <div className="text-center space-y-3">
                 <div className="text-2xl">⚡</div>
