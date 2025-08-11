@@ -14,29 +14,31 @@ import {
 import { Label } from "@/components/ui/label";
 
 const psychographicData = [
-  { subject: 'Op', A: 80, fullName: 'Openness' },
-  { subject: 'Co', A: 65, fullName: 'Conscientiousness' },
-  { subject: 'Ex', A: 45, fullName: 'Extraversion' },
-  { subject: 'Ag', A: 70, fullName: 'Agreeableness' },
-  { subject: 'Ne', A: 30, fullName: 'Neuroticism' },
+  { subject: 'Lf', A: 85, fullName: 'Loyalty-first', color: '#3B82F6' },
+  { subject: 'Sm', A: 72, fullName: 'Suspicious of mainstream', color: '#F97316' },
+  { subject: 'Ed', A: 78, fullName: 'Emotion-driven', color: '#3B82F6' },
+  { subject: 'Sb', A: 65, fullName: 'Social bettors', color: '#F97316' },
+  { subject: 'Rm', A: 69, fullName: 'Risk-maximizers', color: '#10B981' },
+  { subject: 'Ma', A: 58, fullName: 'Methodical analyzers', color: '#10B981' },
 ];
 
 const psychographicGroups = [
   {
-    id: 'big5',
-    name: 'BIG 5',
-    items: ['Op', 'Co', 'Ex', 'Ag', 'Ne']
+    id: 'igaming',
+    name: 'iGaming Traits',
+    items: ['Lf', 'Sm', 'Ed', 'Sb', 'Rm', 'Ma']
   }
 ];
 
 const fullPsychographicData = psychographicData;
 
 const colorMap = {
-  'Op': 'bg-[#0EA5E9] text-white',
-  'Co': 'bg-[#1EAEDB] text-white',
-  'Ex': 'bg-[#33C3F0] text-white',
-  'Ag': 'bg-[#0FA0CE] text-white',
-  'Ne': 'bg-[#ea384c] text-white',
+  'Lf': 'bg-[#3B82F6] text-white',
+  'Sm': 'bg-[#F97316] text-white',
+  'Ed': 'bg-[#3B82F6] text-white',
+  'Sb': 'bg-[#F97316] text-white',
+  'Rm': 'bg-[#10B981] text-white',
+  'Ma': 'bg-[#10B981] text-white',
 } as const;
 
 interface PsychographicDescription {
@@ -44,39 +46,46 @@ interface PsychographicDescription {
 }
 
 const psychographicDescriptions: Record<string, PsychographicDescription> = {
-  Op: {
+  Lf: {
     interpretation: [
-      "At 80, this is a high value on the 0-100 scale, indicating a strong tendency towards this trait.",
-      "Scores above 75 on the 0-100 scale represent the top quartile for this dimension.",
-      "This score indicates that this trait is a defining characteristic of the audience."
+      "Definition: Bets align with personal/team identity.",
+      "Creative Tip: \"Stand with your team — make it count tonight.\"",
+      "Targeting Cue: Boost ads 1–2h before rivalry matches."
     ]
   },
-  Co: {
+  Sm: {
     interpretation: [
-      "At 65, this is moderately high on the 0-100 scale, above the midpoint of 50.",
-      "Scores between 60-75 on the 0-100 scale indicate an above-average presence of this trait.",
-      "This score suggests this trait is notable but not dominant in the audience profile."
+      "Definition: Prefers niche or alternative betting sources.",
+      "Creative Tip: \"Where smart money really goes.\"",
+      "Targeting Cue: Avoid mass media placements; use specialized forums."
     ]
   },
-  Ex: {
+  Ed: {
     interpretation: [
-      "At 45, this is slightly below the midpoint on the 0-100 scale.",
-      "Scores between 40-50 on the 0-100 scale indicate a moderate presence of this trait.",
-      "This score suggests a balanced distribution of this trait within the audience."
+      "Definition: Betting decisions driven by feelings and excitement.",
+      "Creative Tip: \"Feel the rush — this is your moment.\"",
+      "Targeting Cue: Target high-emotion game moments and underdog scenarios."
     ]
   },
-  Ag: {
+  Sb: {
     interpretation: [
-      "At 70, this is relatively high on the 0-100 scale.",
-      "Scores between 65-80 on the 0-100 scale represent a strong presence of this trait.",
-      "This score indicates this trait is a significant characteristic in the audience profile."
+      "Definition: Bets influenced by friend groups and social validation.",
+      "Creative Tip: \"Your crew is counting on this one.\"",
+      "Targeting Cue: Amplify during group chat peaks and social events."
     ]
   },
-  Ne: {
+  Rm: {
     interpretation: [
-      "At 30, this is relatively low on the 0-100 scale.",
-      "Scores below 40 on the 0-100 scale indicate a minimal presence of this trait.",
-      "This score suggests this trait is less prominent in the audience profile."
+      "Definition: Seeks high-risk, high-reward betting opportunities.",
+      "Creative Tip: \"Go big or go home — the jackpot awaits.\"",
+      "Targeting Cue: Promote high-payout parlays and long-shot bets."
+    ]
+  },
+  Ma: {
+    interpretation: [
+      "Definition: Uses data and analysis before placing bets.",
+      "Creative Tip: \"The numbers don't lie — here's your edge.\"",
+      "Targeting Cue: Highlight stats, trends, and analytical insights."
     ]
   }
 };
@@ -102,14 +111,14 @@ const getGroupData = (groupId: string): any[] => {
 export const PsychographicsTab: FC = () => {
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
   const [activePoint, setActivePoint] = useState<string | null>(null);
-  const [expandedGroups, setExpandedGroups] = useState<string[]>(['big5']);
-  const [selectedGroup, setSelectedGroup] = useState<string>('big5');
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(['igaming']);
+  const [selectedGroup, setSelectedGroup] = useState<string>('igaming');
   const statsRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
   const isMobile = useIsMobile();
 
-  const selectedGroupData = getGroupData('big5');
+  const selectedGroupData = getGroupData('igaming');
 
   return (
     <div className="space-y-6 animate-slide-up">
@@ -119,8 +128,8 @@ export const PsychographicsTab: FC = () => {
           <Label className="text-xs font-semibold text-white">Psychographics</Label>
         </div>
         
-        <InteractiveTooltip 
-          content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
+              <InteractiveTooltip 
+                content={`This radar chart visualizes how audiences interested in ${searchTerm} score across 6 iGaming-specific personality traits.`}
           searchTerm={searchTerm}
         >
           <button className="absolute top-2 right-2">
@@ -128,18 +137,21 @@ export const PsychographicsTab: FC = () => {
           </button>
         </InteractiveTooltip>
         
-        <div className="space-y-3 mb-4">
-          <div className="px-1 space-y-2 text-gray-300 text-xs">
-            <p>People interested in holiday topics score high in openness and agreeableness, with moderate conscientiousness.</p>
-            <p>They show below average neuroticism and moderate extraversion, suggesting they enjoy new experiences while valuing harmony.</p>
-          </div>
-        </div>
+              <div className="space-y-3 mb-4">
+                <div className="px-1 space-y-2 text-gray-300 text-xs">
+                  <p>Your audience shows high loyalty to identity-driven bets, strong emotional triggers around underdog wins, and selective trust in betting sources. Social engagement spikes during friend group chats, with notable segments split between risk-maximizers and methodical analyzers.</p>
+                </div>
+              </div>
         
-        <div className="relative flex justify-center items-center">
-          <div className={isMobile ? "w-[90%] mx-auto" : "w-full"}>
-            <PsychographicRadar data={selectedGroupData} />
-          </div>
-        </div>
+                <div className="relative flex justify-center items-center">
+                  <div className={isMobile ? "w-[90%] mx-auto" : "w-full"}>
+                    <PsychographicRadar data={selectedGroupData} />
+                  </div>
+                </div>
+                
+                <div className="text-center mt-3">
+                  <p className="text-[10px] text-gray-500 italic">Based on 1,248 bettor responses (SWE + EU, July 2025)</p>
+                </div>
       </div>
 
       <Carousel className="w-full relative">
@@ -147,8 +159,8 @@ export const PsychographicsTab: FC = () => {
           <CarouselItem className="flex items-center justify-center">
             <div ref={statsRef} className="h-full w-full">
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
-                <InteractiveTooltip 
-                  content={`Detailed breakdown of personality traits for audiences interested in ${searchTerm}, with empirical data and interpretations.`}
+              <InteractiveTooltip 
+                content={`Detailed breakdown of iGaming personality traits for audiences interested in ${searchTerm}, with marketing insights and targeting cues.`}
                   searchTerm={searchTerm}
                 >
                   <button className="absolute top-2 right-2">
@@ -156,10 +168,10 @@ export const PsychographicsTab: FC = () => {
                   </button>
                 </InteractiveTooltip>
                 
-                <div className="flex items-center gap-1.5 mb-4">
-                  <ChartBar className="w-3.5 h-3.5 text-gray-400" />
-                  <h3 className="text-xs font-semibold text-white">Psychographics - Description</h3>
-                </div>
+              <div className="flex items-center gap-1.5 mb-4">
+                <ChartBar className="w-3.5 h-3.5 text-gray-400" />
+                <h3 className="text-xs font-semibold text-white">Psychographics – iGaming Traits</h3>
+              </div>
 
                 <div className="space-y-2 text-[11px] max-h-[460px] overflow-y-auto pr-1">
                   <div className="space-y-1 p-1.5">
@@ -176,12 +188,12 @@ export const PsychographicsTab: FC = () => {
                             onMouseLeave={() => setHoveredPoint(null)}
                             onClick={() => setActivePoint(point.subject)}
                           >
-                            <div className="flex items-center gap-1.5">
-                              <span className={`w-2 h-2 rounded-full ${colorMap[point.subject as keyof typeof colorMap]?.split(' ')[0] || 'bg-gray-500'}`} />
-                              <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
-                                {point.fullName}
-                              </span>
-                            </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className={`w-2 h-2 rounded-full`} style={{ backgroundColor: psychographicData.find(p => p.subject === point.subject)?.color || '#6B7280' }} />
+                            <span className={`${activePoint === point.subject ? 'text-white' : 'text-gray-400'}`}>
+                              {point.fullName}
+                            </span>
+                          </div>
                             <div className="flex items-center gap-2">
                               <span className={`font-medium ${activePoint === point.subject ? 'text-white' : 'text-gray-300'}`}>
                                 {point.A}
@@ -195,7 +207,7 @@ export const PsychographicsTab: FC = () => {
                             <div className="px-2 py-2 space-y-1">
                               <div className="space-y-1.5">
                                 {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                                  <p key={i} className="text-gray-500 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
+                                  <p key={i} className="text-gray-400 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
                                     {desc}
                                   </p>
                                 ))}
@@ -203,7 +215,7 @@ export const PsychographicsTab: FC = () => {
                             </div>
                           ) : (
                             <div className="px-2 py-2">
-                              <p className="text-gray-500 text-[10px] leading-relaxed">
+                              <p className="text-gray-400 text-[10px] leading-relaxed">
                                 No detailed information available.
                               </p>
                             </div>
