@@ -42,7 +42,6 @@ const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
                 aria-label="Audience Profile"
                 className="h-9 px-6 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
               >
-                <BarChart3 className="h-[1em] w-[1em]" />
                 <span className="text-sm font-medium">Audience Profile</span>
               </IconTabsTrigger>
 
@@ -51,7 +50,6 @@ const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
                 aria-label="Targeting & Activation"
                 className="h-9 px-6 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
               >
-                <ClipboardList className="h-[1em] w-[1em]" />
                 <span className="text-sm font-medium">Targeting & Activation</span>
               </IconTabsTrigger>
 
@@ -60,7 +58,6 @@ const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
                 aria-label="Chat"
                 className="h-9 px-6 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
               >
-                <MessageSquare className="h-[1em] w-[1em]" />
                 <span className="text-sm font-medium">Chat</span>
               </IconTabsTrigger>
             </TabsList>
