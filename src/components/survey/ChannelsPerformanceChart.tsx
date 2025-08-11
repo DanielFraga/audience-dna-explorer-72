@@ -23,7 +23,10 @@ const getBarColor = (platform: string) => {
   }
 };
 
-const CustomBar = ({ payload, x, y, width, height }: any) => {
+const CustomBar = (props: any) => {
+  const { payload, x, y, width, height } = props;
+  if (!payload) return null;
+  
   const barColor = getBarColor(payload.platform);
   const score = payload.score;
   
