@@ -70,9 +70,9 @@ const SurveyAudience = () => {
       <div className="h-[100vh] overflow-auto">
         <AppHeader searchTerm="holiday" currentTab="responses" onResetSearch={handleResetSearch} />
         
-        <div className="p-3 md:p-6 pt-4 relative">
-          {/* Export Button */}
-          <div className="absolute top-4 right-6 z-10">
+        <div className="p-3 md:p-6 pt-4">
+          {/* Export Button - Fixed positioning within page flow */}
+          <div className="flex justify-end mb-6">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -110,7 +110,7 @@ const SurveyAudience = () => {
             </DropdownMenu>
           </div>
           
-          <div className="mt-6 pb-24">
+          <div className="pb-24">
             {activeTab === 'survey' ? <SurveyTab /> : <DemographicsTab />}
           </div>
         </div>
