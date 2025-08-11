@@ -36,11 +36,11 @@ const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
       {inlineTop && (
         <div className="hidden md:block">
           <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
-            <TabsList className="bg-transparent border-b border-gray-800/60 px-0 w-full h-[44px] justify-start gap-2">
+            <TabsList className="bg-transparent border-b border-gray-800/60 px-0 w-full h-[36px] justify-start gap-6">
               <IconTabsTrigger
                 value="stats"
                 aria-label="Audience Profile"
-                className="h-11 px-4 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
+                className="h-9 px-6 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
               >
                 <BarChart3 className="h-[1em] w-[1em]" />
                 <span className="text-sm font-medium">Audience Profile</span>
@@ -49,7 +49,7 @@ const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
               <IconTabsTrigger
                 value="responses"
                 aria-label="Targeting & Activation"
-                className="h-11 px-4 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
+                className="h-9 px-6 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
               >
                 <ClipboardList className="h-[1em] w-[1em]" />
                 <span className="text-sm font-medium">Targeting & Activation</span>
@@ -58,7 +58,7 @@ const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
               <IconTabsTrigger
                 value="chat"
                 aria-label="Chat"
-                className="h-11 px-4 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
+                className="h-9 px-6 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
               >
                 <MessageSquare className="h-[1em] w-[1em]" />
                 <span className="text-sm font-medium">Chat</span>
