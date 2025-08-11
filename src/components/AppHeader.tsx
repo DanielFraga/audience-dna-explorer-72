@@ -73,7 +73,11 @@ const AppHeader = ({
           {/* Second frame - respondent count and action buttons */}
           <div className="h-[50px] px-3 md:px-6">
             <div className="h-full flex items-center justify-between">
-              
+              <div className="flex items-center gap-2">
+                <Button size="icon" variant="ghost" className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700">
+                  <Search className="w-4 h-4 text-gray-300" />
+                </Button>
+              </div>
               
               <div className="flex items-center gap-2">
                 {/* Export Button - only show on responses tab */}
@@ -114,12 +118,6 @@ const AppHeader = ({
                     </DropdownMenuContent>
                   </DropdownMenu>
                 )}
-                
-                <Button size="icon" variant="ghost" className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700">
-                  <Search className="w-4 h-4 text-gray-300" />
-                </Button>
-                
-                
               </div>
             </div>
           </div>
