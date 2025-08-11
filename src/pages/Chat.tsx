@@ -85,6 +85,9 @@ const Chat = () => {
       <div className="h-full flex flex-col">
         <AppHeader searchTerm="holiday" currentTab="chat" onResetSearch={handleResetSearch} />
 
+        {/* Top padding spacer for desktop/tablet */}
+        <div className="hidden md:block h-14"></div>
+
         {/* Messages area */}
         <ScrollArea className="flex-1 px-1 md:px-2">
           <div className="space-y-4 p-4 pb-24 max-w-3xl mx-auto">
