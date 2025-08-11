@@ -576,6 +576,57 @@ export const SurveyTab: FC = () => {
         </div>
       </div>
 
+      {/* Angles That Might Resonate Section */}
+      <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-6 border border-gray-800">
+        <div className="space-y-6">
+          {/* Section Header */}
+          <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/40">
+            <h2 className="text-lg md:text-xl font-medium text-white">
+              🎯 Angles That Might Resonate
+            </h2>
+          </div>
+          
+          {/* Angle Tiles Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-6 border border-white/15 min-h-[160px] flex flex-col justify-center hover-scale animate-fade-in">
+              <div className="text-center space-y-3">
+                <div className="text-2xl">⚡</div>
+                <h3 className="text-lg font-semibold text-white tracking-tight">
+                  Underdog Redemption
+                </h3>
+                <p className="text-sm text-gray-300">
+                  Turn doubt into a statement win.
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-6 border border-white/15 min-h-[160px] flex flex-col justify-center hover-scale animate-fade-in">
+              <div className="text-center space-y-3">
+                <div className="text-2xl">🚀</div>
+                <h3 className="text-lg font-semibold text-white tracking-tight">
+                  Prove Them Wrong
+                </h3>
+                <p className="text-sm text-gray-300">
+                  Silence the skeptics and cash in.
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-6 border border-white/15 min-h-[160px] flex flex-col justify-center hover-scale animate-fade-in">
+              <div className="text-center space-y-3">
+                <div className="text-2xl">🤝</div>
+                <h3 className="text-lg font-semibold text-white tracking-tight">
+                  Bet With Your Tribe
+                </h3>
+                <p className="text-sm text-gray-300">
+                  Make winning a shared victory.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Survey Cards at the top - now using sortedSurveyData */}
       <div className="flex flex-col space-y-3">
         {sortedSurveyData.map((item, index) => (
