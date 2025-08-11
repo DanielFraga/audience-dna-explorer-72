@@ -511,11 +511,8 @@ export const SurveyTab: FC = () => {
               {wordset.bulletPoints.map((bullet: any, idx: number) => (
                 <li key={idx} className="flex items-start gap-2">
                   <span className="text-sm mt-0.5">{bullet.label}</span>
-                  <div>
-                    <span className="font-semibold text-gray-200">
-                      {wordset.title === "Best-Performing Channels / Placements" ? bullet.label : ""}
-                    </span>
-                    {bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
+                   <div>
+                     {bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
                       <span dangerouslySetInnerHTML={{
                         __html: bullet.content
                           .replace(/Twitch/g, '<span class="font-bold text-white">Twitch</span>')
