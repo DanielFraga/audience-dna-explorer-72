@@ -33,7 +33,7 @@ const CustomBar = (props: any) => {
     <g>
       <rect x={x} y={y} width={width} height={height} fill={getBarColor(payload.platform)} />
       <text
-        x={x + width + 8}
+        x={x + width + 12}
         y={y + height / 2}
         textAnchor="start"
         dominantBaseline="middle"
@@ -48,11 +48,11 @@ const CustomBar = (props: any) => {
 const ChannelsPerformanceChart: FC = () => {
   return (
     <div className="h-full flex flex-col">
-      {/* Chart Section - 55% height */}
-      <div className="flex-none" style={{ height: '55%' }}>
+      {/* Chart Section - top half (50% height) */}
+      <div className="flex-none" style={{ height: '50%' }}>
         <div className="relative h-full">
           {/* Compact Legend */}
-          <div className="absolute top-0 right-0 z-10 flex gap-4 text-xs">
+          <div className="absolute top-0 left-0 z-10 flex items-center gap-4 text-xs">
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-blue-500"></div>
               <span className="text-gray-300">Meta</span>
@@ -71,14 +71,17 @@ const ChannelsPerformanceChart: FC = () => {
             <BarChart
               data={channelData}
               layout="horizontal"
-              margin={{ top: 25, right: 60, left: 5, bottom: 5 }}
+              margin={{ top: 32, right: 100, left: 140, bottom: 8 }}
+              barCategoryGap={12}
+              barGap={6}
             >
               <XAxis 
                 type="number" 
                 domain={[0, 100]}
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 10, fill: '#9ca3af' }}
+                tick={{ fontSize: 12, fill: '#9ca3af' }}
+                tickMargin={8}
                 tickFormatter={(value) => `${value}%`}
               />
               <YAxis 
@@ -86,8 +89,9 @@ const ChannelsPerformanceChart: FC = () => {
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 10, fill: '#d1d5db' }}
-                width={100}
+                tick={{ fontSize: 12, fill: '#e5e7eb' }}
+                tickMargin={8}
+                width={180}
               />
               <Bar 
                 dataKey="score" 
