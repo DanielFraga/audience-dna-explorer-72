@@ -166,27 +166,27 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
           <h3 className="text-base font-semibold text-white">Psychographics: Trait Overview</h3>
         </div>
 
-        <div className="space-y-3 text-sm max-h-[400px] overflow-y-auto pr-1">
-          <div className="space-y-2 p-1.5">
+        <div className="space-y-2 text-sm max-h-[600px] overflow-y-auto pr-1">
+          <div className="space-y-2">
             {psychographicData.map((point) => (
               <Collapsible key={point.subject}>
                 <CollapsibleTrigger className="w-full">
-                  <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors cursor-pointer group">
+                  <div className="flex justify-between items-center py-3 px-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors cursor-pointer group">
                     <div className="flex items-center gap-3">
                       <InteractiveTooltip 
                         content={`${point.subject} stands for ${point.fullName}`}
                         searchTerm={searchTerm}
                       >
                         <span 
-                          className="w-3 h-3 rounded-full cursor-help" 
+                          className="w-3 h-3 rounded-full cursor-help flex-shrink-0" 
                           style={{ backgroundColor: point.color }}
                         />
                       </InteractiveTooltip>
-                      <span className="text-gray-200 font-medium text-base">
+                      <span className="text-gray-200 font-medium text-base text-left">
                         {point.fullName}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       <span className="font-semibold text-white text-base">
                         {point.A}
                       </span>
@@ -197,12 +197,17 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
                 
                 <CollapsibleContent>
                   {psychographicDescriptions[point.subject] && (
-                    <div className="px-3 pb-3 space-y-2 border-t border-gray-700/50 pt-2 bg-gray-800/30 rounded-b-lg">
+                    <div className="px-4 pb-3 pt-2 bg-gray-800/30 rounded-b-lg border-t border-gray-700/50">
                       <div className="space-y-2">
                         {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                          <p key={i} className="text-gray-400 text-sm leading-relaxed pl-3 border-l-2 border-gray-700">
-                            {desc}
-                          </p>
+                          <div key={i} className="text-gray-400 text-sm leading-relaxed">
+                            <span className="font-medium text-gray-300">
+                              {desc.split(':')[0]}:
+                            </span>
+                            <span className="ml-1">
+                              {desc.split(':').slice(1).join(':').trim()}
+                            </span>
+                          </div>
                         ))}
                       </div>
                     </div>
