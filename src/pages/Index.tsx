@@ -87,65 +87,79 @@ const Index = () => {
   
   const renderContent = () => {
     if (!showResults) {
-      return <div className={`flex flex-col items-center justify-center min-h-screen py-6 md:py-12 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
+      return <div className={`flex flex-col items-center justify-center min-h-screen py-12 md:py-16 text-center px-4 h-full animate-fade-in ${isAnimating ? 'animate-fade-out' : ''}`}>
           <div className="absolute top-4 left-4">
             <Button variant="ghost" size="icon" className="h-8 w-8 p-0 rounded-full text-gray-400 hover:text-white" onClick={toggleSidebar}>
               <Menu className="h-5 w-5" />
             </Button>
           </div>
           
-          <div className="mb-6 md:mb-8 relative w-40 h-40 flex items-center justify-center">
-            <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
+          {/* Logo/Icon - reduced by 15% */}
+          <div className="mb-8 md:mb-10 relative w-34 h-34 flex items-center justify-center">
+            <div className="w-14 h-14 md:w-17 md:h-17 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]"></div>
-              <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-white" />
+              <Sparkles className="w-7 h-7 md:w-8 md:h-8 text-white" />
             </div>
             
             <div className="animate-orbit z-20">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <Users className="w-5 h-5 md:w-6 md:h-6 text-white" />
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <Users className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
             </div>
             
             <div className="animate-orbit-reverse z-20" style={{
             animationDelay: "-3s"
           }}>
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                <Globe className="w-4 h-4 md:w-5 md:h-5 text-white" />
+              <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                <Globe className="w-3 h-3 md:w-4 md:h-4 text-white" />
               </div>
             </div>
             
             <div className="animate-orbit z-20" style={{
             animationDelay: "-5s"
           }}>
-              <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                <Search className="w-4 h-4 text-white" />
+              <div className="w-7 h-7 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                <Search className="w-3 h-3 text-white" />
               </div>
             </div>
           </div>
           
-          <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Find the Signals That Drive Bets</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-6 md:mb-8 max-w-2xl">Live audience psychographics, triggering moments, and activation tactics from real human data — built for iGaming marketers.</h2>
+          {/* Headlines with 90% opacity white */}
+          <h1 className="text-2xl md:text-3xl font-bold text-white/90 mb-4 md:mb-6 tracking-tight">Find the Signals That Drive Bets</h1>
+          <h2 className="text-lg md:text-xl font-medium text-white/90 mb-8 md:mb-12 max-w-3xl leading-relaxed">Live bettor psychographics, triggering moments, and activation tactics — from real human data, built for iGaming marketers.</h2>
           
-          <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
-            <input type="text" placeholder="Type a bettor profile, sport, or market…" className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
-            <button className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors" onClick={handleSearch}>
+          {/* Search Bar - 60% width, 56px height */}
+          <div className="relative w-full max-w-none mb-6 md:mb-8" style={{ width: '60%' }}>
+            <input 
+              type="text" 
+              placeholder="Type a bettor profile, sport, or market…" 
+              className="w-full px-6 py-4 h-14 rounded-lg border border-gray-700 bg-gray-800/80 text-white/90 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 text-sm md:text-base shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" 
+              value={searchTerm} 
+              onChange={e => setSearchTerm(e.target.value)} 
+              onKeyDown={e => e.key === 'Enter' && handleSearch()} 
+            />
+            <button 
+              className="absolute right-3 top-3 px-4 py-2 h-8 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors" 
+              onClick={handleSearch}
+            >
               Search
             </button>
           </div>
           
-          <div className="space-y-3 text-gray-500 text-xs">
-            <p>Try:</p>
-            <div className="flex flex-wrap gap-1.5 justify-center max-w-2xl mx-auto">
-              {["Underdog Football Bettors in Madrid", "Ego-Driven Bettors in São Paulo", "Casual Social Bettors in Toronto", "High-LTV Esports Bettors UK", "In-Play Bettors Post-Penalty Decisions"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
-              setSearchTerm(suggestion);
-              setTimeout(() => handleSearch(), 100);
-            }}>
-                  {suggestion}
-                </button>)}
-            </div>
-            <p className="text-center text-gray-500 text-[10px] mt-4 max-w-lg mx-auto">
-              3 clicks to activation: 1) Search any bettor segment → 2) See live psychographics & moments → 3) Push to Meta, DV360, or Google Ads.
-            </p>
+          {/* Three Example Chips - horizontal line with 8px gap */}
+          <div className="flex gap-2 justify-center">
+            {["Underdog Football Bettors in Madrid", "Ego-Driven Bettors in São Paulo", "High-LTV Esports Bettors UK"].map(suggestion => 
+              <button 
+                key={suggestion} 
+                className="px-3 py-1.5 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-xs text-white/90 border border-gray-700/50 shadow-sm hover:shadow whitespace-nowrap" 
+                onClick={() => {
+                  setSearchTerm(suggestion);
+                  setTimeout(() => handleSearch(), 100);
+                }}
+              >
+                {suggestion}
+              </button>
+            )}
           </div>
         </div>;
     }
