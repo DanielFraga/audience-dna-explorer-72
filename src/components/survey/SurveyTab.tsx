@@ -591,7 +591,7 @@ export const SurveyTab: FC = () => {
                   Underdog Redemption
                 </h3>
                 <p className="text-sm text-gray-300">
-                  Turn doubt into a statement win.
+                  Loyalty-first bettors, comeback wins, turning public doubt into pride.
                 </p>
               </div>
             </div>
@@ -603,7 +603,7 @@ export const SurveyTab: FC = () => {
                   Prove Them Wrong
                 </h3>
                 <p className="text-sm text-gray-300">
-                  Silence the skeptics and cash in.
+                  Emotion-driven defiance, reversing predictions, reclaiming bragging rights.
                 </p>
               </div>
             </div>
@@ -615,7 +615,7 @@ export const SurveyTab: FC = () => {
                   Bet With Your Tribe
                 </h3>
                 <p className="text-sm text-gray-300">
-                  Make winning a shared victory.
+                  Social bettors, group rituals, coordinated wagers for shared glory.
                 </p>
               </div>
             </div>
