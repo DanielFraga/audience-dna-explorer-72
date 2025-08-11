@@ -169,40 +169,46 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
         <div className="space-y-3 text-sm max-h-[460px] overflow-y-auto pr-1">
           <div className="space-y-2 p-1.5">
             {psychographicData.map((point) => (
-              <div key={point.subject} className="border border-gray-800 rounded-lg">
-                <div className={`flex justify-between items-center p-3 rounded-lg bg-gray-800/50`}>
-                  <div className="flex items-center gap-3">
-                    <InteractiveTooltip 
-                      content={`${point.subject} stands for ${point.fullName}`}
-                      searchTerm={searchTerm}
-                    >
-                      <span 
-                        className="w-3 h-3 rounded-full cursor-help" 
-                        style={{ backgroundColor: point.color }}
-                      />
-                    </InteractiveTooltip>
-                    <span className="text-gray-200 font-medium text-base">
-                      {point.fullName}
-                    </span>
-                  </div>
-                  <span className="font-semibold text-white text-base">
-                    {point.A}
-                  </span>
-                </div>
-                
-                {/* Always expanded content */}
-                {psychographicDescriptions[point.subject] && (
-                  <div className="px-3 pb-3 space-y-2 border-t border-gray-700/50 pt-2">
-                    <div className="space-y-2">
-                      {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                        <p key={i} className="text-gray-400 text-sm leading-relaxed pl-3 border-l-2 border-gray-700">
-                          {desc}
-                        </p>
-                      ))}
+              <Collapsible key={point.subject}>
+                <CollapsibleTrigger className="w-full">
+                  <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors cursor-pointer group">
+                    <div className="flex items-center gap-3">
+                      <InteractiveTooltip 
+                        content={`${point.subject} stands for ${point.fullName}`}
+                        searchTerm={searchTerm}
+                      >
+                        <span 
+                          className="w-3 h-3 rounded-full cursor-help" 
+                          style={{ backgroundColor: point.color }}
+                        />
+                      </InteractiveTooltip>
+                      <span className="text-gray-200 font-medium text-base">
+                        {point.fullName}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-white text-base">
+                        {point.A}
+                      </span>
+                      <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-data-[state=open]:rotate-180" />
                     </div>
                   </div>
-                )}
-              </div>
+                </CollapsibleTrigger>
+                
+                <CollapsibleContent>
+                  {psychographicDescriptions[point.subject] && (
+                    <div className="px-3 pb-3 space-y-2 border-t border-gray-700/50 pt-2 bg-gray-800/30 rounded-b-lg">
+                      <div className="space-y-2">
+                        {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
+                          <p key={i} className="text-gray-400 text-sm leading-relaxed pl-3 border-l-2 border-gray-700">
+                            {desc}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </CollapsibleContent>
+              </Collapsible>
             ))}
           </div>
         </div>
