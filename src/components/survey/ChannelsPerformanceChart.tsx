@@ -1,127 +1,130 @@
 import { FC } from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 
-interface ChannelData {
-  name: string;
-  score: number;
-  platform: 'Meta' | 'Google' | 'DV360';
-  fullName: string;
+interface ChannelGroupData {
+  channel: string;
+  Meta: number;
+  Google: number;
+  DV360: number;
 }
 
-const channelData: ChannelData[] = [
-  { name: 'Meta Feed', score: 92, platform: 'Meta' as const, fullName: 'Meta Feed' },
-  { name: 'Meta Reels', score: 89, platform: 'Meta' as const, fullName: 'Meta Reels' },
-  { name: 'YouTube In-Stream', score: 85, platform: 'Google' as const, fullName: 'YouTube In-Stream' },
-  { name: 'DV360 Sports News', score: 78, platform: 'DV360' as const, fullName: 'DV360 Sports News' },
-  { name: 'Meta Audience Network', score: 76, platform: 'Meta' as const, fullName: 'Meta Audience Network' },
-  { name: 'DV360 Betting Forums', score: 73, platform: 'DV360' as const, fullName: 'DV360 Betting Forums' },
-  { name: 'Esports Streams', score: 68, platform: 'DV360' as const, fullName: 'Esports Streams' },
-].sort((a, b) => b.score - a.score);
+const channelGroupData: ChannelGroupData[] = [
+  { channel: 'Meta Feed', Meta: 92, Google: 45, DV360: 38 },
+  { channel: 'Meta Audience Network', Meta: 76, Google: 52, DV360: 41 },
+  { channel: 'YouTube In-Stream', Meta: 35, Google: 85, DV360: 43 },
+  { channel: 'Esports Streams', Meta: 28, Google: 39, DV360: 68 },
+];
 
-const getBarColor = (platform: string) => {
-  switch (platform) {
-    case 'Meta': return '#3b82f6'; // blue
-    case 'Google': return '#10b981'; // green
-    case 'DV360': return '#8b5cf6'; // purple
-    default: return '#6b7280'; // gray
-  }
-};
-
-const CustomBar = (props: any) => {
-  const { fill, payload, x, y, width, height } = props;
+const CustomBarLabel = ({ payload, x, y, width, height, value }: any) => {
+  if (!value || width < 30) return null; // Don't show label if bar is too small
+  
   return (
-    <g>
-      <rect x={x} y={y} width={width} height={height} fill={getBarColor(payload.platform)} />
-      <text
-        x={x + width + 12}
-        y={y + height / 2}
-        textAnchor="start"
-        dominantBaseline="middle"
-        className="fill-gray-300 text-xs font-medium"
-      >
-        {payload.score}%
-      </text>
-    </g>
+    <text
+      x={x + width - 8}
+      y={y + height / 2}
+      textAnchor="end"
+      dominantBaseline="middle"
+      className="fill-white text-xs font-bold"
+    >
+      {value}%
+    </text>
   );
 };
 
 const ChannelsPerformanceChart: FC = () => {
   return (
     <div className="h-full flex flex-col">
-      {/* Chart Section - top half (50% height) */}
-      <div className="flex-none" style={{ height: '50%' }}>
-        <div className="relative h-full">
-          {/* Compact Legend */}
-          <div className="absolute top-0 left-0 z-10 flex items-center gap-4 text-xs">
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              <span className="text-gray-300">Meta</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              <span className="text-gray-300">Google</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-              <span className="text-gray-300">DV360</span>
-            </div>
+      {/* Legend - horizontal above chart */}
+      <div className="flex-none mb-4">
+        <div className="flex items-center justify-center gap-6 text-xs">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+            <span className="text-white/90" style={{ fontSize: '12px' }}>Meta</span>
           </div>
-          
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={channelData}
-              layout="horizontal"
-              margin={{ top: 32, right: 100, left: 140, bottom: 8 }}
-              barCategoryGap={12}
-              barGap={6}
-            >
-              <XAxis 
-                type="number" 
-                domain={[0, 100]}
-                axisLine={false}
-                tickLine={false}
-                tick={{ fontSize: 12, fill: '#9ca3af' }}
-                tickMargin={8}
-                tickFormatter={(value) => `${value}%`}
-              />
-              <YAxis 
-                type="category" 
-                dataKey="name"
-                axisLine={false}
-                tickLine={false}
-                tick={{ fontSize: 12, fill: '#e5e7eb' }}
-                tickMargin={8}
-                width={180}
-              />
-              <Bar 
-                dataKey="score" 
-                shape={<CustomBar />}
-                radius={[0, 2, 2, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <span className="text-white/90" style={{ fontSize: '12px' }}>Google</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+            <span className="text-white/90" style={{ fontSize: '12px' }}>DV360</span>
+          </div>
         </div>
       </div>
       
-      {/* Text Section - 45% height */}
-      <div className="flex-1 pt-4">
-        <div className="space-y-3 text-sm text-white">
+      {/* Chart Section */}
+      <div className="flex-1">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={channelGroupData}
+            layout="horizontal"
+            margin={{ top: 10, right: 20, left: 120, bottom: 10 }}
+            barCategoryGap={8}
+          >
+            <CartesianGrid 
+              strokeDasharray="3 3" 
+              stroke="#374151" 
+              horizontal={false}
+              verticalPoints={[0, 0.25, 0.5, 0.75, 1].map(p => p * 100)}
+            />
+            <XAxis 
+              type="number" 
+              domain={[0, 100]}
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 11, fill: '#9ca3af' }}
+              tickFormatter={(value) => `${value}%`}
+              ticks={[0, 25, 50, 75, 100]}
+            />
+            <YAxis 
+              type="category" 
+              dataKey="channel"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 12, fill: '#f3f4f6' }}
+              width={110}
+            />
+            <Bar 
+              dataKey="Meta" 
+              fill="#3b82f6"
+              radius={[0, 2, 2, 0]}
+              label={<CustomBarLabel />}
+            />
+            <Bar 
+              dataKey="Google" 
+              fill="#10b981"
+              radius={[0, 2, 2, 0]}
+              label={<CustomBarLabel />}
+            />
+            <Bar 
+              dataKey="DV360" 
+              fill="#8b5cf6"
+              radius={[0, 2, 2, 0]}
+              label={<CustomBarLabel />}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      
+      {/* Text Section - 16px gap from chart */}
+      <div className="flex-none mt-4 pt-4 border-t border-gray-700/50">
+        <div className="space-y-3 text-sm text-left">
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-            <div>
-              <span className="font-semibold text-white">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)
+            <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
+            <div className="text-white/90">
+              <span className="font-semibold text-blue-400">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0"></div>
-            <div>
-              <span className="font-semibold text-white">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences
+            <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></div>
+            <div className="text-white/90">
+              <span className="font-semibold text-green-400">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-            <div>
-              <span className="font-semibold text-white">Programmatic/DV360:</span> Sports news, betting forums, esports streams
+            <div className="w-2 h-2 rounded-full bg-purple-500 mt-1.5 flex-shrink-0"></div>
+            <div className="text-white/90">
+              <span className="font-semibold text-purple-400">Programmatic/DV360:</span> Sports news, betting forums, esports streams
             </div>
           </div>
         </div>
