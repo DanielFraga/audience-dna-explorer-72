@@ -35,6 +35,21 @@ const ancestryData = [{
 }];
 interface AncestryDistributionChartProps {}
 export const AncestryDistributionChart: FC<AncestryDistributionChartProps> = () => {
-  return;
+  return (
+    <div className="bg-gray-900 rounded-lg border border-gray-800 p-4">
+      <h3 className="text-white font-semibold mb-2">Ancestry Distribution</h3>
+      <div className="h-56">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={ancestryData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="name" tick={{ fill: '#9CA3AF', fontSize: 10 }} interval={0} angle={-30} textAnchor="end" height={60} />
+            <YAxis tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+            <Tooltip contentStyle={{ backgroundColor: '#111827', borderColor: '#1F2937', color: '#E5E7EB' }} />
+            <Bar dataKey="value" fill="#F97316" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
 };
 export default AncestryDistributionChart;

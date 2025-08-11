@@ -433,26 +433,6 @@ export const SurveyTab: FC = () => {
     setOpenDialog(null);
   };
   return <div className="space-y-8 animate-slide-up">
-      {/* Survey Cards at the top - now using sortedSurveyData */}
-      <div className="flex flex-col space-y-3">
-        {sortedSurveyData.map((item, index) => <div key={index} className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors">
-            <div className="absolute top-3 right-3">
-              <div className="relative w-10 h-10">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className={`w-full h-full rounded-full border-2 ${Number(item.confidence) >= 0.9 ? 'border-green-500' : Number(item.confidence) >= 0.7 ? 'border-blue-500' : 'border-yellow-500'}`} />
-                  <span className="absolute text-xs font-medium text-gray-300">
-                    {item.confidence}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-sm font-medium text-white mb-3 pr-12 line-clamp-3">
-              {item.response}
-            </p>
-          </div>)}
-      </div>
-
       {/* Wordset Cards in Carousel at the bottom */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
         <Carousel opts={{
@@ -494,6 +474,27 @@ export const SurveyTab: FC = () => {
           </div>
         </Carousel>
       </div>
+
+      {/* Survey Cards at the top - now using sortedSurveyData */}
+      <div className="flex flex-col space-y-3">
+        {sortedSurveyData.map((item, index) => <div key={index} className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors">
+            <div className="absolute top-3 right-3">
+              <div className="relative w-10 h-10">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className={`w-full h-full rounded-full border-2 ${Number(item.confidence) >= 0.9 ? 'border-green-500' : Number(item.confidence) >= 0.7 ? 'border-blue-500' : 'border-yellow-500'}`} />
+                  <span className="absolute text-xs font-medium text-gray-300">
+                    {item.confidence}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-sm font-medium text-white mb-3 pr-12 line-clamp-3">
+              {item.response}
+            </p>
+          </div>)}
+      </div>
+
 
       {/* Dialogs for "See more" */}
       {wordsetData.map((wordset, index) => <Dialog key={index} open={openDialog === index} onOpenChange={handleCloseDialog}>
