@@ -87,24 +87,26 @@ const Chat = () => {
 
         {/* Messages area */}
         <ScrollArea className="flex-1 px-1 md:px-2">
-          <div className="space-y-4 p-4 pb-24 max-w-3xl mx-auto">
-            {messages.length === 0 && <div className="flex items-center justify-center h-32 md:h-40">
-                <div className="text-center text-gray-500 max-w-xs">
-                  <p className="text-sm mb-2">Ask anything about this audience. Our AI will instantly interpret real human data to help you target smarter. </p>
-                </div>
-              </div>}
-            
-            {messages.map(message => <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"} mb-2 animate-fade-in-up`}>
-                <div className={`flex items-start gap-2 max-w-[90%] md:max-w-[75%] ${message.sender === "user" ? "flex-row-reverse" : ""}`}>
-                  <Avatar className={`h-7 w-7 shrink-0 ${message.sender === "assistant" ? "bg-blue-600" : "bg-gray-700"}`}>
-                    {message.sender === "user" ? <User2 className="h-4 w-4 text-gray-300" /> : <AvatarFallback className="text-white text-xs font-medium">AI</AvatarFallback>}
-                  </Avatar>
-                  <div className={`rounded-xl p-3 text-sm text-left shadow-sm ${message.sender === "user" ? "bg-blue-600 text-white rounded-br-sm" : "bg-gray-800 text-gray-100 rounded-bl-sm"}`}>
-                    {renderMessage(message)}
+          {messages.length === 0 ? (
+            <div className="h-full flex items-center justify-center p-4">
+              <div className="text-center text-gray-500 max-w-xs">
+                <p className="text-sm mb-2">Ask anything about this audience. Our AI will instantly interpret real human data to help you target smarter. </p>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4 p-4 pb-24 max-w-3xl mx-auto">
+              {messages.map(message => <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"} mb-2 animate-fade-in-up`}>
+                  <div className={`flex items-start gap-2 max-w-[90%] md:max-w-[75%] ${message.sender === "user" ? "flex-row-reverse" : ""}`}>
+                    <Avatar className={`h-7 w-7 shrink-0 ${message.sender === "assistant" ? "bg-blue-600" : "bg-gray-700"}`}>
+                      {message.sender === "user" ? <User2 className="h-4 w-4 text-gray-300" /> : <AvatarFallback className="text-white text-xs font-medium">AI</AvatarFallback>}
+                    </Avatar>
+                    <div className={`rounded-xl p-3 text-sm text-left shadow-sm ${message.sender === "user" ? "bg-blue-600 text-white rounded-br-sm" : "bg-gray-800 text-gray-100 rounded-bl-sm"}`}>
+                      {renderMessage(message)}
+                    </div>
                   </div>
-                </div>
-              </div>)}
-          </div>
+                </div>)}
+            </div>
+          )}
         </ScrollArea>
 
         {/* Input area */}
