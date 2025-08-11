@@ -3,7 +3,8 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
-import { X } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
+import GlassCard from "@/components/ui/GlassCard";
 
 const wordsetData = [{
   title: "Societal Role",
@@ -415,9 +416,9 @@ export const SurveyTab: FC = () => {
     if (wordset?.isMerged && wordset?.title === "Optimal Timing") {
       return (
         <div className="flex-grow">
-          <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-white/10 h-full">
+          <div className="space-y-6">
             {/* Timing Section */}
-            <div className="mb-6">
+            <div>
               <h4 className="text-sm font-medium text-gray-200 mb-3">Timing</h4>
               <ul className="space-y-2 text-sm text-gray-300">
                 {wordset.timingBullets.map((bullet: any, idx: number) => (
@@ -453,34 +454,20 @@ export const SurveyTab: FC = () => {
     if (wordset?.title === "Societal Role") {
       return (
         <div className="space-y-4 flex-grow">
-          <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-                <div>
-                  <span className="font-medium text-white">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0"></div>
-                <div>
-                  <span className="font-medium text-white">Age & Gender:</span> <span className="font-semibold text-blue-400">25–44</span> • <span className="font-semibold text-blue-400">Male-skewed (65%)</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                <div>
-                  <span className="font-medium text-white">Device:</span> <span className="font-semibold text-blue-400">Mobile-first (iOS 55%, Android 45%)</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-orange-400 mt-1.5 flex-shrink-0"></div>
-                <div>
-                  <span className="font-medium text-white">Geographic Focus:</span> Tier-1 English-speaking + high-LTV LATAM regions
-                </div>
-              </li>
-            </ul>
-          </div>
+          <ul className="space-y-2 text-sm text-gray-300">
+            <li className="flex items-start gap-3">
+              <div className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
+              <div>
+                <span className="font-medium text-white">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0"></div>
+              <div>
+                <span className="font-medium text-white">Demographics:</span> <span className="font-semibold text-blue-400">25–44</span>, male-skewed (65%), mobile-first (iOS 55%, Android 45%), Tier-1 EN + LATAM high-LTV
+              </div>
+            </li>
+          </ul>
         </div>
       );
     }
@@ -488,45 +475,43 @@ export const SurveyTab: FC = () => {
     if (wordset?.bulletPoints) {
       return (
         <div className="flex-grow">
-          <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-6 border border-white/10 h-full">
-            <ul className="space-y-2 text-sm text-gray-300">
-              {wordset.bulletPoints.map((bullet: any, idx: number) => {
-                const getColorForCard = (title: string, index: number) => {
-                  if (title === "Best-Performing Channels / Placements") return ["bg-blue-400", "bg-green-400", "bg-purple-400"][index % 3];
-                  if (title === "Influencer / Creator Collaborator Profile") return ["bg-pink-400", "bg-yellow-400", "bg-cyan-400", "bg-red-400"][index % 4];
-                  if (title === "Triggering Moments") return ["bg-red-400", "bg-yellow-400", "bg-green-400"][index % 3];
-                  if (title === "Activation Guidance") return ["bg-purple-400", "bg-orange-400", "bg-teal-400"][index % 3];
-                  return "bg-gray-400";
-                };
-                
-                return (
-                  <li key={idx} className="flex items-start gap-3">
-                    <div className={`w-2 h-2 rounded-full ${getColorForCard(wordset.title, idx)} mt-1.5 flex-shrink-0`}></div>
-                    <div>
-                      {/* Handle platform names for Best-Performing Channels */}
-                      {wordset.title === "Best-Performing Channels / Placements" ? (
-                        <>
-                          <span className="font-semibold text-white">{bullet.label}</span> {bullet.content}
-                        </>
-                      ) : bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
-                        <span dangerouslySetInnerHTML={{
-                          __html: `<span class="font-medium text-white">${bullet.label}:</span> ${bullet.content
-                            .replace(/Twitch/g, '<span class="font-semibold text-blue-400">Twitch</span>')
-                            .replace(/Instagram/g, '<span class="font-semibold text-blue-400">Instagram</span>')
-                            .replace(/YouTuber/g, '<span class="font-semibold text-blue-400">YouTuber</span>')
-                            .replace(/Podcast/g, '<span class="font-semibold text-blue-400">Podcast</span>')}`
-                        }} />
-                      ) : (
-                        <>
-                          <span className="font-medium text-white">{bullet.label}:</span> {bullet.content}
-                        </>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <ul className="space-y-2 text-sm text-gray-300">
+            {wordset.bulletPoints.map((bullet: any, idx: number) => {
+              const getColorForCard = (title: string, index: number) => {
+                if (title === "Best-Performing Channels / Placements") return ["bg-blue-400", "bg-green-400", "bg-purple-400"][index % 3];
+                if (title === "Influencer / Creator Collaborator Profile") return ["bg-pink-400", "bg-yellow-400", "bg-cyan-400", "bg-red-400"][index % 4];
+                if (title === "Triggering Moments") return ["bg-red-400", "bg-yellow-400", "bg-green-400"][index % 3];
+                if (title === "Activation Guidance") return ["bg-purple-400", "bg-orange-400", "bg-teal-400"][index % 3];
+                return "bg-gray-400";
+              };
+              
+              return (
+                <li key={idx} className="flex items-start gap-3">
+                  <div className={`w-2 h-2 rounded-full ${getColorForCard(wordset.title, idx)} mt-1.5 flex-shrink-0`}></div>
+                  <div>
+                    {/* Handle platform names for Best-Performing Channels */}
+                    {wordset.title === "Best-Performing Channels / Placements" ? (
+                      <>
+                        <span className="font-semibold text-white">{bullet.label}</span> {bullet.content}
+                      </>
+                    ) : bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
+                      <span dangerouslySetInnerHTML={{
+                        __html: `<span class="font-medium text-white">${bullet.label}:</span> ${bullet.content
+                          .replace(/Twitch/g, '<span class="font-semibold text-blue-400">Twitch</span>')
+                          .replace(/Instagram/g, '<span class="font-semibold text-blue-400">Instagram</span>')
+                          .replace(/YouTuber/g, '<span class="font-semibold text-blue-400">YouTuber</span>')
+                          .replace(/Podcast/g, '<span class="font-semibold text-blue-400">Podcast</span>')}`
+                      }} />
+                    ) : (
+                      <>
+                        <span className="font-medium text-white">{bullet.label}:</span> {bullet.content}
+                      </>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       );
     }
@@ -552,16 +537,9 @@ export const SurveyTab: FC = () => {
                   const cardConfig = getCardConfig(card?.title || "");
                   
                   return (
-                    <div 
-                      key={cardIndex} 
-                      className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-xl p-6 border border-white/15 min-h-[280px] flex flex-col hover-scale animate-fade-in"
-                    >
-                      <h3 className={`text-base font-semibold ${cardConfig.color} tracking-tight mb-5 pb-3 border-b border-gray-700/60 flex items-center gap-2`}>
-                        {cardConfig.title}
-                      </h3>
-                      
+                    <GlassCard title={cardConfig.title}>
                       {renderCardContent(card)}
-                    </div>
+                    </GlassCard>
                   );
                 })}
               </div>
