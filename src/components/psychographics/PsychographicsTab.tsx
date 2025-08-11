@@ -146,8 +146,11 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
           <PsychographicRadar data={selectedGroupData} />
         </div>
         
-        <div className="text-center mt-3">
+        <div className="flex items-center justify-center gap-3 mt-3">
           <p className="text-[10px] text-gray-500 italic">Based on 1,248 bettor responses (SWE + EU, July 2025)</p>
+          <button className="px-2 py-1 text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-gray-400 hover:text-gray-300 transition-colors">
+            Want fresher data?
+          </button>
         </div>
       </div>
     );
