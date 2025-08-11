@@ -313,7 +313,6 @@ export const SurveyTab: FC = () => {
       }} className="w-full">
           <CarouselContent>
             {wordsetData.map((wordset, index) => <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors flex flex-col">
                   <h3 className="text-lg font-semibold text-white mb-1">
                     {wordset.title === "Societal Role" ? "Targeting" : wordset.title}
                   </h3>
@@ -398,8 +397,6 @@ export const SurveyTab: FC = () => {
                       )}
                     </div>
                   )}
-                  
-                </div>
               </CarouselItem>)}
           </CarouselContent>
           <div className="flex justify-center mt-4 gap-2">
