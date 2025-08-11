@@ -54,12 +54,12 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
   }, []);
   
   const tooltipContent = {
-    'Lf': `Loyalty-first bettors align bets with personal/team identity for ${searchTerm} interests.`,
-    'Sm': `Suspicious of mainstream - prefers niche or alternative betting sources related to ${searchTerm}.`,
-    'Ed': `Emotion-driven betting decisions influenced by feelings and excitement around ${searchTerm}.`,
-    'Sb': `Social bettors influenced by friend groups and social validation in ${searchTerm} contexts.`,
-    'Rm': `Risk-maximizers seeking high-risk, high-reward opportunities with ${searchTerm} content.`,
-    'Ma': `Methodical analyzers using data and analysis before placing ${searchTerm}-related bets.`,
+    'Loyalty-first': `Loyalty-first bettors align bets with personal/team identity for ${searchTerm} interests.`,
+    'Suspicious of mainstream': `Suspicious of mainstream - prefers niche or alternative betting sources related to ${searchTerm}.`,
+    'Emotion-driven': `Emotion-driven betting decisions influenced by feelings and excitement around ${searchTerm}.`,
+    'Social bettor': `Social bettors influenced by friend groups and social validation in ${searchTerm} contexts.`,
+    'Risk-maximizer': `Risk-maximizers seeking high-risk, high-reward opportunities with ${searchTerm} content.`,
+    'Methodical analyzer': `Methodical analyzers using data and analysis before placing ${searchTerm}-related bets.`,
   };
 
   return (
@@ -79,8 +79,20 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
           <PolarGrid stroke="#374151" strokeWidth={1} />
           <PolarAngleAxis
             dataKey="subject"
-            tick={{ fill: 'transparent', fontSize: 1 }}
-            className="text-transparent"
+            tick={{ 
+              fill: '#D1D5DB', 
+              fontSize: 12,
+              textAnchor: 'middle',
+              dominantBaseline: 'middle'
+            }}
+            tickFormatter={(value) => {
+              // Split long labels for better readability
+              const words = value.split(' ');
+              if (words.length > 2) {
+                return words.slice(0, 2).join(' ') + '...';
+              }
+              return value;
+            }}
           />
           <RadarChart
             name="Psychographic Profile"
@@ -102,12 +114,12 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
         const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
         const colorMap = {
-          'Lf': 'bg-[#3B82F6] text-white',
-          'Sm': 'bg-[#F97316] text-white',
-          'Ed': 'bg-[#3B82F6] text-white',
-          'Sb': 'bg-[#F97316] text-white',
-          'Rm': 'bg-[#10B981] text-white',
-          'Ma': 'bg-[#10B981] text-white',
+          'Loyalty-first': 'bg-[#3B82F6] text-white',
+          'Suspicious of mainstream': 'bg-[#F97316] text-white',
+          'Emotion-driven': 'bg-[#3B82F6] text-white',
+          'Social bettor': 'bg-[#F97316] text-white',
+          'Risk-maximizer': 'bg-[#10B981] text-white',
+          'Methodical analyzer': 'bg-[#10B981] text-white',
         };
 
         return (
@@ -117,11 +129,15 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
             searchTerm={searchTerm}
           >
             <button
-              className={`px-2 py-1 text-xs font-medium rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-20 hover:scale-110 transition-transform ${colorMap[point.subject as keyof typeof colorMap] || 'bg-gray-500 text-white'}`}
+              className={`px-2 py-1 text-xs md:text-sm font-medium rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 z-20 hover:scale-110 transition-transform max-w-[100px] md:max-w-[120px] text-center leading-tight ${colorMap[point.subject as keyof typeof colorMap] || 'bg-gray-500 text-white'}`}
               style={{
                 left: `50%`,
                 top: `50%`,
-                transform: `translate(${x}px, ${y}px)`,
+                transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+                fontSize: 'clamp(10px, 0.75rem, 12px)',
+                lineHeight: '1.2',
+                whiteSpace: 'normal',
+                wordBreak: 'break-word'
               }}
             >
               {point.subject}

@@ -14,31 +14,31 @@ import {
 import { Label } from "@/components/ui/label";
 
 const psychographicData = [
-  { subject: 'Lf', A: 85, fullName: 'Loyalty-first', color: '#3B82F6' },
-  { subject: 'Sm', A: 72, fullName: 'Suspicious of mainstream', color: '#F97316' },
-  { subject: 'Ed', A: 78, fullName: 'Emotion-driven', color: '#3B82F6' },
-  { subject: 'Sb', A: 65, fullName: 'Social bettors', color: '#F97316' },
-  { subject: 'Rm', A: 69, fullName: 'Risk-maximizers', color: '#10B981' },
-  { subject: 'Ma', A: 58, fullName: 'Methodical analyzers', color: '#10B981' },
+  { subject: 'Loyalty-first', A: 85, fullName: 'Loyalty-first', color: '#3B82F6' },
+  { subject: 'Suspicious of mainstream', A: 72, fullName: 'Suspicious of mainstream', color: '#F97316' },
+  { subject: 'Emotion-driven', A: 78, fullName: 'Emotion-driven', color: '#3B82F6' },
+  { subject: 'Social bettor', A: 65, fullName: 'Social bettor', color: '#F97316' },
+  { subject: 'Risk-maximizer', A: 69, fullName: 'Risk-maximizer', color: '#10B981' },
+  { subject: 'Methodical analyzer', A: 58, fullName: 'Methodical analyzer', color: '#10B981' },
 ];
 
 const psychographicGroups = [
   {
     id: 'igaming',
     name: 'iGaming Traits',
-    items: ['Lf', 'Sm', 'Ed', 'Sb', 'Rm', 'Ma']
+    items: ['Loyalty-first', 'Suspicious of mainstream', 'Emotion-driven', 'Social bettor', 'Risk-maximizer', 'Methodical analyzer']
   }
 ];
 
 const fullPsychographicData = psychographicData;
 
 const colorMap = {
-  'Lf': 'bg-[#3B82F6] text-white',
-  'Sm': 'bg-[#F97316] text-white',
-  'Ed': 'bg-[#3B82F6] text-white',
-  'Sb': 'bg-[#F97316] text-white',
-  'Rm': 'bg-[#10B981] text-white',
-  'Ma': 'bg-[#10B981] text-white',
+  'Loyalty-first': 'bg-[#3B82F6] text-white',
+  'Suspicious of mainstream': 'bg-[#F97316] text-white',
+  'Emotion-driven': 'bg-[#3B82F6] text-white',
+  'Social bettor': 'bg-[#F97316] text-white',
+  'Risk-maximizer': 'bg-[#10B981] text-white',
+  'Methodical analyzer': 'bg-[#10B981] text-white',
 } as const;
 
 interface PsychographicDescription {
@@ -46,42 +46,42 @@ interface PsychographicDescription {
 }
 
 const psychographicDescriptions: Record<string, PsychographicDescription> = {
-  Lf: {
+  "Loyalty-first": {
     interpretation: [
       "Definition: Bets align with personal/team identity.",
       "Creative Tip: \"Stand with your team — make it count tonight.\"",
       "Targeting Cue: Boost ads 1–2h before rivalry matches."
     ]
   },
-  Sm: {
+  "Suspicious of mainstream": {
     interpretation: [
       "Definition: Prefers niche or alternative betting sources.",
       "Creative Tip: \"Where smart money really goes.\"",
       "Targeting Cue: Avoid mass media placements; use specialized forums."
     ]
   },
-  Ed: {
+  "Emotion-driven": {
     interpretation: [
       "Definition: Betting decisions driven by feelings and excitement.",
       "Creative Tip: \"Feel the rush — this is your moment.\"",
       "Targeting Cue: Target high-emotion game moments and underdog scenarios."
     ]
   },
-  Sb: {
+  "Social bettor": {
     interpretation: [
       "Definition: Bets influenced by friend groups and social validation.",
       "Creative Tip: \"Your crew is counting on this one.\"",
       "Targeting Cue: Amplify during group chat peaks and social events."
     ]
   },
-  Rm: {
+  "Risk-maximizer": {
     interpretation: [
       "Definition: Seeks high-risk, high-reward betting opportunities.",
       "Creative Tip: \"Go big or go home — the jackpot awaits.\"",
       "Targeting Cue: Promote high-payout parlays and long-shot bets."
     ]
   },
-  Ma: {
+  "Methodical analyzer": {
     interpretation: [
       "Definition: Uses data and analysis before placing bets.",
       "Creative Tip: \"The numbers don't lie — here's your edge.\"",
