@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X, ChevronDown } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
+import ChannelsPerformanceChart from './ChannelsPerformanceChart';
 
 const wordsetData = [{
   title: "Societal Role",
@@ -585,7 +586,7 @@ export const SurveyTab: FC = () => {
             return (
               <div className="xl:col-start-3 xl:row-span-2">
                 <GlassCard title={config.title} className="xl:p-6">
-                  {renderCardContent(channels)}
+                  <ChannelsPerformanceChart />
                 </GlassCard>
               </div>
             );
