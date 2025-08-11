@@ -113,39 +113,37 @@ export const PsychographicsTab: FC = () => {
 
   return (
     <div className="space-y-6 animate-slide-up">
+      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
+        <div className="flex items-center gap-1.5 mb-4">
+          <Radar className="w-3.5 h-3.5 text-gray-400" />
+          <Label className="text-xs font-semibold text-white">Psychographics</Label>
+        </div>
+        
+        <InteractiveTooltip 
+          content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
+          searchTerm={searchTerm}
+        >
+          <button className="absolute top-2 right-2">
+            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+          </button>
+        </InteractiveTooltip>
+        
+        <div className="space-y-3 mb-4">
+          <div className="px-1 space-y-2 text-gray-300 text-xs">
+            <p>People interested in holiday topics score high in openness and agreeableness, with moderate conscientiousness.</p>
+            <p>They show below average neuroticism and moderate extraversion, suggesting they enjoy new experiences while valuing harmony.</p>
+          </div>
+        </div>
+        
+        <div className="relative flex justify-center items-center">
+          <div className={isMobile ? "w-[90%] mx-auto" : "w-full"}>
+            <PsychographicRadar data={selectedGroupData} />
+          </div>
+        </div>
+      </div>
+
       <Carousel className="w-full relative">
         <CarouselContent className="h-full">
-          <CarouselItem className="flex items-center justify-center">
-            <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
-              <div className="flex items-center gap-1.5 mb-4">
-                <Radar className="w-3.5 h-3.5 text-gray-400" />
-                <Label className="text-xs font-semibold text-white">Psychographics</Label>
-              </div>
-              
-              <InteractiveTooltip 
-                content={`This radar chart visualizes how audiences interested in ${searchTerm} score across the Big 5 personality traits.`}
-                searchTerm={searchTerm}
-              >
-                <button className="absolute top-2 right-2">
-                  <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                </button>
-              </InteractiveTooltip>
-              
-              <div className="space-y-3 mb-4">
-                <div className="px-1 space-y-2 text-gray-300 text-xs">
-                  <p>People interested in holiday topics score high in openness and agreeableness, with moderate conscientiousness.</p>
-                  <p>They show below average neuroticism and moderate extraversion, suggesting they enjoy new experiences while valuing harmony.</p>
-                </div>
-              </div>
-              
-              <div className="relative flex justify-center items-center">
-                <div className={isMobile ? "w-[90%] mx-auto" : "w-full"}>
-                  <PsychographicRadar data={selectedGroupData} />
-                </div>
-              </div>
-            </div>
-          </CarouselItem>
-          
           <CarouselItem className="flex items-center justify-center">
             <div ref={statsRef} className="h-full w-full">
               <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative">
