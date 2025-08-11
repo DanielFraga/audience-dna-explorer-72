@@ -10,15 +10,16 @@ import {
 } from './charts';
 
 export const DemographicsTab: FC<{ isDesktopGrid?: boolean }> = ({ isDesktopGrid = false }) => {
-  // Desktop grid layout (2x2)
+  // Desktop grid layout (2x2) - returns individual charts for grid placement
   if (isDesktopGrid) {
     return (
-      <div className="grid grid-cols-2 gap-6">
+      <>
         {/* Age Distribution Chart */}
         <ChartContainer 
           config={{
             ageBar: { theme: { light: '#3B82F6', dark: '#3B82F6' } },
           }}
+          className="chart-container glass-card"
         >
           <AgeDistributionChart />
         </ChartContainer>
@@ -28,6 +29,7 @@ export const DemographicsTab: FC<{ isDesktopGrid?: boolean }> = ({ isDesktopGrid
           config={{
             genderPie: { theme: { light: '#9B87F5', dark: '#9B87F5' } },
           }}
+          className="chart-container glass-card"
         >
           <GenderDistributionChart />
         </ChartContainer>
@@ -37,6 +39,7 @@ export const DemographicsTab: FC<{ isDesktopGrid?: boolean }> = ({ isDesktopGrid
           config={{
             locationBar: { theme: { light: '#10B981', dark: '#10B981' } },
           }}
+          className="chart-container glass-card"
         >
           <LocationDistributionChart />
         </ChartContainer>
@@ -46,10 +49,11 @@ export const DemographicsTab: FC<{ isDesktopGrid?: boolean }> = ({ isDesktopGrid
           config={{
             incomeBar: { theme: { light: '#8B5CF6', dark: '#8B5CF6' } },
           }}
+          className="chart-container glass-card"
         >
           <IncomeDistributionChart />
         </ChartContainer>
-      </div>
+      </>
     );
   }
 

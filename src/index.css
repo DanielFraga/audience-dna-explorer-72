@@ -103,43 +103,104 @@
     radial-gradient(at 0% 100%, rgba(55, 48, 163, 0.1) 0, transparent 50%);
 }
 
-/* Psychographics Grid Layout */
-.psychographics-grid {
+/* Audience Profile Section Layout */
+.audience-profile {
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 24px;
+  gap: 24px;
+}
+
+/* Psychographics Grid Layout with improved spacing */
+.psychographics-grid {
   display: grid;
   grid-template-columns: 7fr 5fr; /* chart wider */
   gap: 24px;
   align-items: start;
+  margin-bottom: 32px; /* breathing room before demographics */
 }
 
 /* Prevent cards from forcing full width */
 .psychographics-grid > * {
-  width: auto;            /* override width:100% if set on cards */
-  grid-column: auto;      /* override any 1 / -1 spans */
+  width: auto;
+  grid-column: auto;
+  padding: 24px; /* consistent internal padding */
 }
 
-/* Chart must be fluid */
+/* Chart container with proper aspect ratio and padding */
 .RadarChart {
-  min-width: 0;           /* allow shrink in grid */
-  aspect-ratio: 1 / 1;    /* keeps square; use ResizeObserver if available */
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  padding: 16px; /* internal padding to prevent clipping */
 }
 
-/* Traits list scroll-free, grows with content */
+/* Radar chart responsive container */
+.RadarChart .w-full {
+  padding: 12px; /* additional padding around the chart */
+}
+
+/* Traits list with proper spacing */
 .TraitsList {
   min-width: 0;
   overflow: visible;
+  padding: 24px;
 }
 
-/* Breakpoints */
+/* Demographics grid with consistent spacing */
+.demographics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+
+/* Card spacing and breathing room */
+.glass-card {
+  margin-bottom: 24px;
+}
+
+/* Ensure chart containers have proper padding */
+.chart-container {
+  padding: 16px;
+  min-height: 280px;
+}
+
+/* Responsive breakpoints with maintained spacing */
 @media (max-width: 1199px) {
   .psychographics-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .audience-profile {
+    padding: 0 20px;
   }
 }
 
 @media (max-width: 992px) {
   .psychographics-grid {
-    grid-template-columns: 1fr; /* stack */
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .demographics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .audience-profile {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .psychographics-grid > *,
+  .TraitsList,
+  .chart-container {
+    padding: 16px;
+  }
+  
+  .RadarChart {
+    padding: 12px;
   }
 }

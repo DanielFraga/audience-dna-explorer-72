@@ -152,11 +152,11 @@ const Index = () => {
   
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
-      return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8 pt-4">
+      return <div className="audience-profile space-y-6 pb-24 pt-4">
           {/* Desktop Layout: Psychographics side-by-side with robust grid */}
           <div className="lg:block hidden">
             {/* Psychographics Section - Custom Grid Layout */}
-            <div className="psychographics-grid mb-6">
+            <div className="psychographics-grid">
               {/* Radar Chart Card */}
               <GlassCard 
                 title={
@@ -165,7 +165,7 @@ const Index = () => {
                     <span className="text-sm md:text-base">Psychographics</span>
                   </div>
                 }
-                className="RadarChart"
+                className="RadarChart glass-card"
               >
                 <PsychographicsTab isRadarOnly={true} />
               </GlassCard>
@@ -178,22 +178,22 @@ const Index = () => {
                     <span className="text-sm md:text-base">Psychographics – iGaming Traits</span>
                   </div>
                 }
-                className="TraitsList"
+                className="TraitsList glass-card"
               >
                 <PsychographicsTab isDetailOnly={true} />
               </GlassCard>
             </div>
             
-            {/* Demographics Section - 2x2 grid */}
-            <DemographicsTab isDesktopGrid={true} />
+            {/* Demographics Section - 2x2 grid with improved spacing */}
+            <div className="demographics-grid">
+              <DemographicsTab isDesktopGrid={true} />
+            </div>
           </div>
           
           {/* Mobile/Tablet Layout: Single-column stacked layout */}
-          <div className="lg:hidden">
+          <div className="lg:hidden space-y-6">
             <PsychographicsTab />
-            <div className="mt-6">
-              <DemographicsTab />
-            </div>
+            <DemographicsTab />
           </div>
         </div>;
     } else if (activeView === "responses") {

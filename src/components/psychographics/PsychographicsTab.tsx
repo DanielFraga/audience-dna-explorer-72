@@ -141,9 +141,9 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
           </div>
         </div>
         
-        {/* Radar Chart underneath */}
-        <div className="relative flex justify-center items-center">
-          <div className="w-full max-w-[400px] mx-auto">
+        {/* Radar Chart underneath with proper spacing */}
+        <div className="relative flex justify-center items-center p-4">
+          <div className="w-full">
             <PsychographicRadar data={selectedGroupData} />
           </div>
         </div>
