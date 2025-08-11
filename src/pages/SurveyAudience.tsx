@@ -22,7 +22,7 @@ const SurveyAudience = () => {
         
         <div className="p-3 md:p-6">
           <div className="space-y-3">
-            <h1 className="text-2xl font-display font-semibold text-gray-100">Most Related Quotes</h1>
+            <h1 className="text-2xl font-display font-semibold text-gray-100">Targeting</h1>
           </div>
           
           {/* Simple tab buttons */}
