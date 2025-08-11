@@ -319,81 +319,134 @@ export const SurveyTab: FC = () => {
         loop: true
       }} className="w-full">
           <CarouselContent>
-            {wordsetData.map((wordset, index) => <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 hover-scale animate-fade-in">
-                  <h3 className="text-base md:text-lg font-semibold text-white tracking-tight mb-2 pb-2 border-b border-gray-800/60">
-                    Audience Segment
-                  </h3>
-                  {/* Custom Targeting card content replaces Societal Role */}
-                  {wordset.title === "Societal Role" ? <div className="mt-2">
-                      <Carousel opts={{
-                align: "start",
-                loop: true
-              }} className="w-full">
-                        <CarouselContent>
-                          <CarouselItem className="basis-full">
-                            <div className="bg-gray-900 rounded-lg p-3">
-                              
-                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li><span className="font-semibold">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor</li>
-                                <li><span className="font-semibold">Age:</span> 25–44</li>
-                                <li><span className="font-semibold">Gender:</span> Male-skewed (65%)</li>
-                                <li><span className="font-semibold">Device:</span> Mobile-first (iOS 55%, Android 45%)</li>
-                                <li><span className="font-semibold">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM</li>
-                              </ul>
-                            </div>
-                          </CarouselItem>
-                          <CarouselItem className="basis-full">
-                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
-                              <h4 className="text-sm font-medium text-gray-200 mb-2">Best-Performing Channels / Placements</h4>
-                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li><span className="font-semibold">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)</li>
-                                <li><span className="font-semibold">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences</li>
-                                <li><span className="font-semibold">Programmatic/DV360:</span> Sports news, betting forums, esports streams</li>
-                              </ul>
-                            </div>
-                          </CarouselItem>
-                          <CarouselItem className="basis-full">
-                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
-                              <h4 className="text-sm font-medium text-gray-200 mb-2">Optimal Timing</h4>
-                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li><span className="font-semibold">Peak CTR:</span> 1–2 hours before live matches or big events</li>
-                                <li><span className="font-semibold">Retarget:</span> lapsed bettors within 24h of event finish</li>
-                              </ul>
-                            </div>
-                          </CarouselItem>
-                          <CarouselItem className="basis-full">
-                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
-                              <h4 className="text-sm font-medium text-gray-200 mb-2">Bidding & Budget Tips</h4>
-                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li><span className="font-semibold">Start with tCPI:</span> &lt; $5 for mobile acquisition, then scale to tROAS campaigns after day 3</li>
-                              </ul>
-                            </div>
-                          </CarouselItem>
-                        </CarouselContent>
-                      </Carousel>
-                    </div> : <div className="flex flex-wrap gap-2 flex-grow">
-                      {/* Display bullet points for targeting cards */}
-                      {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && <div className="w-full">
-                          <ul className="list-disc list-inside space-y-1 text-xs text-gray-300 bg-gray-900/40 rounded-md p-3 ring-1 ring-gray-800/60">
-                            {wordset.bulletPoints?.map((bullet, bulletIndex) => <li key={bulletIndex}>
-                                <span className="font-semibold">{bullet.label}</span> {bullet.content}
-                              </li>)}
+            {wordsetData.map((wordset, index) => {
+              // Define card titles and colors
+              const getCardConfig = (title: string) => {
+                switch(title) {
+                  case "Societal Role":
+                    return { title: "Audience Segments", color: "text-blue-400" };
+                  case "Best-Performing Channels / Placements":
+                    return { title: "Best-Performing Channels / Placements", color: "text-purple-400" };
+                  case "Optimal Timing":
+                    return { title: "Optimal Timing", color: "text-orange-400" };
+                  case "Bidding & Budget Tips":
+                    return { title: "Bidding & Budget Tips", color: "text-green-400" };
+                  default:
+                    return { title: "Audience Segments", color: "text-blue-400" };
+                }
+              };
+              
+              const cardConfig = getCardConfig(wordset.title);
+              
+              return <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 hover-scale animate-fade-in">
+                  <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 h-full">
+                    <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
+                      {cardConfig.title}
+                    </h3>
+                    {/* Audience Segments card content */}
+                    {wordset.title === "Societal Role" ? <div className="space-y-4">
+                        <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                          <ul className="space-y-3 text-xs text-gray-300">
+                            <li className="flex items-start gap-2">
+                              <span className="text-sm mt-0.5">🎯</span>
+                              <div>
+                                <span className="font-semibold text-gray-200">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
+                              </div>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-sm mt-0.5">👤</span>
+                              <div>
+                                <span className="font-semibold text-gray-200">Age:</span> <span className="font-bold text-white">25–44</span>
+                              </div>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-sm mt-0.5">👤</span>
+                              <div>
+                                <span className="font-semibold text-gray-200">Gender:</span> <span className="font-bold text-white">Male-skewed (65%)</span>
+                              </div>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-sm mt-0.5">📱</span>
+                              <div>
+                                <span className="font-semibold text-gray-200">Device:</span> <span className="font-bold text-white">Mobile-first (iOS 55%, Android 45%)</span>
+                              </div>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-sm mt-0.5">🌍</span>
+                              <div>
+                                <span className="font-semibold text-gray-200">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM
+                              </div>
+                            </li>
                           </ul>
-                        </div>}
-
-                      {/* No sections should display regular chips anymore */}
-                      {wordset.title !== "Best-Performing Channels / Placements" && wordset.title !== "Optimal Timing" && wordset.title !== "Bidding & Budget Tips" && <>
-                          {wordset.positiveWords?.map((word, wordIndex) => <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
-                              {word.text}
-                              <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                            </Badge>)}
-                          {wordset.negativeWords?.map((word, wordIndex) => <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
-                              {word.text}
-                              <span className="text-[10px] font-semibold">{word.score}%</span>
-                            </Badge>)}
-                        </>}
-                    </div>}
-              </CarouselItem>)}
+                        </div>
+                      </div> : <div className="flex flex-wrap gap-2 flex-grow">
+                        {/* Display bullet points for targeting cards */}
+                        {wordset.title === "Best-Performing Channels / Placements" && <div className="w-full">
+                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                              <ul className="space-y-3 text-xs text-gray-300">
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">📘</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">▶️</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">📰</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Programmatic/DV360:</span> Sports news, betting forums, esports streams
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>}
+                        
+                        {wordset.title === "Optimal Timing" && <div className="w-full">
+                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                              <ul className="space-y-3 text-xs text-gray-300">
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">⏰</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Peak CTR:</span> <span className="font-bold text-white">1–2 hours before</span> live matches or big events
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">🔄</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Retarget:</span> lapsed bettors <span className="font-bold text-white">within 24h</span> of event finish
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>}
+                        
+                        {wordset.title === "Bidding & Budget Tips" && <div className="w-full">
+                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                              <ul className="space-y-3 text-xs text-gray-300">
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">💰</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Start with tCPI:</span> <span className="font-bold text-white">&lt; $5</span> for mobile acquisition
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">📈</span>
+                                  <div>
+                                    <span className="font-semibold text-gray-200">Scale to tROAS:</span> campaigns after day 3
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>}
+                      </div>}
+                  </div>
+              </CarouselItem>
+            })}
           </CarouselContent>
           <div className="flex justify-center mt-4 gap-2">
             <CarouselPrevious className="relative -left-0 bg-gray-800 hover:bg-gray-700 border-gray-700" />
