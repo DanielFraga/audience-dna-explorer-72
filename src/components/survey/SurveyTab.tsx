@@ -205,7 +205,12 @@ const wordsetData = [{
   positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
   allPositiveWords: [],
-  allNegativeWords: []
+  allNegativeWords: [],
+  bulletPoints: [
+    { label: "Meta:", content: "Facebook Feed, Reels, Audience Network (Rewarded Video)" },
+    { label: "Google:", content: "YouTube In-Stream, Display Network – sports & betting affinity audiences" },
+    { label: "Programmatic/DV360:", content: "Sports news, betting forums, esports streams" }
+  ]
 }, {
   title: "Optimal Timing",
   roleLabels: ["Peak CTR: 1–2 hours before live matches or big events", "Retarget lapsed bettors within 24h of event finish"],
@@ -215,7 +220,11 @@ const wordsetData = [{
   positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
   allPositiveWords: [],
-  allNegativeWords: []
+  allNegativeWords: [],
+  bulletPoints: [
+    { label: "Peak CTR:", content: "1–2 hours before live matches or big events" },
+    { label: "Retarget:", content: "lapsed bettors within 24h of event finish" }
+  ]
 }, {
   title: "Bidding & Budget Tips",
   roleLabels: ["Start with tCPI < $5 for mobile acquisition, then scale to tROAS campaigns after day 3"],
@@ -225,7 +234,10 @@ const wordsetData = [{
   positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
   allPositiveWords: [],
-  allNegativeWords: []
+  allNegativeWords: [],
+  bulletPoints: [
+    { label: "Start with tCPI:", content: "< $5 for mobile acquisition, then scale to tROAS campaigns after day 3" }
+  ]
 }];
 
 const surveyData = [{
@@ -314,11 +326,11 @@ export const SurveyTab: FC = () => {
                             <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
                               <h4 className="text-sm font-medium text-gray-200 mb-2">Audience Segments</h4>
                               <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li>Bettor Mindsets: Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor</li>
-                                <li>Age: 25–44</li>
-                                <li>Gender: Male-skewed (65%)</li>
-                                <li>Device: Mobile-first (iOS 55%, Android 45%)</li>
-                                <li>Geo: Target Tier-1 English-speaking countries + high-LTV regions in LATAM</li>
+                                <li><span className="font-semibold">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor</li>
+                                <li><span className="font-semibold">Age:</span> 25–44</li>
+                                <li><span className="font-semibold">Gender:</span> Male-skewed (65%)</li>
+                                <li><span className="font-semibold">Device:</span> Mobile-first (iOS 55%, Android 45%)</li>
+                                <li><span className="font-semibold">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM</li>
                               </ul>
                             </div>
                           </CarouselItem>
@@ -326,9 +338,9 @@ export const SurveyTab: FC = () => {
                             <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
                               <h4 className="text-sm font-medium text-gray-200 mb-2">Best-Performing Channels / Placements</h4>
                               <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li>Meta: Facebook Feed, Reels, Audience Network (Rewarded Video)</li>
-                                <li>Google: YouTube In-Stream, Display Network – sports & betting affinity audiences</li>
-                                <li>Programmatic/DV360: Sports news, betting forums, esports streams</li>
+                                <li><span className="font-semibold">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)</li>
+                                <li><span className="font-semibold">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences</li>
+                                <li><span className="font-semibold">Programmatic/DV360:</span> Sports news, betting forums, esports streams</li>
                               </ul>
                             </div>
                           </CarouselItem>
@@ -336,8 +348,8 @@ export const SurveyTab: FC = () => {
                             <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
                               <h4 className="text-sm font-medium text-gray-200 mb-2">Optimal Timing</h4>
                               <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li>Peak CTR: 1–2 hours before live matches or big events</li>
-                                <li>Retarget lapsed bettors within 24h of event finish</li>
+                                <li><span className="font-semibold">Peak CTR:</span> 1–2 hours before live matches or big events</li>
+                                <li><span className="font-semibold">Retarget:</span> lapsed bettors within 24h of event finish</li>
                               </ul>
                             </div>
                           </CarouselItem>
@@ -345,7 +357,7 @@ export const SurveyTab: FC = () => {
                             <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
                               <h4 className="text-sm font-medium text-gray-200 mb-2">Bidding & Budget Tips</h4>
                               <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                                <li>Start with tCPI &lt; $5 for mobile acquisition, then scale to tROAS campaigns after day 3</li>
+                                <li><span className="font-semibold">Start with tCPI:</span> &lt; $5 for mobile acquisition, then scale to tROAS campaigns after day 3</li>
                               </ul>
                             </div>
                           </CarouselItem>
@@ -354,12 +366,18 @@ export const SurveyTab: FC = () => {
                     </div>
                   ) : (
                     <div className="flex flex-wrap gap-2 flex-grow">
-                      {/* Display blue chips for Disposition and Media Sources with reduced height */}
-                      {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && wordset.roleLabels?.map((label, labelIndex) => (
-                        <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
-                          {label}
-                        </Badge>
-                      ))}
+                      {/* Display bullet points for targeting cards */}
+                      {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && (
+                        <div className="w-full">
+                          <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                            {wordset.bulletPoints?.map((bullet, bulletIndex) => (
+                              <li key={bulletIndex}>
+                                <span className="font-semibold">{bullet.label}</span> {bullet.content}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
                       {/* No sections should display regular chips anymore */}
                       {wordset.title !== "Best-Performing Channels / Placements" && wordset.title !== "Optimal Timing" && wordset.title !== "Bidding & Budget Tips" && (
