@@ -124,11 +124,6 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
   if (isRadarOnly) {
     return (
       <div className="space-y-4">
-        <div className="flex items-center gap-1.5 mb-4">
-          <Radar className="w-4 h-4 text-gray-400" />
-          <Label className="text-base font-semibold text-white">Psychographics</Label>
-        </div>
-        
         <InteractiveTooltip 
           content={`This radar chart visualizes how audiences interested in ${searchTerm} score across 6 iGaming-specific personality traits.`}
           searchTerm={searchTerm}
@@ -161,11 +156,6 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
   if (isTraitsOnly) {
     return (
       <div className="space-y-4">
-        <div className="flex items-center gap-1.5 mb-4">
-          <ChartBar className="w-4 h-4 text-gray-400" />
-          <h3 className="text-base font-semibold text-white">Psychographics: Trait Overview</h3>
-        </div>
-
         <div className="space-y-2 text-sm max-h-[600px] overflow-y-auto pr-1">
           <div className="space-y-2">
             {psychographicData.map((point) => (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Users, Globe, Search, Download, Menu } from "lucide-react";
+import { Sparkles, Users, Globe, Search, Download, Menu, Radar, ChartBar } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -15,6 +15,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/toolti
 import AppHeader from "@/components/AppHeader";
 import IconTabs from "@/components/IconTabs";
 import MainSidebar from "@/components/MainSidebar";
+import GlassCard from "@/components/ui/GlassCard";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -152,18 +153,32 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8 pt-4">
-          {/* Desktop Layout: Psychographics 2-column, Demographics 2x2 grid */}
+          {/* Desktop Layout: Psychographics 60/40 split, Demographics 2x2 grid */}
           <div className="xl:block hidden">
-            {/* Psychographics Section - 2 columns */}
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              {/* Left Column: Radar Chart */}
-              <div className="bg-gray-900 rounded-xl border border-gray-800 p-5">
-                <PsychographicsTab isRadarOnly={true} />
+            {/* Psychographics Section - 60/40 responsive grid */}
+            <div className="grid grid-cols-5 gap-6 mb-6">
+              {/* Left Column: Radar Chart (60% width - 3 of 5 columns) */}
+              <div className="col-span-3">
+                <GlassCard title={
+                  <div className="flex items-center gap-1.5">
+                    <Radar className="w-4 h-4 text-gray-400" />
+                    <span>Psychographics</span>
+                  </div>
+                }>
+                  <PsychographicsTab isRadarOnly={true} />
+                </GlassCard>
               </div>
               
-              {/* Right Column: Traits List */}
-              <div className="bg-gray-900 rounded-xl border border-gray-800 p-5">
-                <PsychographicsTab isTraitsOnly={true} />
+              {/* Right Column: Traits List (40% width - 2 of 5 columns) */}
+              <div className="col-span-2">
+                <GlassCard title={
+                  <div className="flex items-center gap-1.5">
+                    <ChartBar className="w-4 h-4 text-gray-400" />
+                    <span>Trait Overview</span>
+                  </div>
+                }>
+                  <PsychographicsTab isTraitsOnly={true} />
+                </GlassCard>
               </div>
             </div>
             
@@ -171,7 +186,7 @@ const Index = () => {
             <DemographicsTab isDesktopGrid={true} />
           </div>
           
-          {/* Mobile/Tablet Layout: Original stacked layout */}
+          {/* Mobile/Tablet Layout: Single-column stacked layout */}
           <div className="xl:hidden">
             <PsychographicsTab />
             <div className="mt-6">
