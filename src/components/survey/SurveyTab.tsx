@@ -216,6 +216,29 @@ const wordsetData = [{
     content: "Sports news, betting forums, esports streams"
   }]
 }, {
+  title: "Influencer / Creator Collaborator Profile",
+  roleLabels: [],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: [],
+  bulletPoints: [{
+    label: "🎮",
+    content: "Thoughtful Tactical Analysis Twitch Streamer (Methodical Analyzers)"
+  }, {
+    label: "😂",
+    content: "Funny Football Memes Reel Creators (Instagram) (Emotion-driven bettors)"
+  }, {
+    label: "📜",
+    content: "Football History YouTuber (Loyalty-first, Suspicious of mainstream)"
+  }, {
+    label: "🎙",
+    content: "Europe-based \"Bro\" Podcast Sphere (Social bettors & Risk-maximizers)"
+  }]
+}, {
   title: "Optimal Timing",
   roleLabels: ["Peak CTR: 1–2 hours before live matches or big events", "Retarget lapsed bettors within 24h of event finish"],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
@@ -327,6 +350,8 @@ export const SurveyTab: FC = () => {
                     return { title: "Audience Segments", color: "text-blue-400" };
                   case "Best-Performing Channels / Placements":
                     return { title: "Best-Performing Channels / Placements", color: "text-purple-400" };
+                  case "Influencer / Creator Collaborator Profile":
+                    return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-cyan-400" };
                   case "Optimal Timing":
                     return { title: "Optimal Timing", color: "text-orange-400" };
                   case "Bidding & Budget Tips":
@@ -400,6 +425,37 @@ export const SurveyTab: FC = () => {
                                   <span className="text-sm mt-0.5">📰</span>
                                   <div>
                                     <span className="font-semibold text-gray-200">Programmatic/DV360:</span> Sports news, betting forums, esports streams
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>}
+                        
+                        {wordset.title === "Influencer / Creator Collaborator Profile" && <div className="w-full">
+                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                              <ul className="space-y-2.5 text-xs text-gray-300">
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">🎮</span>
+                                  <div>
+                                    Thoughtful Tactical Analysis <span className="font-bold text-white">Twitch</span> Streamer (Methodical Analyzers)
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">😂</span>
+                                  <div>
+                                    Funny Football Memes Reel Creators (<span className="font-bold text-white">Instagram</span>) (Emotion-driven bettors)
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">📜</span>
+                                  <div>
+                                    Football History <span className="font-bold text-white">YouTuber</span> (Loyalty-first, Suspicious of mainstream)
+                                  </div>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                  <span className="text-sm mt-0.5">🎙</span>
+                                  <div>
+                                    Europe-based "Bro" <span className="font-bold text-white">Podcast</span> Sphere (Social bettors & Risk-maximizers)
                                   </div>
                                 </li>
                               </ul>
