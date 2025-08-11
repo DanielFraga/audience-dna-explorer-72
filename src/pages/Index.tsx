@@ -151,11 +151,7 @@ const Index = () => {
   
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
-      return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8">
-          <p className="text-xs sm:text-sm text-gray-300 bg-gray-900/60 border border-gray-800 rounded-md p-3">
-            Snapshot of who your audience is — demographics, psychographics, and key segment markers.
-          </p>
-          
+      return <div className="space-y-6 pb-24 max-w-7xl mx-auto px-6 lg:px-8 pt-4">
           {/* Desktop Layout: Psychographics 2-column, Demographics 2x2 grid */}
           <div className="xl:block hidden">
             {/* Psychographics Section - 2 columns */}
