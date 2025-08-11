@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import MainSidebar from "./MainSidebar";
+import IconTabs from "@/components/IconTabs";
 interface AppHeaderProps {
   searchTerm?: string;
   currentTab: "stats" | "responses" | "chat";
@@ -38,7 +39,7 @@ const AppHeader = ({
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-  return <>
+  return (<>
       <MainSidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
       
       <div className="sticky top-0 z-10 bg-gray-950 border-b border-gray-800/60">
@@ -78,8 +79,13 @@ const AppHeader = ({
               </div>
             </div>
           </div>
+          {/* Tabs row under the search bar (desktop/tablet) */}
+          <div className="hidden md:block px-3 md:px-6">
+            <IconTabs currentTab={currentTab} inlineTop />
+          </div>
         </div>
       </div>
-    </>;
+    </>
+  );
 };
 export default AppHeader;

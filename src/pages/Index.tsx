@@ -173,7 +173,7 @@ const Index = () => {
         <div className={`animate-fade-in`}>
           {showResults && <AppHeader searchTerm={searchTerm} currentTab="stats" onResetSearch={handleResetSearch} />}
 
-          <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : "md:pt-20"}`}>
+          <div className={`p-3 md:p-6 pt-0 ${!showResults ? "mt-0" : ""}`}>
             {!showResults ? <div className="gradient-background min-h-screen flex items-center justify-center h-full">
                 {renderContent()}
               </div> : <div className={`${isAnimating ? 'backdrop-blur-sm' : ''} transition-all duration-300`}>

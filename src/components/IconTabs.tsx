@@ -4,81 +4,69 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Tabs, TabsList, IconTabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, MessageSquare, ClipboardList } from "lucide-react";
 
-const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }) => {
+interface IconTabsProps {
+  currentTab: "stats" | "responses" | "chat";
+  inlineTop?: boolean; // When true, render inline (for header). Otherwise, render mobile bottom bar.
+}
+
+const IconTabs = ({ currentTab, inlineTop = false }: IconTabsProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleTabChange = (value: string) => {
     // Always preserve search when navigating between tabs
     if (value === "stats") {
-      navigate("/", { 
-        state: { preserveSearch: true } 
+      navigate("/", {
+        state: { preserveSearch: true },
       });
     } else if (value === "responses") {
       navigate("/survey-audience", {
-        state: { preserveSearch: true }
+        state: { preserveSearch: true },
       });
     } else if (value === "chat") {
       navigate("/chat", {
-        state: { preserveSearch: true }
+        state: { preserveSearch: true },
       });
     }
   };
 
   return (
     <>
-      {/* Desktop/Tablet: Top header tabs */}
-      <div className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-gray-950 border-b border-gray-800/60">
-        <div className="w-full px-6">
+      {/* Inline Top Tabs for desktop/tablet (placed inside AppHeader) */}
+      {inlineTop && (
+        <div className="hidden md:block">
           <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
-            <TabsList className="bg-gray-950 border-none relative px-0 w-auto h-[56px] justify-start">
-              {/* Toggle button that moves behind active tab */}
-              <div 
-                className="absolute bg-gray-800 rounded-lg transition-all duration-300 h-[40px] top-[8px]"
-                style={{
-                  left: currentTab === "stats" ? "8px" : currentTab === "responses" ? "208px" : "408px",
-                  width: currentTab === "stats" ? "192px" : currentTab === "responses" ? "192px" : "96px"
-                }}
-              />
-              
-              <div className="tab-container flex gap-2">
-                <div className="tab-section">
-                  <IconTabsTrigger 
-                    value="stats" 
-                    aria-label="Audience Profile"
-                    className={`z-10 h-10 px-6 flex items-center justify-start gap-3 rounded-lg ${currentTab === "stats" ? "z-20" : ""}`}
-                  >
-                    <BarChart3 className={`h-4 w-4 ${currentTab === "stats" ? "text-white" : ""}`} />
-                    <span className={`text-sm font-medium ${currentTab === "stats" ? "text-white" : ""}`}>Audience Profile</span>
-                  </IconTabsTrigger>
-                </div>
-                
-                <div className="tab-section">
-                  <IconTabsTrigger 
-                    value="responses" 
-                    aria-label="Targeting & Activation"
-                    className={`z-10 h-10 px-6 flex items-center justify-start gap-3 rounded-lg ${currentTab === "responses" ? "z-20" : ""}`}
-                  >
-                    <ClipboardList className={`h-4 w-4 ${currentTab === "responses" ? "text-white" : ""}`} />
-                    <span className={`text-sm font-medium ${currentTab === "responses" ? "text-white" : ""}`}>Targeting & Activation</span>
-                  </IconTabsTrigger>
-                </div>
-                
-                <div className="tab-section">
-                  <IconTabsTrigger 
-                    value="chat" 
-                    aria-label="Chat"
-                    className={`z-10 h-10 px-6 flex items-center justify-start gap-3 rounded-lg ${currentTab === "chat" ? "z-20" : ""}`}
-                  >
-                    <MessageSquare className={`h-4 w-4 ${currentTab === "chat" ? "text-white" : ""}`} />
-                    <span className={`text-sm font-medium ${currentTab === "chat" ? "text-white" : ""}`}>Chat</span>
-                  </IconTabsTrigger>
-                </div>
-              </div>
+            <TabsList className="bg-transparent border-b border-gray-800/60 px-0 w-full h-[44px] justify-start gap-2">
+              <IconTabsTrigger
+                value="stats"
+                aria-label="Audience Profile"
+                className="h-11 px-4 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
+              >
+                <BarChart3 className="h-[1em] w-[1em]" />
+                <span className="text-sm font-medium">Audience Profile</span>
+              </IconTabsTrigger>
+
+              <IconTabsTrigger
+                value="responses"
+                aria-label="Targeting & Activation"
+                className="h-11 px-4 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
+              >
+                <ClipboardList className="h-[1em] w-[1em]" />
+                <span className="text-sm font-medium">Targeting & Activation</span>
+              </IconTabsTrigger>
+
+              <IconTabsTrigger
+                value="chat"
+                aria-label="Chat"
+                className="h-11 px-4 flex items-center gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-white text-gray-400 data-[state=active]:text-white"
+              >
+                <MessageSquare className="h-[1em] w-[1em]" />
+                <span className="text-sm font-medium">Chat</span>
+              </IconTabsTrigger>
             </TabsList>
           </Tabs>
         </div>
-      </div>
+      )}
 
       {/* Mobile: Bottom tabs (original design) */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-gray-950 border-t border-gray-800/60 pb-safe">
@@ -86,19 +74,24 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
           <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
             <TabsList className="bg-gray-950 border border-gray-800/60 relative px-1 w-full h-[60px]">
               {/* Toggle button that moves behind active tab */}
-              <div 
+              <div
                 className="absolute bg-gray-800 rounded-md transition-all duration-300 h-[48px] top-[6px]"
                 style={{
-                  left: currentTab === "stats" ? "16.67%" : currentTab === "responses" ? "50%" : "83.33%",
+                  left:
+                    currentTab === "stats"
+                      ? "16.67%"
+                      : currentTab === "responses"
+                      ? "50%"
+                      : "83.33%",
                   width: "70px",
-                  transform: "translateX(-50%)"
+                  transform: "translateX(-50%)",
                 }}
               />
-              
+
               <div className="tab-container flex w-full justify-around">
                 <div className="tab-section">
-                  <IconTabsTrigger 
-                    value="stats" 
+                  <IconTabsTrigger
+                    value="stats"
                     aria-label="Audience Profile"
                     className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "stats" ? "z-20 scale-110 transition-transform" : ""}`}
                   >
@@ -106,10 +99,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                     <span className={`text-xs font-medium ${currentTab === "stats" ? "text-white" : ""}`}>Audience Profile</span>
                   </IconTabsTrigger>
                 </div>
-                
+
                 <div className="tab-section">
-                  <IconTabsTrigger 
-                    value="responses" 
+                  <IconTabsTrigger
+                    value="responses"
                     aria-label="Targeting & Activation"
                     className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "responses" ? "z-20 scale-110 transition-transform" : ""}`}
                   >
@@ -117,10 +110,10 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
                     <span className={`text-xs font-medium ${currentTab === "responses" ? "text-white" : ""}`}>Targeting & Activation</span>
                   </IconTabsTrigger>
                 </div>
-                
+
                 <div className="tab-section">
-                  <IconTabsTrigger 
-                    value="chat" 
+                  <IconTabsTrigger
+                    value="chat"
                     aria-label="Chat"
                     className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "chat" ? "z-20 scale-110 transition-transform" : ""}`}
                   >
