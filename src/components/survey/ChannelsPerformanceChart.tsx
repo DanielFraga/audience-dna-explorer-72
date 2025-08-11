@@ -60,12 +60,12 @@ const ChannelsPerformanceChart: FC = () => {
             layout="horizontal"
             margin={{ top: 10, right: 20, left: 120, bottom: 10 }}
             barCategoryGap={8}
+            barGap={2}
           >
             <CartesianGrid 
-              strokeDasharray="3 3" 
-              stroke="#374151" 
+              strokeDasharray="2 2" 
+              stroke="#4b5563" 
               horizontal={false}
-              verticalPoints={[0, 0.25, 0.5, 0.75, 1].map(p => p * 100)}
             />
             <XAxis 
               type="number" 
