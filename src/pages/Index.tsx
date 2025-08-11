@@ -123,27 +123,29 @@ const Index = () => {
             </div>
           </div>
           
-          <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Cubular</h1>
-          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-2 md:mb-3">Conversations with the Hivemind.</h2>
-          <p className="text-sm text-gray-400 mb-6 md:mb-8 max-w-md">Find your audience in Live Data. </p>
+          <h1 className="text-xl md:text-2xl font-bold text-white mb-1.5 md:mb-2 tracking-tight">Find the Signals That Drive Bets</h1>
+          <h2 className="text-base md:text-lg font-medium text-gray-300 mb-6 md:mb-8 max-w-2xl">Live audience psychographics, triggering moments, and activation tactics from real human data — built for iGaming marketers.</h2>
           
           <div className="relative w-full max-w-md mx-auto mb-4 md:mb-6">
-            <input type="text" placeholder="What do you look for..." className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
+            <input type="text" placeholder="Type a bettor profile, sport, or market…" className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800/80 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-xs md:text-sm shadow-lg transition-all duration-300 hover:bg-gray-800 focus:bg-gray-800" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} />
             <button className="absolute right-2 top-1.5 px-2.5 py-1 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors" onClick={handleSearch}>
               Search
             </button>
           </div>
           
-          <div className="space-y-2 text-gray-500 text-xs">
+          <div className="space-y-3 text-gray-500 text-xs">
             <p>Try:</p>
-            <div className="flex flex-wrap gap-1.5 justify-center">
-              {["Dark Lipstick buyers in London", "Backpacking in Thailand", "Fashion", "Quality focused Car Buyers", "Health"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
+            <div className="flex flex-wrap gap-1.5 justify-center max-w-2xl mx-auto">
+              {["Underdog Football Bettors in Madrid", "Ego-Driven Bettors in São Paulo", "Casual Social Bettors in Toronto", "High-LTV Esports Bettors UK", "In-Play Bettors Post-Penalty Decisions"].map(suggestion => <button key={suggestion} className="px-2.5 py-1 bg-gray-800/90 hover:bg-gray-700 rounded-full transition-colors text-[10px] border border-gray-700/50 shadow-sm hover:shadow" onClick={() => {
               setSearchTerm(suggestion);
               setTimeout(() => handleSearch(), 100);
             }}>
                   {suggestion}
                 </button>)}
             </div>
+            <p className="text-center text-gray-500 text-[10px] mt-4 max-w-lg mx-auto">
+              3 clicks to activation: 1) Search any bettor segment → 2) See live psychographics & moments → 3) Push to Meta, DV360, or Google Ads.
+            </p>
           </div>
         </div>;
     }
