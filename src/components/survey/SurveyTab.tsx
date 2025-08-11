@@ -399,19 +399,19 @@ export const SurveyTab: FC = () => {
   const getCardConfig = (title: string) => {
     switch(title) {
       case "Societal Role":
-        return { title: "Audience Segments", color: "text-white" };
+        return { title: "🎯 Audience Segments", color: "text-white" };
       case "Best-Performing Channels / Placements":
-        return { title: "Best-Performing Channels / Placements", color: "text-white" };
+        return { title: "📱 Best-Performing Channels / Placements", color: "text-white" };
       case "Influencer / Creator Collaborator Profile":
-        return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-white" };
+        return { title: "🤝 Influencer / Creator Collaborator Profile", color: "text-white" };
       case "Optimal Timing":
-        return { title: "Optimal Timing", color: "text-white" };
+        return { title: "⏰ Optimal Timing", color: "text-white" };
       case "Triggering Moments":
-        return { title: "Triggering Moments", color: "text-white" };
+        return { title: "🚨 Triggering Moments", color: "text-white" };
       case "Bidding & Budget Tips":
-        return { title: "Bidding & Budget Tips", color: "text-white" };
+        return { title: "💰 Bidding & Budget Tips", color: "text-white" };
       case "Activation Guidance":
-        return { title: "Activation Guidance", color: "text-white" };
+        return { title: "🧭 Activation Guidance", color: "text-white" };
       case "Reserved Slot":
         return { title: "Reserved slot", color: "text-gray-400" };
       default:
@@ -424,14 +424,14 @@ export const SurveyTab: FC = () => {
     if (wordset?.isMerged && wordset?.title === "Optimal Timing") {
       return (
         <div className="flex-grow">
-          <div className="bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-white/10 h-full">
+          <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-5 border border-white/10 h-full">
             {/* Optimal Timing Section */}
             <div className="mb-4">
               <h4 className="text-sm font-medium text-gray-200 mb-3">Optimal Timing</h4>
-              <ul className="space-y-3 text-xs text-gray-300">
+              <ul className="space-y-2 text-sm text-gray-300">
                 {wordset.timingBullets.map((bullet: any, idx: number) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-sm mt-0.5">⏰</span>
+                  <li key={idx} className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-blue-400 mt-2 flex-shrink-0"></div>
                     <div>
                       <span className="font-semibold text-gray-200">{bullet.label}</span> {bullet.content}
                     </div>
@@ -446,10 +446,10 @@ export const SurveyTab: FC = () => {
             {/* Bidding & Budget Tips Section */}
             <div>
               <h4 className="text-sm font-medium text-gray-200 mb-3">Bidding & Budget Tips</h4>
-              <ul className="space-y-3 text-xs text-gray-300">
+              <ul className="space-y-2 text-sm text-gray-300">
                 {wordset.biddingBullets.map((bullet: any, idx: number) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-sm mt-0.5">💰</span>
+                  <li key={idx} className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-yellow-400 mt-2 flex-shrink-0"></div>
                     <div>
                       <span className="font-semibold text-gray-200">{bullet.label}</span> {bullet.content}
                     </div>
@@ -465,34 +465,28 @@ export const SurveyTab: FC = () => {
     if (wordset?.title === "Societal Role") {
       return (
         <div className="space-y-4 flex-grow">
-          <div className="bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-white/10">
-            <ul className="space-y-3 text-xs text-gray-300">
-              <li className="flex items-start gap-2">
-                <span className="text-sm mt-0.5">🎯</span>
+          <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
                 <div>
                   <span className="font-semibold text-gray-200">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
                 </div>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-sm mt-0.5">👤</span>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
                 <div>
-                  <span className="font-semibold text-gray-200">Age:</span> <span className="font-bold text-white">25–44</span>
+                  <span className="font-semibold text-gray-200">Age & Gender:</span> <span className="font-bold text-white">25–44</span> • <span className="font-bold text-white">Male-skewed (65%)</span>
                 </div>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-sm mt-0.5">👤</span>
-                <div>
-                  <span className="font-semibold text-gray-200">Gender:</span> <span className="font-bold text-white">Male-skewed (65%)</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-sm mt-0.5">📱</span>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-blue-400 mt-2 flex-shrink-0"></div>
                 <div>
                   <span className="font-semibold text-gray-200">Device:</span> <span className="font-bold text-white">Mobile-first (iOS 55%, Android 45%)</span>
                 </div>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-sm mt-0.5">🌍</span>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-orange-400 mt-2 flex-shrink-0"></div>
                 <div>
                   <span className="font-semibold text-gray-200">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM
                 </div>
@@ -506,26 +500,38 @@ export const SurveyTab: FC = () => {
     if (wordset?.bulletPoints) {
       return (
         <div className="flex-grow">
-          <div className="bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-white/10 h-full">
-            <ul className="space-y-3 text-xs text-gray-300">
-              {wordset.bulletPoints.map((bullet: any, idx: number) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="text-sm mt-0.5">{bullet.label}</span>
-                   <div>
-                     {bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
-                      <span dangerouslySetInnerHTML={{
-                        __html: bullet.content
-                          .replace(/Twitch/g, '<span class="font-bold text-white">Twitch</span>')
-                          .replace(/Instagram/g, '<span class="font-bold text-white">Instagram</span>')
-                          .replace(/YouTuber/g, '<span class="font-bold text-white">YouTuber</span>')
-                          .replace(/Podcast/g, '<span class="font-bold text-white">Podcast</span>')
-                      }} />
-                    ) : (
-                      bullet.content
-                    )}
-                  </div>
-                </li>
-              ))}
+          <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-5 border border-white/10 h-full">
+            <ul className="space-y-2 text-sm text-gray-300">
+              {wordset.bulletPoints.map((bullet: any, idx: number) => {
+                const getColorForCard = (title: string, index: number) => {
+                  if (title === "Best-Performing Channels / Placements") return ["bg-blue-400", "bg-green-400", "bg-purple-400"][index % 3];
+                  if (title === "Influencer / Creator Collaborator Profile") return ["bg-pink-400", "bg-yellow-400", "bg-cyan-400", "bg-red-400"][index % 4];
+                  if (title === "Triggering Moments") return ["bg-red-400", "bg-yellow-400", "bg-green-400", "bg-blue-400"][index % 4];
+                  if (title === "Activation Guidance") return ["bg-purple-400", "bg-orange-400", "bg-teal-400", "bg-indigo-400"][index % 4];
+                  return "bg-gray-400";
+                };
+                
+                return (
+                  <li key={idx} className="flex items-start gap-3">
+                    <div className={`w-2 h-2 rounded-full ${getColorForCard(wordset.title, idx)} mt-2 flex-shrink-0`}></div>
+                    <div>
+                      {bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
+                        <span dangerouslySetInnerHTML={{
+                          __html: `<span class="font-semibold text-gray-200">${bullet.label}</span> ${bullet.content
+                            .replace(/Twitch/g, '<span class="font-bold text-white">Twitch</span>')
+                            .replace(/Instagram/g, '<span class="font-bold text-white">Instagram</span>')
+                            .replace(/YouTuber/g, '<span class="font-bold text-white">YouTuber</span>')
+                            .replace(/Podcast/g, '<span class="font-bold text-white">Podcast</span>')}`
+                        }} />
+                      ) : (
+                        <>
+                          <span className="font-semibold text-gray-200">{bullet.label}</span> {bullet.content}
+                        </>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
@@ -548,16 +554,16 @@ export const SurveyTab: FC = () => {
               </h2>
               
               {/* Grid of Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 min-[320px]:grid-cols-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 min-[320px]:grid-cols-1">
                 {section.cards.map((card, cardIndex) => {
                   const cardConfig = getCardConfig(card?.title || "");
                   
                   return (
                     <div 
                       key={cardIndex} 
-                      className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-lg p-4 border border-white/15 min-h-[280px] flex flex-col hover-scale animate-fade-in min-w-[320px]"
+                      className="bg-gray-800/25 backdrop-blur-sm backdrop-saturate-180 rounded-xl p-5 border border-white/15 min-h-[280px] flex flex-col hover-scale animate-fade-in min-w-[320px]"
                     >
-                      <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
+                      <h3 className={`text-base font-semibold ${cardConfig.color} tracking-tight mb-4 pb-3 border-b border-gray-700/60 flex items-center`}>
                         {cardConfig.title}
                       </h3>
                       
