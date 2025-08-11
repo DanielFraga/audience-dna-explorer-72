@@ -152,6 +152,9 @@ const Index = () => {
   const renderVerticalFeed = () => {
     if (activeView === "stats") {
       return <div className="space-y-8 pb-24 max-w-3xl mx-auto">
+          <p className="text-xs sm:text-sm text-gray-300 bg-gray-900/60 border border-gray-800 rounded-md p-3">
+            Snapshot of who your audience is — demographics, psychographics, and key segment markers.
+          </p>
           <PsychographicsTab />
           <DemographicsTab />
         </div>;

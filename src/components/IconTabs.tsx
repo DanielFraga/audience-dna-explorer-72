@@ -44,11 +44,11 @@ const IconTabs = ({ currentTab }: { currentTab: "stats" | "responses" | "chat" }
               <div className="tab-section">
                 <IconTabsTrigger 
                   value="stats" 
-                  aria-label="Stats"
+                  aria-label="Audience Profile"
                   className={`z-10 h-12 w-16 flex flex-col items-center justify-center ${currentTab === "stats" ? "z-20 scale-110 transition-transform" : ""}`}
                 >
                   <BarChart3 className={`h-5 w-5 mb-1 ${currentTab === "stats" ? "text-white" : ""}`} />
-                  <span className={`text-xs font-medium ${currentTab === "stats" ? "text-white" : ""}`}>Stats</span>
+                  <span className={`text-xs font-medium ${currentTab === "stats" ? "text-white" : ""}`}>Audience Profile</span>
                 </IconTabsTrigger>
               </div>
               
