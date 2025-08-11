@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X } from "lucide-react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+
 const wordsetData = [{
   title: "Societal Role",
   roleLabels: ["Single", "Engineer", "Mathematician", "Designer", "Higher Education", "Lone Wolf", "One child"],
@@ -256,20 +256,6 @@ const wordsetData = [{
     content: "lapsed bettors within 24h of event finish"
   }]
 }, {
-  title: "Bidding & Budget Tips",
-  roleLabels: ["Start with tCPI < $5 for mobile acquisition, then scale to tROAS campaigns after day 3"],
-  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-  positiveWords: [],
-  negativeWords: [],
-  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
-  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
-  allPositiveWords: [],
-  allNegativeWords: [],
-  bulletPoints: [{
-    label: "Start with tCPI:",
-    content: "< $5 for mobile acquisition, then scale to tROAS campaigns after day 3"
-  }]
-}, {
   title: "Triggering Moments",
   roleLabels: [],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
@@ -286,6 +272,20 @@ const wordsetData = [{
     { label: "📰", content: "Transfer rumors and major news cycles" }
   ]
 }, {
+  title: "Bidding & Budget Tips",
+  roleLabels: ["Start with tCPI < $5 for mobile acquisition, then scale to tROAS campaigns after day 3"],
+  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
+  positiveWords: [],
+  negativeWords: [],
+  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
+  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
+  allPositiveWords: [],
+  allNegativeWords: [],
+  bulletPoints: [{
+    label: "Start with tCPI:",
+    content: "< $5 for mobile acquisition, then scale to tROAS campaigns after day 3"
+  }]
+}, {
   title: "Activation Guidance",
   roleLabels: [],
   chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
@@ -301,29 +301,8 @@ const wordsetData = [{
     { label: "🤝", content: "Coordinate drops with influencer posting schedules" },
     { label: "🔁", content: "Retarget engaged viewers with boosted offers" }
   ]
-}, {
-  title: "Future expansion slot",
-  roleLabels: [],
-  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-  positiveWords: [],
-  negativeWords: [],
-  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
-  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
-  allPositiveWords: [],
-  allNegativeWords: [],
-  bulletPoints: []
-}, {
-  title: "Future expansion slot",
-  roleLabels: [],
-  chipColor: "text-blue-400 border-blue-400 bg-blue-400/10",
-  positiveWords: [],
-  negativeWords: [],
-  positiveChipColor: "text-green-400 border-green-400 bg-green-400/10",
-  negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
-  allPositiveWords: [],
-  allNegativeWords: [],
-  bulletPoints: []
 }];
+
 const surveyData = [{
   question: "What factors influence your holiday purchase decisions?",
   response: "I typically plan my holiday shopping months in advance to find the best deals and ensure availability.",
@@ -373,203 +352,274 @@ const surveyData = [{
   response: "I use a dedicated app to monitor holiday spending and stay within my budget.",
   confidence: 0.84
 }];
+
 export const SurveyTab: FC = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
   const [sortedSurveyData, setSortedSurveyData] = useState([...surveyData]);
-  const [page, setPage] = useState(0);
-  const pageSize = 9;
 
   // Sort the survey data by confidence score (high to low) on component mount
   useEffect(() => {
     const sorted = [...surveyData].sort((a, b) => b.confidence - a.confidence);
     setSortedSurveyData(sorted);
   }, []);
+
   const handleOpenDialog = (index: number) => {
     setOpenDialog(index);
   };
+
   const handleCloseDialog = () => {
     setOpenDialog(null);
   };
-  return <div className="space-y-8 animate-slide-up">
-      {/* Wordset Cards in Carousel at the bottom */}
+
+  return (
+    <div className="space-y-8 animate-slide-up">
+      {/* Targeting & Activation Cards in 3x3 Grid */}
       <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-4 border border-gray-800">
-        <Carousel opts={{
-        align: "start",
-        loop: true
-      }} className="w-full">
-          <CarouselContent>
-            {wordsetData.map((wordset, index) => {
-              // Define card titles and colors
-              const getCardConfig = (title: string) => {
-                switch(title) {
-                  case "Societal Role":
-                    return { title: "Audience Segments", color: "text-white" };
-                  case "Best-Performing Channels / Placements":
-                    return { title: "Best-Performing Channels / Placements", color: "text-white" };
-                  case "Influencer / Creator Collaborator Profile":
-                    return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-white" };
-                  case "Optimal Timing":
-                    return { title: "Optimal Timing", color: "text-white" };
-                  case "Bidding & Budget Tips":
-                    return { title: "Bidding & Budget Tips", color: "text-white" };
-                  default:
-                    return { title: "Audience Segments", color: "text-white" };
-                }
-              };
-              
-              const cardConfig = getCardConfig(wordset.title);
-              
-              return <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 hover-scale animate-fade-in">
-                  <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 h-full">
-                    <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
-                      {cardConfig.title}
-                    </h3>
-                    {/* Audience Segments card content */}
-                    {wordset.title === "Societal Role" ? <div className="space-y-4">
-                        <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                          <ul className="space-y-3 text-xs text-gray-300">
-                            <li className="flex items-start gap-2">
-                              <span className="text-sm mt-0.5">🎯</span>
-                              <div>
-                                <span className="font-semibold text-gray-200">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
-                              </div>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-sm mt-0.5">👤</span>
-                              <div>
-                                <span className="font-semibold text-gray-200">Age:</span> <span className="font-bold text-white">25–44</span>
-                              </div>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-sm mt-0.5">👤</span>
-                              <div>
-                                <span className="font-semibold text-gray-200">Gender:</span> <span className="font-bold text-white">Male-skewed (65%)</span>
-                              </div>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-sm mt-0.5">📱</span>
-                              <div>
-                                <span className="font-semibold text-gray-200">Device:</span> <span className="font-bold text-white">Mobile-first (iOS 55%, Android 45%)</span>
-                              </div>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="text-sm mt-0.5">🌍</span>
-                              <div>
-                                <span className="font-semibold text-gray-200">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div> : <div className="flex flex-wrap gap-2 flex-grow">
-                        {/* Display bullet points for targeting cards */}
-                        {wordset.title === "Best-Performing Channels / Placements" && <div className="w-full">
-                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                              <ul className="space-y-3 text-xs text-gray-300">
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">📘</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">▶️</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">📰</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Programmatic/DV360:</span> Sports news, betting forums, esports streams
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>}
-                        
-                        {wordset.title === "Influencer / Creator Collaborator Profile" && <div className="w-full">
-                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                              <ul className="space-y-2.5 text-xs text-gray-300">
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">🎮</span>
-                                  <div>
-                                    Thoughtful Tactical Analysis <span className="font-bold text-white">Twitch</span> Streamer (Methodical Analyzers)
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">😂</span>
-                                  <div>
-                                    Funny Football Memes Reel Creators (<span className="font-bold text-white">Instagram</span>) (Emotion-driven bettors)
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">📜</span>
-                                  <div>
-                                    Football History <span className="font-bold text-white">YouTuber</span> (Loyalty-first, Suspicious of mainstream)
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">🎙</span>
-                                  <div>
-                                    Europe-based "Bro" <span className="font-bold text-white">Podcast</span> Sphere (Social bettors & Risk-maximizers)
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>}
-                        
-                        {wordset.title === "Optimal Timing" && <div className="w-full">
-                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                              <ul className="space-y-3 text-xs text-gray-300">
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">⏰</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Peak CTR:</span> <span className="font-bold text-white">1–2 hours before</span> live matches or big events
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">🔄</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Retarget:</span> lapsed bettors <span className="font-bold text-white">within 24h</span> of event finish
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>}
-                        
-                        {wordset.title === "Bidding & Budget Tips" && <div className="w-full">
-                            <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                              <ul className="space-y-3 text-xs text-gray-300">
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">💰</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Start with tCPI:</span> <span className="font-bold text-white">&lt; $5</span> for mobile acquisition
-                                  </div>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-sm mt-0.5">📈</span>
-                                  <div>
-                                    <span className="font-semibold text-gray-200">Scale to tROAS:</span> campaigns after day 3
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>}
-                      </div>}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 items-stretch">
+          {wordsetData.map((wordset, index) => {
+            // Define card titles and colors
+            const getCardConfig = (title: string) => {
+              switch(title) {
+                case "Societal Role":
+                  return { title: "Audience Segments", color: "text-white" };
+                case "Best-Performing Channels / Placements":
+                  return { title: "Best-Performing Channels / Placements", color: "text-white" };
+                case "Influencer / Creator Collaborator Profile":
+                  return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-white" };
+                case "Optimal Timing":
+                  return { title: "Optimal Timing", color: "text-white" };
+                case "Triggering Moments":
+                  return { title: "Triggering Moments", color: "text-white" };
+                case "Bidding & Budget Tips":
+                  return { title: "Bidding & Budget Tips", color: "text-white" };
+                case "Activation Guidance":
+                  return { title: "Activation Guidance", color: "text-white" };
+                default:
+                  return { title: wordset.title, color: "text-white" };
+              }
+            };
+            
+            const cardConfig = getCardConfig(wordset.title);
+            
+            return (
+              <div key={index} className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 h-full flex flex-col hover-scale animate-fade-in">
+                <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
+                  {cardConfig.title}
+                </h3>
+                
+                {/* Audience Segments card content */}
+                {wordset.title === "Societal Role" ? (
+                  <div className="space-y-4 flex-grow">
+                    <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                      <ul className="space-y-3 text-xs text-gray-300">
+                        <li className="flex items-start gap-2">
+                          <span className="text-sm mt-0.5">🎯</span>
+                          <div>
+                            <span className="font-semibold text-gray-200">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-sm mt-0.5">👤</span>
+                          <div>
+                            <span className="font-semibold text-gray-200">Age:</span> <span className="font-bold text-white">25–44</span>
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-sm mt-0.5">👤</span>
+                          <div>
+                            <span className="font-semibold text-gray-200">Gender:</span> <span className="font-bold text-white">Male-skewed (65%)</span>
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-sm mt-0.5">📱</span>
+                          <div>
+                            <span className="font-semibold text-gray-200">Device:</span> <span className="font-bold text-white">Mobile-first (iOS 55%, Android 45%)</span>
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-sm mt-0.5">🌍</span>
+                          <div>
+                            <span className="font-semibold text-gray-200">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-              </CarouselItem>
-            })}
-          </CarouselContent>
-          <div className="flex justify-center mt-4 gap-2">
-            <CarouselPrevious className="relative -left-0 bg-gray-800 hover:bg-gray-700 border-gray-700" />
-            <CarouselNext className="relative -right-0 bg-gray-800 hover:bg-gray-700 border-gray-700" />
-          </div>
-        </Carousel>
+                ) : (
+                  <div className="flex-grow">
+                    {/* Best-Performing Channels / Placements */}
+                    {wordset.title === "Best-Performing Channels / Placements" && (
+                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                        <ul className="space-y-3 text-xs text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">📘</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">▶️</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">📰</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Programmatic/DV360:</span> Sports news, betting forums, esports streams
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Influencer / Creator Collaborator Profile */}
+                    {wordset.title === "Influencer / Creator Collaborator Profile" && (
+                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                        <ul className="space-y-2.5 text-xs text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🎮</span>
+                            <div>
+                              Thoughtful Tactical Analysis <span className="font-bold text-white">Twitch</span> Streamer (Methodical Analyzers)
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">😂</span>
+                            <div>
+                              Funny Football Memes Reel Creators (<span className="font-bold text-white">Instagram</span>) (Emotion-driven bettors)
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">📜</span>
+                            <div>
+                              Football History <span className="font-bold text-white">YouTuber</span> (Loyalty-first, Suspicious of mainstream)
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🎙</span>
+                            <div>
+                              Europe-based "Bro" <span className="font-bold text-white">Podcast</span> Sphere (Social bettors & Risk-maximizers)
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Optimal Timing */}
+                    {wordset.title === "Optimal Timing" && (
+                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                        <ul className="space-y-3 text-xs text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">⏰</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Peak CTR:</span> <span className="font-bold text-white">1–2 hours before</span> live matches or big events
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🔄</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Retarget:</span> lapsed bettors <span className="font-bold text-white">within 24h</span> of event finish
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Triggering Moments */}
+                    {wordset.title === "Triggering Moments" && (
+                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                        <ul className="space-y-3 text-xs text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🚨</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Injury alerts:</span> breaking updates and lineup changes
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">⚡</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Live odds swings:</span> momentum shifts worth capitalizing
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🏆</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">High-stakes moments:</span> cup finals, derbies, rivalries
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">📰</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">News cycles:</span> transfer rumors and major announcements
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Bidding & Budget Tips */}
+                    {wordset.title === "Bidding & Budget Tips" && (
+                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                        <ul className="space-y-3 text-xs text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">💰</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Start with tCPI:</span> <span className="font-bold text-white">&lt; $5</span> for mobile acquisition
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">📈</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Scale to tROAS:</span> campaigns after day 3
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Activation Guidance */}
+                    {wordset.title === "Activation Guidance" && (
+                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+                        <ul className="space-y-3 text-xs text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🧭</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Sequential flow:</span> awareness → education → conversion
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">📍</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Geo/time:</span> activate around stadiums and match windows
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🤝</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Influencer sync:</span> coordinate drops with creator schedules
+                            </div>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-sm mt-0.5">🔁</span>
+                            <div>
+                              <span className="font-semibold text-gray-200">Retarget:</span> boost offers to recent engagers
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Survey Cards at the top - now using sortedSurveyData */}
       <div className="flex flex-col space-y-3">
-        {sortedSurveyData.map((item, index) => <div key={index} className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors">
+        {sortedSurveyData.map((item, index) => (
+          <div key={index} className="bg-gray-900 rounded-lg border border-gray-800 p-4 relative hover:border-gray-700 transition-colors">
             <div className="absolute top-3 right-3">
               <div className="relative w-10 h-10">
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -584,12 +634,13 @@ export const SurveyTab: FC = () => {
             <p className="text-sm font-medium text-white mb-3 pr-12 line-clamp-3">
               {item.response}
             </p>
-          </div>)}
+          </div>
+        ))}
       </div>
 
-
       {/* Dialogs for "See more" */}
-      {wordsetData.map((wordset, index) => <Dialog key={index} open={openDialog === index} onOpenChange={handleCloseDialog}>
+      {wordsetData.map((wordset, index) => (
+        <Dialog key={index} open={openDialog === index} onOpenChange={handleCloseDialog}>
           <DialogContent className="bg-gray-900 border border-gray-800 max-w-lg">
             <DialogHeader className="relative">
               <DialogTitle className="text-lg font-semibold text-white">
@@ -602,36 +653,48 @@ export const SurveyTab: FC = () => {
             <ScrollArea className="h-72 rounded-md">
               <div className="p-4">
                 {/* For Media Sources, only show the positive words in blue */}
-                {wordset.title === "Media Sources" ? <div>
+                {wordset.title === "Media Sources" ? (
+                  <div>
                     <h4 className="text-sm font-medium text-blue-400 mb-2">Media Sources</h4>
                     <div className="flex flex-wrap gap-2">
-                      {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className="text-xs text-blue-400 border-blue-400 bg-blue-400/10">
+                      {wordset.allPositiveWords?.map((word, wordIndex) => (
+                        <Badge key={`positive-all-${wordIndex}`} variant="outline" className="text-xs text-blue-400 border-blue-400 bg-blue-400/10">
                           {word.text}
-                        </Badge>)}
+                        </Badge>
+                      ))}
                     </div>
-                  </div> : <div className="space-y-4">
+                  </div>
+                ) : (
+                  <div className="space-y-4">
                     <div>
                       <h4 className="text-sm font-medium text-green-400 mb-2">Positive Responses</h4>
                       <div className="flex flex-wrap gap-2">
-                        {wordset.allPositiveWords?.map((word, wordIndex) => <Badge key={`positive-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor || "text-blue-400 border-blue-400 bg-blue-400/10"} flex items-center gap-1`}>
+                        {wordset.allPositiveWords?.map((word, wordIndex) => (
+                          <Badge key={`positive-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor || "text-blue-400 border-blue-400 bg-blue-400/10"} flex items-center gap-1`}>
                             {word.text}
                             <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                          </Badge>)}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
                     <div>
                       <h4 className="text-sm font-medium text-red-400 mb-2">Negative Responses</h4>
                       <div className="flex flex-wrap gap-2">
-                        {wordset.allNegativeWords?.map((word, wordIndex) => <Badge key={`negative-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor || "text-red-400 border-red-400 bg-red-400/10"} flex items-center gap-1`}>
+                        {wordset.allNegativeWords?.map((word, wordIndex) => (
+                          <Badge key={`negative-all-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor || "text-red-400 border-red-400 bg-red-400/10"} flex items-center gap-1`}>
                             {word.text}
                             <span className="text-[10px] font-semibold">{word.score}%</span>
-                          </Badge>)}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
-                  </div>}
+                  </div>
+                )}
               </div>
             </ScrollArea>
           </DialogContent>
-        </Dialog>)}
-    </div>;
+        </Dialog>
+      ))}
+    </div>
+  );
 };
