@@ -443,27 +443,83 @@ export const SurveyTab: FC = () => {
             {wordsetData.map((wordset, index) => <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-gray-700 transition-colors flex flex-col">
                   <h3 className="text-lg font-semibold text-white mb-1">
-                    {wordset.title}
+                    {wordset.title === "Societal Role" ? "Targeting" : wordset.title}
                   </h3>
-                  {/* This line was causing the build error - removed reference to subheader */}
-                  <div className="flex flex-wrap gap-2 flex-grow">
-                    {/* Display blue chips for Societal Role, Disposition, and Media Sources with reduced height */}
-                    {(wordset.title === "Societal Role" || wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
-                        {label}
-                      </Badge>)}
-                    
-                    {/* No sections should display regular chips anymore */}
-                    {wordset.title !== "Societal Role" && wordset.title !== "Disposition" && wordset.title !== "Media Sources" && <>
-                        {wordset.positiveWords?.map((word, wordIndex) => <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
-                            {word.text}
-                            <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                          </Badge>)}
-                        {wordset.negativeWords?.map((word, wordIndex) => <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
-                            {word.text}
-                            <span className="text-[10px] font-semibold">{word.score}%</span>
-                          </Badge>)}
-                      </>}
-                  </div>
+                  {/* Custom Targeting card content replaces Societal Role */}
+                  {wordset.title === "Societal Role" ? (
+                    <div className="mt-2">
+                      <Carousel opts={{ align: "start", loop: true }} className="w-full">
+                        <CarouselContent>
+                          <CarouselItem className="basis-full">
+                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
+                              <h4 className="text-sm font-medium text-gray-200 mb-2">Audience Segments</h4>
+                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                                <li>Bettor Mindsets: Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor</li>
+                                <li>Age: 25–44</li>
+                                <li>Gender: Male-skewed (65%)</li>
+                                <li>Device: Mobile-first (iOS 55%, Android 45%)</li>
+                                <li>Geo: Target Tier-1 English-speaking countries + high-LTV regions in LATAM</li>
+                              </ul>
+                            </div>
+                          </CarouselItem>
+                          <CarouselItem className="basis-full">
+                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
+                              <h4 className="text-sm font-medium text-gray-200 mb-2">Best-Performing Channels / Placements</h4>
+                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                                <li>Meta: Facebook Feed, Reels, Audience Network (Rewarded Video)</li>
+                                <li>Google: YouTube In-Stream, Display Network – sports & betting affinity audiences</li>
+                                <li>Programmatic/DV360: Sports news, betting forums, esports streams</li>
+                              </ul>
+                            </div>
+                          </CarouselItem>
+                          <CarouselItem className="basis-full">
+                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
+                              <h4 className="text-sm font-medium text-gray-200 mb-2">Optimal Timing</h4>
+                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                                <li>Peak CTR: 1–2 hours before live matches or big events</li>
+                                <li>Retarget lapsed bettors within 24h of event finish</li>
+                              </ul>
+                            </div>
+                          </CarouselItem>
+                          <CarouselItem className="basis-full">
+                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
+                              <h4 className="text-sm font-medium text-gray-200 mb-2">Bidding & Budget Tips</h4>
+                              <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                                <li>Start with tCPI &lt; $5 for mobile acquisition, then scale to tROAS campaigns after day 3</li>
+                              </ul>
+                            </div>
+                          </CarouselItem>
+                        </CarouselContent>
+                      </Carousel>
+                    </div>
+                  ) : (
+                    <div className="flex flex-wrap gap-2 flex-grow">
+                      {/* Display blue chips for Disposition and Media Sources with reduced height */}
+                      {(wordset.title === "Disposition" || wordset.title === "Media Sources") && wordset.roleLabels?.map((label, labelIndex) => (
+                        <Badge key={`role-${labelIndex}`} variant="outline" className={`text-xs py-0.5 ${wordset.chipColor}`}>
+                          {label}
+                        </Badge>
+                      ))}
+
+                      {/* No sections should display regular chips anymore */}
+                      {wordset.title !== "Disposition" && wordset.title !== "Media Sources" && (
+                        <>
+                          {wordset.positiveWords?.map((word, wordIndex) => (
+                            <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
+                              {word.text}
+                              <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
+                            </Badge>
+                          ))}
+                          {wordset.negativeWords?.map((word, wordIndex) => (
+                            <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
+                              {word.text}
+                              <span className="text-[10px] font-semibold">{word.score}%</span>
+                            </Badge>
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  )}
                   
                 </div>
               </CarouselItem>)}
