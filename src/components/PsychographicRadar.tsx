@@ -83,7 +83,7 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
             searchTerm={searchTerm}
           >
             <button
-              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 ${colorMap[point.subject as keyof typeof colorMap]}`}
+              className={`px-2 py-0.5 text-[10px] rounded-full cursor-help absolute transform -translate-x-1/2 -translate-y-1/2 text-white ${colorMap[point.subject as keyof typeof colorMap]?.replace(/text-\w+-\d+/g, '').replace(/text-gray-\d+/g, '')}`}
               style={{
                 left: `50%`,
                 top: `50%`,
