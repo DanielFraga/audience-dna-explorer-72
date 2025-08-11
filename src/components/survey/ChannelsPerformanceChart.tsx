@@ -91,6 +91,7 @@ const ChannelsPerformanceChart: FC = () => {
             <CartesianGrid 
               strokeDasharray="2 2" 
               stroke="#4b5563" 
+              vertical={true}
               horizontal={false}
             />
             <XAxis 
