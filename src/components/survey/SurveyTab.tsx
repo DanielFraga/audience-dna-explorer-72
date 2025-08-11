@@ -347,17 +347,17 @@ export const SurveyTab: FC = () => {
               const getCardConfig = (title: string) => {
                 switch(title) {
                   case "Societal Role":
-                    return { title: "Audience Segments", color: "text-blue-400" };
+                    return { title: "Audience Segments", color: "text-white" };
                   case "Best-Performing Channels / Placements":
-                    return { title: "Best-Performing Channels / Placements", color: "text-purple-400" };
+                    return { title: "Best-Performing Channels / Placements", color: "text-white" };
                   case "Influencer / Creator Collaborator Profile":
-                    return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-cyan-400" };
+                    return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-white" };
                   case "Optimal Timing":
-                    return { title: "Optimal Timing", color: "text-orange-400" };
+                    return { title: "Optimal Timing", color: "text-white" };
                   case "Bidding & Budget Tips":
-                    return { title: "Bidding & Budget Tips", color: "text-green-400" };
+                    return { title: "Bidding & Budget Tips", color: "text-white" };
                   default:
-                    return { title: "Audience Segments", color: "text-blue-400" };
+                    return { title: "Audience Segments", color: "text-white" };
                 }
               };
               
