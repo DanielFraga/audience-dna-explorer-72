@@ -188,7 +188,7 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
                 
                 <CollapsibleContent>
                   {psychographicDescriptions[point.subject] && (
-                    <div className="px-4 pb-3 pt-2 bg-gray-800/30 rounded-b-lg border-t border-gray-700/50">
+                    <div className="px-4 pb-3 pt-2 bg-gray-800/30 rounded-b-lg">
                       <div className="space-y-2">
                         {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
                           <div key={i} className="text-gray-400 text-sm leading-relaxed">
@@ -249,7 +249,7 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
                   <div className="px-2 py-2 space-y-1">
                     <div className="space-y-1.5">
                       {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                        <p key={i} className="text-gray-400 text-xs leading-relaxed pl-3 border-l border-gray-800">
+                        <p key={i} className="text-gray-400 text-xs leading-relaxed pl-3">
                           {desc}
                         </p>
                       ))}
@@ -359,7 +359,7 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
                             <div className="px-2 py-2 space-y-1">
                               <div className="space-y-1.5">
                                 {psychographicDescriptions[point.subject].interpretation.map((desc, i) => (
-                                  <p key={i} className="text-gray-400 text-[10px] leading-relaxed pl-3 border-l border-gray-800">
+                                  <p key={i} className="text-gray-400 text-[10px] leading-relaxed pl-3">
                                     {desc}
                                   </p>
                                 ))}

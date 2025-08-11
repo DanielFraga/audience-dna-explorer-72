@@ -447,9 +447,7 @@ export const SurveyTab: FC = () => {
               </ul>
 
               {/* Advanced bullets for Timing & Budget */}
-              <div className="my-3">
-                <div className="h-px bg-border/40" />
-              </div>
+              <div className="my-4"></div>
               <ul className="space-y-2 text-[15px] text-white">
                 <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Engagement-level retargeting (3s, 10s, 75% viewers, clickers, ATC, purchasers)</li>
                 <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Recency decay windows (1-day hot, 7-day warm, 30-day cold)</li>
@@ -481,10 +479,8 @@ export const SurveyTab: FC = () => {
             </li>
           </ul>
 
-          {/* Divider */}
-          <div className="my-3">
-            <div className="h-px bg-border/40" />
-          </div>
+            {/* Increased spacing between sections */}
+            <div className="my-4"></div>
 
           {/* Advanced bullets */}
           <ul className="space-y-2 text-[15px] text-white">
