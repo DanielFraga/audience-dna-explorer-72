@@ -113,7 +113,7 @@ export const PsychographicsTab: FC = () => {
 
   return (
     <div className="space-y-6 animate-slide-up">
-      <div className="p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
+      <div className="sticky top-0 z-20 p-4 bg-gray-900 rounded-lg border border-gray-800 relative w-full">
         <div className="flex items-center gap-1.5 mb-4">
           <Radar className="w-3.5 h-3.5 text-gray-400" />
           <Label className="text-xs font-semibold text-white">Psychographics</Label>
