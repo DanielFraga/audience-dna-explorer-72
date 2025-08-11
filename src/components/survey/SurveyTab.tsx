@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
 import { X } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
-
 const wordsetData = [{
   title: "Societal Role",
   roleLabels: ["Single", "Engineer", "Mathematician", "Designer", "Higher Education", "Lone Wolf", "One child"],
@@ -206,11 +205,16 @@ const wordsetData = [{
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
   allPositiveWords: [],
   allNegativeWords: [],
-  bulletPoints: [
-    { label: "Meta:", content: "Facebook Feed, Reels, Audience Network (Rewarded Video)" },
-    { label: "Google:", content: "YouTube In-Stream, Display Network – sports & betting affinity audiences" },
-    { label: "Programmatic/DV360:", content: "Sports news, betting forums, esports streams" }
-  ]
+  bulletPoints: [{
+    label: "Meta:",
+    content: "Facebook Feed, Reels, Audience Network (Rewarded Video)"
+  }, {
+    label: "Google:",
+    content: "YouTube In-Stream, Display Network – sports & betting affinity audiences"
+  }, {
+    label: "Programmatic/DV360:",
+    content: "Sports news, betting forums, esports streams"
+  }]
 }, {
   title: "Optimal Timing",
   roleLabels: ["Peak CTR: 1–2 hours before live matches or big events", "Retarget lapsed bettors within 24h of event finish"],
@@ -221,10 +225,13 @@ const wordsetData = [{
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
   allPositiveWords: [],
   allNegativeWords: [],
-  bulletPoints: [
-    { label: "Peak CTR:", content: "1–2 hours before live matches or big events" },
-    { label: "Retarget:", content: "lapsed bettors within 24h of event finish" }
-  ]
+  bulletPoints: [{
+    label: "Peak CTR:",
+    content: "1–2 hours before live matches or big events"
+  }, {
+    label: "Retarget:",
+    content: "lapsed bettors within 24h of event finish"
+  }]
 }, {
   title: "Bidding & Budget Tips",
   roleLabels: ["Start with tCPI < $5 for mobile acquisition, then scale to tROAS campaigns after day 3"],
@@ -235,11 +242,11 @@ const wordsetData = [{
   negativeChipColor: "text-red-400 border-red-400 bg-red-400/10",
   allPositiveWords: [],
   allNegativeWords: [],
-  bulletPoints: [
-    { label: "Start with tCPI:", content: "< $5 for mobile acquisition, then scale to tROAS campaigns after day 3" }
-  ]
+  bulletPoints: [{
+    label: "Start with tCPI:",
+    content: "< $5 for mobile acquisition, then scale to tROAS campaigns after day 3"
+  }]
 }];
-
 const surveyData = [{
   question: "What factors influence your holiday purchase decisions?",
   response: "I typically plan my holiday shopping months in advance to find the best deals and ensure availability.",
@@ -317,13 +324,15 @@ export const SurveyTab: FC = () => {
                     Audience Segment
                   </h3>
                   {/* Custom Targeting card content replaces Societal Role */}
-                  {wordset.title === "Societal Role" ? (
-                    <div className="mt-2">
-                      <Carousel opts={{ align: "start", loop: true }} className="w-full">
+                  {wordset.title === "Societal Role" ? <div className="mt-2">
+                      <Carousel opts={{
+                align: "start",
+                loop: true
+              }} className="w-full">
                         <CarouselContent>
                           <CarouselItem className="basis-full">
                             <div className="bg-gray-900 rounded-lg p-3">
-                              <h4 className="text-sm font-medium text-gray-200 mb-2">Audience Segments</h4>
+                              
                               <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
                                 <li><span className="font-semibold">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor</li>
                                 <li><span className="font-semibold">Age:</span> 25–44</li>
@@ -362,41 +371,28 @@ export const SurveyTab: FC = () => {
                           </CarouselItem>
                         </CarouselContent>
                       </Carousel>
-                    </div>
-                  ) : (
-                    <div className="flex flex-wrap gap-2 flex-grow">
+                    </div> : <div className="flex flex-wrap gap-2 flex-grow">
                       {/* Display bullet points for targeting cards */}
-                      {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && (
-                        <div className="w-full">
+                      {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && <div className="w-full">
                           <ul className="list-disc list-inside space-y-1 text-xs text-gray-300 bg-gray-900/40 rounded-md p-3 ring-1 ring-gray-800/60">
-                            {wordset.bulletPoints?.map((bullet, bulletIndex) => (
-                              <li key={bulletIndex}>
+                            {wordset.bulletPoints?.map((bullet, bulletIndex) => <li key={bulletIndex}>
                                 <span className="font-semibold">{bullet.label}</span> {bullet.content}
-                              </li>
-                            ))}
+                              </li>)}
                           </ul>
-                        </div>
-                      )}
+                        </div>}
 
                       {/* No sections should display regular chips anymore */}
-                      {wordset.title !== "Best-Performing Channels / Placements" && wordset.title !== "Optimal Timing" && wordset.title !== "Bidding & Budget Tips" && (
-                        <>
-                          {wordset.positiveWords?.map((word, wordIndex) => (
-                            <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
+                      {wordset.title !== "Best-Performing Channels / Placements" && wordset.title !== "Optimal Timing" && wordset.title !== "Bidding & Budget Tips" && <>
+                          {wordset.positiveWords?.map((word, wordIndex) => <Badge key={`positive-${wordIndex}`} variant="outline" className={`text-xs ${wordset.positiveChipColor} flex items-center gap-1`}>
                               {word.text}
                               <span className="text-[10px] font-semibold">{word.score > 0 ? "+" : ""}{word.score}%</span>
-                            </Badge>
-                          ))}
-                          {wordset.negativeWords?.map((word, wordIndex) => (
-                            <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
+                            </Badge>)}
+                          {wordset.negativeWords?.map((word, wordIndex) => <Badge key={`negative-${wordIndex}`} variant="outline" className={`text-xs ${wordset.negativeChipColor} flex items-center gap-1`}>
                               {word.text}
                               <span className="text-[10px] font-semibold">{word.score}%</span>
-                            </Badge>
-                          ))}
-                        </>
-                      )}
-                    </div>
-                  )}
+                            </Badge>)}
+                        </>}
+                    </div>}
               </CarouselItem>)}
           </CarouselContent>
           <div className="flex justify-center mt-4 gap-2">
