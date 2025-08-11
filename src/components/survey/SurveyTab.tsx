@@ -314,7 +314,7 @@ export const SurveyTab: FC = () => {
           <CarouselContent>
             {wordsetData.map((wordset, index) => <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 hover-scale animate-fade-in">
                   <h3 className="text-base md:text-lg font-semibold text-white tracking-tight mb-2 pb-2 border-b border-gray-800/60">
-                    {wordset.title === "Societal Role" ? "Targeting" : wordset.title}
+                    Audience Segment
                   </h3>
                   {/* Custom Targeting card content replaces Societal Role */}
                   {wordset.title === "Societal Role" ? (
