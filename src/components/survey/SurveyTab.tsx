@@ -306,14 +306,14 @@ export const SurveyTab: FC = () => {
   };
   return <div className="space-y-8 animate-slide-up">
       {/* Wordset Cards in Carousel at the bottom */}
-      <div className="mt-8 bg-gray-900/50 rounded-lg p-4 border border-gray-800">
+      <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-4 border border-gray-800">
         <Carousel opts={{
         align: "start",
         loop: true
       }} className="w-full">
           <CarouselContent>
-            {wordsetData.map((wordset, index) => <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <h3 className="text-lg font-semibold text-white mb-1">
+            {wordsetData.map((wordset, index) => <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 hover-scale animate-fade-in">
+                  <h3 className="text-base md:text-lg font-semibold text-white tracking-tight mb-2 pb-2 border-b border-gray-800/60">
                     {wordset.title === "Societal Role" ? "Targeting" : wordset.title}
                   </h3>
                   {/* Custom Targeting card content replaces Societal Role */}
@@ -368,7 +368,7 @@ export const SurveyTab: FC = () => {
                       {/* Display bullet points for targeting cards */}
                       {(wordset.title === "Best-Performing Channels / Placements" || wordset.title === "Optimal Timing" || wordset.title === "Bidding & Budget Tips") && (
                         <div className="w-full">
-                          <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                          <ul className="list-disc list-inside space-y-1 text-xs text-gray-300 bg-gray-900/40 rounded-md p-3 ring-1 ring-gray-800/60">
                             {wordset.bulletPoints?.map((bullet, bulletIndex) => (
                               <li key={bulletIndex}>
                                 <span className="font-semibold">{bullet.label}</span> {bullet.content}
