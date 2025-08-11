@@ -162,7 +162,7 @@ const Index = () => {
                 title={
                   <div className="flex items-center gap-1.5">
                     <Radar className="w-4 h-4 text-gray-400" />
-                    <span>Psychographics</span>
+                    <span className="text-sm md:text-base">Psychographics</span>
                   </div>
                 }
                 className="RadarChart"
@@ -175,7 +175,7 @@ const Index = () => {
                 title={
                   <div className="flex items-center gap-1.5">
                     <ChartBar className="w-4 h-4 text-gray-400" />
-                    <span>Psychographics – iGaming Traits</span>
+                    <span className="text-sm md:text-base">Psychographics – iGaming Traits</span>
                   </div>
                 }
                 className="TraitsList"

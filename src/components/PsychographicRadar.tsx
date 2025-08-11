@@ -63,11 +63,11 @@ const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
   };
 
   return (
-    <div ref={containerRef} className="w-full h-[460px] relative overflow-hidden">
+    <div ref={containerRef} className="w-full h-[320px] md:h-[380px] relative overflow-hidden">
       <ResponsiveContainer width="100%" height="100%">
         <RechartsRadarChart 
           data={data}
-          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+          margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
         >
           <defs>
             <linearGradient id="psychographicGradient" x1="0" y1="1" x2="1" y2="0">
