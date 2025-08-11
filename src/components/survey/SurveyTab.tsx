@@ -323,7 +323,7 @@ export const SurveyTab: FC = () => {
                       <Carousel opts={{ align: "start", loop: true }} className="w-full">
                         <CarouselContent>
                           <CarouselItem className="basis-full">
-                            <div className="bg-gray-900 rounded-lg border border-gray-800 p-3">
+                            <div className="bg-gray-900 rounded-lg p-3">
                               <h4 className="text-sm font-medium text-gray-200 mb-2">Audience Segments</h4>
                               <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
                                 <li><span className="font-semibold">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor</li>
