@@ -16,7 +16,7 @@ interface Message {
   sender: "user" | "assistant";
   timestamp: Date;
 }
-const PRESET_QUESTIONS = ["Top three insights on this audience", "Quick overview", "Explain their psychography"];
+const PRESET_QUESTIONS = ["Find lookalike audiences", "What emotional triggers work best?", "Give me an ad hook for this group", "Top three timing recommendations"];
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
