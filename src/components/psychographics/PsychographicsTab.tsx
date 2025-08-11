@@ -152,11 +152,11 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
     );
   }
 
-  // Traits only view for desktop right column
+  // Traits only view for desktop right column  
   if (isTraitsOnly) {
     return (
       <div className="space-y-4">
-        <div className="space-y-2 text-sm max-h-[600px] overflow-y-auto pr-1">
+        <div className="space-y-2 text-sm overflow-visible pr-1">
           <div className="space-y-2">
             {psychographicData.map((point) => (
               <Collapsible key={point.subject}>
@@ -214,7 +214,7 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
   // Detail only view for desktop - the iGaming Traits card
   if (isDetailOnly) {
     return (
-      <div className="space-y-2 text-sm max-h-[400px] overflow-y-auto pr-1">
+      <div className="space-y-2 text-sm overflow-visible pr-1">
         <div className="space-y-1 p-1.5">
           {psychographicData.map((point) => (
             <Collapsible key={point.subject}>

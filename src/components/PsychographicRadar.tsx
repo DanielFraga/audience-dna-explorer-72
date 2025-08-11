@@ -15,6 +15,22 @@ interface PsychographicRadarProps {
 }
 
 const PsychographicRadar = ({ data }: PsychographicRadarProps) => {
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  // ResizeObserver for robust chart sizing
+  useEffect(() => {
+    if (!chartRef.current) return;
+    
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        // Force recharts to recalculate when container resizes
+        window.dispatchEvent(new Event('resize'));
+      }
+    });
+
+    resizeObserver.observe(chartRef.current);
+    return () => resizeObserver.disconnect();
+  }, []);
   const searchTerm = sessionStorage.getItem('searchTerm') || 'this topic';
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 460, height: 460 });

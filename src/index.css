@@ -102,3 +102,44 @@
     radial-gradient(at 100% 100%, rgba(95, 80, 160, 0.1) 0, transparent 50%),
     radial-gradient(at 0% 100%, rgba(55, 48, 163, 0.1) 0, transparent 50%);
 }
+
+/* Psychographics Grid Layout */
+.psychographics-grid {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 7fr 5fr; /* chart wider */
+  gap: 24px;
+  align-items: start;
+}
+
+/* Prevent cards from forcing full width */
+.psychographics-grid > * {
+  width: auto;            /* override width:100% if set on cards */
+  grid-column: auto;      /* override any 1 / -1 spans */
+}
+
+/* Chart must be fluid */
+.RadarChart {
+  min-width: 0;           /* allow shrink in grid */
+  aspect-ratio: 1 / 1;    /* keeps square; use ResizeObserver if available */
+}
+
+/* Traits list scroll-free, grows with content */
+.TraitsList {
+  min-width: 0;
+  overflow: visible;
+}
+
+/* Breakpoints */
+@media (max-width: 1199px) {
+  .psychographics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .psychographics-grid {
+    grid-template-columns: 1fr; /* stack */
+  }
+}
