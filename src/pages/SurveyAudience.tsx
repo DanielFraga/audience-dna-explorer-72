@@ -21,14 +21,14 @@ const SurveyAudience = () => {
   };
 
   // Handle export actions
-  const handleExportEssentialsPdf = () => {
-    console.log("Exporting essentials-only PDF...");
-    // TODO: Implement Essentials-only PDF export
+  const handleExportPDF = () => {
+    console.log("Exporting as PDF...");
+    // TODO: Implement PDF export functionality
   };
 
-  const handleExportFullPdf = () => {
-    console.log("Exporting essentials + advanced PDF...");
-    // TODO: Implement full PDF export
+  const handleExportCSV = () => {
+    console.log("Exporting as CSV...");
+    // TODO: Implement CSV export functionality
   };
   return <div className="min-h-screen gradient-background font-grotesk text-[13px]">
       <div className="h-[100vh] overflow-auto">
@@ -36,7 +36,7 @@ const SurveyAudience = () => {
         
         <div className="p-3 md:p-6 pt-4 relative">
           {/* Export Button */}
-          <div className="absolute top-4 right-6 z-50">
+          <div className="absolute top-4 right-6 z-10">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -51,24 +51,24 @@ const SurveyAudience = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="end" 
-                className="w-56 bg-gray-900 border-gray-700 z-50"
+                className="w-48 bg-gray-900 border-gray-700 z-50"
                 aria-label="Export options"
               >
                 <DropdownMenuItem 
-                  onClick={handleExportEssentialsPdf}
+                  onClick={handleExportPDF}
                   className="flex items-center gap-2 cursor-pointer hover:bg-gray-800"
-                  aria-label="Export essentials-only PDF"
+                  aria-label="Export as PDF"
                 >
                   <FileText className="h-4 w-4" />
-                  Essentials only (PDF)
+                  Export as PDF
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  onClick={handleExportFullPdf}
+                  onClick={handleExportCSV}
                   className="flex items-center gap-2 cursor-pointer hover:bg-gray-800"
-                  aria-label="Export essentials and advanced PDF"
+                  aria-label="Export as CSV"
                 >
-                  <FileText className="h-4 w-4" />
-                  Essentials + Advanced (PDF)
+                  <Table className="h-4 w-4" />
+                  Export as CSV
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
