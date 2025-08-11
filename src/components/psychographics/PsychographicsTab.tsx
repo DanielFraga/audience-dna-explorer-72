@@ -163,10 +163,10 @@ export const PsychographicsTab: FC<{ isRadarOnly?: boolean; isTraitsOnly?: boole
       <div className="space-y-4">
         <div className="flex items-center gap-1.5 mb-4">
           <ChartBar className="w-4 h-4 text-gray-400" />
-          <h3 className="text-base font-semibold text-white">Psychographics – iGaming Traits</h3>
+          <h3 className="text-base font-semibold text-white">Psychographics: Trait Overview</h3>
         </div>
 
-        <div className="space-y-3 text-sm max-h-[460px] overflow-y-auto pr-1">
+        <div className="space-y-3 text-sm max-h-[400px] overflow-y-auto pr-1">
           <div className="space-y-2 p-1.5">
             {psychographicData.map((point) => (
               <Collapsible key={point.subject}>
