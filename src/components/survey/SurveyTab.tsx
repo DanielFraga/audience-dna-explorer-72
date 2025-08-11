@@ -368,7 +368,7 @@ export const SurveyTab: FC = () => {
     {
       title: "🎯 Target Audience",
       cards: [
-        wordsetData.find(w => w.title === "Societal Role"), // Audience Segments
+        wordsetData.find(w => w.title === "Societal Role"), // Audience Segments (Essentials kept)
         wordsetData.find(w => w.title === "Influencer / Creator Collaborator Profile"),
         wordsetData.find(w => w.title === "Best-Performing Channels / Placements")
       ]
@@ -420,7 +420,7 @@ export const SurveyTab: FC = () => {
             {/* Timing Section */}
             <div>
               <h4 className="text-sm font-medium text-gray-200 mb-3">Timing</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <ul className="space-y-2 text-[15px] text-gray-300">
                 {wordset.timingBullets.map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
@@ -435,7 +435,7 @@ export const SurveyTab: FC = () => {
             {/* Budget Section */}
             <div>
               <h4 className="text-sm font-medium text-gray-200 mb-3">Budget</h4>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <ul className="space-y-2 text-[15px] text-gray-300">
                 {wordset.biddingBullets.map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-yellow-400 mt-1.5 flex-shrink-0"></div>
@@ -444,6 +444,18 @@ export const SurveyTab: FC = () => {
                     </div>
                   </li>
                 ))}
+              </ul>
+
+              {/* Advanced bullets for Timing & Budget */}
+              <div className="my-3">
+                <div className="h-px bg-border/40" />
+              </div>
+              <ul className="space-y-2 text-[15px] text-foreground/90">
+                <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Engagement-level retargeting (3s, 10s, 75% viewers, clickers, ATC, purchasers)</li>
+                <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Recency decay windows (1-day hot, 7-day warm, 30-day cold)</li>
+                <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Budget ramp sequencing for each tier</li>
+                <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Bid strategy notes per channel (tCPA for cold, tROAS for warm, manual bids for hot)</li>
+                <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />Frequency capping & creative fatigue windows per platform</li>
               </ul>
             </div>
           </div>
@@ -454,7 +466,7 @@ export const SurveyTab: FC = () => {
     if (wordset?.title === "Societal Role") {
       return (
         <div className="space-y-4 flex-grow">
-          <ul className="space-y-2 text-sm text-gray-300">
+          <ul className="space-y-2 text-[15px] text-gray-300">
             <li className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
               <div>
@@ -467,6 +479,19 @@ export const SurveyTab: FC = () => {
                 <span className="font-medium text-white">Demographics:</span> <span className="font-semibold text-blue-400">25–44</span>, male-skewed (65%), mobile-first (iOS 55%, Android 45%), Tier-1 EN + LATAM high-LTV
               </div>
             </li>
+          </ul>
+
+          {/* Divider */}
+          <div className="my-3">
+            <div className="h-px bg-border/40" />
+          </div>
+
+          {/* Advanced bullets */}
+          <ul className="space-y-2 text-[15px] text-foreground/90">
+            <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Purchase intent signals (recent store visits, engaged with relevant influencers in past 7 days)</li>
+            <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Micro-moments (lunchtime scroll, evening relaxation)</li>
+            <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Life events (engagement, moving, new job)</li>
+            <li className="flex items-start gap-3"><span className="w-2 h-2 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />Brand affinity, lookalikes, anti-affinity</li>
           </ul>
         </div>
       );
@@ -532,7 +557,7 @@ export const SurveyTab: FC = () => {
               </h2>
               
               {/* Grid of Cards - 2 rows of 3 cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 min-[320px]:grid-cols-1">
+              <div id="targeting-export-root" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 min-[320px]:grid-cols-1">
                 {section.cards.map((card, cardIndex) => {
                   const cardConfig = getCardConfig(card?.title || "");
                   
