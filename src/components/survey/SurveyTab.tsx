@@ -371,248 +371,180 @@ export const SurveyTab: FC = () => {
     setOpenDialog(null);
   };
 
+  // Organize cards by sections for 3x3 grid
+  const sections = [
+    {
+      title: "🎯 Target Audience",
+      cards: [
+        wordsetData.find(w => w.title === "Societal Role"), // Audience Segments
+        wordsetData.find(w => w.title === "Influencer / Creator Collaborator Profile"),
+        wordsetData.find(w => w.title === "Best-Performing Channels / Placements")
+      ]
+    },
+    {
+      title: "📍 Placement & Timing", 
+      cards: [
+        wordsetData.find(w => w.title === "Optimal Timing"),
+        wordsetData.find(w => w.title === "Triggering Moments"),
+        wordsetData.find(w => w.title === "Activation Guidance")
+      ]
+    },
+    {
+      title: "⚙️ Execution",
+      cards: [
+        wordsetData.find(w => w.title === "Bidding & Budget Tips"),
+        { title: "Reserved Slot", isPlaceholder: true },
+        { title: "Reserved Slot", isPlaceholder: true }
+      ]
+    }
+  ];
+
+  const getCardConfig = (title: string) => {
+    switch(title) {
+      case "Societal Role":
+        return { title: "Audience Segments", color: "text-white" };
+      case "Best-Performing Channels / Placements":
+        return { title: "Best-Performing Channels / Placements", color: "text-white" };
+      case "Influencer / Creator Collaborator Profile":
+        return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-white" };
+      case "Optimal Timing":
+        return { title: "Optimal Timing", color: "text-white" };
+      case "Triggering Moments":
+        return { title: "Triggering Moments", color: "text-white" };
+      case "Bidding & Budget Tips":
+        return { title: "Bidding & Budget Tips", color: "text-white" };
+      case "Activation Guidance":
+        return { title: "Activation Guidance", color: "text-white" };
+      case "Reserved Slot":
+        return { title: "Reserved slot", color: "text-gray-400" };
+      default:
+        return { title: title, color: "text-white" };
+    }
+  };
+
+  const renderCardContent = (wordset: any) => {
+    if (wordset?.isPlaceholder) {
+      return (
+        <div className="flex-grow flex items-center justify-center">
+          <div className="text-center text-gray-400 py-8">
+            <div className="text-3xl mb-2">⚪</div>
+            <div className="text-sm">Reserved slot</div>
+          </div>
+        </div>
+      );
+    }
+
+    if (wordset?.title === "Societal Role") {
+      return (
+        <div className="space-y-4 flex-grow">
+          <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
+            <ul className="space-y-3 text-xs text-gray-300">
+              <li className="flex items-start gap-2">
+                <span className="text-sm mt-0.5">🎯</span>
+                <div>
+                  <span className="font-semibold text-gray-200">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-sm mt-0.5">👤</span>
+                <div>
+                  <span className="font-semibold text-gray-200">Age:</span> <span className="font-bold text-white">25–44</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-sm mt-0.5">👤</span>
+                <div>
+                  <span className="font-semibold text-gray-200">Gender:</span> <span className="font-bold text-white">Male-skewed (65%)</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-sm mt-0.5">📱</span>
+                <div>
+                  <span className="font-semibold text-gray-200">Device:</span> <span className="font-bold text-white">Mobile-first (iOS 55%, Android 45%)</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-sm mt-0.5">🌍</span>
+                <div>
+                  <span className="font-semibold text-gray-200">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
+    if (wordset?.bulletPoints) {
+      return (
+        <div className="flex-grow">
+          <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40 h-full">
+            <ul className="space-y-3 text-xs text-gray-300">
+              {wordset.bulletPoints.map((bullet: any, idx: number) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-sm mt-0.5">{bullet.label}</span>
+                  <div>
+                    <span className="font-semibold text-gray-200">
+                      {wordset.title === "Best-Performing Channels / Placements" ? bullet.label : ""}
+                    </span>
+                    {bullet.content.includes("Twitch") || bullet.content.includes("Instagram") || bullet.content.includes("YouTuber") || bullet.content.includes("Podcast") ? (
+                      <span dangerouslySetInnerHTML={{
+                        __html: bullet.content
+                          .replace(/Twitch/g, '<span class="font-bold text-white">Twitch</span>')
+                          .replace(/Instagram/g, '<span class="font-bold text-white">Instagram</span>')
+                          .replace(/YouTuber/g, '<span class="font-bold text-white">YouTuber</span>')
+                          .replace(/Podcast/g, '<span class="font-bold text-white">Podcast</span>')
+                      }} />
+                    ) : (
+                      bullet.content
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="space-y-8 animate-slide-up">
       {/* Targeting & Activation Cards in 3x3 Grid */}
-      <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-4 border border-gray-800">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 items-stretch">
-          {wordsetData.map((wordset, index) => {
-            // Define card titles and colors
-            const getCardConfig = (title: string) => {
-              switch(title) {
-                case "Societal Role":
-                  return { title: "Audience Segments", color: "text-white" };
-                case "Best-Performing Channels / Placements":
-                  return { title: "Best-Performing Channels / Placements", color: "text-white" };
-                case "Influencer / Creator Collaborator Profile":
-                  return { title: "🎯 Influencer / Creator Collaborator Profile", color: "text-white" };
-                case "Optimal Timing":
-                  return { title: "Optimal Timing", color: "text-white" };
-                case "Triggering Moments":
-                  return { title: "Triggering Moments", color: "text-white" };
-                case "Bidding & Budget Tips":
-                  return { title: "Bidding & Budget Tips", color: "text-white" };
-                case "Activation Guidance":
-                  return { title: "Activation Guidance", color: "text-white" };
-                default:
-                  return { title: wordset.title, color: "text-white" };
-              }
-            };
-            
-            const cardConfig = getCardConfig(wordset.title);
-            
-            return (
-              <div key={index} className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 h-full flex flex-col hover-scale animate-fade-in">
-                <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
-                  {cardConfig.title}
-                </h3>
-                
-                {/* Audience Segments card content */}
-                {wordset.title === "Societal Role" ? (
-                  <div className="space-y-4 flex-grow">
-                    <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                      <ul className="space-y-3 text-xs text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <span className="text-sm mt-0.5">🎯</span>
-                          <div>
-                            <span className="font-semibold text-gray-200">Bettor Mindsets:</span> Underdog Chaser, Ego-Driven Bettor, Casual Social Bettor
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-sm mt-0.5">👤</span>
-                          <div>
-                            <span className="font-semibold text-gray-200">Age:</span> <span className="font-bold text-white">25–44</span>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-sm mt-0.5">👤</span>
-                          <div>
-                            <span className="font-semibold text-gray-200">Gender:</span> <span className="font-bold text-white">Male-skewed (65%)</span>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-sm mt-0.5">📱</span>
-                          <div>
-                            <span className="font-semibold text-gray-200">Device:</span> <span className="font-bold text-white">Mobile-first (iOS 55%, Android 45%)</span>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-sm mt-0.5">🌍</span>
-                          <div>
-                            <span className="font-semibold text-gray-200">Geo:</span> Target Tier-1 English-speaking countries + high-LTV regions in LATAM
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex-grow">
-                    {/* Best-Performing Channels / Placements */}
-                    {wordset.title === "Best-Performing Channels / Placements" && (
-                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                        <ul className="space-y-3 text-xs text-gray-300">
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">📘</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Meta:</span> Facebook Feed, Reels, Audience Network (Rewarded Video)
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">▶️</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Google:</span> YouTube In-Stream, Display Network – sports & betting affinity audiences
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">📰</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Programmatic/DV360:</span> Sports news, betting forums, esports streams
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Influencer / Creator Collaborator Profile */}
-                    {wordset.title === "Influencer / Creator Collaborator Profile" && (
-                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                        <ul className="space-y-2.5 text-xs text-gray-300">
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🎮</span>
-                            <div>
-                              Thoughtful Tactical Analysis <span className="font-bold text-white">Twitch</span> Streamer (Methodical Analyzers)
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">😂</span>
-                            <div>
-                              Funny Football Memes Reel Creators (<span className="font-bold text-white">Instagram</span>) (Emotion-driven bettors)
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">📜</span>
-                            <div>
-                              Football History <span className="font-bold text-white">YouTuber</span> (Loyalty-first, Suspicious of mainstream)
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🎙</span>
-                            <div>
-                              Europe-based "Bro" <span className="font-bold text-white">Podcast</span> Sphere (Social bettors & Risk-maximizers)
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Optimal Timing */}
-                    {wordset.title === "Optimal Timing" && (
-                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                        <ul className="space-y-3 text-xs text-gray-300">
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">⏰</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Peak CTR:</span> <span className="font-bold text-white">1–2 hours before</span> live matches or big events
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🔄</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Retarget:</span> lapsed bettors <span className="font-bold text-white">within 24h</span> of event finish
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Triggering Moments */}
-                    {wordset.title === "Triggering Moments" && (
-                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                        <ul className="space-y-3 text-xs text-gray-300">
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🚨</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Injury alerts:</span> breaking updates and lineup changes
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">⚡</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Live odds swings:</span> momentum shifts worth capitalizing
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🏆</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">High-stakes moments:</span> cup finals, derbies, rivalries
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">📰</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">News cycles:</span> transfer rumors and major announcements
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Bidding & Budget Tips */}
-                    {wordset.title === "Bidding & Budget Tips" && (
-                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                        <ul className="space-y-3 text-xs text-gray-300">
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">💰</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Start with tCPI:</span> <span className="font-bold text-white">&lt; $5</span> for mobile acquisition
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">📈</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Scale to tROAS:</span> campaigns after day 3
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Activation Guidance */}
-                    {wordset.title === "Activation Guidance" && (
-                      <div className="bg-gray-900/60 rounded-lg p-4 border border-gray-700/40">
-                        <ul className="space-y-3 text-xs text-gray-300">
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🧭</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Sequential flow:</span> awareness → education → conversion
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">📍</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Geo/time:</span> activate around stadiums and match windows
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🤝</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Influencer sync:</span> coordinate drops with creator schedules
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-sm mt-0.5">🔁</span>
-                            <div>
-                              <span className="font-semibold text-gray-200">Retarget:</span> boost offers to recent engagers
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
+      <div className="mt-8 bg-gray-900/50 rounded-lg p-3 md:p-6 border border-gray-800">
+        <div className="space-y-8">
+          {sections.map((section, sectionIndex) => (
+            <div key={sectionIndex} className="space-y-4">
+              {/* Section Header */}
+              <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/40">
+                <h2 className="text-lg md:text-xl font-medium text-white">
+                  {section.title}
+                </h2>
               </div>
-            );
-          })}
+              
+              {/* Grid of Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 min-[320px]:grid-cols-1">
+                {section.cards.map((card, cardIndex) => {
+                  const cardConfig = getCardConfig(card?.title || "");
+                  
+                  return (
+                    <div 
+                      key={cardIndex} 
+                      className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 min-h-[280px] flex flex-col hover-scale animate-fade-in min-w-[320px]"
+                    >
+                      <h3 className={`text-base md:text-lg font-semibold ${cardConfig.color} tracking-tight mb-4 pb-2 border-b border-gray-700/60`}>
+                        {cardConfig.title}
+                      </h3>
+                      
+                      {renderCardContent(card)}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
